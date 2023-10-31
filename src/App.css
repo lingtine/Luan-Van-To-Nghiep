@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import-normalize;
+
+input {
+  outline: none;
+}
