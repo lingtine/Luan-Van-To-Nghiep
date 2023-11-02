@@ -40,6 +40,9 @@ module.exports = {
       container: {
         center: true,
       },
+      borderWidth: {
+        10: "10px",
+      },
     },
   },
   plugins: [],

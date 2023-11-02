@@ -2,6 +2,7 @@ import Banner from "./Banner";
 import Categories from "./Categories";
 import BoxTemplate from "components/box-template/box-template";
 import Button from "components/button/button";
+import CoreValue from "./Corevalue";
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
@@ -62,6 +63,7 @@ const Home: React.FC<HomeProps> = () => {
       <Banner />
       <Categories />
       {renderData}
+      <CoreValue />
     </div>
   );
 };

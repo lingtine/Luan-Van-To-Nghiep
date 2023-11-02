@@ -1,0 +1,46 @@
+import React from "react";
+import { TbTruckDelivery } from "react-icons/tb";
+import { BsHeadset } from "react-icons/bs";
+import { AiOutlineSafetyCertificate } from "react-icons/ai";
+interface CoreValueProps {}
+
+const CoreValue: React.FC<CoreValueProps> = () => {
+  const data = [
+    {
+      id: Math.random.toString(),
+      title: "Giao hàng miễn phí và nhanh chóng",
+      subtitle: "Miễn phí giao hàng cho đơn hàng trên 500k",
+      icon: <TbTruckDelivery />,
+    },
+    {
+      id: Math.random.toString(),
+      title: "DỊCH VỤ KHÁCH HÀNG 24/7",
+      subtitle: "Hỗ trợ khách hàng thân thiện 24/7",
+      icon: <BsHeadset />,
+    },
+    {
+      id: Math.random.toString(),
+      title: "THỦ TỤC ĐỔI TRẢ",
+      subtitle: "Chúng tôi trả lại tiền trong vòng 30 ngày",
+      icon: <AiOutlineSafetyCertificate />,
+    },
+  ];
+
+  const renderData = data.map((item) => {
+    return (
+      <div key={item.id} className="flex flex-col items-center">
+        <div className="border-10 border-[#959496] p-2 text-4xl w-fit rounded-full bg-black text-secondary">
+          {item.icon}
+        </div>
+        <div className="mt-6">
+          <h4 className="text-center text-xl font-medium my-2">{item.title}</h4>
+          <p className="text-center text-sm">{item.subtitle}</p>
+        </div>
+      </div>
+    );
+  });
+
+  return <div className="flex justify-evenly my-36">{renderData}</div>;
+};
+
+export default CoreValue;
