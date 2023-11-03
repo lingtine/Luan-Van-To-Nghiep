@@ -1,15 +1,15 @@
 import React from "react";
 import Header from "./components/header/Header";
 import Footer from "./components/Footer";
-interface DefaultLayoutProps {
-  children: JSX.Element;
-}
+import { Outlet } from "react-router-dom";
 
-const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
+interface DefaultLayoutProps {}
+
+const DefaultLayout: React.FC<DefaultLayoutProps> = () => {
   return (
     <React.Fragment>
       <Header />
-      {children}
+      <Outlet />
       <Footer />
     </React.Fragment>
   );
