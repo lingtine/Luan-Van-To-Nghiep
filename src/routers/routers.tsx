@@ -5,6 +5,7 @@ import DashboardAdmin from "pages/admin/dashboard/dashboard";
 import Orders from "pages/admin/orders/orders";
 import Products from "pages/admin/products/products";
 import Customers from "pages/admin/customers/customers";
+import LoginAdmin from "pages/admin/login/login-admin";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
         <Route path="cart" element={<Cart />}></Route>
         <Route path="about" element={<About />}></Route>
       </Route>
+      <Route path="/admin/login" element={<LoginAdmin />}></Route>
       <Route path="/admin/" element={<AdminLayout />}>
         <Route index element={<DashboardAdmin />}></Route>
         <Route path="orders" element={<Orders />}></Route>
