@@ -4,9 +4,9 @@ import { Button, Switch } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import Pagination from "components/pagination/pagitnation";
 import { Link } from "react-router-dom";
-interface ProductsProps {}
+interface CategoryProps {}
 
-const Products: React.FC<ProductsProps> = () => {
+const Category: React.FC<CategoryProps> = () => {
   const configData = [
     {
       label: "STT",
@@ -15,7 +15,7 @@ const Products: React.FC<ProductsProps> = () => {
       },
     },
     {
-      label: "Sản phẩm",
+      label: "Tên Danh Mục",
       render: (data: any) => {
         return data.name;
       },
@@ -27,24 +27,12 @@ const Products: React.FC<ProductsProps> = () => {
         return data.description;
       },
     },
-    {
-      label: "Giá bán",
-      render: (data: any) => {
-        return data.unitPrice;
-      },
-    },
-    {
-      label: "Active",
-      render: (data: any) => {
-        return <Switch crossOrigin={true}></Switch>;
-      },
-    },
+
     {
       label: "Tuỳ chọn",
       render: () => {
         return (
           <div className="flex gap-4 justify-end">
-            <Button color="blue">Chi tiết</Button>
             <Button color="red">Xoá</Button>
           </div>
         );
@@ -58,21 +46,18 @@ const Products: React.FC<ProductsProps> = () => {
       index: 1,
       name: "iphone",
       description: "iphone 15 pro max",
-      unitPrice: 9000000,
     },
     {
       id: Math.random().toString(),
       index: 2,
       name: "iphone",
       description: "iphone 15 pro max",
-      unitPrice: 9000000,
     },
     {
       id: Math.random().toString(),
       index: 3,
       name: "iphone",
       description: "iphone 15 pro max",
-      unitPrice: 9000000,
     },
     {
       id: Math.random().toString(),
@@ -86,10 +71,10 @@ const Products: React.FC<ProductsProps> = () => {
   return (
     <div className="px-4 ">
       <div className="flex justify-end my-4">
-        <Link to="/admin/products/add-product">
+        <Link to="/admin/category/add-category">
           <Button className="flex gap-2 items-center">
             <AiOutlinePlusCircle />
-            Thêm sản phẩm
+            Thêm danh mục
           </Button>
         </Link>
       </div>
@@ -101,4 +86,4 @@ const Products: React.FC<ProductsProps> = () => {
   );
 };
 
-export default Products;
+export default Category;

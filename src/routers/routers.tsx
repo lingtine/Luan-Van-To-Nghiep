@@ -6,6 +6,13 @@ import Orders from "pages/admin/orders/orders";
 import Products from "pages/admin/products/products";
 import Customers from "pages/admin/customers/customers";
 import LoginAdmin from "pages/admin/login/login-admin";
+import AddProduct from "pages/admin/products/add-product";
+import AddBrand from "pages/admin/brand/add-brand";
+import AddCategory from "pages/admin/category/add-category";
+import AddCategoryGroup from "pages/admin/category-group/add-category-group";
+import Category from "pages/admin/category/category";
+import CategoryGroup from "pages/admin/category-group/category-group";
+import Brand from "pages/admin/brand/brand";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -37,8 +44,19 @@ const router = createBrowserRouter(
       <Route path="/admin/" element={<AdminLayout />}>
         <Route index element={<DashboardAdmin />}></Route>
         <Route path="orders" element={<Orders />}></Route>
-        <Route path="products" element={<Products />}></Route>
         <Route path="customers" element={<Customers />}></Route>
+        <Route path="products" element={<Products />}></Route>
+        <Route path="products/add-product" element={<AddProduct />}></Route>
+
+        <Route path="category" element={<Category />} />
+        <Route path="category/add-category" element={<AddCategory />} />
+        <Route path="category-group" element={<CategoryGroup />} />
+        <Route
+          path="category-group/add-category-group"
+          element={<AddCategoryGroup />}
+        />
+        <Route path="brand" element={<Brand />} />
+        <Route path="brand/add-brand" element={<AddBrand />} />
       </Route>
     </Route>
   )

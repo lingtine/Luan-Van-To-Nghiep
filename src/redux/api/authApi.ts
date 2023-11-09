@@ -1,6 +1,8 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { jwtDecode } from "jwt-decode";
 import { changeAuth } from "redux/features/auth/authSlice";
+import employeeApi from "./employeeApi";
+
 import customFetchBase from "redux/api/customFetchBase";
 const authApi = createApi({
   reducerPath: "auth",
@@ -24,10 +26,11 @@ const authApi = createApi({
           try {
             const { data } = await queryFulfilled;
 
-            console.log(data);
             await dispatch(changeAuth(data));
             let jwt = jwtDecode(data.accessToken);
-            console.log(jwt);
+            if (jwt) {
+              await dispatch(employeeApi.endpoints.getEmployee.initiate(null));
+            }
           } catch (error) {}
         },
       }),

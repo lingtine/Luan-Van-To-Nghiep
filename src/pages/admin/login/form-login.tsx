@@ -14,7 +14,6 @@ const FormLogin: React.FC<FormLoginProps> = () => {
   });
   useEffect(() => {
     if (isSuccess) {
-      console.log(1);
       navigate("/admin/");
     }
   }, [isSuccess]);

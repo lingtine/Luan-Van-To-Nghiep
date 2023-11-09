@@ -1,7 +1,9 @@
 import React from "react";
-import { Fragment } from "react";
+import { Card, Typography } from "@material-tailwind/react";
+
+import classNames from "classnames";
 interface TableProps {
-  data: [];
+  data: {}[];
   config: {
     label: string;
     render: Function;
@@ -9,40 +11,55 @@ interface TableProps {
 }
 
 const Table: React.FC<TableProps> = ({ data, config }) => {
-  const renderLabel = config.map((colum) => {
+  const renderLabel = config.map((colum, index) => {
     return (
       <th
         key={colum.label}
-        className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+        className={classNames(
+          "border-b border-blue-gray-100 bg-blue-gray-50 p-4  ",
+          {
+            "text-right": index === config.length - 1,
+          }
+        )}
       >
-        {colum.label}
+        <Typography
+          variant="small"
+          color="blue-gray"
+          className="font-bold leading-none opacity-70 uppercase"
+        >
+          {colum.label}
+        </Typography>
       </th>
     );
   });
 
   const renderedRow = data.map((dataColum, index) => {
     const renderedColumns = config.map((colum) => {
+      const isLast = index === data.length - 1;
+      const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
       return (
-        <td key={colum.label} className="p-4">
-          <div color="blue-gray" className="font-normal">
+        <td key={colum.label} className={classes}>
+          <Typography variant="small" color="blue-gray" className="font-normal">
             {colum.render(dataColum)}
-          </div>
+          </Typography>
         </td>
       );
     });
     return (
-      <tr key={index} className="even:bg-blue-gray-50/50">
+      <tr key={index} className="even:bg-blue-gray-50/50 ">
         {renderedColumns}
       </tr>
     );
   });
   return (
-    <table className="table-auto border-spacing-2 w-full">
-      <thead className="">
-        <tr>{renderLabel}</tr>
-      </thead>
-      <tbody>{renderedRow}</tbody>
-    </table>
+    <Card className="h-full w-full">
+      <table className="w-full min-w-max table-auto text-left">
+        <thead className="">
+          <tr>{renderLabel}</tr>
+        </thead>
+        <tbody>{renderedRow}</tbody>
+      </table>
+    </Card>
   );
 };
 

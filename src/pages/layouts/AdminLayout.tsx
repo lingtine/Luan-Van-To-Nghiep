@@ -9,7 +9,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
   return (
     <div className="flex ">
       <SlideBar />
-      <div className="ml-[280px] flex flex-col w-full">
+      <div className=" flex flex-col w-full">
         <header className="w-full bg-secondary flex justify-end p-4 mb-8 shadow-lg">
           <div className="text-xl text-primary-1 flex items-center gap-4">
             <AiOutlineUser />

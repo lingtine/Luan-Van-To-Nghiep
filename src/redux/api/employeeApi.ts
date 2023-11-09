@@ -22,9 +22,24 @@ const employeeApi = createApi({
           } catch (error) {}
         },
       }),
+      getEmployee: builder.mutation({
+        query: () => {
+          return {
+            method: "GET",
+            url: "employees/employees/detail",
+          };
+        },
+        async onQueryStarted(__, { dispatch, queryFulfilled, getState }) {
+          try {
+            const { data } = await queryFulfilled;
+            await dispatch(setUser(data.data));
+          } catch (error) {}
+        },
+      }),
     };
   },
 });
 
-export const { useGetEmployeeDetailQuery } = employeeApi;
+export const { useGetEmployeeDetailQuery, useGetEmployeeMutation } =
+  employeeApi;
 export default employeeApi;

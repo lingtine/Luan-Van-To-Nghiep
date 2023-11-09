@@ -29,7 +29,6 @@ export const authSlice = createSlice({
     changeAuth: (state, action) => {
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
-      console.log(state);
       set_cookie("accessToken", action.payload.accessToken);
       set_cookie("refreshToken", action.payload.refreshToken);
     },

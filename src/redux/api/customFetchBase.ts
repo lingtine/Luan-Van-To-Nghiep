@@ -1,3 +1,4 @@
+import { authSlice } from "./../features/auth/authSlice";
 import {
   BaseQueryFn,
   FetchArgs,
@@ -8,6 +9,8 @@ import { Mutex } from "async-mutex";
 import { logout } from "../features/auth/authSlice";
 import { getCookie } from "utils/cookies/cookies";
 import { changeAuth } from "../features/auth/authSlice";
+import type { RootState } from "../store";
+
 const baseUrl = `http://ecommerce.quochao.id.vn/`;
 
 // Create a new mutex
@@ -15,6 +18,14 @@ const mutex = new Mutex();
 
 const baseQuery = fetchBaseQuery({
   baseUrl,
+  prepareHeaders: (headers, { getState }) => {
+    const token = (getState() as RootState).authSlice.accessToken;
+    if (token) {
+      headers.set("authorization", `Bearer ${token}`);
+
+      return headers;
+    }
+  },
 });
 
 const customFetchBase: BaseQueryFn<
@@ -25,7 +36,7 @@ const customFetchBase: BaseQueryFn<
   // wait until the mutex is available without locking it
   await mutex.waitForUnlock();
   let result = await baseQuery(args, api, extraOptions);
-  if ((result.error?.data as any)?.message === "You are not logged in") {
+  if (result.error && result.error.status === 401  ) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
 
@@ -43,15 +54,15 @@ const customFetchBase: BaseQueryFn<
 
         if (refreshResult.data) {
           // Retry the initial query\
+          const data = refreshResult.data as { data: {} };
 
-          console.log(refreshResult.data);
-          // await api.dispatch(changeAuth(refreshResult.data.data));
+          await api.dispatch(changeAuth(data.data));
+
           result = await baseQuery(args, api, extraOptions);
         } else {
           api.dispatch(logout());
         }
       } finally {
-        // release must be called once the mutex should be released again.
         release();
       }
     } else {

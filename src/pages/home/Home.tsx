@@ -1,7 +1,7 @@
 import Banner from "./Banner";
 import Categories from "./Categories";
 import BoxTemplate from "components/box-template/box-template";
-import Button from "components/button/button";
+import { Button } from "@material-tailwind/react";
 import CoreValue from "./Corevalue";
 interface HomeProps {}
 
@@ -41,9 +41,9 @@ const Home: React.FC<HomeProps> = () => {
 
   const renderData = data.map((item) => {
     const action = (
-      <Button secondary small>
-        <a href={item.href}>Xem Tất Cả</a>
-      </Button>
+      <a href={item.href}>
+        <Button size="sm">Xem Tất Cả</Button>
+      </a>
     );
 
     return (

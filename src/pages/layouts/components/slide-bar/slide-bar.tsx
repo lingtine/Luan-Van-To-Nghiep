@@ -6,10 +6,29 @@ import { IoExitOutline } from "react-icons/io5";
 import { BsCart } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import classNames from "classnames";
+import { useState } from "react";
 
+import { BsChevronDown } from "react-icons/bs";
+import {
+  Card,
+  Typography,
+  List,
+  ListItem,
+  ListItemPrefix,
+  ListItemSuffix,
+  Chip,
+  Accordion,
+  AccordionHeader,
+  AccordionBody,
+} from "@material-tailwind/react";
 interface SlideBarProps {}
 
 const SlideBar: React.FC<SlideBarProps> = () => {
+  const [open, setOpen] = React.useState(0);
+
+  const handleOpen = (value: number) => {
+    setOpen(open === value ? 0 : value);
+  };
   const navigation = [
     {
       label: "Dashboard",
@@ -34,47 +53,92 @@ const SlideBar: React.FC<SlideBarProps> = () => {
       href: "/admin/products",
       current: false,
       icon: <BsMinecartLoaded />,
+      children: [
+        {
+          label: "Category",
+          href: "category",
+        },
+        {
+          label: "Category group",
+          href: "category-group",
+        },
+        {
+          label: "brand",
+          href: "brand",
+        },
+      ],
     },
   ];
 
   const renderNavigation = navigation.map((item) => {
+    if (item.children) {
+      const renderChildren = item.children.map((item) => {
+        return (
+          <NavLink to={item.href}>
+            <ListItem key={item.label}>{item.label}</ListItem>
+          </NavLink>
+        );
+      });
+
+      return (
+        <NavLink to={item.href}>
+          <Accordion
+            open={open === 1}
+            icon={
+              <BsChevronDown
+                strokeWidth={2.5}
+                className={`mx-auto h-4 w-4 transition-transform ${
+                  open === 1 ? "rotate-180" : ""
+                }`}
+              />
+            }
+          >
+            <ListItem className="p-0" selected={open === 1}>
+              <AccordionHeader
+                onClick={() => handleOpen(1)}
+                className="border-b-0 p-3"
+              >
+                <ListItemPrefix>{item.icon}</ListItemPrefix>
+                <Typography color="blue-gray" className="mr-auto font-normal">
+                  {item.label}
+                </Typography>
+              </AccordionHeader>
+            </ListItem>
+            <AccordionBody className="py-1">
+              <List className="p-0">{renderChildren}</List>
+            </AccordionBody>
+          </Accordion>
+        </NavLink>
+      );
+    }
     return (
-      <NavLink
-        to={item.href}
-        className={classNames(
-          "flex mb-4 gap-4 w-full items-center text-secondary-6 opacity-60 p-3 hover:opacity-100 hover:bg-[#222] rounded-md text-base ",
-          {
-            "opacity-100 bg-[#222]": item.current,
-          }
-        )}
-      >
-        <span>{item.icon}</span>
-        <span>{item.label}</span>
+      <NavLink to={item.href}>
+        <ListItem>
+          <ListItemPrefix>{item.icon}</ListItemPrefix>
+          {item.label}
+        </ListItem>
       </NavLink>
     );
   });
 
   return (
-    <div className="fixed h-full bg-black min-w-[280px]">
-      <div className="flex justify-center flex-col items-start gap-6 h-full">
-        <div className=" flex py-6 px-16 items-center gap-4 border-b pb-8 border-b-gray-600 ">
-          <span className="relative bg-primary px-4 py-2 rounded-md text-xl font-bold">
-            L
-          </span>
-          <p className="text-primary text-xl font-semibold">Techwave</p>
-        </div>
-
-        <div className="flex flex-col px-8 my-4 justify-between items-center h-full w-full ">
-          <div className="flex flex-col w-full">{renderNavigation}</div>
-          <button className="flex mb-4 gap-4 w-full items-center text-secondary-6 opacity-60 p-3 hover:opacity-100 hover:bg-[#222] rounded-md text-xl ">
-            <span className="rotate-180">
-              <IoExitOutline />
-            </span>
-            <span className="text-base">Logout</span>
-          </button>
-        </div>
+    <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+      <div className="mb-2 p-4">
+        <Typography variant="h5" color="blue-gray">
+          TeachWave
+        </Typography>
       </div>
-    </div>
+
+      <List>
+        {renderNavigation}
+        <ListItem>
+          <ListItemPrefix>
+            <IoExitOutline />
+          </ListItemPrefix>
+          Log Out
+        </ListItem>
+      </List>
+    </Card>
   );
 };
 
