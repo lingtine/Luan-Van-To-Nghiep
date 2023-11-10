@@ -49,6 +49,8 @@ const router = createBrowserRouter(
         <Route path="products/add-product" element={<AddProduct />}></Route>
 
         <Route path="category" element={<Category />} />
+        <Route path="category/:numberPage" element={<Category />} />
+
         <Route path="category/add-category" element={<AddCategory />} />
         <Route path="category-group" element={<CategoryGroup />} />
         <Route

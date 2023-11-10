@@ -13,6 +13,7 @@ interface Category {
 const categoryApi = createApi({
   reducerPath: "category",
   baseQuery: customFetchBase,
+  tagTypes: ["category"],
   endpoints: (builder) => ({
     getAllCategories: builder.query({
       query: () => ({
@@ -25,6 +26,8 @@ const categoryApi = createApi({
         url: "/catalogs/categories",
         method: "GET",
       }),
+      transformResponse: (response: { data: {}[] }) => response.data,
+      providesTags: ["category"],
     }),
     addCategory: builder.mutation({
       query: (data: Category) => {
@@ -35,6 +38,7 @@ const categoryApi = createApi({
           body: data,
         };
       },
+      invalidatesTags: ["category"],
     }),
     getCategory: builder.query({
       query: (categoryId: string) => ({
@@ -51,17 +55,18 @@ const categoryApi = createApi({
         };
       },
     }),
-    deleteCategory: builder.query({
+    deleteCategory: builder.mutation({
       query: (categoryId: string) => ({
         url: `/catalogs/categories/${categoryId}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["category"],
     }),
   }),
 });
 export const {
   useAddCategoryMutation,
-  useDeleteCategoryQuery,
+  useDeleteCategoryMutation,
   useGetAllCategoriesQuery,
   useGetCategoriesQuery,
   useGetCategoryQuery,

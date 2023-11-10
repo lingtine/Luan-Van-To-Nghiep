@@ -2,11 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 
 import customFetchBase from "redux/api/customFetchBase";
 
-interface CategoryGroup {
-  categoryGroupId?: string;
-  name: string;
-  description: string;
-}
+import { ICategoryGroup } from "../types";
 
 const categoryGroupApi = createApi({
   reducerPath: "categoryGroup",
@@ -18,7 +14,9 @@ const categoryGroupApi = createApi({
         url: "/catalogs/category-groups/all",
         method: "GET",
       }),
-      transformResponse: (response: { data: [] }, meta, arg) => response.data,
+      providesTags: ["category-group"],
+      transformResponse: (response: { data: [ICategoryGroup] }, meta, arg) =>
+        response.data,
     }),
     getCategoryGroups: builder.query({
       query: () => ({
@@ -29,7 +27,7 @@ const categoryGroupApi = createApi({
       transformResponse: (response: { data: {}[] }, meta, arg) => response.data,
     }),
     addCategoryGroup: builder.mutation({
-      query: (data: CategoryGroup) => {
+      query: (data: { name: string; description: string }) => {
         return {
           url: "/catalogs/category-groups",
           method: "POST",

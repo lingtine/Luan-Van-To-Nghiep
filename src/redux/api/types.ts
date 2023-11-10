@@ -12,3 +12,10 @@ export interface IGenericResponse {
   status: string;
   message: string;
 }
+
+export interface ICategoryGroup {
+  id: string;
+  categoryGroupId?: string;
+  name: string;
+  description: string;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import Table from "components/table/table";
-import { Button } from "@material-tailwind/react";
+import { Button, Spinner } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import {
@@ -70,6 +70,11 @@ const CategoryGroup: React.FC<CategoryGroupProps> = () => {
     }));
     content = <Table config={configData} data={dataUpdate}></Table>;
   } else if (isLoading) {
+    content = (
+      <div className="flex justify-center items-center h-full">
+        <Spinner className="h-12 w-12" />
+      </div>
+    );
   }
   return (
     <div className="px-4 ">
