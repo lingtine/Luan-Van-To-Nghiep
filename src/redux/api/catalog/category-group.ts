@@ -11,18 +11,22 @@ interface CategoryGroup {
 const categoryGroupApi = createApi({
   reducerPath: "categoryGroup",
   baseQuery: customFetchBase,
+  tagTypes: ["category-group", "remove"],
   endpoints: (builder) => ({
     getAllCategoryGroups: builder.query({
       query: () => ({
         url: "/catalogs/category-groups/all",
         method: "GET",
       }),
+      transformResponse: (response: { data: [] }, meta, arg) => response.data,
     }),
     getCategoryGroups: builder.query({
       query: () => ({
         url: "/catalogs/category-groups",
         method: "GET",
       }),
+      providesTags: ["category-group"],
+      transformResponse: (response: { data: {}[] }, meta, arg) => response.data,
     }),
     addCategoryGroup: builder.mutation({
       query: (data: CategoryGroup) => {
@@ -32,19 +36,21 @@ const categoryGroupApi = createApi({
           body: data,
         };
       },
+      invalidatesTags: ["category-group"],
     }),
 
-    deleteCategoryGroup: builder.query({
+    deleteCategoryGroup: builder.mutation({
       query: (categoryGroupId: string) => ({
         url: `/catalogs/category-groups/${categoryGroupId}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["category-group"],
     }),
   }),
 });
 export const {
   useAddCategoryGroupMutation,
-  useDeleteCategoryGroupQuery,
+  useDeleteCategoryGroupMutation,
   useGetAllCategoryGroupsQuery,
   useGetCategoryGroupsQuery,
 } = categoryGroupApi;

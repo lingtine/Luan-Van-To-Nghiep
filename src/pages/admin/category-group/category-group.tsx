@@ -1,12 +1,21 @@
 import React from "react";
 import Table from "components/table/table";
-import { Button, Switch } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import Pagination from "components/pagination/pagitnation";
 import { Link } from "react-router-dom";
+import {
+  useGetCategoryGroupsQuery,
+  useDeleteCategoryGroupMutation,
+} from "redux/api/catalog/category-group";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+
 interface CategoryGroupProps {}
 
 const CategoryGroup: React.FC<CategoryGroupProps> = () => {
+  const { data, isLoading, isSuccess } = useGetCategoryGroupsQuery(null);
+  const [removeCategoryGroup, { isSuccess: removeIsSuccess }] =
+    useDeleteCategoryGroupMutation();
   const configData = [
     {
       label: "STT",
@@ -30,44 +39,38 @@ const CategoryGroup: React.FC<CategoryGroupProps> = () => {
 
     {
       label: "Tuỳ chọn",
-      render: () => {
+      render: (data: any) => {
         return (
           <div className="flex gap-4 justify-end">
-            <Button color="red">Xoá</Button>
+            <Button
+              onClick={() => {
+                removeCategoryGroup(data.id);
+              }}
+              color="red"
+            >
+              Xoá
+            </Button>
           </div>
         );
       },
     },
   ];
 
-  const data = [
-    {
-      id: Math.random().toString(),
-      index: 1,
-      name: "iphone",
-      description: "iphone 15 pro max",
-    },
-    {
-      id: Math.random().toString(),
-      index: 2,
-      name: "iphone",
-      description: "iphone 15 pro max",
-    },
-    {
-      id: Math.random().toString(),
-      index: 3,
-      name: "iphone",
-      description: "iphone 15 pro max",
-    },
-    {
-      id: Math.random().toString(),
-      index: 4,
-      name: "iphone",
-      description: "iphone 15 pro max",
-      unitPrice: 9000000,
-    },
-  ];
+  useEffect(() => {
+    if (removeIsSuccess) {
+      toast.success("Xoá thành công");
+    }
+  }, [removeIsSuccess]);
 
+  let content: React.ReactNode;
+  if (isSuccess) {
+    const dataUpdate = data.map((item, index) => ({
+      ...item,
+      index: index + 1,
+    }));
+    content = <Table config={configData} data={dataUpdate}></Table>;
+  } else if (isLoading) {
+  }
   return (
     <div className="px-4 ">
       <div className="flex justify-end my-4">
@@ -78,10 +81,7 @@ const CategoryGroup: React.FC<CategoryGroupProps> = () => {
           </Button>
         </Link>
       </div>
-      <Table config={configData} data={data}></Table>
-      <div className="flex justify-center my-8">
-        <Pagination pageIndex={0} pageSize={20} totalCount={80} url="/" />
-      </div>
+      {content}
     </div>
   );
 };
