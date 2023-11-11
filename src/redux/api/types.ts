@@ -15,7 +15,19 @@ export interface IGenericResponse {
 
 export interface ICategoryGroup {
   id: string;
-  categoryGroupId?: string;
   name: string;
   description: string;
+}
+
+export interface ICategory {
+  id?: string;
+  categoryGroupId: string;
+  name: string;
+  description: string;
+}
+export interface IBrand {
+  id?: string;
+  name: string;
+  description: string;
+  image: File;
 }

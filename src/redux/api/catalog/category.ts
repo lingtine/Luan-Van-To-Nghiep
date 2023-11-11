@@ -3,12 +3,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 
 import customFetchBase from "redux/api/customFetchBase";
 
-interface Category {
-  categoryId?: string;
-  categoryGroupId?: string;
-  name: string;
-  description: string;
-}
+import { ICategory } from "../types";
 
 const categoryApi = createApi({
   reducerPath: "category",
@@ -30,7 +25,7 @@ const categoryApi = createApi({
       providesTags: ["category"],
     }),
     addCategory: builder.mutation({
-      query: (data: Category) => {
+      query: (data: ICategory) => {
         return {
           url: "/catalogs/categories",
           method: "POST",
@@ -47,9 +42,9 @@ const categoryApi = createApi({
       }),
     }),
     updateCategory: builder.mutation({
-      query: ({ categoryId, ...rest }: Category) => {
+      query: ({ id, ...rest }: ICategory) => {
         return {
-          url: `/catalogs/categories/${categoryId}`,
+          url: `/catalogs/categories/${id}`,
           method: "PUT",
           body: rest,
         };

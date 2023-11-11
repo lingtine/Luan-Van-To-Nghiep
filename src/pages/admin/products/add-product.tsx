@@ -21,9 +21,7 @@ const AddProduct: React.FC<AddProductProps> = () => {
       </div>
 
       <form className="flex justify-between gap-4">
-        <section className="flex-[0_0_30%]">
-          <UploadImage />
-        </section>
+        <section className="flex-[0_0_30%]">{/* <UploadImage /> */}</section>
         <section className=" flex-[0_0_70%]">
           <header className="text-2xl my-4 font-bold ">
             Thông tin sản phẩm

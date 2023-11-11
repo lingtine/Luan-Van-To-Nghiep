@@ -3,46 +3,44 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 
 import customFetchBase from "redux/api/customFetchBase";
 
-interface Brand {
-  brandId?: string;
-  name: string;
-  description: string;
-  image: string;
-}
+import { IBrand } from "../types";
 
 const brandApi = createApi({
   reducerPath: "brand",
   baseQuery: customFetchBase,
+  tagTypes: ["brand"],
   endpoints: (builder) => ({
     getAllBrands: builder.query({
       query: () => ({
         url: "/catalogs/brands/all",
         method: "GET",
       }),
+      providesTags: ["brand"],
     }),
     getBrands: builder.query({
       query: () => ({
         url: "/catalogs/brands",
         method: "GET",
       }),
+      providesTags: ["brand"],
+      transformResponse: (response: { data: IBrand[] }) => response.data,
     }),
     addBrand: builder.mutation({
-      query: (data: Brand) => {
+      query: (data: IBrand) => {
         var bodyFormData = new FormData();
         bodyFormData.append("Name", data.name);
         bodyFormData.append("Description", data.description);
         bodyFormData.append("Image", data.image);
-
+        console.log(bodyFormData);
         return {
           url: "/catalogs/brands",
           method: "POST",
-          headers: {
-            "Content-Type": "multipart/form-data;",
-          },
-          body: { bodyFormData },
+
+          body: bodyFormData,
           formData: true,
         };
       },
+      invalidatesTags: ["brand"],
     }),
     getBrand: builder.query({
       query: (brandId: string) => ({
@@ -51,34 +49,36 @@ const brandApi = createApi({
       }),
     }),
     updateBrand: builder.mutation({
-      query: (data: Brand) => {
+      query: (data: IBrand) => {
         var bodyFormData = new FormData();
         bodyFormData.append("Name", data.name);
         bodyFormData.append("Description", data.description);
         bodyFormData.append("Image", data.image);
-
         return {
-          url: `/catalogs/brands/${data.brandId}`,
+          url: `/catalogs/brands/${data.id}`,
           method: "PUT",
           headers: {
             "Content-Type": "multipart/form-data;",
           },
-          body: { bodyFormData },
+          body: {
+            data: bodyFormData,
+          },
           formData: true,
         };
       },
     }),
-    deleteBrand: builder.query({
+    deleteBrand: builder.mutation({
       query: (brandId: string) => ({
         url: `/catalogs/brands/${brandId}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["brand"],
     }),
   }),
 });
 export const {
   useAddBrandMutation,
-  useDeleteBrandQuery,
+  useDeleteBrandMutation,
   useGetAllBrandsQuery,
   useGetBrandQuery,
   useGetBrandsQuery,

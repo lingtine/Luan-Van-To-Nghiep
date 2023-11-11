@@ -10,15 +10,18 @@ import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsImage } from "react-icons/bs";
 
 import { CiCircleRemove } from "react-icons/ci";
-interface UploadImageProps {}
+interface UploadImageProps {
+  onChange: Function;
+}
 
-const UploadImage: React.FC<UploadImageProps> = () => {
+const UploadImage: React.FC<UploadImageProps> = ({ onChange }) => {
   const [file, setFile] = useState<File>();
 
   const inputRef: RefObject<HTMLInputElement> = useRef(null);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFile(e.target.files[0]);
+      onChange(e.target.files[0]);
     }
     console.log(e.target.files);
   };
@@ -29,6 +32,7 @@ const UploadImage: React.FC<UploadImageProps> = () => {
       inputRef.current.files = dt.files;
     }
     setFile(dt.files[0]);
+    onChange(dt.files[0]);
   };
 
   const handleUpload = () => {
