@@ -20,7 +20,7 @@ export interface ICategoryGroup {
 }
 
 export interface ICategory {
-  id?: string;
+  id: string;
   categoryGroupId: string;
   name: string;
   description: string;
@@ -30,4 +30,14 @@ export interface IBrand {
   name: string;
   description: string;
   image: File;
+}
+
+export interface IProductType {
+  id?: string;
+  name: string;
+  description: string;
+  unitPrice: number;
+  image: File;
+  categoryId: string;
+  brandId: string;
 }

@@ -17,12 +17,21 @@ const categoryApi = createApi({
       }),
     }),
     getCategories: builder.query({
-      query: () => ({
+      query: (params) => ({
         url: "/catalogs/categories",
         method: "GET",
+        params: params,
       }),
-      transformResponse: (response: { data: {}[] }) => response.data,
+      transformResponse: (response: { data: ICategory[] }) => response.data,
       providesTags: ["category"],
+    }),
+    getCategoriesByParameters: builder.mutation({
+      query: (params) => ({
+        url: "/catalogs/categories",
+        method: "GET",
+        params: params,
+      }),
+      transformResponse: (response: { data: ICategory[] }) => response.data,
     }),
     addCategory: builder.mutation({
       query: (data: ICategory) => {
@@ -66,6 +75,7 @@ export const {
   useGetCategoriesQuery,
   useGetCategoryQuery,
   useUpdateCategoryMutation,
+  useGetCategoriesByParametersMutation,
 } = categoryApi;
 
 export default categoryApi;

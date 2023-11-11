@@ -4,9 +4,18 @@ import { Button, Switch } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import Pagination from "components/pagination/pagitnation";
 import { Link } from "react-router-dom";
+
+import {
+  useGetProductsQuery,
+  useDeleteProductMutation,
+} from "redux/api/catalog/product";
+
 interface ProductsProps {}
 
 const Products: React.FC<ProductsProps> = () => {
+  const { data, isSuccess } = useGetProductsQuery(null);
+  const [removeProduct, { isSuccess: removeSuccess }] =
+    useDeleteProductMutation();
   const configData = [
     {
       label: "STT",
@@ -41,48 +50,32 @@ const Products: React.FC<ProductsProps> = () => {
     },
     {
       label: "Tuỳ chọn",
-      render: () => {
+      render: (data: any) => {
         return (
           <div className="flex gap-4 justify-end">
             <Button color="blue">Chi tiết</Button>
-            <Button color="red">Xoá</Button>
+            <Button
+              onClick={() => {
+                removeProduct(data.id);
+              }}
+              color="red"
+            >
+              Xoá
+            </Button>
           </div>
         );
       },
     },
   ];
 
-  const data = [
-    {
-      id: Math.random().toString(),
-      index: 1,
-      name: "iphone",
-      description: "iphone 15 pro max",
-      unitPrice: 9000000,
-    },
-    {
-      id: Math.random().toString(),
-      index: 2,
-      name: "iphone",
-      description: "iphone 15 pro max",
-      unitPrice: 9000000,
-    },
-    {
-      id: Math.random().toString(),
-      index: 3,
-      name: "iphone",
-      description: "iphone 15 pro max",
-      unitPrice: 9000000,
-    },
-    {
-      id: Math.random().toString(),
-      index: 4,
-      name: "iphone",
-      description: "iphone 15 pro max",
-      unitPrice: 9000000,
-    },
-  ];
+  let content: React.ReactNode;
+  if (isSuccess) {
+    const updateData = data.map((item, index) => {
+      return { ...item, index: index + 1 };
+    });
 
+    content = <Table config={configData} data={updateData}></Table>;
+  }
   return (
     <div className="px-4 ">
       <div className="flex justify-end my-4">
@@ -93,7 +86,7 @@ const Products: React.FC<ProductsProps> = () => {
           </Button>
         </Link>
       </div>
-      <Table config={configData} data={data}></Table>
+      {content}
       <div className="flex justify-center my-8">
         <Pagination pageIndex={0} pageSize={20} totalCount={80} url="/" />
       </div>

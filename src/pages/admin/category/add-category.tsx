@@ -45,7 +45,7 @@ const AddCategory: React.FC<AddCategoryProps> = () => {
     ) {
       toast.error("Thông tin không hơn lệ");
     } else {
-      addCategory({ ...dataForm, categoryGroupId: selected.id });
+      addCategory({ ...dataForm, categoryGroupId: selected.id, id: "" });
     }
 
     console.log({ ...dataForm, categoryGroupId: selected?.id });

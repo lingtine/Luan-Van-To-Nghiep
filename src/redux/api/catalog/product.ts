@@ -1,15 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import customFetchBase from "redux/api/customFetchBase";
 
-interface ProductType {
-  productId?: string;
-  name: string;
-  description: string;
-  unitPrice: number;
-  image: string;
-  categoryId: string;
-  brandId: string;
-}
+import { IProductType } from "../types";
 
 const productApi = createApi({
   reducerPath: "product",
@@ -20,9 +12,12 @@ const productApi = createApi({
         url: "/catalogs/products",
         method: "GET",
       }),
+      transformResponse: (response: { data: IProductType[] }) => {
+        return response.data;
+      },
     }),
     addProduct: builder.mutation({
-      query: (data: ProductType) => {
+      query: (data: IProductType) => {
         var bodyFormData = new FormData();
         bodyFormData.append("Name", data.name);
         bodyFormData.append("Description", data.description);
@@ -33,7 +28,7 @@ const productApi = createApi({
         return {
           url: "/catalogs/categories",
           method: "POST",
-          body: data,
+          body: bodyFormData,
         };
       },
     }),
@@ -44,15 +39,15 @@ const productApi = createApi({
       }),
     }),
     updateProduct: builder.mutation({
-      query: ({ productId, ...rest }: ProductType) => {
+      query: ({ id, ...rest }: IProductType) => {
         return {
-          url: `/catalogs/products/${productId}`,
+          url: `/catalogs/products/${id}`,
           method: "PUT",
           body: rest,
         };
       },
     }),
-    deleteProduct: builder.query({
+    deleteProduct: builder.mutation({
       query: (productId: string) => ({
         url: `/catalogs/products/${productId}`,
         method: "DELETE",
@@ -62,7 +57,7 @@ const productApi = createApi({
 });
 export const {
   useAddProductMutation,
-  useDeleteProductQuery,
+  useDeleteProductMutation,
   useGetProductDetailQuery,
   useGetProductsQuery,
   useUpdateProductMutation,
