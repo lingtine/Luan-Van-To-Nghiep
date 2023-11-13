@@ -26,7 +26,7 @@ const productApi = createApi({
         bodyFormData.append("CategoryId", data.categoryId);
         bodyFormData.append("BrandId", data.brandId);
         return {
-          url: "/catalogs/categories",
+          url: "/catalogs/products",
           method: "POST",
           body: bodyFormData,
         };

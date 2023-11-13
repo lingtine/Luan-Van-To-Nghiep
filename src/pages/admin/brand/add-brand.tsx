@@ -14,6 +14,7 @@ interface AddBrandProps {}
 const AddBrand: React.FC<AddBrandProps> = () => {
   const [addBrand, { isSuccess }] = useAddBrandMutation();
   const [dataForm, setDataForm] = useState<IBrand>({
+    id: "",
     name: "",
     description: "",
     image: new DataTransfer().files[0],
@@ -77,7 +78,7 @@ const AddBrand: React.FC<AddBrandProps> = () => {
               onChange={handleChange}
               value={dataForm.name}
               name="name"
-              crossOrigin={true}
+              crossOrigin={"use-credentials"}
               variant="outlined"
               label="Tên thương hiệu"
             />

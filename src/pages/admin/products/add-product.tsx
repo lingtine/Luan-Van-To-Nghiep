@@ -6,18 +6,27 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useGetCategoriesByParametersMutation } from "redux/api/catalog/category";
 import { useGetAllCategoryGroupsQuery } from "redux/api/catalog/category-group";
+import { useGetAllBrandsQuery } from "redux/api/catalog/brand";
 import SelectBox, { ISelected } from "components/select-box/select-box";
-
+import { useAddProductMutation } from "redux/api/catalog/product";
 import { IProductType } from "redux/api/types";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 interface AddProductProps {}
 
 const AddProduct: React.FC<AddProductProps> = () => {
   const [getCategories, { isSuccess: getCategorySuccess, data: categoryData }] =
     useGetCategoriesByParametersMutation();
+  const { data: brandsData, isSuccess: getBrandsSuccess } =
+    useGetAllBrandsQuery(null);
+  const [addProduct, result] = useAddProductMutation();
   const { data: categoryGroupData, isSuccess: getCategoryGroupSuccess } =
     useGetAllCategoryGroupsQuery(null);
 
+  const navigate = useNavigate();
+
   const [dataForm, setDataForm] = useState<IProductType>({
+    id: "",
     name: "",
     description: "",
     image: new DataTransfer().files[0],
@@ -27,6 +36,7 @@ const AddProduct: React.FC<AddProductProps> = () => {
   });
   const [categoryGroupSelected, setCategoryGroupSelected] =
     useState<ISelected>();
+  const [brandsSelected, setBrandsSelected] = useState<ISelected>();
   const [categorySelected, setCategorySelected] = useState<ISelected>();
 
   const handleChange = (
@@ -44,8 +54,31 @@ const AddProduct: React.FC<AddProductProps> = () => {
     });
   };
 
-  let content: React.ReactNode;
-  let contentCategory: React.ReactNode;
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (
+      dataForm.brandId.trim().toString().length === 0 ||
+      dataForm.categoryId.trim().toString().length === 0 ||
+      dataForm.description.trim().toString().length === 0 ||
+      !dataForm.image ||
+      dataForm.name.trim().toString().length == 0 ||
+      dataForm.unitPrice <= 0
+    ) {
+      toast.error("Thông tin không hợp lệ");
+    } else {
+      addProduct(dataForm);
+    }
+  };
+
+  useEffect(() => {
+    if (result.isSuccess) {
+      toast.success("Tạo sản phẩm thành công");
+      navigate("/admin/products");
+    }
+  }, [result]);
+
+  let content, contentCategory, contentBrands: React.ReactNode;
   if (getCategoryGroupSuccess) {
     const updateData = categoryGroupData.map((item) => ({
       ...item,
@@ -64,9 +97,26 @@ const AddProduct: React.FC<AddProductProps> = () => {
       />
     );
   }
+  if (getBrandsSuccess) {
+    const updateData = brandsData.map((item) => ({
+      ...item,
+      label: item.name,
+    }));
+
+    contentBrands = (
+      <SelectBox
+        label="Chọn Thương Hiệu"
+        onChange={(option: ISelected) => {
+          setBrandsSelected(option);
+          setDataForm(() => ({ ...dataForm, brandId: option.id }));
+        }}
+        selected={brandsSelected}
+        options={updateData}
+      />
+    );
+  }
 
   if (getCategorySuccess && categoryData) {
-    console.log(categoryData);
     const updateData = categoryData.map((item) => ({
       ...item,
       label: item.name,
@@ -76,6 +126,7 @@ const AddProduct: React.FC<AddProductProps> = () => {
         label="Chọn Danh Mục"
         onChange={(option: ISelected) => {
           setCategorySelected(option);
+          setDataForm(() => ({ ...dataForm, categoryId: option.id }));
         }}
         options={updateData}
         selected={categorySelected}
@@ -97,7 +148,7 @@ const AddProduct: React.FC<AddProductProps> = () => {
         </div>
       </div>
 
-      <form className="flex justify-between gap-4">
+      <form onSubmit={handleSubmit} className="flex justify-between gap-4">
         <section className="flex-[0_0_30%]">
           <UploadImage onChange={handleChangeImage} />
         </section>
@@ -110,7 +161,7 @@ const AddProduct: React.FC<AddProductProps> = () => {
               onChange={handleChange}
               name="name"
               value={dataForm?.name}
-              crossOrigin={true}
+              crossOrigin={"use-credentials"}
               variant="outlined"
               label="Tên sản phẩm"
             />
@@ -119,11 +170,11 @@ const AddProduct: React.FC<AddProductProps> = () => {
               name="unitPrice"
               type="number"
               value={dataForm?.unitPrice}
-              crossOrigin={true}
+              crossOrigin={"use-credentials"}
               variant="outlined"
               label="Giá sản phẩm"
             />
-
+            {contentBrands}
             {content}
 
             {contentCategory}
@@ -135,7 +186,7 @@ const AddProduct: React.FC<AddProductProps> = () => {
             />
           </div>
           <div className="flex justify-end my-4">
-            <Button>Thêm sản phẩm</Button>
+            <Button type="submit">Thêm sản phẩm</Button>
           </div>
         </section>
       </form>

@@ -76,7 +76,7 @@ const AddCategoryGroup: React.FC<AddCategoryGroupProps> = () => {
               name="name"
               onChange={handleChange}
               value={dataForm.name}
-              crossOrigin={true}
+              crossOrigin={"use-credentials"}
               variant="outlined"
               label="Tên nhóm danh mục"
             />

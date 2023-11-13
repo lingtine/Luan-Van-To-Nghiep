@@ -46,7 +46,7 @@ const FormLogin: React.FC<FormLoginProps> = () => {
               Email
             </Typography>
             <Input
-              crossOrigin={true}
+              crossOrigin={"use-credentials"}
               size="lg"
               name="email"
               value={dataForm.email}
@@ -61,7 +61,7 @@ const FormLogin: React.FC<FormLoginProps> = () => {
               Mật khẩu
             </Typography>
             <Input
-              crossOrigin={true}
+              crossOrigin={"use-credentials"}
               type="password"
               size="lg"
               name="password"
@@ -75,7 +75,7 @@ const FormLogin: React.FC<FormLoginProps> = () => {
             />
           </div>
           {/* <Checkbox
-            crossOrigin={true}
+            crossOrigin={"use-credentials"}
             label={
               <Typography
                 variant="small"

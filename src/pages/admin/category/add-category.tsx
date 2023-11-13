@@ -97,7 +97,7 @@ const AddCategory: React.FC<AddCategoryProps> = () => {
               onChange={handleChange}
               name="name"
               value={dataForm.name}
-              crossOrigin={true}
+              crossOrigin={"use-credentials"}
               variant="outlined"
               label="Tên Danh Mục"
             />

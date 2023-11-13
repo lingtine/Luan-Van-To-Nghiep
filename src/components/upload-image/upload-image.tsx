@@ -23,7 +23,6 @@ const UploadImage: React.FC<UploadImageProps> = ({ onChange }) => {
       setFile(e.target.files[0]);
       onChange(e.target.files[0]);
     }
-    console.log(e.target.files);
   };
   const handleRemove = () => {
     const dt = new DataTransfer();
@@ -37,7 +36,6 @@ const UploadImage: React.FC<UploadImageProps> = ({ onChange }) => {
 
   const handleUpload = () => {
     if (inputRef.current) {
-      console.log(inputRef.current);
       inputRef.current.click();
     }
   };
@@ -46,27 +44,24 @@ const UploadImage: React.FC<UploadImageProps> = ({ onChange }) => {
 
   if (file) {
     const url = URL.createObjectURL(file);
-    console.log(url);
     content = (
-      <figure className="w-full relative">
-        <img
-          className="h-full w-full rounded-xl object-cover object-center"
-          src={url}
-          alt={file.name}
-        />
+      <>
+        <figure className="w-full relative">
+          <img
+            className="h-full w-full rounded-xl object-cover object-center"
+            src={url}
+            alt={file.name}
+          />
 
-        <CiCircleRemove
-          onClick={handleRemove}
-          className="absolute top-0 right-0 text-2xl cursor-pointer"
-        />
-        <Typography
-          as="caption"
-          variant="small"
-          className="mt-2 text-center font-normal"
-        >
+          <CiCircleRemove
+            onClick={handleRemove}
+            className="absolute top-0 right-0 text-2xl cursor-pointer"
+          />
+        </figure>
+        <Typography variant="small" className="mt-2 text-center font-normal">
           {file.name}
         </Typography>
-      </figure>
+      </>
     );
   } else {
     content = (

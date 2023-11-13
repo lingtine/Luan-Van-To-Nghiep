@@ -15,6 +15,8 @@ const brandApi = createApi({
         url: "/catalogs/brands/all",
         method: "GET",
       }),
+      transformResponse: (response: { data: IBrand[] }) => response.data,
+
       providesTags: ["brand"],
     }),
     getBrands: builder.query({

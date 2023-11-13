@@ -45,7 +45,7 @@ const Products: React.FC<ProductsProps> = () => {
     {
       label: "Active",
       render: (data: any) => {
-        return <Switch crossOrigin={true}></Switch>;
+        return <Switch crossOrigin={"use-credentials"}></Switch>;
       },
     },
     {

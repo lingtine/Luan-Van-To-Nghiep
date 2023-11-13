@@ -26,14 +26,14 @@ export interface ICategory {
   description: string;
 }
 export interface IBrand {
-  id?: string;
+  id: string;
   name: string;
   description: string;
   image: File;
 }
 
 export interface IProductType {
-  id?: string;
+  id: string;
   name: string;
   description: string;
   unitPrice: number;
