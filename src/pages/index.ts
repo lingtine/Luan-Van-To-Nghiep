@@ -30,5 +30,5 @@ export { default as SearchPage } from "./client/search/search";
 export { default as ResetPasswordPage } from "./client/reset-password/reset-password";
 
 // layouts page
-export { default as DefaultLayout } from "./layouts/admin-layout";
-export { default as AdminLayout } from "./layouts/default-layout";
+export { default as DefaultLayout } from "./layouts/default-layout";
+export { default as AdminLayout } from "./layouts/admin-layout";
