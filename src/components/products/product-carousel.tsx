@@ -3,7 +3,7 @@ import { FiArrowRightCircle, FiArrowLeftCircle } from "react-icons/fi";
 import { useState } from "react";
 import { IconButton } from "@material-tailwind/react";
 import { IProductDetailType } from "redux/api/types";
-
+import classNames from "classnames";
 interface ProductsCarouselProps {
   products: IProductDetailType[];
   lengthCarousel: number;
@@ -28,10 +28,10 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
   const renderProducts = products.map((product, index) => (
     <div
       key={product.id}
-      className={`w-[270px] flex-shrink-0  mx-4 tra duration-700 ease-in-out h-fit`}
-      style={{
-        transform: `translateX(-${112 * currentIndex}%)`,
-      }}
+      className={classNames(
+        `w-[270px] flex-shrink-0  mx-4 tra duration-700 ease-in-out h-fit`,
+        `translate-x-[${currentIndex * 112}%]`
+      )}
     >
       <ProductCard data={product} />
     </div>
