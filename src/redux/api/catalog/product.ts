@@ -1,11 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import customFetchBase from "redux/api/customFetchBase";
 
-import { IProductType } from "../types";
+import { IProductDetailType, IProductType } from "../types";
 
 const productApi = createApi({
   reducerPath: "product",
   baseQuery: customFetchBase,
+  tagTypes: ["add-product", "remove-product", "update-product"],
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: () => ({
@@ -15,6 +16,7 @@ const productApi = createApi({
       transformResponse: (response: { data: IProductType[] }) => {
         return response.data;
       },
+      providesTags: ["add-product", "remove-product", "update-product"],
     }),
     addProduct: builder.mutation({
       query: (data: IProductType) => {
@@ -31,27 +33,48 @@ const productApi = createApi({
           body: bodyFormData,
         };
       },
+      invalidatesTags: ["add-product"],
     }),
     getProductDetail: builder.query({
       query: (productId: string) => ({
         url: `/catalogs/products/details/${productId}`,
         method: "GET",
       }),
+      providesTags: ["add-product", "remove-product", "update-product"],
+
+      transformResponse: (response: { data: IProductDetailType }) =>
+        response.data,
     }),
     updateProduct: builder.mutation({
-      query: ({ id, ...rest }: IProductType) => {
+      query: ({
+        id,
+        ...rest
+      }: {
+        id: string;
+        name: string;
+        description: string;
+        unitPrice: number;
+      }) => {
+        var bodyFormData = new FormData();
+        bodyFormData.append("Name", rest.name);
+        bodyFormData.append("Description", rest.description);
+        //bodyFormData.append("Image", rest.image);
+        bodyFormData.append("UnitPrice", rest.unitPrice.toString());
+
         return {
           url: `/catalogs/products/${id}`,
           method: "PUT",
-          body: rest,
+          body: bodyFormData,
         };
       },
+      invalidatesTags: ["update-product"],
     }),
     deleteProduct: builder.mutation({
       query: (productId: string) => ({
         url: `/catalogs/products/${productId}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["remove-product"],
     }),
   }),
 });

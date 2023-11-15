@@ -26,7 +26,13 @@ const Products: React.FC<ProductsProps> = () => {
     {
       label: "Sản phẩm",
       render: (data: any) => {
-        return data.name;
+        return (
+          <div className="flex items-center gap-4">
+            <img className="w-8" src={data.imageUrl} alt={data.name} />
+
+            <p>{data.name}</p>
+          </div>
+        );
       },
     },
 
@@ -53,7 +59,9 @@ const Products: React.FC<ProductsProps> = () => {
       render: (data: any) => {
         return (
           <div className="flex gap-4 justify-end">
-            <Button color="blue">Chi tiết</Button>
+            <Link to={data.id}>
+              <Button color="blue">Chi tiết</Button>
+            </Link>
             <Button
               onClick={() => {
                 removeProduct(data.id);

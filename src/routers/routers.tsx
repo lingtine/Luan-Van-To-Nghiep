@@ -13,6 +13,8 @@ import AddCategoryGroup from "pages/admin/category-group/add-category-group";
 import Category from "pages/admin/category/category";
 import CategoryGroup from "pages/admin/category-group/category-group";
 import Brand from "pages/admin/brand/brand";
+import ProductDetail from "pages/admin/products/product-detail";
+
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -20,17 +22,6 @@ import {
 } from "react-router-dom";
 
 import { DefaultLayout, AdminLayout } from "../pages/layouts";
-
-const privateRouter = [{ path: "/", element: Home, layout: DefaultLayout }];
-const publicRouters = [
-  { path: "/", element: Home, layout: DefaultLayout },
-  { path: "/Cart", element: Cart, layout: DefaultLayout },
-  { path: "/About", element: About, layout: DefaultLayout },
-  { path: "/admin/dashboard", element: DashboardAdmin, layout: AdminLayout },
-  { path: "/admin/orders", element: Orders, layout: AdminLayout },
-  { path: "/admin/products", element: Products, layout: AdminLayout },
-  { path: "/admin/customers", element: Customers, layout: AdminLayout },
-];
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,6 +38,7 @@ const router = createBrowserRouter(
         <Route path="customers" element={<Customers />}></Route>
         <Route path="products" element={<Products />}></Route>
         <Route path="products/add-product" element={<AddProduct />}></Route>
+        <Route path="products/:productId" element={<ProductDetail />}></Route>
 
         <Route path="category" element={<Category />} />
         <Route path="category/:numberPage" element={<Category />} />

@@ -41,3 +41,28 @@ export interface IProductType {
   categoryId: string;
   brandId: string;
 }
+export interface IProductSpecifications {
+  id: string;
+  productId: string;
+  specificationId: string;
+  specificationName: string;
+  specificationValue: string;
+}
+
+export interface IProductDetailType {
+  brand: IBrand;
+  category: ICategory;
+  id: string;
+  isActive: boolean;
+  isInStock: boolean;
+  likeCount: number;
+  name: string;
+  numberOfStar: number;
+  productImages: [];
+  description: string;
+  unitPrice: number;
+  imageUrl: string;
+  productSpecifications: IProductSpecifications[];
+  rateCount: number;
+  viewCount: number;
+}
