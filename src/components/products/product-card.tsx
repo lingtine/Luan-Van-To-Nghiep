@@ -8,9 +8,13 @@ import {
 } from "@material-tailwind/react";
 import React from "react";
 
-interface ProductCardProps {}
+import { IProductDetailType } from "redux/api/types";
 
-const ProductCard: React.FC<ProductCardProps> = () => {
+interface ProductCardProps {
+  data: IProductDetailType;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   return (
     <Card className="w-96">
       <CardHeader shadow={false} floated={false} className="h-96">
