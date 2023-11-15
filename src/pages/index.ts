@@ -28,6 +28,7 @@ export { default as ProfilePage } from "./client/profile/profile";
 export { default as WishListPage } from "./client/wish-list/wishlist";
 export { default as SearchPage } from "./client/search/search";
 export { default as ResetPasswordPage } from "./client/reset-password/reset-password";
+export { default as NotFoundPage } from "./client/not-found/not-found";
 
 // layouts page
 export { default as DefaultLayout } from "./layouts/default-layout";

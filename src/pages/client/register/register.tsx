@@ -1,9 +1,18 @@
 import React from "react";
-
+import FormRegister from "./form-register";
 interface RegisterPageProps {}
 
 const RegisterPage: React.FC<RegisterPageProps> = () => {
-  return <div>register</div>;
+  return (
+    <div className="flex">
+      <img
+        className="flex[0_0_50%] max-w-[50%]"
+        src="images/login/login-image.png"
+        alt="register"
+      />
+      <FormRegister />
+    </div>
+  );
 };
 
 export default RegisterPage;

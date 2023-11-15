@@ -4,25 +4,30 @@ import { useState, useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useLoginMutation } from "redux/api/authApi";
+
 interface IDataForm {
   email: string;
   password: string;
+  name: string;
+  code: number;
 }
 
-interface FormLoginProps {}
+interface FormRegisterProps {}
 
-const FormLogin: React.FC<FormLoginProps> = () => {
+const FormRegister: React.FC<FormRegisterProps> = () => {
   const [login, result] = useLoginMutation();
   const navigate = useNavigate();
   const [dataForm, setDataForm] = useState<IDataForm>({
     email: "",
     password: "",
+    code: 0,
+    name: "",
   });
 
   useEffect(() => {
     if (result.isSuccess) {
       navigate("/");
-      toast.success("Đăng nhập thành công");
+      toast.success("Đăng kí thành công");
     }
   }, [result]);
 
@@ -49,13 +54,16 @@ const FormLogin: React.FC<FormLoginProps> = () => {
       className=" flex items-center justify-center flex-[0_0_50%]"
     >
       <div className="min-w-[370px] flex flex-col gap-4">
-        <h4 className="text-4xl font-medium ">Đăng nhập</h4>
-        <span className="text-sm">
-          Bạn mới biết đến Techwave?{" "}
-          <Link className="text-primary" to={"/register"}>
-            Đăng kí
-          </Link>
-        </span>
+        <h4 className="text-4xl font-medium ">Đăng Ký</h4>
+
+        <Input
+          onChange={handleChange}
+          value={dataForm.name}
+          name="name"
+          variant="standard"
+          label="Name"
+          crossOrigin={""}
+        />
         <Input
           onChange={handleChange}
           value={dataForm.email}
@@ -75,15 +83,18 @@ const FormLogin: React.FC<FormLoginProps> = () => {
         />
         <div className="my-4 flex justify-between items-center">
           <Button type="submit" size="lg" className="bg-primary">
-            Đăng nhập
+            Đăng Kí
           </Button>
-          <Link className="text-primary" to={"/forget-password"}>
-            Quên Mật Khẩu?
-          </Link>
+          <span className="text-sm">
+            Bạn đã có tài khoản?{" "}
+            <Link className="text-primary" to={"/login"}>
+              Đăng nhập
+            </Link>
+          </span>
         </div>
       </div>
     </form>
   );
 };
 
-export default FormLogin;
+export default FormRegister;

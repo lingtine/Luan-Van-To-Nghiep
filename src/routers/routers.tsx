@@ -8,6 +8,7 @@ import {
   AdminLayout,
   DefaultLayout,
   AboutPage,
+  NotFoundPage,
   AddBrandPage,
   AddCategoryGroupPage,
   AddCategoryPage,
@@ -52,6 +53,7 @@ const router = createBrowserRouter(
         <Route path="forget-password" element={<ForgetPasswordPage />}></Route>
         <Route path="profile" element={<ProfilePage />}></Route>
         <Route path="wishlist" element={<WishListPage />}></Route>
+        <Route path="search" element={<SearchPage />}></Route>
 
         <Route path="reset-password" element={<ResetPasswordPage />}></Route>
 
@@ -59,6 +61,7 @@ const router = createBrowserRouter(
           path="category/:productDetail"
           element={<ProductDetailPage />}
         ></Route>
+        <Route path="*" element={<NotFoundPage />}></Route>
       </Route>
       <Route path="check-out" element={<CheckOutPage />}></Route>
 
@@ -84,7 +87,7 @@ const router = createBrowserRouter(
           element={<AddCategoryGroupPage />}
         />
         <Route path="brand" element={<BrandPage />} />
-        <Route path="brand/add-brand" element={<AboutPage />} />
+        <Route path="brand/add-brand" element={<AddBrandPage />} />
       </Route>
     </Route>
   )

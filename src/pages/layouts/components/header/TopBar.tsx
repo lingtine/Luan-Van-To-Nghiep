@@ -1,15 +1,15 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 interface TopBarProps {}
 
 const TopBar: React.FC<TopBarProps> = () => {
   return (
     <div className="w-full bg-primary text-color-1 p-1">
       <div className="container flex justify-end text-sm gap-6">
-        <p>Về chúng tôi</p>
-        <p>Góp ý</p>
-        <p>Đăng kí</p>
-        <p>Đăng Nhập</p>
+        <Link to={"/about"}>Về chúng tôi</Link>
+        <Link to={"/contact"}>Góp ý</Link>
+        <Link to={"/register"}>Đăng kí</Link>
+        <Link to={"/login"}>Đăng Nhập</Link>
       </div>
     </div>
   );
