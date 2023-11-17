@@ -63,7 +63,7 @@ const router = createBrowserRouter(
         ></Route>
         <Route path="*" element={<NotFoundPage />}></Route>
       </Route>
-      <Route path="check-out" element={<CheckOutPage />}></Route>
+      <Route path="/cart/check-out" element={<CheckOutPage />}></Route>
 
       <Route path="/admin/login" element={<LoginAdminPage />}></Route>
       <Route path="/admin/" element={<AdminLayout />}>

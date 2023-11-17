@@ -33,7 +33,7 @@ const BoxTemplate: React.FC<BoxTemplateProps> = ({
   return (
     <div className="py-20 border-t">
       <HeaderContent />
-      {children}
+      <div className="my-10">{children}</div>
     </div>
   );
 };
