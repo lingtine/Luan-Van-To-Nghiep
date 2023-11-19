@@ -12,15 +12,15 @@ interface ProductCardProps {}
 
 const ProductCard: React.FC<ProductCardProps> = () => {
   return (
-    <Card className="w-96">
-      <CardHeader shadow={false} floated={false} className="h-96">
+    <Card className="w-fit">
+      <CardHeader shadow={false} floated={false} className="h-fit">
         <img
           src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80"
           alt="card-image"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover max-h-[220px]"
         />
       </CardHeader>
-      <CardBody>
+      <CardBody className="p-3">
         <div className="mb-2 flex items-center justify-between">
           <Typography color="blue-gray" className="font-medium">
             Apple AirPods
@@ -32,7 +32,7 @@ const ProductCard: React.FC<ProductCardProps> = () => {
         <Typography
           variant="small"
           color="gray"
-          className="font-normal opacity-75"
+          className="font-normal opacity-75 line-clamp-2 max-h-[42px]"
         >
           With plenty of talk and listen time, voice-activated Siri access, and
           an available wireless charging case.

@@ -1,3 +1,4 @@
+import ProductsList from "components/products/products-list";
 import React from "react";
 
 interface BoxTemplateProps {
@@ -33,7 +34,7 @@ const BoxTemplate: React.FC<BoxTemplateProps> = ({
   return (
     <div className="py-20 border-t">
       <HeaderContent />
-      {children}
+      <ProductsList />
     </div>
   );
 };

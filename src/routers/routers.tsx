@@ -22,6 +22,7 @@ import {
 } from "react-router-dom";
 
 import { DefaultLayout, AdminLayout } from "../pages/layouts";
+import ProductDetailPage from "pages/products/ProductDetail";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<DefaultLayout />}>
         <Route index element={<Home />}></Route>
         <Route path="cart" element={<Cart />}></Route>
+        <Route path="/products/detail/id" element={<ProductDetailPage />}></Route>
         <Route path="about" element={<About />}></Route>
       </Route>
       <Route path="/admin/login" element={<LoginAdmin />}></Route>
