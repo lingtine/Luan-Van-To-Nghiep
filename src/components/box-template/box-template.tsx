@@ -34,11 +34,7 @@ const BoxTemplate: React.FC<BoxTemplateProps> = ({
   return (
     <div className="py-20 border-t">
       <HeaderContent />
-<<<<<<< HEAD
       <ProductsList />
-=======
-      <div className="my-10">{children}</div>
->>>>>>> d77d96887e3bfe93323b53f38bb169dabec6c439
     </div>
   );
 };

@@ -3,8 +3,13 @@ import ProductCard from "./product-card";
 
 export default function ProductsList() {
 //   const [items, setItems] = useState<Array<React.ReactNode>>();
+  const mockUp = {
+    name: "Iphone 15",
+    unitPrice:"100.000.000đ",
+    description: "Kiểu dáng sang trọng thêm nhiều tính năng, chắc chắn sẽ mang đến cho bạn trải nghiệm tuyệt vời"
+  } 
   const cartItems = Array.from({ length: 10 }, (_, index) => (
-    <ProductCard key={index} data={undefined} />
+    <ProductCard key={index} data={mockUp} />
   ));
 
 

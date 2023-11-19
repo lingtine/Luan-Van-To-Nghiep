@@ -11,7 +11,7 @@ import React from "react";
 import { IProductDetailType } from "redux/api/types";
 
 interface ProductCardProps {
-  data?: IProductDetailType;
+  data: IProductDetailType | any;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
