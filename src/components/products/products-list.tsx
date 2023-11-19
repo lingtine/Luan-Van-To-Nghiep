@@ -4,7 +4,7 @@ import ProductCard from "./product-card";
 export default function ProductsList() {
 //   const [items, setItems] = useState<Array<React.ReactNode>>();
   const cartItems = Array.from({ length: 10 }, (_, index) => (
-    <ProductCard key={index} />
+    <ProductCard key={index} data={undefined} />
   ));
 
 

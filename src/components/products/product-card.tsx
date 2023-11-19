@@ -8,25 +8,30 @@ import {
 } from "@material-tailwind/react";
 import React from "react";
 
-interface ProductCardProps {}
+import { IProductDetailType } from "redux/api/types";
 
-const ProductCard: React.FC<ProductCardProps> = () => {
+interface ProductCardProps {
+  data?: IProductDetailType;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   return (
-    <Card className="w-fit">
-      <CardHeader shadow={false} floated={false} className="h-fit">
+    data &&
+    <Card className="w-full h-fit border">
+      <CardHeader shadow={false} floated={false} className="h-60">
         <img
-          src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80"
-          alt="card-image"
-          className="h-full w-full object-cover max-h-[220px]"
+          src={data.imageUrl}
+          alt={data.name}
+          className="h-full w-full object-cover"
         />
       </CardHeader>
       <CardBody className="p-3">
         <div className="mb-2 flex items-center justify-between">
           <Typography color="blue-gray" className="font-medium">
-            Apple AirPods
+            {data.name}
           </Typography>
           <Typography color="blue-gray" className="font-medium">
-            $95.00
+            {data.unitPrice}
           </Typography>
         </div>
         <Typography
@@ -34,8 +39,7 @@ const ProductCard: React.FC<ProductCardProps> = () => {
           color="gray"
           className="font-normal opacity-75 line-clamp-2 max-h-[42px]"
         >
-          With plenty of talk and listen time, voice-activated Siri access, and
-          an available wireless charging case.
+          {data.description}
         </Typography>
       </CardBody>
       <CardFooter className="pt-0">
@@ -44,7 +48,7 @@ const ProductCard: React.FC<ProductCardProps> = () => {
           fullWidth={true}
           className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
         >
-          Add to Cart
+          Thêm vào giỏ hàng
         </Button>
       </CardFooter>
     </Card>

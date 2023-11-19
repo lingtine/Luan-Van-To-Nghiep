@@ -9,9 +9,10 @@ const productApi = createApi({
   tagTypes: ["add-product", "remove-product", "update-product"],
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: () => ({
+      query: (params) => ({
         url: "/catalogs/products",
         method: "GET",
+        params: params,
       }),
       transformResponse: (response: { data: IProductType[] }) => {
         return response.data;

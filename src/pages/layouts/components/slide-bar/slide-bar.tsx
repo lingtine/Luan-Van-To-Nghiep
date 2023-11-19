@@ -37,36 +37,36 @@ const SlideBar: React.FC<SlideBarProps> = () => {
       icon: <BsHouse />,
     },
     {
-      label: "Orders",
+      label: "Quản lý đơn hàng",
       href: "/admin/orders",
       current: false,
       icon: <BsCart />,
     },
     {
-      label: "Customer",
+      label: "Quản lý khách hàng",
       href: "/admin/customers",
       current: false,
       icon: <BiUserCircle />,
     },
     {
-      label: "Product Management",
+      label: "Quản lý sản phẩm",
       current: false,
       icon: <BsMinecartLoaded />,
       children: [
         {
-          label: "Category",
+          label: "Danh mục sản phẩm",
           href: "category",
         },
         {
-          label: "Products",
+          label: "Sản phẩm",
           href: "products",
         },
         {
-          label: "Category group",
+          label: "Danh mục nhóm sản phẩm",
           href: "category-group",
         },
         {
-          label: "Brand",
+          label: "Thương hiệu",
           href: "brand",
         },
       ],
