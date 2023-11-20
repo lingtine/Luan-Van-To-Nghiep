@@ -3,7 +3,7 @@ import router from "./routers/routers";
 import { RouterProvider } from "react-router-dom";
 import { getCookie } from "utils/cookies/cookies";
 import { jwtDecode } from "jwt-decode";
-import { useGetEmployeeMutation } from "redux/api/employeeApi";
+import { useGetEmployeeMutation } from "redux/api/auth/employeeApi";
 import { useEffect } from "react";
 
 import { ToastContainer } from "react-toastify";

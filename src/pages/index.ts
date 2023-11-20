@@ -12,6 +12,8 @@ export { default as OrdersAdminPage } from "./admin/orders/orders";
 export { default as AddProductPage } from "./admin/products/add-product";
 export { default as ProductDetailAdminPage } from "./admin/products/product-detail";
 export { default as ProductsAdminPage } from "./admin/products/products";
+export { default as SpecificationsPage } from "./admin/specification/specification";
+export { default as AddSpecificationPage } from "./admin/specification/add-specification";
 
 // clients page
 export { default as AboutPage } from "./client/about/about";

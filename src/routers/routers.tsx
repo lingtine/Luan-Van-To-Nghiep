@@ -35,13 +35,18 @@ import {
   SearchPage,
   WishListPage,
   ResetPasswordPage,
+  AddSpecificationPage,
+  SpecificationsPage,
 } from "pages";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/" element={<DefaultLayout />}>
-        <Route path="/products/detail/id" element={<ProductDetailPage />}></Route>
+        <Route
+          path="/products/detail/id"
+          element={<ProductDetailPage />}
+        ></Route>
         <Route index element={<HomePage />}></Route>
         <Route path="cart" element={<CartPage />}></Route>
         <Route path="about" element={<AboutPage />}></Route>
@@ -89,6 +94,11 @@ const router = createBrowserRouter(
         />
         <Route path="brand" element={<BrandPage />} />
         <Route path="brand/add-brand" element={<AddBrandPage />} />
+        <Route path="specifications" element={<SpecificationsPage />} />
+        <Route
+          path="specifications/add-specification"
+          element={<AddSpecificationPage />}
+        />
       </Route>
     </Route>
   )

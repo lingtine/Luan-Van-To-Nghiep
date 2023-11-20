@@ -69,6 +69,10 @@ const SlideBar: React.FC<SlideBarProps> = () => {
           label: "Thương hiệu",
           href: "brand",
         },
+        {
+          label: "Đặt tả",
+          href: "specifications",
+        },
       ],
     },
   ];

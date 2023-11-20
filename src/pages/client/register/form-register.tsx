@@ -3,31 +3,32 @@ import { Input, Button } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useLoginMutation } from "redux/api/authApi";
+import { useRegisterMutation } from "redux/api/auth/authApi";
 
 interface IDataForm {
   email: string;
   password: string;
   name: string;
-  code: number;
 }
 
 interface FormRegisterProps {}
 
 const FormRegister: React.FC<FormRegisterProps> = () => {
-  const [login, result] = useLoginMutation();
+  const [register, result] = useRegisterMutation();
   const navigate = useNavigate();
   const [dataForm, setDataForm] = useState<IDataForm>({
     email: "",
     password: "",
-    code: 0,
     name: "",
   });
 
   useEffect(() => {
     if (result.isSuccess) {
-      navigate("/");
+      navigate("/login");
       toast.success("Đăng kí thành công");
+    }
+    if (result.isError) {
+      toast.success("Đăng kí thất bại");
     }
   }, [result]);
 
@@ -40,11 +41,12 @@ const FormRegister: React.FC<FormRegisterProps> = () => {
     e.preventDefault();
     if (
       dataForm.email.trim().length === 0 ||
-      dataForm.password.trim().length === 0
+      dataForm.password.trim().length === 0 ||
+      dataForm.name.trim().length === 0
     ) {
       toast.error("Thông tin không hợp lệ");
     } else {
-      login(dataForm);
+      register(dataForm);
     }
   };
 

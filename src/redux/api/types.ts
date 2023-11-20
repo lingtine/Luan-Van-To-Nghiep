@@ -66,3 +66,9 @@ export interface IProductDetailType {
   rateCount: number;
   viewCount: number;
 }
+
+export interface ISpecification {
+  id: string;
+  name: string;
+  description: string;
+}

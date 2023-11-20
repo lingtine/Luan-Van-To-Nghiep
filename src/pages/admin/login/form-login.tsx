@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
-import { useLoginMutation } from "redux/api/authApi";
+import { useLoginMutation } from "redux/api/auth/authApi";
 import { useNavigate } from "react-router-dom";
 interface FormLoginProps {}
 

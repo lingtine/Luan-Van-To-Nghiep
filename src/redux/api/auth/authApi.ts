@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { jwtDecode } from "jwt-decode";
 import { changeAuth } from "redux/features/auth/authSlice";
-import employeeApi from "./employeeApi";
+import employeeApi from "../auth/employeeApi";
 
 import customFetchBase from "redux/api/customFetchBase";
 const authApi = createApi({
@@ -28,6 +28,8 @@ const authApi = createApi({
 
             await dispatch(changeAuth(data));
             let jwt = jwtDecode(data.accessToken);
+
+            console.log(jwt);
             if (jwt) {
               await dispatch(employeeApi.endpoints.getEmployee.initiate(null));
             }
@@ -38,7 +40,7 @@ const authApi = createApi({
       register: builder.mutation({
         query: (data) => {
           return {
-            url: "/register",
+            url: "/auths/auth/registerV2",
             method: "POST",
             body: data,
           };

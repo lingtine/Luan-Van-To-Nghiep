@@ -3,7 +3,7 @@ import { Input, Button } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useLoginMutation } from "redux/api/authApi";
+import { useLoginMutation } from "redux/api/auth/authApi";
 interface IDataForm {
   email: string;
   password: string;
