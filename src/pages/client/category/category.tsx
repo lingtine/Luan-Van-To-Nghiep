@@ -8,6 +8,7 @@ import ProductList from "components/products/product-list";
 import Sidebar from "./sidebar";
 
 import Pagination from "components/pagination/pagitnation";
+import ProductsList from "components/products/products-list";
 
 interface CategoryPageProps {}
 
@@ -26,9 +27,9 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
           </Link>
         </Breadcrumbs>
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 my-8">
         <Sidebar />
-        <ProductList />
+        <ProductsList />
       </div>
 
       <div className="flex justify-center">

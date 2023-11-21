@@ -52,7 +52,7 @@ const router = createBrowserRouter(
         <Route path="about" element={<AboutPage />}></Route>
         <Route path="contact-us" element={<ContactPage />}></Route>
 
-        <Route path=":categoryId" element={<CategoryPage />}></Route>
+        <Route path="category/:categoryId" element={<CategoryPage />}></Route>
 
         <Route path="login" element={<LoginPage />}></Route>
         <Route path="register" element={<RegisterPage />}></Route>
@@ -63,10 +63,10 @@ const router = createBrowserRouter(
 
         <Route path="reset-password" element={<ResetPasswordPage />}></Route>
 
-        <Route
+        {/* <Route
           path="category/:productDetail"
           element={<ProductDetailPage />}
-        ></Route>
+        ></Route> */}
         <Route path="*" element={<NotFoundPage />}></Route>
       </Route>
       <Route path="/cart/check-out" element={<CheckOutPage />}></Route>

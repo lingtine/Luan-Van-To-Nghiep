@@ -15,36 +15,37 @@ const Home: React.FC<HomeProps> = () => {
     href: string;
   }[] = [
     {
-      id: Math.random.toString(),
+      id: Math.random().toString(),
       title: "Điện thoại",
       heading: "Our Product",
-      href: "/",
+      href: `/category/${encodeURIComponent("Điện thoại")}`,
     },
     {
-      id: Math.random.toString(),
+      id: Math.random().toString(),
       title: "LapTop",
       heading: "Sản phẩm của chúng tôi",
-      href: "/",
+      href: `/category/${encodeURIComponent("LapTop")}`,
     },
     {
-      id: Math.random.toString(),
+      id: Math.random().toString(),
       title: "Màn Hình",
       heading: "Sản phẩm của chúng tôi",
-      href: "/",
+      href: `/category/${encodeURIComponent("Màn Hình")}`,
     },
     {
-      id: Math.random.toString(),
+      id: Math.random().toString(),
       title: "Phụ Kiện",
       heading: "Sản phẩm của chúng tôi",
-      href: "/",
+      href: `/category/${encodeURIComponent("Phụ Kiện")}`,
     },
     {
-      id: Math.random.toString(),
+      id: Math.random().toString(),
       title: "Bàn Phím Gamming",
       heading: "Sản phẩm của chúng tôi",
-      href: "/",
+      href: `/category/${encodeURIComponent("Bàn Phím Gamming")}`,
     },
   ];
+  
 
   const renderData = data.map((item) => {
     const action = (
