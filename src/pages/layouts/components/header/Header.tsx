@@ -2,10 +2,17 @@ import { SearchBar } from "components";
 import TopBar from "./TopBar";
 import { CiShoppingCart } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import CartBill from "pages/client/cart/cart-bill";
 
 interface HeaderProps {}
 
 const Header: React.FC<HeaderProps> = () => {
+  const [toogle, setToogle] = useState(false)
+
+  const onToogle = (status : boolean) => {
+    setToogle(status)
+  }
   return (
     <div>
       <TopBar />
@@ -14,10 +21,13 @@ const Header: React.FC<HeaderProps> = () => {
 
         <SearchBar />
 
-        <Link to="/cart" className="flex items-center gap-2">
+        <div onClick={() => onToogle(true)} className="flex items-center gap-2">
           <CiShoppingCart className="text-4xl" />
-        </Link>
+        </div>
       </div>
+      {
+        toogle && <CartBill onToogle={onToogle}/>
+      }
     </div>
   );
 };
