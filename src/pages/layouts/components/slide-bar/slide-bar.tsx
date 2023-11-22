@@ -92,31 +92,34 @@ const SlideBar: React.FC<SlideBarProps> = () => {
       const renderChildren = item.children.map((item, index) => {
         return (
           <NavLink key={index} to={item.href}>
-            <ListItem key={item.label}>{item.label}</ListItem>
+            <ListItem className="text-secondary" key={item.label}>
+              {item.label}
+            </ListItem>
           </NavLink>
         );
       });
 
       return (
         <Accordion
+          className="text-secondary"
           key={index}
           open={open === 1}
           icon={
             <BsChevronDown
               strokeWidth={2.5}
               className={`mx-auto h-4 w-4 transition-transform ${
-                open === 1 ? "rotate-180" : ""
+                open === 1 ? "rotate-0" : ""
               }`}
             />
           }
         >
-          <ListItem className="p-0" selected={open === 1}>
+          <ListItem className="p-0 text-secondary" selected={open === 1}>
             <AccordionHeader
               onClick={() => handleOpen(1)}
-              className="border-b-0 p-3"
+              className="border-b-0 p-3 text-secondary"
             >
               <ListItemPrefix>{item.icon}</ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
+              <Typography className="mr-auto font-normal">
                 {item.label}
               </Typography>
             </AccordionHeader>
@@ -129,7 +132,7 @@ const SlideBar: React.FC<SlideBarProps> = () => {
     }
     return (
       <NavLink key={index} to={item.href}>
-        <ListItem>
+        <ListItem className="text-secondary">
           <ListItemPrefix>{item.icon}</ListItemPrefix>
           {item.label}
         </ListItem>
@@ -138,9 +141,9 @@ const SlideBar: React.FC<SlideBarProps> = () => {
   });
 
   return (
-    <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+    <Card className="h-[100vh] rounded-none  bg-[#22345e] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
-        <Typography variant="h5" color="blue-gray">
+        <Typography variant="h5" className="text-secondary">
           TeachWave
         </Typography>
       </div>
@@ -148,6 +151,7 @@ const SlideBar: React.FC<SlideBarProps> = () => {
       <List>
         {renderNavigation}
         <ListItem
+          className="text-secondary"
           onClick={() => {
             logout({ refreshToken });
           }}
