@@ -6,7 +6,6 @@ import { IoExitOutline } from "react-icons/io5";
 import { BsCart } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import classNames from "classnames";
-import { useState } from "react";
 
 import { BsChevronDown } from "react-icons/bs";
 import {
@@ -21,9 +20,17 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
+import { useLogoutMutation } from "redux/api/auth/authApi";
+import { useAppSelector } from "redux/store";
+import { useNavigate } from "react-router-dom";
+
 interface SlideBarProps {}
 
 const SlideBar: React.FC<SlideBarProps> = () => {
+  const [logout, { isSuccess }] = useLogoutMutation();
+  const navigate = useNavigate();
+  const { refreshToken } = useAppSelector((state) => state.authSlice);
+
   const [open, setOpen] = React.useState(0);
 
   const handleOpen = (value: number) => {
@@ -77,6 +84,9 @@ const SlideBar: React.FC<SlideBarProps> = () => {
     },
   ];
 
+  React.useEffect(() => {
+    if (isSuccess) navigate("/login-admin");
+  }, [isSuccess]);
   const renderNavigation = navigation.map((item, index) => {
     if (item.children) {
       const renderChildren = item.children.map((item, index) => {
@@ -137,7 +147,11 @@ const SlideBar: React.FC<SlideBarProps> = () => {
 
       <List>
         {renderNavigation}
-        <ListItem>
+        <ListItem
+          onClick={() => {
+            logout({ refreshToken });
+          }}
+        >
           <ListItemPrefix>
             <IoExitOutline />
           </ListItemPrefix>

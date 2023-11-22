@@ -1,11 +1,20 @@
 import React from "react";
 import SlideBar from "./components/slide-bar/slide-bar";
 import { AiOutlineUser } from "react-icons/ai";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAppSelector } from "redux/store";
 
 interface AdminLayoutProps {}
 
 const AdminLayout: React.FC<AdminLayoutProps> = () => {
+  const { accessToken } = useAppSelector((state) => {
+    return state.authSlice;
+  });
+
+  if (!accessToken) {
+    return <Navigate to={"/login-admin"} />;
+  }
+
   return (
     <div className="flex ">
       <SlideBar />

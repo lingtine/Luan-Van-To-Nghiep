@@ -1,6 +1,9 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { jwtDecode } from "jwt-decode";
 import { changeAuth } from "redux/features/auth/authSlice";
+import { logout } from "redux/features/auth/userSlice";
+import { logout as logoutUser } from "redux/features/auth/userSlice";
+
 import employeeApi from "../auth/employeeApi";
 
 import customFetchBase from "redux/api/customFetchBase";
@@ -46,9 +49,27 @@ const authApi = createApi({
           };
         },
       }),
+      logout: builder.mutation({
+        query: (data) => {
+          return {
+            url: "/auths/auth/logout",
+            method: "POST",
+            body: data,
+          };
+        },
+
+        async onQueryStarted(args, { dispatch, queryFulfilled }) {
+          try {
+            const { data } = await queryFulfilled;
+            dispatch(logout());
+            dispatch(logoutUser());
+          } catch (error) {}
+        },
+      }),
     };
   },
 });
 
 export default authApi;
-export const { useLoginMutation, useRegisterMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation, useLogoutMutation } =
+  authApi;
