@@ -11,12 +11,16 @@ import userSlide from "./features/auth/userSlice";
 import authSlice from "./features/auth/authSlice";
 import employeeApi from "./api/auth/employeeApi";
 import specificationsApi from "./api/catalog/specification";
+import orderApi from "./api/order/order";
 
 export const store = configureStore({
   reducer: {
     authSlice: authSlice,
     [userSlide.name]: userSlide.reducer,
+
     [authApi.reducerPath]: authApi.reducer,
+    [orderApi.reducerPath]: orderApi.reducer,
+
     [customerApi.reducerPath]: customerApi.reducer,
     [employeeApi.reducerPath]: employeeApi.reducer,
     [brandApi.reducerPath]: brandApi.reducer,
@@ -33,6 +37,7 @@ export const store = configureStore({
       .concat(categoryApi.middleware)
       .concat(categoryGroupApi.middleware)
       .concat(brandApi.middleware)
+      .concat(orderApi.middleware)
       .concat(productApi.middleware)
       .concat(customerApi.middleware)
       .concat(specificationsApi.middleware),

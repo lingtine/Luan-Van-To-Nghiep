@@ -72,3 +72,20 @@ export interface ISpecification {
   name: string;
   description: string;
 }
+export interface IOrder {
+  id: string;
+  couponId: string;
+  deliveryInfo: {
+    fullName: string;
+    phoneNumber: string;
+    email: string;
+    address: {
+      city: string;
+      district: string;
+      ward: string;
+      street: string;
+      streetNumber: string;
+    };
+    note: string;
+  };
+}
