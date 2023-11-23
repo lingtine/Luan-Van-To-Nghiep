@@ -5,8 +5,7 @@ import { BiUserCircle } from "react-icons/bi";
 import { IoExitOutline } from "react-icons/io5";
 import { BsCart } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
-import classNames from "classnames";
-
+import { useEffect } from "react";
 import { BsChevronDown } from "react-icons/bs";
 import {
   Card,
@@ -14,8 +13,6 @@ import {
   List,
   ListItem,
   ListItemPrefix,
-  ListItemSuffix,
-  Chip,
   Accordion,
   AccordionHeader,
   AccordionBody,
@@ -82,11 +79,36 @@ const SlideBar: React.FC<SlideBarProps> = () => {
         },
       ],
     },
+    {
+      label: "Quản lý kho",
+      current: false,
+      icon: <BsMinecartLoaded />,
+      children: [
+        {
+          label: "Sản phẩm",
+          href: "inventory",
+        },
+        {
+          label: "Báo cáo",
+          href: "report",
+        },
+        {
+          label: "Kho",
+          href: "warehouses",
+        },
+        {
+          label: "Nhà cung cấp",
+          href: "suppliers",
+        },
+      ],
+    },
   ];
 
-  React.useEffect(() => {
-    if (isSuccess) navigate("/login-admin");
-  }, [isSuccess]);
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/login-admin");
+    }
+  }, [isSuccess, navigate]);
   const renderNavigation = navigation.map((item, index) => {
     if (item.children) {
       const renderChildren = item.children.map((item, index) => {
@@ -103,19 +125,19 @@ const SlideBar: React.FC<SlideBarProps> = () => {
         <Accordion
           className="text-secondary"
           key={index}
-          open={open === 1}
+          open={open === index}
           icon={
             <BsChevronDown
               strokeWidth={2.5}
               className={`mx-auto h-4 w-4 transition-transform ${
-                open === 1 ? "rotate-0" : ""
+                open === index ? "rotate-0" : ""
               }`}
             />
           }
         >
-          <ListItem className="p-0 text-secondary" selected={open === 1}>
+          <ListItem className="p-0 text-secondary" selected={open === index}>
             <AccordionHeader
-              onClick={() => handleOpen(1)}
+              onClick={() => handleOpen(index)}
               className="border-b-0 p-3 text-secondary"
             >
               <ListItemPrefix>{item.icon}</ListItemPrefix>

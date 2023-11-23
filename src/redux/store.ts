@@ -13,6 +13,14 @@ import employeeApi from "./api/auth/employeeApi";
 import specificationsApi from "./api/catalog/specification";
 import orderApi from "./api/order/order";
 
+import goodsIssueApi from "./api/warehouse/goodsIssue";
+import goodsReceiptApi from "./api/warehouse/goodsReceipt";
+import productWarehouseApi from "./api/warehouse/product";
+import reportApi from "./api/warehouse/report";
+import stockApi from "./api/warehouse/stock";
+import supplierApi from "./api/warehouse/supplier";
+import warehouseApi from "./api/warehouse/warehouse";
+
 export const store = configureStore({
   reducer: {
     authSlice: authSlice,
@@ -28,10 +36,25 @@ export const store = configureStore({
     [categoryGroupApi.reducerPath]: categoryGroupApi.reducer,
     [productApi.reducerPath]: productApi.reducer,
     [specificationsApi.reducerPath]: specificationsApi.reducer,
+
+    [goodsIssueApi.reducerPath]: goodsIssueApi.reducer,
+    [goodsReceiptApi.reducerPath]: goodsReceiptApi.reducer,
+    [productWarehouseApi.reducerPath]: productWarehouseApi.reducer,
+    [reportApi.reducerPath]: reportApi.reducer,
+    [stockApi.reducerPath]: stockApi.reducer,
+    [warehouseApi.reducerPath]: warehouseApi.reducer,
+    [supplierApi.reducerPath]: supplierApi.reducer,
   },
   devTools: process.env.NODE_ENV === "development",
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({})
+      .concat(goodsReceiptApi.middleware)
+      .concat(productWarehouseApi.middleware)
+      .concat(goodsIssueApi.middleware)
+      .concat(reportApi.middleware)
+      .concat(stockApi.middleware)
+      .concat(warehouseApi.middleware)
+      .concat(supplierApi.middleware)
       .concat(authApi.middleware)
       .concat(employeeApi.middleware)
       .concat(categoryApi.middleware)

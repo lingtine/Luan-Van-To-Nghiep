@@ -37,6 +37,12 @@ import {
   ResetPasswordPage,
   AddSpecificationPage,
   SpecificationsPage,
+  InventoryPage,
+  ReportPage,
+  AddSupplierPage,
+  AddWarehousePage,
+  SuppliersPage,
+  WarehousesPage,
 } from "pages";
 
 const router = createBrowserRouter(
@@ -77,6 +83,10 @@ const router = createBrowserRouter(
         <Route path="orders" element={<OrdersAdminPage />}></Route>
         <Route path="customers" element={<CustomersPage />}></Route>
         <Route path="products" element={<ProductsAdminPage />}></Route>
+        <Route path="inventory" element={<InventoryPage />}></Route>
+
+        <Route path="report" element={<ReportPage />}></Route>
+
         <Route path="products/add-product" element={<AddProductPage />}></Route>
         <Route
           path="products/:productId"
@@ -99,6 +109,12 @@ const router = createBrowserRouter(
           path="specifications/add-specification"
           element={<AddSpecificationPage />}
         />
+
+        <Route path="suppliers" element={<SuppliersPage />} />
+        <Route path="suppliers/add-supplier" element={<AddSupplierPage />} />
+
+        <Route path="warehouses" element={<WarehousesPage />} />
+        <Route path="warehouses/add-warehouse" element={<AddWarehousePage />} />
       </Route>
     </Route>
   )

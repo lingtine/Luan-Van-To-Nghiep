@@ -89,3 +89,80 @@ export interface IOrder {
     note: string;
   };
 }
+export interface IWarehouse {
+  id: string;
+  name: string;
+  description: string;
+  email: string;
+  address: string;
+  fax: string;
+  hotLine: string;
+  warehouseType: string;
+}
+
+export interface ISupplier {
+  id: string;
+  name: string;
+  description: string;
+  address: string;
+  phoneNumber: string;
+  email: string;
+}
+export interface IStock {
+  id: string;
+  productId: string;
+  warehouseId: string;
+  quantity: number;
+  isReceipt: boolean;
+}
+
+export interface IReport {
+  id: string;
+
+  from: string;
+  to: string;
+  reportType: string;
+  description: string;
+  supplierId: string;
+  reportProducts: {
+    productId: string;
+    quantity: number;
+  }[];
+}
+
+export interface IProductWarehouse {
+  id: string;
+
+  from: string;
+  to: string;
+  reportType: string;
+  description: string;
+  supplierId: string;
+  reportProducts: {
+    productId: string;
+    quantity: number;
+  }[];
+}
+
+export interface IGoodsReceipt {
+  id: string;
+  name: string;
+  description: string;
+  supplierId: string;
+  warehouseId: string;
+  items: {
+    productId: string;
+    quantity: number;
+  }[];
+}
+export interface IGoodsIssue {
+  id: string;
+  name: string;
+  description: string;
+  supplierId: string;
+  warehouseId: string;
+  items: {
+    productId: string;
+    quantity: number;
+  }[];
+}

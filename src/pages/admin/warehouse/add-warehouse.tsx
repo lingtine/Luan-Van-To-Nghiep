@@ -2,23 +2,35 @@ import React from "react";
 import { Button, Input, Textarea } from "@material-tailwind/react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-import { useAddSpecificationMutation } from "redux/api/catalog/specification";
+import { useCreateWarehouseMutation } from "redux/api/warehouse/warehouse";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 interface IDataForm {
+  id: string;
   name: string;
   description: string;
+  email: string;
+  address: string;
+  fax: string;
+  hotLine: string;
+  warehouseType: string;
 }
 
-interface AddSpecificationProps {}
+interface AddWarehouseProps {}
 
-const AddSpecification: React.FC<AddSpecificationProps> = () => {
+const AddWarehouse: React.FC<AddWarehouseProps> = () => {
   const navigate = useNavigate();
-  const [addSpecification, { isSuccess }] = useAddSpecificationMutation();
+  const [addWarehouse, { isSuccess }] = useCreateWarehouseMutation();
   const [dataForm, setDataForm] = useState<IDataForm>({
+    id: "",
+    address: "",
+    email: "",
+    fax: "",
+    hotLine: "",
     name: "",
     description: "",
+    warehouseType: "Distribution",
   });
 
   const handleChange = (
@@ -37,17 +49,21 @@ const AddSpecification: React.FC<AddSpecificationProps> = () => {
 
     if (
       dataForm.name.trim().length === 0 ||
-      dataForm.description.trim().length === 0
+      dataForm.address.trim().length === 0 ||
+      dataForm.description.trim().length === 0 ||
+      dataForm.email.trim().length === 0 ||
+      dataForm.fax.trim().length === 0 ||
+      dataForm.hotLine.trim().length === 0
     ) {
       toast.error("Thông tin không hợp lệ");
     } else {
-      addSpecification(dataForm);
+      addWarehouse(dataForm);
     }
   };
 
   useEffect(() => {
     if (isSuccess) {
-      navigate("/admin/specifications");
+      navigate("/admin/warehouses");
       toast.success("Thêm thành công");
     }
   }, [isSuccess, navigate]);
@@ -55,20 +71,20 @@ const AddSpecification: React.FC<AddSpecificationProps> = () => {
   return (
     <div className="px-8">
       <div className="flex gap-4 border-y py-3  items-center">
-        <Link to={"/admin/specifications"}>
+        <Link to={"/admin/warehouses"}>
           <Button variant="text" className="text-lg">
             <AiOutlineArrowLeft />
           </Button>
         </Link>
         <div>
           <p className="text-sm">Trở về</p>
-          <h4 className="text-xl font-bold">Thêm Đặc Tả Sản Phẩm</h4>
+          <h4 className="text-xl font-bold">Thêm Kho</h4>
         </div>
       </div>
 
       <form onSubmit={handleSubmit} className="flex justify-between gap-4">
         <section className=" flex-[0_0_50%]">
-          <header className="text-2xl my-4 font-bold ">Thông tin đặt tả</header>
+          <header className="text-2xl my-4 font-bold ">Thông tin kho</header>
           <div className="flex flex-col gap-4">
             <Input
               name="name"
@@ -76,7 +92,39 @@ const AddSpecification: React.FC<AddSpecificationProps> = () => {
               value={dataForm.name}
               crossOrigin={"use-credentials"}
               variant="outlined"
-              label="Tên đặt tả"
+              label="Tên kho"
+            />
+            <Input
+              name="address"
+              onChange={handleChange}
+              value={dataForm.address}
+              crossOrigin={"use-credentials"}
+              variant="outlined"
+              label="Tên địa chỉ"
+            />
+            <Input
+              name="email"
+              onChange={handleChange}
+              value={dataForm.email}
+              crossOrigin={"use-credentials"}
+              variant="outlined"
+              label="Email"
+            />
+            <Input
+              name="fax"
+              onChange={handleChange}
+              value={dataForm.fax}
+              crossOrigin={"use-credentials"}
+              variant="outlined"
+              label="Fax"
+            />
+            <Input
+              name="hotLine"
+              onChange={handleChange}
+              value={dataForm.hotLine}
+              crossOrigin={"use-credentials"}
+              variant="outlined"
+              label="Hotline"
             />
             <Textarea
               name="description"
@@ -86,7 +134,7 @@ const AddSpecification: React.FC<AddSpecificationProps> = () => {
             />
           </div>
           <div className="flex justify-end my-4">
-            <Button type="submit">Thêm đặt tả</Button>
+            <Button type="submit">Thêm kho</Button>
           </div>
         </section>
       </form>
@@ -94,4 +142,4 @@ const AddSpecification: React.FC<AddSpecificationProps> = () => {
   );
 };
 
-export default AddSpecification;
+export default AddWarehouse;

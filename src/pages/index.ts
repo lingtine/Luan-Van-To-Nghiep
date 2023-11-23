@@ -14,6 +14,12 @@ export { default as ProductDetailAdminPage } from "./admin/products/product-deta
 export { default as ProductsAdminPage } from "./admin/products/products";
 export { default as SpecificationsPage } from "./admin/specification/specification";
 export { default as AddSpecificationPage } from "./admin/specification/add-specification";
+export { default as ReportPage } from "./admin/report/report";
+export { default as InventoryPage } from "./admin/inventory/inventory";
+export { default as WarehousesPage } from "./admin/warehouse/warehouse";
+export { default as AddWarehousePage } from "./admin/warehouse/add-warehouse";
+export { default as SuppliersPage } from "./admin/supplier/supplier";
+export { default as AddSupplierPage } from "./admin/supplier/add-supplier";
 
 // clients page
 export { default as AboutPage } from "./client/about/about";
