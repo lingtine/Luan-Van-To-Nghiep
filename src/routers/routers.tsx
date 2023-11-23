@@ -43,6 +43,10 @@ import {
   AddWarehousePage,
   SuppliersPage,
   WarehousesPage,
+  AddCouponPage,
+  AddDiscountEventPage,
+  CouponsPage,
+  DiscountEventsPage,
 } from "pages";
 
 const router = createBrowserRouter(
@@ -115,6 +119,15 @@ const router = createBrowserRouter(
 
         <Route path="warehouses" element={<WarehousesPage />} />
         <Route path="warehouses/add-warehouse" element={<AddWarehousePage />} />
+
+        <Route path="discountEvents" element={<DiscountEventsPage />} />
+        <Route
+          path="discountEvents/add-discountEvent"
+          element={<AddDiscountEventPage />}
+        />
+
+        <Route path="coupons" element={<CouponsPage />} />
+        <Route path="coupons/add-coupon" element={<AddCouponPage />} />
       </Route>
     </Route>
   )

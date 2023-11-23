@@ -21,6 +21,11 @@ export { default as AddWarehousePage } from "./admin/warehouse/add-warehouse";
 export { default as SuppliersPage } from "./admin/supplier/supplier";
 export { default as AddSupplierPage } from "./admin/supplier/add-supplier";
 
+export { default as DiscountEventsPage } from "./admin/discount-events/discount-events";
+export { default as AddDiscountEventPage } from "./admin/discount-events/add-discount-event";
+export { default as CouponsPage } from "./admin/coupon/coupon";
+export { default as AddCouponPage } from "./admin/coupon/add-coupon";
+
 // clients page
 export { default as AboutPage } from "./client/about/about";
 export { default as CartPage } from "./client/cart/cart";

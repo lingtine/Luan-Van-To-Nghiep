@@ -166,3 +166,18 @@ export interface IGoodsIssue {
     quantity: number;
   }[];
 }
+
+export interface IDiscountEvent {
+  id: string;
+  name: string;
+  description: string;
+}
+
+export interface ICoupon {
+  id: string;
+  name: string;
+  description: string;
+  reducedPrice: number;
+  quantity: number;
+  discountEventId: string;
+}

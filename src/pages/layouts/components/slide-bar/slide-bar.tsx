@@ -102,6 +102,21 @@ const SlideBar: React.FC<SlideBarProps> = () => {
         },
       ],
     },
+    {
+      label: "Quản lý mã giảm giá",
+      current: false,
+      icon: <BsMinecartLoaded />,
+      children: [
+        {
+          label: "Mã giảm giá",
+          href: "coupons",
+        },
+        {
+          label: "Sự kiện giảm giá",
+          href: "discountEvents",
+        },
+      ],
+    },
   ];
 
   useEffect(() => {

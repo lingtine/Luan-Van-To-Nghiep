@@ -20,6 +20,8 @@ import reportApi from "./api/warehouse/report";
 import stockApi from "./api/warehouse/stock";
 import supplierApi from "./api/warehouse/supplier";
 import warehouseApi from "./api/warehouse/warehouse";
+import discountEventApi from "./api/discount/discount-event";
+import couponApi from "./api/discount/coupon";
 
 export const store = configureStore({
   reducer: {
@@ -28,6 +30,8 @@ export const store = configureStore({
 
     [authApi.reducerPath]: authApi.reducer,
     [orderApi.reducerPath]: orderApi.reducer,
+    [discountEventApi.reducerPath]: discountEventApi.reducer,
+    [couponApi.reducerPath]: couponApi.reducer,
 
     [customerApi.reducerPath]: customerApi.reducer,
     [employeeApi.reducerPath]: employeeApi.reducer,
@@ -50,6 +54,10 @@ export const store = configureStore({
     getDefaultMiddleware({})
       .concat(goodsReceiptApi.middleware)
       .concat(productWarehouseApi.middleware)
+      .concat(discountEventApi.middleware)
+
+      .concat(couponApi.middleware)
+
       .concat(goodsIssueApi.middleware)
       .concat(reportApi.middleware)
       .concat(stockApi.middleware)
