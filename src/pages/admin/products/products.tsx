@@ -1,6 +1,6 @@
 import React from "react";
 import Table from "components/table/table";
-import { Button, Switch } from "@material-tailwind/react";
+import { Button, Switch, Spinner } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import Pagination from "components/pagination/pagitnation";
 import { Link } from "react-router-dom";
@@ -13,9 +13,8 @@ import {
 interface ProductsProps {}
 
 const Products: React.FC<ProductsProps> = () => {
-  const { data, isSuccess } = useGetProductsQuery(null);
-  const [removeProduct, { isSuccess: removeSuccess }] =
-    useDeleteProductMutation();
+  const { data, isSuccess, isLoading } = useGetProductsQuery(null);
+  const [removeProduct] = useDeleteProductMutation();
   const configData = [
     {
       label: "STT",
@@ -83,7 +82,14 @@ const Products: React.FC<ProductsProps> = () => {
     });
 
     content = <Table config={configData} data={updateData}></Table>;
+  } else if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-[100vh]">
+        <Spinner className="h-12 w-12" />
+      </div>
+    );
   }
+
   return (
     <div className="px-4 ">
       <div className="flex justify-end my-4">

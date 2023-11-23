@@ -1,6 +1,6 @@
 import React from "react";
 import Table from "components/table/table";
-import { Button, Switch } from "@material-tailwind/react";
+import { Button, Spinner } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import Pagination from "components/pagination/pagitnation";
 import { Link } from "react-router-dom";
@@ -15,7 +15,7 @@ import {
 interface CategoryProps {}
 
 const Category: React.FC<CategoryProps> = () => {
-  const { data, isSuccess } = useGetCategoriesQuery(null);
+  const { data, isSuccess, isLoading } = useGetCategoriesQuery(null);
   const [removeCategory, { isSuccess: removeSuccess }] =
     useDeleteCategoryMutation();
 
@@ -73,6 +73,12 @@ const Category: React.FC<CategoryProps> = () => {
       index: index + 1,
     }));
     content = <Table config={configData} data={updateData}></Table>;
+  } else if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-[100vh]">
+        <Spinner className="h-12 w-12" />
+      </div>
+    );
   }
 
   return (

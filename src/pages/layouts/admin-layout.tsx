@@ -10,6 +10,9 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
   const { accessToken } = useAppSelector((state) => {
     return state.authSlice;
   });
+  const { user } = useAppSelector((state) => {
+    return state.userSlice;
+  });
 
   if (!accessToken) {
     return <Navigate to={"/login-admin"} />;
@@ -22,7 +25,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
         <header className="w-full bg-secondary flex justify-end p-4 mb-8 shadow-lg">
           <div className="text-xl text-primary-1 flex items-center gap-4">
             <AiOutlineUser />
-            <p className="text-base">Nguyễn Hùng Anh</p>
+            <p className="text-base">{user?.name}</p>
           </div>
         </header>
         <div>

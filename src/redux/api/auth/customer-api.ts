@@ -1,12 +1,23 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { setUser } from "redux/features/auth/userSlice";
 import customFetchBase from "redux/api/customFetchBase";
+import { IUserDetail } from "../types";
+
 const customerApi = createApi({
   reducerPath: "customer",
   baseQuery: customFetchBase,
   tagTypes: ["User"],
   endpoints(builder) {
     return {
+      getCustomers: builder.query({
+        query: () => ({
+          url: "/customers/customers",
+          method: "GET",
+        }),
+
+        transformResponse: (response: { data: IUserDetail[] }) => response.data,
+      }),
+
       getCustomerDetail: builder.query({
         query: () => {
           return {
@@ -14,10 +25,12 @@ const customerApi = createApi({
             url: "customers/customers/info",
           };
         },
+        transformResponse: (response: { data: IUserDetail[] }) => response.data,
+
         async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
           try {
             const { data } = await queryFulfilled;
-            await dispatch(setUser(data.data));
+            await dispatch(setUser(data));
           } catch (error) {}
         },
       }),
@@ -25,5 +38,5 @@ const customerApi = createApi({
   },
 });
 
-export const { useGetCustomerDetailQuery } = customerApi;
+export const { useGetCustomersQuery, useGetCustomerDetailQuery } = customerApi;
 export default customerApi;

@@ -7,6 +7,8 @@ import { BsCart } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
 import { BsChevronDown } from "react-icons/bs";
+import { FaWarehouse } from "react-icons/fa6";
+import { BiSolidDiscount } from "react-icons/bi";
 import {
   Card,
   Typography,
@@ -82,7 +84,7 @@ const SlideBar: React.FC<SlideBarProps> = () => {
     {
       label: "Quản lý kho",
       current: false,
-      icon: <BsMinecartLoaded />,
+      icon: <FaWarehouse />,
       children: [
         {
           label: "Sản phẩm",
@@ -105,7 +107,7 @@ const SlideBar: React.FC<SlideBarProps> = () => {
     {
       label: "Quản lý mã giảm giá",
       current: false,
-      icon: <BsMinecartLoaded />,
+      icon: <BiSolidDiscount />,
       children: [
         {
           label: "Mã giảm giá",

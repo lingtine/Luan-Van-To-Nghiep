@@ -70,8 +70,8 @@ const CategoryGroup: React.FC<CategoryGroupProps> = () => {
     }));
     content = <Table config={configData} data={dataUpdate}></Table>;
   } else if (isLoading) {
-    content = (
-      <div className="flex justify-center items-center h-full">
+    return (
+      <div className="flex justify-center items-center h-[100vh]">
         <Spinner className="h-12 w-12" />
       </div>
     );

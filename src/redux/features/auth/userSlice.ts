@@ -1,7 +1,10 @@
+import { IUserDetail } from "./../../api/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: null,
+} as {
+  user: null | IUserDetail;
 };
 
 export const userSlide = createSlice({

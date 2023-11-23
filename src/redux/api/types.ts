@@ -8,6 +8,22 @@ export interface IUser {
   __v: number;
 }
 
+export interface IDepartment {
+  id: string;
+  name: string;
+  description: string;
+}
+
+export interface IUserDetail {
+  address: string | null;
+  department: IDepartment | null;
+  email: string;
+  id: string;
+  imageUrl: string | null;
+  name: string;
+  phone: string | null;
+}
+
 export interface IGenericResponse {
   status: string;
   message: string;
@@ -132,16 +148,10 @@ export interface IReport {
 
 export interface IProductWarehouse {
   id: string;
-
-  from: string;
-  to: string;
-  reportType: string;
-  description: string;
-  supplierId: string;
-  reportProducts: {
-    productId: string;
-    quantity: number;
-  }[];
+  name: string;
+  quantity: number;
+  sku: string;
+  status: string;
 }
 
 export interface IGoodsReceipt {

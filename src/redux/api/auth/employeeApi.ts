@@ -1,6 +1,6 @@
+import { IUserDetail } from "./../types";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { setUser } from "redux/features/auth/userSlice";
-
 import customFetchBase from "redux/api/customFetchBase";
 const employeeApi = createApi({
   reducerPath: "employee",
@@ -15,10 +15,12 @@ const employeeApi = createApi({
             url: "employees/employees/detail",
           };
         },
+        transformResponse: (response: { data: IUserDetail[] }) => response.data,
         async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
           try {
             const { data } = await queryFulfilled;
-            await dispatch(setUser(data.data));
+
+            await dispatch(setUser(data));
           } catch (error) {}
         },
       }),
@@ -29,10 +31,11 @@ const employeeApi = createApi({
             url: "employees/employees/detail",
           };
         },
+        transformResponse: (response: { data: IUserDetail[] }) => response.data,
         async onQueryStarted(__, { dispatch, queryFulfilled, getState }) {
           try {
             const { data } = await queryFulfilled;
-            await dispatch(setUser(data.data));
+            await dispatch(setUser(data));
           } catch (error) {}
         },
       }),

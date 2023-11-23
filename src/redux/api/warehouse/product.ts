@@ -2,7 +2,7 @@ import customFetchBase from "../customFetchBase";
 
 import { createApi } from "@reduxjs/toolkit/query/react";
 
-import { IStock } from "../types";
+import { IProductWarehouse } from "../types";
 
 const productWarehouseApi = createApi({
   reducerPath: "productWarehouse",
@@ -15,10 +15,11 @@ const productWarehouseApi = createApi({
         method: "GET",
       }),
       providesTags: ["add", "remove"],
-      transformResponse: (response: { data: any }) => response.data,
+      transformResponse: (response: { data: IProductWarehouse[] }) =>
+        response.data,
     }),
   }),
 });
 
-export const {} = productWarehouseApi;
+export const { useGetProductWarehouseQuery } = productWarehouseApi;
 export default productWarehouseApi;
