@@ -20,10 +20,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
     <Card className="w-full h-fit border">
       <CardHeader shadow={false} floated={false} className="h-60">
         <img
-          src={data.imageUrl}
+          src={'https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png'}
           alt={data.name}
           className="h-full w-full object-cover"
         />
+        {/* <div className="bg-banner-1 h-full w-full object-cover"></div> */}
       </CardHeader>
       <CardBody className="p-3">
         <div className="mb-2 flex items-center justify-between">

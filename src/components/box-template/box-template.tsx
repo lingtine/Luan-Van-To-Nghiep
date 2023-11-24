@@ -24,7 +24,7 @@ const BoxTemplate: React.FC<BoxTemplateProps> = ({
             </h3>
           </div>
 
-          <h1 className="text-4xl mt-5 font-semibold">{title}</h1>
+          <h1 className="text-4xl mt-5 font-semibold mb-4">{title}</h1>
         </div>
         {action}
       </div>

@@ -1,4 +1,8 @@
+import { SearchBar } from "components";
+import Comments from "pages/client/comment/comments";
 import React from "react";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { IoIosSend } from "react-icons/io";
 
 export default function ProductDetailPage() {
   return (
@@ -63,6 +67,26 @@ export default function ProductDetailPage() {
             </button>
           </div>
         </div>
+      </div>
+      <div className="px-4 sm:px-6 lg:px-14 mt-6 mx-auto">
+        <span className="font-semibold text-4xl whitespace-wrap uppercase my-8">
+          Bình Luận
+        </span>
+
+        <div className="flex items-center gap-7 my-7 mr-4">
+        
+          <img
+            src="https://images.unsplash.com/photo-1507965613665-5fbb4cbb8399?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDQzfHRvd0paRnNrcEdnfHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            alt=""
+            className="h-[60px] w-[60px] object-fill rounded-full"
+          />
+    
+          <SearchBar className="max-w-[320px]" area label="Nhập bình luận về sản phẩm"/>
+          <button className="w-[60px] h-[60px] bg-primary border border-primary-1 hover:bg-white flex items-center justify-center rounded-lg">
+            <IoIosSend className="text-2xl"/>
+          </button>
+        </div>
+        <Comments />
       </div>
     </div>
   );

@@ -118,6 +118,11 @@ const Cart: React.FC = () => {
                   width={64}
                   height={64}
                 /> */}
+                <img
+          src={'https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png'}
+          alt={'ảnh'}
+          className="h-[64px] w-[64px] object-cover"
+        />
                     <div className="flex flex-col">
                       <span className="text-black">{item.product_name}</span>
                       <span className="text-primary-200">
