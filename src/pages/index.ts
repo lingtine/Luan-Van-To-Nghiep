@@ -20,6 +20,9 @@ export { default as WarehousesPage } from "./admin/warehouse/warehouse";
 export { default as AddWarehousePage } from "./admin/warehouse/add-warehouse";
 export { default as SuppliersPage } from "./admin/supplier/supplier";
 export { default as AddSupplierPage } from "./admin/supplier/add-supplier";
+export { default as AddGoodsReceiptPage } from "./admin/report/add-goods-receipt";
+export { default as AddGoodsIssuePage } from "./admin/report/add-goods-issue";
+export { default as ReportDetail } from "./admin/report/report-detail";
 
 export { default as DiscountEventsPage } from "./admin/discount-events/discount-events";
 export { default as AddDiscountEventPage } from "./admin/discount-events/add-discount-event";

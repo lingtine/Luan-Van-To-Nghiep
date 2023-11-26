@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-tailwind/react": "^2.1.4",
+    "@meilisearch/instant-meilisearch": "^0.13.6",
     "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -16,6 +17,7 @@
     "async-mutex": "^0.4.0",
     "classnames": "^2.3.2",
     "jwt-decode": "^4.0.0",
+    "meilisearch": "^0.36.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",

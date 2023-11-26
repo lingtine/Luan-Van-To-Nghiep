@@ -91,7 +91,7 @@ const SlideBar: React.FC<SlideBarProps> = () => {
           href: "inventory",
         },
         {
-          label: "Báo cáo",
+          label: "Nhập xuất kho",
           href: "report",
         },
         {

@@ -135,11 +135,11 @@ export interface IStock {
 export interface IReport {
   id: string;
 
-  from: string;
-  to: string;
+  from?: string;
+  to?: string;
   reportType: string;
   description: string;
-  supplierId: string;
+  supplierId?: string;
   reportProducts: {
     productId: string;
     quantity: number;

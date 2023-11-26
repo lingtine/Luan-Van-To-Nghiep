@@ -47,6 +47,9 @@ import {
   AddDiscountEventPage,
   CouponsPage,
   DiscountEventsPage,
+  AddGoodsReceiptPage,
+  AddGoodsIssuePage,
+  ReportDetail,
 } from "pages";
 
 const router = createBrowserRouter(
@@ -90,6 +93,15 @@ const router = createBrowserRouter(
         <Route path="inventory" element={<InventoryPage />}></Route>
 
         <Route path="report" element={<ReportPage />}></Route>
+        <Route
+          path="report/addGoodsReceipt"
+          element={<AddGoodsReceiptPage />}
+        ></Route>
+        <Route
+          path="report/addGoodsIssue"
+          element={<AddGoodsIssuePage />}
+        ></Route>
+        <Route path="report/:reportId" element={<ReportDetail />}></Route>
 
         <Route path="products/add-product" element={<AddProductPage />}></Route>
         <Route

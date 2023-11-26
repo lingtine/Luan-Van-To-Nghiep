@@ -7,14 +7,14 @@ import { IReport } from "../types";
 const reportApi = createApi({
   reducerPath: "report",
   baseQuery: customFetchBase,
-  tagTypes: ["add", "remove"],
+  tagTypes: ["add", "remove", "change-status"],
   endpoints: (build) => ({
     getReports: build.query({
       query: () => ({
         url: "/warehouses/reports",
         method: "GET",
       }),
-      providesTags: ["add", "remove"],
+      providesTags: ["add", "remove", "change-status"],
       transformResponse: (response: { data: IReport[] }) => response.data,
     }),
     createReport: build.mutation({
@@ -30,6 +30,7 @@ const reportApi = createApi({
         url: `/warehouses/reports/${reportId}`,
         method: "GET",
       }),
+      providesTags: ["add", "remove", "change-status"],
       transformResponse: (response: { data: IReport }) => response.data,
     }),
     approveReport: build.mutation({
@@ -37,18 +38,21 @@ const reportApi = createApi({
         url: `/warehouses/reports/approve/${reportId}`,
         method: "POST",
       }),
+      invalidatesTags: ["change-status"],
     }),
     inspectReport: build.mutation({
       query: (reportId: string) => ({
         url: `/warehouses/reports/inspect/${reportId}`,
         method: "POST",
       }),
+      invalidatesTags: ["change-status"],
     }),
     cancelReport: build.mutation({
       query: (reportId: string) => ({
         url: `/warehouses/reports/cancel/${reportId}`,
         method: "POST",
       }),
+      invalidatesTags: ["change-status"],
     }),
   }),
 });
