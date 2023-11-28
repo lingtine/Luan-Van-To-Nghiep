@@ -1,11 +1,24 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Input, Rating, Typography, Button } from "@material-tailwind/react";
-import { useGetProductDetailQuery } from "redux/api/catalog/product";
+import {
+  Input,
+  Rating,
+  Typography,
+  Button,
+  IconButton,
+} from "@material-tailwind/react";
+import {
+  useGetProductDetailQuery,
+  useRemoveSpecificationForProductMutation,
+} from "redux/api/catalog/product";
 import { AiFillEye, AiFillHeart } from "react-icons/ai";
 import TableProductSpecifications from "components/table/table-product-specifications";
 import FormUpdateProductInfo from "./form/form-update-product-info";
+import { useState } from "react";
 import { IProductDetailType } from "redux/api/types";
+import { CiTrash } from "react-icons/ci";
+
+import FormAddSpecificationsProduct from "./form/form-add-specifications-product";
 import Modal from "components/modal/modal";
 interface ProductDetailProps {}
 
@@ -14,6 +27,16 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
   const { data, isSuccess } = useGetProductDetailQuery(productId || "", {
     refetchOnFocus: true,
   });
+  const [removeSpecification] = useRemoveSpecificationForProductMutation();
+  const [isOpen, setIsOpen] = useState(false);
+  const handleOpen = () => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    setIsOpen(true);
+  };
+  const handleClose = () => {
+    setIsOpen(false);
+  };
 
   let content: React.ReactNode;
 
@@ -42,16 +65,36 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
           <FormUpdateProductInfo product={data} />
         </div>
 
-        <div className=" gap-4 flex ">
-          <div className="flex-[0_0_50%]">
-            <div>
+        <div className="flex gap-5">
+          <div className="flex-[0_0_46%]">
+            <div className="flex justify-between">
               <h4 className="text-xl font-semibold">Thông số sản phẩm</h4>
-              <Button>Thêm thông số</Button>
+              <Button onClick={handleOpen}>Thêm thông số</Button>
             </div>
-            {<TableProductSpecifications data={data.productSpecifications} />}
+
+            <div>
+              {data.productSpecifications.map((item) => {
+                return (
+                  <div className="flex justify-between my-8 items-center">
+                    <h3>{item.specificationName}</h3>
+                    <p> {item.specificationValue}</p>
+                    <IconButton
+                      onClick={() => {
+                        removeSpecification({
+                          productId: productId || "",
+                          data: [item.id],
+                        });
+                      }}
+                    >
+                      <CiTrash />
+                    </IconButton>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          <div className="flex-[0_0_50%]">
+          <div className="flex-[0_0_46%]">
             <h3 className="text-lg font-bold">Đánh giá của khách hàng</h3>
 
             <div className="flex flex-wrap gap-6"></div>
@@ -91,6 +134,14 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
           {content}
         </section>
       </div>
+      {isOpen && (
+        <Modal onClose={handleClose}>
+          <FormAddSpecificationsProduct
+            onClose={handleClose}
+            productId={productId || ""}
+          />
+        </Modal>
+      )}
     </div>
   );
 };
