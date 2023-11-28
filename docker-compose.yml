@@ -1,0 +1,363 @@
+version: "3"
+services:
+  bpsbase:
+    image: docker-registry.fss.com.vn/phs/api.bps
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - /app/config/bps/base/env:/usr/src/app/bpsserver/config/env      
+      - /app/logs/bps/base:/usr/src/app/bpsserver/log
+    ports:
+     - "1333:1333" 
+    depends_on:
+      - cache-redis
+    links:
+      - cache-redis
+    environment:
+      - UV_THREADPOOL_SIZE=100         
+  bpsfds:
+    image: docker-registry.fss.com.vn/phs/api.bps
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - /app/config/bps/fds/env:/usr/src/app/bpsserver/config/env
+      - /app/logs/bps/fds:/usr/src/app/bpsserver/log
+    ports:
+     - "1334:1334" 
+    depends_on:
+      - cache-redis
+    links:
+      - cache-redis
+  haproxy:
+    image: docker-registry.fss.com.vn/tools/haproxy:1.8-alpine
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - /app/config/haproxy/server.pem:/root/cert/server.pem
+      - /app/config/haproxy/openapi-haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+      - /app/config/haproxy/rsyslog_haproxy.conf:/etc/rsyslog.d/haproxy.conf
+      - /app/config/haproxy/logrotate_haproxy:/etc/logrotate.d/haproxy
+      - /app/logs/haproxy:/usr/src/logs
+    ports:
+     - "80:80" 
+     - "443:443"
+     - "9001:9000"
+    links:
+      - bpsbase
+      - bpsfds
+      - sso
+      - sso1
+      - sso2
+      - trading
+      - datafeed
+      - transaction
+      - report
+      - persistent
+      - socket
+  postgresql:
+    image: docker-registry.fss.com.vn/base-img/postgres:10.10-alpine
+    networks:
+      - backend
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - /app/postgres/data:/var/lib/postgresql/data
+  rabbitmq:
+    image: docker-registry.fss.com.vn/base-img/rabbitmq:3-management-alpine
+    networks:
+      - frontend
+    environment:
+      - RABBITMQ_DEFAULT_USER=bus
+      - RABBITMQ_DEFAULT_PASS=bus1234
+    ports:
+      - "15672:15672"
+      - "5672:5672"          
+  cache-redis:
+    image: docker-registry.fss.com.vn/base-img/redis
+    networks:
+      - frontend    
+    volumes:
+      - /app/redis/data:/data
+      - /app/config/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+     - "6379:6379"  
+  sso:
+    image: docker-registry.fss.com.vn/phs/sso
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - /app/config/sso/env:/usr/src/app/sso/config/env
+      - /app/logs/sso:/usr/src/app/sso/log
+      - /app/config/sso/clientConfig.js:/usr/src/app/sso/config/clientConfig.js
+    depends_on:
+      - cache-redis
+      - bpsbase
+    links:
+      - cache-redis
+      - bpsbase
+    ports:
+     - "1347:1347"
+  sso1:
+    image: docker-registry.fss.com.vn/phs/sso
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - /app/config/sso/env:/usr/src/app/sso/config/env
+      - /app/logs/sso1:/usr/src/app/sso/log
+      - /app/config/sso/clientConfig.js:/usr/src/app/sso/config/clientConfig.js
+    depends_on:
+      - cache-redis
+      - bpsbase
+    links:
+      - cache-redis
+      - bpsbase
+    ports:
+     - "1247:1347"
+  sso2:
+    image: docker-registry.fss.com.vn/phs/sso
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - /app/config/sso/env:/usr/src/app/sso/config/env
+      - /app/logs/sso2:/usr/src/app/sso/log
+      - /app/config/sso/clientConfig.js:/usr/src/app/sso/config/clientConfig.js
+    depends_on:
+      - cache-redis
+      - bpsbase
+    links:
+      - cache-redis
+      - bpsbase
+    ports:
+     - "1248:1347"
+  datafeed:
+    image: docker-registry.fss.com.vn/phs/api.datafeed
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - /app/config/datafeed/env:/usr/src/app/datafeed/config/env
+      - /app/logs/datafeed:/usr/src/app/datafeed/log
+    depends_on:
+      - postgresql
+      - rabbitmq
+      - cache-redis
+      - bpsbase
+      - external
+      - bpsfds     
+    links:
+      - postgresql
+      - rabbitmq
+      - cache-redis
+      - bpsbase
+      - external
+      - bpsfds
+    command: 'forever -c "node --max-old-space-size=2048" app.js'
+    ulimits:
+      core:
+        0
+    ports:
+     - "1335:1335"
+  dfpersist:
+    image: docker-registry.fss.com.vn/phs/api.dfpersist
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - /app/config/df.persistent/env:/usr/src/app/datafeedpersist/config/env
+      - /app/logs/df.persistent:/usr/src/app/datafeedpersist/log
+    depends_on:
+      - postgresql
+      - rabbitmq
+      - cache-redis
+      - bpsbase
+      - bpsfds     
+    links:
+      - postgresql
+      - rabbitmq
+      - cache-redis
+      - bpsbase
+      - bpsfds
+    ports:
+     - "1342:1342"   
+  transaction:
+    image: docker-registry.fss.com.vn/phs/api.transaction
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - /app/config/transaction/env:/usr/src/app/transactionserver/config/env
+      - /app/logs/transaction:/usr/src/app/transactionserver/log
+    depends_on:
+      - sso
+      - sso1
+      - sso2
+      - cache-redis
+      - bpsbase
+    links:
+      - sso
+      - sso1
+      - sso2
+      - cache-redis
+      - bpsbase
+    ports:
+     - "1340:1340"      
+  trading:
+    image: docker-registry.fss.com.vn/phs/api.trading
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - /app/config/trading/env:/usr/src/app/tradingopenapi/config/env
+      - /app/config/trading/swaggerConfig:/usr/src/app/tradingopenapi/assets/swagger/api_docs
+      - /app/logs/trading:/usr/src/app/tradingopenapi/log
+    depends_on:
+      - sso
+      - sso1
+      - sso2
+      - cache-redis
+      - bpsbase
+      - bpsfds  
+      - external
+    links:
+      - sso
+      - sso1
+      - sso2
+      - cache-redis
+      - bpsbase
+      - bpsfds
+      - external
+    ports:
+     - "1337:1337"
+  report:
+    image: docker-registry.fss.com.vn/phs/api.report
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - /app/config/inquiry/env:/usr/src/app/inquiryserver/config/env
+      - /app/logs/inquiry:/usr/src/app/inquiryserver/log
+    depends_on:
+      - sso
+      - sso1
+      - sso2
+      - cache-redis
+      - bpsbase
+      - external
+    links:
+      - sso
+      - sso1
+      - sso2
+      - cache-redis
+      - bpsbase
+      - external
+    ports:
+     - "1338:1338"
+  persistent:
+    image: docker-registry.fss.com.vn/phs/api.persistent
+    networks:
+      - frontend
+      - backend    
+    volumes:
+      - /app/config/persistent/env:/usr/src/app/userdataserver/config/env
+      - /app/logs/persistent:/usr/src/app/userdataserver/log
+    depends_on:
+      - sso
+      - sso1
+      - sso2
+      - cache-redis
+      - postgresql
+    links:
+      - sso
+      - sso1
+      - sso2
+      - cache-redis
+      - postgresql
+    ports:
+     - "1341:1341"
+  external:
+    image: docker-registry.fss.com.vn/phs/api.external
+    networks:
+      - backend
+      - frontend  
+    volumes:
+      - /app/config/external/env:/usr/src/app/externalservice/config/env
+      - /app/logs/external:/usr/src/app/externalservice/log
+    depends_on:
+      - cache-redis
+    extra_hosts:
+      - "virtualpc-235:192.168.18.235"
+    ports:
+     - "1330:1330"     
+  socket:
+    image: docker-registry.fss.com.vn/phs/api.socket
+    networks:
+      - frontend    
+    volumes:
+      - /app/config/socket/env:/usr/src/app/socketserver/config/env
+      - /app/logs/socket:/usr/src/app/socketserver/log
+    depends_on:
+      - sso
+      - sso1
+      - sso2
+      - cache-redis
+      - datafeed
+      - rabbitmq
+      - bpsbase
+      - bpsfds
+    links:
+      - sso
+      - sso1
+      - sso2
+      - cache-redis
+      - datafeed
+      - rabbitmq
+      - bpsbase
+      - bpsfds
+    ports:
+     - "1336:1336"
+  fdsreport:
+    image: docker-registry.fss.com.vn/phs/api.fds.report
+    networks: 
+      - frontend
+    volumes:
+      - /app/config/fdsinquiry/env:/usr/src/app/inquiryserver/config/env
+      - /app/logs/fdsinquiry:/usr/src/app/inquiryserver/log
+    depends_on:
+      - sso
+      - cache-redis
+      - bpsbase
+      - bpsfds
+      - external
+    ports:
+      - "1343:1343"
+  fdstransaction:
+    image: docker-registry.fss.com.vn/phs/api.fds.transaction
+    networks:
+      - frontend
+    volumes:
+      - /app/config/fdstransaction/env:/usr/src/app/transactionserver/config/env
+      - /app/logs/fdstransaction:/usr/src/app/transactionserver/log
+    depends_on:
+      - sso
+      - cache-redis
+      - bpsbase
+      - bpsfds
+      - external
+    ports:
+      - "1344:1344"
+volumes:
+  cache-redis:
+    driver: local
+networks:
+  frontend:	
+    driver: bridge
+  backend:
+    driver: bridge

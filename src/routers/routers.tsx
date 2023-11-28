@@ -48,6 +48,7 @@ import {
   CouponsPage,
   DiscountEventsPage,
 } from "pages";
+import RequireAuth from "utils/RequireAuth";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -67,7 +68,7 @@ const router = createBrowserRouter(
         <Route path="login" element={<LoginPage />}></Route>
         <Route path="register" element={<RegisterPage />}></Route>
         <Route path="forget-password" element={<ForgetPasswordPage />}></Route>
-        <Route path="profile" element={<ProfilePage />}></Route>
+        <Route path="profile" element={<RequireAuth WrappedComponent={ProfilePage} />}></Route>
         <Route path="wishlist" element={<WishListPage />}></Route>
         <Route path="search" element={<SearchPage />}></Route>
 

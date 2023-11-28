@@ -1,10 +1,16 @@
 import React from "react";
 import { Breadcrumbs } from "@material-tailwind/react";
-import { Link, useLinkClickHandler } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaHouse } from "react-icons/fa6";
-interface ProfilePageProps {}
+import NotLogin from "components/not-login";
+interface ProfilePageProps {
+ isAuthenticated: boolean;
+}
 
-const ProfilePage: React.FC<ProfilePageProps> = () => {
+const ProfilePage: React.FC<ProfilePageProps> = ({isAuthenticated}) => {
+  const userData = localStorage.getItem('user');
+  const data = userData ? JSON.parse(userData) : null;
+  
   const dataSlideBar: {
     id: string;
     label: string;
@@ -12,6 +18,8 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
       id: string;
       label: string;
       href: string;
+      email?:string;
+      address?: string;
     }[];
   }[] = [
     {
@@ -22,11 +30,13 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
           id: Math.random().toString(),
           label: "Thông tin tài khoản",
           href: "/profile",
+          email: data.email,
         },
         {
           id: Math.random().toString(),
           label: "Địa chỉ giao hàng",
           href: "/profile/addresses",
+          address: "111 Bijoy sarani, Dhaka, DH 1515, Bangladesh."
         },
       ],
     },
@@ -61,7 +71,7 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
             className="text-sm font-light opacity-50 my-1 pl-8"
             key={child.id}
           >
-            {child.label}
+            {child.label} : <span>{(child.email || child.address) ? (child.email || child.address) : ""}</span>
           </li>
         );
       });
@@ -77,18 +87,25 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
     return <ul key={item.id}>{renderItem}</ul>;
   });
   return (
-    <div className="container">
-      <section className="flex justify-between my-10">
-        <Breadcrumbs>
-          <Link to={"/"} className="opacity-60">
-            <FaHouse />
-          </Link>
-          <Link to={"/profile"}>Tài khoản</Link>
-        </Breadcrumbs>
-        <p>Welcome {"Hùng ành"}</p>
-      </section>
-      <section className="mb-36">{renderDataSlideBar}</section>
-    </div>
+    isAuthenticated ? 
+    (<div className="container">
+    <section className="flex justify-between my-10">
+      <Breadcrumbs>
+        <Link to={"/"} className="opacity-60">
+          <FaHouse />
+        </Link>
+        <Link to={"/profile"}>Tài khoản</Link>
+      </Breadcrumbs>
+      <p>Chào mừng {`${data.name || 'user'}`}</p>
+    </section>
+    <section className="mb-36">
+
+    </section>
+
+    <section className="mb-36">{renderDataSlideBar}</section>
+    
+  </div> ) : 
+   <NotLogin/>
   );
 };
 

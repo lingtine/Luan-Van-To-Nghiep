@@ -32,9 +32,11 @@ const authApi = createApi({
             await dispatch(changeAuth(data));
             let jwt = jwtDecode(data.accessToken);
 
-            console.log(jwt);
+            console.log("jwt token ", jwt);
             if (jwt) {
               await dispatch(employeeApi.endpoints.getEmployee.initiate(null));
+              const jsonData = JSON.stringify(jwt);
+              localStorage.setItem('user', jsonData);
             }
           } catch (error) {}
         },
