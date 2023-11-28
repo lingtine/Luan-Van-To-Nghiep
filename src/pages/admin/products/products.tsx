@@ -26,7 +26,7 @@ const Products: React.FC<ProductsProps> = () => {
       label: "Sản phẩm",
       render: (data: any) => {
         return (
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4  min-w-[300px] max-h-[100px] overflow-y-hidden">
             <img className="w-8" src={data.imageUrl} alt={data.name} />
 
             <p>{data.name}</p>
@@ -38,7 +38,7 @@ const Products: React.FC<ProductsProps> = () => {
     {
       label: "Miêu tả",
       render: (data: any) => {
-        return data.description;
+        return <div className="line-clamp-3">{data.description}</div>;
       },
     },
     {
@@ -57,7 +57,7 @@ const Products: React.FC<ProductsProps> = () => {
       label: "Tuỳ chọn",
       render: (data: any) => {
         return (
-          <div className="flex gap-4 justify-end">
+          <div className="flex gap-4 min-w-[200px]">
             <Link to={data.id}>
               <Button color="blue">Chi tiết</Button>
             </Link>
@@ -92,7 +92,7 @@ const Products: React.FC<ProductsProps> = () => {
 
   return (
     <div className="px-4 ">
-      <div className="flex justify-end my-4">
+      <div className="flex justify-end my-4 ">
         <Link to="/admin/products/add-product">
           <Button className="flex gap-2 items-center">
             <AiOutlinePlusCircle />

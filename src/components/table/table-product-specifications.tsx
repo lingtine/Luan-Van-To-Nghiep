@@ -15,12 +15,7 @@ const TableProductSpecifications: React.FC<TableProductSpecificationsProps> = ({
     );
   });
 
-  return (
-    <div>
-      <h4 className="text-xl font-semibold">Thông số sản phẩm</h4>
-      <ul>{content}</ul>
-    </div>
-  );
+  return <ul>{content}</ul>;
 };
 
 export default TableProductSpecifications;

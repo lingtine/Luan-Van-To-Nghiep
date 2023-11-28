@@ -87,6 +87,10 @@ const SlideBar: React.FC<SlideBarProps> = () => {
       icon: <FaWarehouse />,
       children: [
         {
+          label: "Kho",
+          href: "warehouses",
+        },
+        {
           label: "Sản phẩm",
           href: "inventory",
         },
@@ -94,10 +98,7 @@ const SlideBar: React.FC<SlideBarProps> = () => {
           label: "Nhập xuất kho",
           href: "report",
         },
-        {
-          label: "Kho",
-          href: "warehouses",
-        },
+
         {
           label: "Nhà cung cấp",
           href: "suppliers",
@@ -180,7 +181,7 @@ const SlideBar: React.FC<SlideBarProps> = () => {
   });
 
   return (
-    <Card className="h-[100vh] rounded-none  bg-[#22345e] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+    <Card className="fixed rounded-none  h-full bg-[#22345e] min-w-fit z-10 max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
         <Typography variant="h5" className="text-secondary">
           TeachWave
