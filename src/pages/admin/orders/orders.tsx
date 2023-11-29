@@ -67,10 +67,10 @@ const Orders: React.FC<OrdersProps> = () => {
         <Table config={configData} data={updateData}></Table>
         <div className="flex justify-center my-8">
           <Pagination
-            pageIndex={0}
-            pageSize={20}
-            totalCount={80}
-            url="/admin/category"
+            pageIndex={data.pageIndex}
+            pageSize={data.pageSize}
+            totalCount={data.totalCount}
+            url="/admin/orders"
           />
         </div>
       </>

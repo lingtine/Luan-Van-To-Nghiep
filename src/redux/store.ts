@@ -22,12 +22,14 @@ import supplierApi from "./api/warehouse/supplier";
 import warehouseApi from "./api/warehouse/warehouse";
 import discountEventApi from "./api/discount/discount-event";
 import couponApi from "./api/discount/coupon";
+import orderInternalApi from "./api/order/order-internal";
 
 export const store = configureStore({
   reducer: {
     authSlice: authSlice,
     [userSlide.name]: userSlide.reducer,
 
+    [orderInternalApi.reducerPath]: orderInternalApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [orderApi.reducerPath]: orderApi.reducer,
     [discountEventApi.reducerPath]: discountEventApi.reducer,
@@ -57,6 +59,7 @@ export const store = configureStore({
       .concat(discountEventApi.middleware)
 
       .concat(couponApi.middleware)
+      .concat(orderInternalApi.middleware)
 
       .concat(goodsIssueApi.middleware)
       .concat(reportApi.middleware)

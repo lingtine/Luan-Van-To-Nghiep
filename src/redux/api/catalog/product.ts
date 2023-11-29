@@ -149,6 +149,48 @@ const productApi = createApi({
       }),
       invalidatesTags: ["update-product"],
     }),
+    getProductReport: builder.mutation({
+      query: (data: { start: string; end: string }) => ({
+        url: "/catalogs/products/GetProductReport",
+        body: data,
+        method: "POST",
+      }),
+    }),
+    productRevenuePeriodicReporting: builder.mutation({
+      query: (data: { date: string; periodic: string }) => ({
+        url: "/catalogs/products/ProductRevenuePeriodicReporting",
+        body: data,
+        method: "POST",
+      }),
+    }),
+    productRevenueByIdReporting: builder.mutation({
+      query: (data: { start: string; end: string; productId: string }) => ({
+        url: "/catalogs/products/ProductRevenueByIdReporting",
+        body: data,
+        method: "POST",
+      }),
+    }),
+    productRevenueReporting: builder.mutation({
+      query: (data: { start: string; end: string }) => ({
+        url: "/catalogs/products/ProductRevenueReporting",
+        body: data,
+        method: "POST",
+      }),
+    }),
+    exportProductReportFile: builder.mutation({
+      query: (data: { start: string; end: string }) => ({
+        url: "/catalogs/products/ExportProductReportFile",
+        body: data,
+        method: "POST",
+      }),
+    }),
+    exportProductReport: builder.mutation({
+      query: (data: { start: string; end: string }) => ({
+        url: "/catalogs/products/ExportProductReport",
+        body: data,
+        method: "POST",
+      }),
+    }),
   }),
 });
 export const {
@@ -160,6 +202,13 @@ export const {
   useAddSpecificationForProductMutation,
   useRemoveSpecificationForProductMutation,
   useUpdateSpecificationForProductMutation,
+
+  useExportProductReportFileMutation,
+  useExportProductReportMutation,
+  useGetProductReportMutation,
+  useProductRevenueByIdReportingMutation,
+  useProductRevenuePeriodicReportingMutation,
+  useProductRevenueReportingMutation,
 } = productApi;
 
 export default productApi;
