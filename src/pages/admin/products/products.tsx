@@ -61,7 +61,7 @@ const Products: React.FC<ProductsProps> = () => {
       render: (data: any) => {
         return (
           <div className="flex gap-4 min-w-[200px]">
-            <Link to={`product-detail/${data.id}`}>
+            <Link to={`/admin/products/product-detail/${data.id}`}>
               <Button color="blue">Chi tiết</Button>
             </Link>
             <Button
