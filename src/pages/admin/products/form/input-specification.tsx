@@ -24,7 +24,7 @@ const InputSpecification: React.FC<InputSpecificationProps> = ({
   const { data, isSuccess } = useGetSpecificationsQuery(null);
   let content;
   if (isSuccess) {
-    const updateData = data.map((item) => ({
+    const updateData = data.data.map((item) => ({
       ...item,
       label: item.name,
     }));

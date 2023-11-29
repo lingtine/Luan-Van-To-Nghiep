@@ -11,11 +11,14 @@ import {
   useGetSpecificationsQuery,
   useDeleteSpecificationMutation,
 } from "redux/api/catalog/specification";
-
+import { useParams } from "react-router-dom";
 interface SpecificationProps {}
 
 const Specification: React.FC<SpecificationProps> = () => {
-  const { data, isSuccess, isLoading } = useGetSpecificationsQuery(null);
+  const { index } = useParams();
+  const { data, isSuccess, isLoading } = useGetSpecificationsQuery({
+    pageIndex: index,
+  });
   const [removeSpecification, { isSuccess: removeSuccess }] =
     useDeleteSpecificationMutation();
 
@@ -68,11 +71,23 @@ const Specification: React.FC<SpecificationProps> = () => {
   let content: React.ReactNode;
 
   if (isSuccess) {
-    const updateData = data.map((item, index) => ({
+    const updateData = data.data.map((item, index) => ({
       ...item,
       index: index + 1,
     }));
-    content = <Table config={configData} data={updateData}></Table>;
+    content = (
+      <>
+        <Table config={configData} data={updateData}></Table>
+        <div className="flex justify-center my-8">
+          <Pagination
+            pageIndex={data.pageIndex}
+            pageSize={data.pageSize}
+            totalCount={data.totalCount}
+            url="/admin/specifications"
+          />
+        </div>
+      </>
+    );
   } else if (isLoading) {
     return (
       <div className="flex justify-center items-center h-[100vh]">
@@ -92,14 +107,6 @@ const Specification: React.FC<SpecificationProps> = () => {
         </Link>
       </div>
       {content}
-      <div className="flex justify-center my-8">
-        <Pagination
-          pageIndex={0}
-          pageSize={20}
-          totalCount={80}
-          url="/admin/specifications"
-        />
-      </div>
     </div>
   );
 };

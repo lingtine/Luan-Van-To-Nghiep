@@ -9,11 +9,15 @@ import {
 } from "redux/api/catalog/category-group";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-
+import { useParams } from "react-router-dom";
 interface CategoryGroupProps {}
 
 const CategoryGroup: React.FC<CategoryGroupProps> = () => {
-  const { data, isLoading, isSuccess } = useGetCategoryGroupsQuery(null);
+  const { index } = useParams();
+
+  const { data, isLoading, isSuccess } = useGetCategoryGroupsQuery({
+    pageIndex: index,
+  });
   const [removeCategoryGroup, { isSuccess: removeIsSuccess }] =
     useDeleteCategoryGroupMutation();
   const configData = [
@@ -64,7 +68,7 @@ const CategoryGroup: React.FC<CategoryGroupProps> = () => {
 
   let content: React.ReactNode;
   if (isSuccess) {
-    const dataUpdate = data.map((item, index) => ({
+    const dataUpdate = data.data.map((item, index) => ({
       ...item,
       index: index + 1,
     }));

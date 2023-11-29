@@ -19,10 +19,15 @@ const productApi = createApi({
       query: (params) => ({
         url: "/catalogs/products",
         method: "GET",
-        params: params,
+        params,
       }),
-      transformResponse: (response: { data: IProductType[] }) => {
-        return response.data;
+      transformResponse: (response: {
+        data: IProductType[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      }) => {
+        return response;
       },
       providesTags: [
         "add-product",

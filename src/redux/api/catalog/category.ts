@@ -20,9 +20,14 @@ const categoryApi = createApi({
       query: (params) => ({
         url: "/catalogs/categories",
         method: "GET",
-        params: params,
+        params,
       }),
-      transformResponse: (response: { data: ICategory[] }) => response.data,
+      transformResponse: (response: {
+        data: ICategory[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      }) => response,
       providesTags: ["category"],
     }),
     getCategoriesByParameters: builder.mutation({

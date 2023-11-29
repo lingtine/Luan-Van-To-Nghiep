@@ -10,13 +10,17 @@ import {
   useGetBrandsQuery,
   useDeleteBrandMutation,
 } from "redux/api/catalog/brand";
+import { useParams } from "react-router-dom";
 
 interface BrandProps {}
 
 const Brand: React.FC<BrandProps> = () => {
-  const { data, isSuccess, isLoading } = useGetBrandsQuery(null);
-  const [removeBrand, { isSuccess: removeSuccess }] = useDeleteBrandMutation();
+  const { index } = useParams();
 
+  const { data, isSuccess, isLoading } = useGetBrandsQuery({
+    pageIndex: index,
+  });
+  const [removeBrand, { isSuccess: removeSuccess }] = useDeleteBrandMutation();
   const configData = [
     {
       label: "STT",
@@ -70,13 +74,26 @@ const Brand: React.FC<BrandProps> = () => {
   }, [removeSuccess]);
   let content: React.ReactNode;
 
-  if (isSuccess) {
-    const updateData = data.map((item, index) => ({
+  if (isSuccess && data) {
+    const updateData = data.data.map((item, index) => ({
       ...item,
       index: index + 1,
     }));
 
-    content = <Table config={configData} data={updateData}></Table>;
+    content = (
+      <>
+        <Table config={configData} data={updateData}></Table>;
+        <div className="flex justify-center my-8">
+          <Pagination
+            pageIndex={data.pageIndex}
+            pageSize={data.pageSize}
+            totalCount={data.totalCount}
+            url={"/admin/brand"}
+          />
+        </div>
+        ;
+      </>
+    );
   } else if (isLoading) {
     return (
       <div className="flex justify-center items-center h-[100vh]">
@@ -96,10 +113,6 @@ const Brand: React.FC<BrandProps> = () => {
         </Link>
       </div>
       {content}
-
-      <div className="flex justify-center my-8">
-        <Pagination pageIndex={0} pageSize={20} totalCount={80} url="/" />
-      </div>
     </div>
   );
 };

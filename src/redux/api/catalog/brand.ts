@@ -20,11 +20,25 @@ const brandApi = createApi({
       providesTags: ["brand"],
     }),
     getBrands: builder.query({
-      query: () => ({
+      query: (params) => ({
         url: "/catalogs/brands",
         method: "GET",
+        params,
       }),
       providesTags: ["brand"],
+      transformResponse: (response: {
+        data: IBrand[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      }) => response,
+    }),
+    getBrandsByParameter: builder.mutation({
+      query: (params) => ({
+        url: "/catalogs/brands",
+        method: "GET",
+        params,
+      }),
       transformResponse: (response: { data: IBrand[] }) => response.data,
     }),
     addBrand: builder.mutation({
@@ -85,6 +99,7 @@ export const {
   useGetBrandQuery,
   useGetBrandsQuery,
   useUpdateBrandMutation,
+  useGetBrandsByParameterMutation,
 } = brandApi;
 
 export default brandApi;

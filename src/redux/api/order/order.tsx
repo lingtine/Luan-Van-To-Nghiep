@@ -8,12 +8,18 @@ const orderApi = createApi({
   baseQuery: customFetchBase,
   endpoints: (builder) => ({
     getOrders: builder.query({
-      query: () => ({
+      query: (params) => ({
         url: "orders/orders",
         method: "GET",
+        params,
       }),
 
-      transformResponse: (response: { data: IOrder[] }) => response.data,
+      transformResponse: (response: {
+        data: IOrder[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      }) => response,
     }),
     createOrder: builder.mutation({
       query: ({ id, ...ref }: IOrder) => ({

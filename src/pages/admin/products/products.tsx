@@ -9,11 +9,14 @@ import {
   useGetProductsQuery,
   useDeleteProductMutation,
 } from "redux/api/catalog/product";
-
+import { useParams } from "react-router-dom";
 interface ProductsProps {}
 
 const Products: React.FC<ProductsProps> = () => {
-  const { data, isSuccess, isLoading } = useGetProductsQuery(null);
+  const { index } = useParams();
+  const { data, isSuccess, isLoading } = useGetProductsQuery({
+    pageIndex: index,
+  });
   const [removeProduct] = useDeleteProductMutation();
   const configData = [
     {
@@ -58,7 +61,7 @@ const Products: React.FC<ProductsProps> = () => {
       render: (data: any) => {
         return (
           <div className="flex gap-4 min-w-[200px]">
-            <Link to={data.id}>
+            <Link to={`product-detail/${data.id}`}>
               <Button color="blue">Chi tiết</Button>
             </Link>
             <Button
@@ -77,11 +80,23 @@ const Products: React.FC<ProductsProps> = () => {
 
   let content: React.ReactNode;
   if (isSuccess) {
-    const updateData = data.map((item, index) => {
+    const updateData = data.data.map((item, index) => {
       return { ...item, index: index + 1 };
     });
 
-    content = <Table config={configData} data={updateData}></Table>;
+    content = (
+      <>
+        <Table config={configData} data={updateData}></Table>
+        <div className="flex justify-center my-8">
+          <Pagination
+            pageIndex={data.pageIndex}
+            pageSize={data.pageSize}
+            totalCount={data.totalCount}
+            url="/admin/products"
+          />
+        </div>
+      </>
+    );
   } else if (isLoading) {
     return (
       <div className="flex justify-center items-center h-[100vh]">
@@ -101,9 +116,6 @@ const Products: React.FC<ProductsProps> = () => {
         </Link>
       </div>
       {content}
-      <div className="flex justify-center my-8">
-        <Pagination pageIndex={0} pageSize={20} totalCount={80} url="/" />
-      </div>
     </div>
   );
 };

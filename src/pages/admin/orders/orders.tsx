@@ -4,11 +4,15 @@ import { useGetOrdersQuery } from "redux/api/order/order";
 import Pagination from "components/pagination/pagitnation";
 import { Button, Spinner } from "@material-tailwind/react";
 import Table from "components/table/table";
-
+import { useParams } from "react-router-dom";
 interface OrdersProps {}
 
 const Orders: React.FC<OrdersProps> = () => {
-  const { data, isSuccess, isLoading } = useGetOrdersQuery(null);
+  const { index } = useParams();
+
+  const { data, isSuccess, isLoading } = useGetOrdersQuery({
+    pageIndex: index,
+  });
   const configData = [
     {
       label: "STT",
@@ -54,11 +58,23 @@ const Orders: React.FC<OrdersProps> = () => {
   let content: React.ReactNode;
 
   if (isSuccess) {
-    const updateData = data.map((item, index) => ({
+    const updateData = data.data.map((item, index) => ({
       ...item,
       index: index + 1,
     }));
-    content = <Table config={configData} data={updateData}></Table>;
+    content = (
+      <>
+        <Table config={configData} data={updateData}></Table>
+        <div className="flex justify-center my-8">
+          <Pagination
+            pageIndex={0}
+            pageSize={20}
+            totalCount={80}
+            url="/admin/category"
+          />
+        </div>
+      </>
+    );
   } else if (isLoading) {
     return (
       <div className="flex justify-center items-center h-[100vh]">
@@ -70,14 +86,6 @@ const Orders: React.FC<OrdersProps> = () => {
     <div className="px-4 ">
       <div className="flex justify-end my-4"></div>
       {content}
-      <div className="flex justify-center my-8">
-        <Pagination
-          pageIndex={0}
-          pageSize={20}
-          totalCount={80}
-          url="/admin/category"
-        />
-      </div>
     </div>
   );
 };
