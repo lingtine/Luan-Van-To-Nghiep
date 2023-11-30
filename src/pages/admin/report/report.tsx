@@ -14,11 +14,15 @@ import {
   useCancelReportMutation,
   useInspectReportMutation,
 } from "redux/api/warehouse/report";
-
+import { useParams } from "react-router-dom";
 interface ReportProps {}
 
 const Report: React.FC<ReportProps> = () => {
-  const { data, isSuccess, isLoading } = useGetReportsQuery(null);
+  const { index } = useParams();
+
+  const { data, isSuccess, isLoading } = useGetReportsQuery({
+    pageIndex: index,
+  });
   const [approveReport] = useApproveReportMutation();
   const [cancelReport] = useCancelReportMutation();
   const [inspectReport] = useInspectReportMutation();
@@ -118,11 +122,23 @@ const Report: React.FC<ReportProps> = () => {
   let content: React.ReactNode;
 
   if (isSuccess) {
-    const updateData = data.map((item, index) => ({
+    const updateData = data.data.map((item, index) => ({
       ...item,
       index: index + 1,
     }));
-    content = <Table config={configData} data={updateData}></Table>;
+    content = (
+      <>
+        <Table config={configData} data={updateData}></Table>
+        <div className="flex justify-center my-8">
+          <Pagination
+            pageIndex={data.pageIndex}
+            pageSize={data.pageSize}
+            totalCount={data.totalCount}
+            url="/admin/reports"
+          />
+        </div>
+      </>
+    );
   } else if (isLoading) {
     return (
       <div className="flex justify-center items-center h-[100vh]">
@@ -148,14 +164,6 @@ const Report: React.FC<ReportProps> = () => {
         </Link>
       </div>
       {content}
-      <div className="flex justify-center my-8">
-        <Pagination
-          pageIndex={0}
-          pageSize={20}
-          totalCount={80}
-          url="/admin/reports"
-        />
-      </div>
     </div>
   );
 };

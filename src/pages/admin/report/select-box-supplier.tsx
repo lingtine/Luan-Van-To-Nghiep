@@ -18,7 +18,7 @@ const SelectBoxDataSupplier: React.FC<SelectBoxDataSupplierProps> = ({
     getSelected(option.id, "to");
   };
   if (isSuccess) {
-    const updateData = data.map((item) => ({ ...item, label: item.name }));
+    const updateData = data.data.map((item) => ({ ...item, label: item.name }));
     return (
       <SelectBox
         onChange={handleSelect}

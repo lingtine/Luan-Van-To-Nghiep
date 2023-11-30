@@ -10,12 +10,18 @@ const reportApi = createApi({
   tagTypes: ["add", "remove", "change-status"],
   endpoints: (build) => ({
     getReports: build.query({
-      query: () => ({
+      query: (params) => ({
         url: "/warehouses/reports",
         method: "GET",
+        params,
       }),
       providesTags: ["add", "remove", "change-status"],
-      transformResponse: (response: { data: IReport[] }) => response.data,
+      transformResponse: (response: {
+        data: IReport[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      }) => response,
     }),
     createReport: build.mutation({
       query: ({ id, ...ref }: IReport) => ({

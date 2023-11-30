@@ -10,13 +10,17 @@ const productWarehouseApi = createApi({
   tagTypes: ["add", "remove"],
   endpoints: (build) => ({
     getProductWarehouse: build.query({
-      query: () => ({
+      query: (params) => ({
         url: "/warehouses/warehouse-products",
         method: "GET",
       }),
       providesTags: ["add", "remove"],
-      transformResponse: (response: { data: IProductWarehouse[] }) =>
-        response.data,
+      transformResponse: (response: {
+        data: IProductWarehouse[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      }) => response,
     }),
   }),
 });

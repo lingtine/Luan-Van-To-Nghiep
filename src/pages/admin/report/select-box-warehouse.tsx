@@ -18,7 +18,7 @@ const SelectBoxDataWarehouse: React.FC<SelectBoxDataWarehouseProps> = ({
     getSelected(option.id, "from");
   };
   if (isSuccess) {
-    const updateData = data.map((item) => ({ ...item, label: item.name }));
+    const updateData = data.data.map((item) => ({ ...item, label: item.name }));
     return (
       <SelectBox
         onChange={handleSelect}

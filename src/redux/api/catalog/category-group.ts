@@ -19,12 +19,22 @@ const categoryGroupApi = createApi({
         response.data,
     }),
     getCategoryGroups: builder.query({
-      query: () => ({
+      query: (params) => ({
         url: "/catalogs/category-groups",
         method: "GET",
+        params,
       }),
       providesTags: ["category-group"],
-      transformResponse: (response: { data: {}[] }, meta, arg) => response.data,
+      transformResponse: (
+        response: {
+          data: {}[];
+          pageIndex: number;
+          pageSize: number;
+          totalCount: number;
+        },
+        meta,
+        arg
+      ) => response,
     }),
     getListCategoryGroups: builder.query({
       query: (categoryId) => ({

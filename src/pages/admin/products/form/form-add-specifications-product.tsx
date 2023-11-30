@@ -60,7 +60,7 @@ const FormAddSpecificationsProduct: React.FC<
   };
   let content;
   if (isSuccess) {
-    const updateData = data.map((item) => ({
+    const updateData = data.data.map((item) => ({
       ...item,
       label: item.name,
     }));

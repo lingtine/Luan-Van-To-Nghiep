@@ -69,7 +69,7 @@ const AddCoupon: React.FC<AddCouponProps> = () => {
 
   let content;
   if (getDiscountEventSuccess) {
-    const updateData = data.map((item) => ({ ...item, label: item.name }));
+    const updateData = data.data.map((item) => ({ ...item, label: item.name }));
     content = (
       <SelectBox
         onChange={handleSelect}

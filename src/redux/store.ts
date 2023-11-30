@@ -23,12 +23,14 @@ import warehouseApi from "./api/warehouse/warehouse";
 import discountEventApi from "./api/discount/discount-event";
 import couponApi from "./api/discount/coupon";
 import cartApi from "./api/cart/cart";
+import orderInternalApi from "./api/order/order-internal";
 
 export const store = configureStore({
   reducer: {
     authSlice: authSlice,
     [userSlide.name]: userSlide.reducer,
-    [cartApi.reducerPath] : cartApi.reducer,
+    [cartApi.reducerPath]: cartApi.reducer,
+    [orderInternalApi.reducerPath]: orderInternalApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [orderApi.reducerPath]: orderApi.reducer,
     [discountEventApi.reducerPath]: discountEventApi.reducer,
@@ -53,11 +55,13 @@ export const store = configureStore({
   devTools: process.env.NODE_ENV === "development",
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({})
-    .concat(cartApi.middleware)
+      .concat(cartApi.middleware)
       .concat(goodsReceiptApi.middleware)
       .concat(productWarehouseApi.middleware)
       .concat(discountEventApi.middleware)
       .concat(couponApi.middleware)
+      .concat(orderInternalApi.middleware)
+
       .concat(goodsIssueApi.middleware)
       .concat(reportApi.middleware)
       .concat(stockApi.middleware)

@@ -5,7 +5,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import Pagination from "components/pagination/pagitnation";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   useGetDiscountEventsQuery,
@@ -15,7 +15,10 @@ import {
 interface DiscountEventProps {}
 
 const DiscountEvent: React.FC<DiscountEventProps> = () => {
-  const { data, isSuccess, isLoading } = useGetDiscountEventsQuery(null);
+  const { index } = useParams();
+  const { data, isSuccess, isLoading } = useGetDiscountEventsQuery({
+    pageIndex: index,
+  });
   const [removeDiscountEvent, { isSuccess: removeSuccess }] =
     useRemoveDiscountEventMutation();
 
@@ -68,11 +71,23 @@ const DiscountEvent: React.FC<DiscountEventProps> = () => {
   let content: React.ReactNode;
 
   if (isSuccess) {
-    const updateData = data.map((item, index) => ({
+    const updateData = data.data.map((item, index) => ({
       ...item,
       index: index + 1,
     }));
-    content = <Table config={configData} data={updateData}></Table>;
+    content = (
+      <>
+        <Table config={configData} data={updateData}></Table>
+        <div className="flex justify-center my-8">
+          <Pagination
+            pageIndex={0}
+            pageSize={20}
+            totalCount={80}
+            url="/admin/discountEvents"
+          />
+        </div>
+      </>
+    );
   } else if (isLoading) {
     return (
       <div className="flex justify-center items-center h-[100vh]">
@@ -92,14 +107,6 @@ const DiscountEvent: React.FC<DiscountEventProps> = () => {
         </Link>
       </div>
       {content}
-      <div className="flex justify-center my-8">
-        <Pagination
-          pageIndex={0}
-          pageSize={20}
-          totalCount={80}
-          url="/admin/discountEvents"
-        />
-      </div>
     </div>
   );
 };

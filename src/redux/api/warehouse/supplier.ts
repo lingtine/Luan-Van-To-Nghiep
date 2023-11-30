@@ -10,12 +10,18 @@ const supplierApi = createApi({
   tagTypes: ["add", "remove"],
   endpoints: (build) => ({
     getSuppliers: build.query({
-      query: () => ({
+      query: (params) => ({
         url: "/warehouses/suppliers",
         method: "GET",
+        params,
       }),
       providesTags: ["add", "remove"],
-      transformResponse: (response: { data: ISupplier[] }) => response.data,
+      transformResponse: (response: {
+        data: ISupplier[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      }) => response,
     }),
     createSupplier: build.mutation({
       query: ({ id, ...ref }: ISupplier) => ({

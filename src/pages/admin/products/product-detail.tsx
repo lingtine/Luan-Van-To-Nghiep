@@ -82,7 +82,7 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
                       onClick={() => {
                         removeSpecification({
                           productId: productId || "",
-                          data: [item.id],
+                          data: [item.specificationId],
                         });
                       }}
                     >

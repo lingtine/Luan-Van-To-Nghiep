@@ -10,12 +10,18 @@ const warehouseApi = createApi({
   tagTypes: ["add", "remove"],
   endpoints: (build) => ({
     getWarehouses: build.query({
-      query: () => ({
+      query: (params) => ({
         url: "/warehouses/warehouses",
         method: "GET",
+        params,
       }),
       providesTags: ["add", "remove"],
-      transformResponse: (response: { data: IWarehouse[] }) => response.data,
+      transformResponse: (response: {
+        data: IWarehouse[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      }) => response,
     }),
     createWarehouse: build.mutation({
       query: ({ id, ...ref }: IWarehouse) => ({

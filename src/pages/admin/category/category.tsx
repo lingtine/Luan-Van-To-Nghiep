@@ -11,11 +11,15 @@ import {
   useGetCategoriesQuery,
   useDeleteCategoryMutation,
 } from "redux/api/catalog/category";
-
+import { useParams } from "react-router-dom";
 interface CategoryProps {}
 
 const Category: React.FC<CategoryProps> = () => {
-  const { data, isSuccess, isLoading } = useGetCategoriesQuery(null);
+  const { index } = useParams();
+
+  const { data, isSuccess, isLoading } = useGetCategoriesQuery({
+    pageIndex: index,
+  });
   const [removeCategory, { isSuccess: removeSuccess }] =
     useDeleteCategoryMutation();
 
@@ -68,11 +72,23 @@ const Category: React.FC<CategoryProps> = () => {
   let content: React.ReactNode;
 
   if (isSuccess) {
-    const updateData = data.map((item, index) => ({
+    const updateData = data.data.map((item, index) => ({
       ...item,
       index: index + 1,
     }));
-    content = <Table config={configData} data={updateData}></Table>;
+    content = (
+      <>
+        <Table config={configData} data={updateData}></Table>
+        <div className="flex justify-center my-8">
+          <Pagination
+            pageIndex={data.pageIndex}
+            pageSize={data.pageSize}
+            totalCount={data.totalCount}
+            url="/admin/category"
+          />
+        </div>
+      </>
+    );
   } else if (isLoading) {
     return (
       <div className="flex justify-center items-center h-[100vh]">
@@ -92,14 +108,6 @@ const Category: React.FC<CategoryProps> = () => {
         </Link>
       </div>
       {content}
-      <div className="flex justify-center my-8">
-        <Pagination
-          pageIndex={0}
-          pageSize={20}
-          totalCount={80}
-          url="/admin/category"
-        />
-      </div>
     </div>
   );
 };

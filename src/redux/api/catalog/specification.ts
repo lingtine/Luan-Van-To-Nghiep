@@ -10,13 +10,22 @@ const specificationsApi = createApi({
   tagTypes: ["add", "remove"],
   endpoints: (builder) => ({
     getSpecifications: builder.query({
-      query: () => ({
+      query: (params) => ({
         url: "/catalogs/specifications",
         method: "GET",
+        params,
       }),
       providesTags: ["add", "remove"],
-      transformResponse: (response: { data: [ISpecification] }, meta, arg) =>
-        response.data,
+      transformResponse: (
+        response: {
+          data: ISpecification[];
+          pageIndex: number;
+          pageSize: number;
+          totalCount: number;
+        },
+        meta,
+        arg
+      ) => response,
     }),
 
     addSpecification: builder.mutation({

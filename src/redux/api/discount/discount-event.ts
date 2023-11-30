@@ -10,13 +10,18 @@ const discountEventApi = createApi({
   tagTypes: ["remove", "add", "change-status"],
   endpoints: (build) => ({
     getDiscountEvents: build.query({
-      query: () => ({
+      query: (params) => ({
         url: "/discounts/discounts",
         method: "GET",
+        params,
       }),
       providesTags: ["add", "change-status", "remove"],
-      transformResponse: (response: { data: IDiscountEvent[] }) =>
-        response.data,
+      transformResponse: (response: {
+        data: IDiscountEvent[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      }) => response,
     }),
 
     createDiscountEvent: build.mutation({

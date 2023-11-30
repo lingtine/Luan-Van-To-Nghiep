@@ -2,22 +2,21 @@ import React from "react";
 import { Button, IconButton } from "@material-tailwind/react";
 import { useNavigate, Link } from "react-router-dom";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-
+import { useParams } from "react-router-dom";
 interface PaginationProps {
-  url: string;
   pageIndex: number;
   pageSize: number;
   totalCount: number;
+  url: string;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
-  url,
   pageIndex,
   pageSize,
   totalCount,
+  url,
 }) => {
   const maxSizePage = Math.floor(totalCount / pageSize) + 1;
-  const currIndex = Number(pageIndex);
 
   const router = useNavigate();
   let renderItemPage;
@@ -36,18 +35,22 @@ const Pagination: React.FC<PaginationProps> = ({
     });
 
   const handleBack = () => {
-    if (currIndex !== 0) {
-      if (currIndex === 1) {
-        router(`${url}`);
-      } else {
-        router(`${url}/${currIndex - 1}`);
+    if (pageIndex) {
+      if (pageIndex !== 0) {
+        if (pageIndex === 1) {
+          router(`${url}`);
+        } else {
+          router(`${url}/${pageIndex - 1}`);
+        }
       }
     }
   };
 
   const handleForward = () => {
-    if (currIndex !== maxSizePage) {
-      router(`${url}/${currIndex + 1}`);
+    if (pageIndex) {
+      if (pageIndex !== maxSizePage) {
+        router(`${url}/${pageIndex + 1}`);
+      }
     }
   };
 
@@ -56,7 +59,7 @@ const Pagination: React.FC<PaginationProps> = ({
       <li>
         <Button
           onClick={handleBack}
-          disabled={currIndex === 0}
+          disabled={pageIndex === 0}
           className="flex gap-2 items-center"
         >
           <IoIosArrowBack />
@@ -70,7 +73,7 @@ const Pagination: React.FC<PaginationProps> = ({
         <Button
           className="flex gap-2 items-center"
           onClick={handleForward}
-          disabled={maxSizePage === 1 || currIndex + 1 === maxSizePage}
+          disabled={maxSizePage === 1 || pageIndex + 1 === maxSizePage}
         >
           next
           <IoIosArrowForward />

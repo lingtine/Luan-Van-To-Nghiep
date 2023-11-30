@@ -10,13 +10,19 @@ const couponApi = createApi({
   tagTypes: ["add", "remove", "change-status"],
   endpoints: (build) => ({
     getCoupons: build.query({
-      query: () => ({
+      query: (params) => ({
         url: "/discounts/coupons",
         method: "GET",
+        params,
       }),
 
       providesTags: ["add", "remove", "change-status"],
-      transformResponse: (response: { data: ICoupon[] }) => response.data,
+      transformResponse: (response: {
+        data: ICoupon[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      }) => response,
     }),
 
     createCoupon: build.mutation({

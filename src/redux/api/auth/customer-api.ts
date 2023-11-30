@@ -10,12 +10,18 @@ const customerApi = createApi({
   endpoints(builder) {
     return {
       getCustomers: builder.query({
-        query: () => ({
+        query: (params) => ({
           url: "/customers/customers",
           method: "GET",
+          params,
         }),
 
-        transformResponse: (response: { data: IUserDetail[] }) => response.data,
+        transformResponse: (response: {
+          data: IUserDetail[];
+          pageIndex: number;
+          pageSize: number;
+          totalCount: number;
+        }) => response,
       }),
 
       getCustomerDetail: builder.query({
