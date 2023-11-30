@@ -47,6 +47,9 @@ import {
   AddDiscountEventPage,
   CouponsPage,
   DiscountEventsPage,
+  AddGoodsReceiptPage,
+  AddGoodsIssuePage,
+  ReportDetail,
 } from "pages";
 import RequireAuth from "utils/RequireAuth";
 
@@ -55,7 +58,7 @@ const router = createBrowserRouter(
     <Route>
       <Route path="/" element={<DefaultLayout />}>
         <Route
-          path="/products/detail/id"
+          path="/products/detail/:productId"
           element={<ProductDetailPage />}
         ></Route>
         <Route index element={<HomePage />}></Route>
@@ -91,6 +94,15 @@ const router = createBrowserRouter(
         <Route path="inventory" element={<InventoryPage />}></Route>
 
         <Route path="report" element={<ReportPage />}></Route>
+        <Route
+          path="report/addGoodsReceipt"
+          element={<AddGoodsReceiptPage />}
+        ></Route>
+        <Route
+          path="report/addGoodsIssue"
+          element={<AddGoodsIssuePage />}
+        ></Route>
+        <Route path="report/:reportId" element={<ReportDetail />}></Route>
 
         <Route path="products/add-product" element={<AddProductPage />}></Route>
         <Route

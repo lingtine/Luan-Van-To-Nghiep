@@ -36,28 +36,26 @@ const Table: React.FC<TableProps> = ({ data, config }) => {
   const renderedRow = data.map((dataColum, index) => {
     const renderedColumns = config.map((colum) => {
       const isLast = index === data.length - 1;
-      const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+      const classes = isLast ? "p-4 " : "p-4 border-b border-blue-gray-50 ";
       return (
         <td key={colum.label} className={classes}>
-          <Typography variant="small" color="blue-gray" className="font-normal">
-            {colum.render(dataColum)}
-          </Typography>
+          {colum.render(dataColum)}
         </td>
       );
     });
     return (
-      <tr key={index} className="even:bg-blue-gray-50/50 ">
+      <tr key={index} className="even:bg-blue-gray-50/50  ">
         {renderedColumns}
       </tr>
     );
   });
   return (
     <Card className="h-full w-full">
-      <table className="w-full min-w-max table-auto text-left">
+      <table className="w-full table-auto text-left">
         <thead className="">
           <tr>{renderLabel}</tr>
         </thead>
-        <tbody>{renderedRow}</tbody>
+        <tbody className="w-full">{renderedRow}</tbody>
       </table>
     </Card>
   );

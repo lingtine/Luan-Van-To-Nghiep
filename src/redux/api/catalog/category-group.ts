@@ -26,6 +26,14 @@ const categoryGroupApi = createApi({
       providesTags: ["category-group"],
       transformResponse: (response: { data: {}[] }, meta, arg) => response.data,
     }),
+    getListCategoryGroups: builder.query({
+      query: (categoryId) => ({
+        url: `/catalogs/category-groups/${categoryId}`,
+        method: "GET",
+      }),
+      providesTags: ["category-group"],
+      transformResponse: (response: { data: any }, meta, arg) => response.data,
+    }),
     addCategoryGroup: builder.mutation({
       query: (data: { name: string; description: string }) => {
         return {
@@ -51,6 +59,7 @@ export const {
   useDeleteCategoryGroupMutation,
   useGetAllCategoryGroupsQuery,
   useGetCategoryGroupsQuery,
+  useGetListCategoryGroupsQuery,
 } = categoryGroupApi;
 
 export default categoryGroupApi;

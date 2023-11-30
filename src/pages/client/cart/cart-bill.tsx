@@ -1,13 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useGetDetailCartQuery } from 'redux/api/cart/cart';
 interface BillProps {
     onToogle: (status: boolean) => void;
 }
 
 export default function CartBill({onToogle} : BillProps) {
+  const {data, isLoading} = useGetDetailCartQuery(null)
     const onclose = () => {
         onToogle(false)
     }
+    console.log(data);
+    
 
   return (
     <div

@@ -9,6 +9,7 @@ import {
 import React from "react";
 
 import { IProductDetailType } from "redux/api/types";
+import { formatVND } from "utils/formatVND";
 
 interface ProductCardProps {
   data: IProductDetailType | any;
@@ -32,7 +33,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
             {data.name}
           </Typography>
           <Typography color="blue-gray" className="font-medium">
-            {data.unitPrice}
+            {formatVND(data.unitPrice)}
           </Typography>
         </div>
         <Typography

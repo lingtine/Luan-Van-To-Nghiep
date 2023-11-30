@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Breadcrumbs } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { FaHouse } from "react-icons/fa6";
 import NotLogin from "components/not-login";
+import { AiOutlineEdit } from "react-icons/ai";
+import { BsFillTrash3Fill } from "react-icons/bs";
+import TableOrder from "components/table/table-data";
 interface ProfilePageProps {
  isAuthenticated: boolean;
 }
@@ -10,7 +13,11 @@ interface ProfilePageProps {
 const ProfilePage: React.FC<ProfilePageProps> = ({isAuthenticated}) => {
   const userData = localStorage.getItem('user');
   const data = userData ? JSON.parse(userData) : null;
-  
+  useEffect(() => {
+    if(isAuthenticated) {
+      redirect('/login')
+    }
+  },[])
   const dataSlideBar: {
     id: string;
     label: string;
@@ -30,7 +37,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({isAuthenticated}) => {
           id: Math.random().toString(),
           label: "Thông tin tài khoản",
           href: "/profile",
-          email: data.email,
+          email: data.email || " ",
         },
         {
           id: Math.random().toString(),
@@ -49,16 +56,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({isAuthenticated}) => {
           label: "Danh sách đơn hàng",
           href: "/profile/order",
         },
-        {
-          id: Math.random().toString(),
-          label: "Đơn hàng đã huỷ",
-          href: "/profile/order-cancel",
-        },
       ],
-    },
-    {
-      id: Math.random().toString(),
-      label: "Wishlist",
     },
   ];
 
@@ -96,13 +94,16 @@ const ProfilePage: React.FC<ProfilePageProps> = ({isAuthenticated}) => {
         </Link>
         <Link to={"/profile"}>Tài khoản</Link>
       </Breadcrumbs>
-      <p>Chào mừng {`${data.name || 'user'}`}</p>
+      <p>Chào mừng : <span className="text-primary font-bold">{`${data.name || 'user'}`}</span></p>
     </section>
     <section className="mb-36">
 
     </section>
 
-    <section className="mb-36">{renderDataSlideBar}</section>
+    <section className="mb-36">
+      {renderDataSlideBar}
+      <TableOrder/>
+    </section>
     
   </div> ) : 
    <NotLogin/>

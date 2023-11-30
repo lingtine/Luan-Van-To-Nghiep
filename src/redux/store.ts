@@ -12,7 +12,7 @@ import authSlice from "./features/auth/authSlice";
 import employeeApi from "./api/auth/employeeApi";
 import specificationsApi from "./api/catalog/specification";
 import orderApi from "./api/order/order";
-
+import getProductHome from "./api/catalog/product";
 import goodsIssueApi from "./api/warehouse/goodsIssue";
 import goodsReceiptApi from "./api/warehouse/goodsReceipt";
 import productWarehouseApi from "./api/warehouse/product";
@@ -22,17 +22,18 @@ import supplierApi from "./api/warehouse/supplier";
 import warehouseApi from "./api/warehouse/warehouse";
 import discountEventApi from "./api/discount/discount-event";
 import couponApi from "./api/discount/coupon";
+import cartApi from "./api/cart/cart";
 
 export const store = configureStore({
   reducer: {
     authSlice: authSlice,
     [userSlide.name]: userSlide.reducer,
-
+    [cartApi.reducerPath] : cartApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [orderApi.reducerPath]: orderApi.reducer,
     [discountEventApi.reducerPath]: discountEventApi.reducer,
     [couponApi.reducerPath]: couponApi.reducer,
-
+    [getProductHome.reducerPath]: getProductHome.reducer,
     [customerApi.reducerPath]: customerApi.reducer,
     [employeeApi.reducerPath]: employeeApi.reducer,
     [brandApi.reducerPath]: brandApi.reducer,
@@ -52,12 +53,11 @@ export const store = configureStore({
   devTools: process.env.NODE_ENV === "development",
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({})
+    .concat(cartApi.middleware)
       .concat(goodsReceiptApi.middleware)
       .concat(productWarehouseApi.middleware)
       .concat(discountEventApi.middleware)
-
       .concat(couponApi.middleware)
-
       .concat(goodsIssueApi.middleware)
       .concat(reportApi.middleware)
       .concat(stockApi.middleware)
