@@ -17,9 +17,9 @@ interface CategoryPageProps {}
 
 const CategoryPage: React.FC<CategoryPageProps> = () => {
   const { categoryId } = useParams();
-  const {data , isSuccess} = useGetListCategoryGroupsQuery(categoryId!)
+  const { data, isSuccess } = useGetListCategoryGroupsQuery(categoryId!);
   console.log(categoryId, data);
-  
+
   return (
     <section className="container">
       <div className="my-8">
@@ -33,10 +33,15 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
         </Breadcrumbs>
       </div>
       <div className="flex gap-4 my-8">
-        <Sidebar />
-        {
-          isSuccess ? <CategoryList data={data.categories}/> : <div>Loading...</div>
-        }
+        {isSuccess ? (
+          <>
+            <Sidebar data={data.categories}>
+              <CategoryList data={data.categories} />
+            </Sidebar>
+          </>
+        ) : (
+          <div>Loading...</div>
+        )}
       </div>
 
       <div className="flex justify-center">

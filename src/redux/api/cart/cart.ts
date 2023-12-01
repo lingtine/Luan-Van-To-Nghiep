@@ -9,7 +9,7 @@ const cartApi = createApi({
   endpoints: (builder) => ({
     getDetailCart: builder.query({
         query: () => ({
-            url: "/orders/carts",
+            url: "/orders/carts/detail",
             method: "GET",
           }),
     
@@ -24,16 +24,23 @@ const cartApi = createApi({
         quantity: any;
         unitPrice: number;
       }) => {
-        var bodyFormData = new FormData();
-        bodyFormData.append("productId", rest.productId);
-        bodyFormData.append("productName", rest.productName);
-        bodyFormData.append("quantity", rest.quantity);
-        bodyFormData.append("UnitPrice", rest.unitPrice.toString());
+        // var bodyFormData = new FormData();
+        // bodyFormData.append("productId", rest.productId);
+        // bodyFormData.append("productName", rest.productName);
+        // bodyFormData.append("quantity", rest.quantity);
+        // bodyFormData.append("UnitPrice", rest.unitPrice.toString());
+
+        const product= {
+          "productId": rest.productId,
+          "productName": rest.productName,
+          "quantity": rest.quantity,
+          "UnitPrice": rest.unitPrice.toString(),
+        }
 
         return {
           url: `/orders/carts/add-items`,
           method: "PUT",
-          body: bodyFormData,
+          body: product,
         };
       },
     }),

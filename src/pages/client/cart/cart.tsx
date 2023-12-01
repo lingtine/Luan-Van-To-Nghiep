@@ -1,17 +1,39 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useGetDetailCartQuery } from "redux/api/cart/cart";
+import { formatVND } from "utils/formatVND";
+import { useCreateOrderMutation } from "redux/api/order/order";
+type Inputs = {
+  couponId: string,
+  deliveryInfo: {
+    fullName: string;
+    phoneNumber: string;
+    email: string;
+    address: {
+      city: string;
+      district: string;
+      ward: string;
+      street: string;
+      streetNumber: string;
+    };
+  };
+  note: string;
+};
 
 const Cart: React.FC = () => {
-  const bill = {
-    items: [
-      {
-        cart_detail_id: 1,
-        product_name: "Iphone 12 promax",
-        quantity: 2,
-        total_price: "15.000.000đ",
-      },
-    ],
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    createOrder(data)
+    console.log(data);
   };
+  const { data, isSuccess } = useGetDetailCartQuery(null);
+  const [createOrder] = useCreateOrderMutation();
   return (
     <div className="m-auto flex max-w-[1200px] bg-white my-7 py-7 h-screen border border-primary-1">
       <div className="px-8 flex flex-col border-r-2 h-full basis-1/2">
@@ -19,69 +41,93 @@ const Cart: React.FC = () => {
           <h2 className="text-[32px] uppercase mt-5 mb-[15px]">Checkout</h2>
         </div>
         <div className="gap-6 flex-1">
-          <form className="flex flex-col justify-between h-full">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col justify-between h-full"
+          >
             <div>
-            <div className="flex flex-col text-dark-200 form-group">
-              <input
-                type="text"
-                value="Trần Nhật Huy"
-                name="name"
-                className="block w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat border-transparent text-dark-200 focus:border-none focus:outline-none "
-              />
-              {/* <p className="pl-2 my-0 mb-2 text-red-500">
-            {errors.email?.message}
-          </p> */}
-            </div>
-            <div className="flex mt-[15px] text-dark-200 form-group">
-              <input
-                name="email"
-                value="huytran@gmail.com"
-                type="text"
-                className="block w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat border-transparent text-dark-200 focus:border-none focus:outline-none "
-              />
-              {/* <p className="pl-2 my-0 mb-2 text-red-500">
-            {errors.password?.message}
-          </p> */}
-              <input
-                name="phone"
-                value="0123456789"
-                type="number"
-                className="block w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat border-transparent text-dark-200 focus:border-none focus:outline-none "
-              />
-            </div>
-
-            <div className="flex flex-col mt-[15px] text-dark-200 form-group">
-              <input
-                name="address"
-                value="51a Cách Mạng Tháng 8"
-                type="text"
-                className="block w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat border-transparent text-dark-200 focus:border-none focus:outline-none "
-              />
-            </div>
-
-            <div className="flex flex-col mt-4 gap-4">
-              <div className="flex">
+              <div className="flex flex-col text-dark-200 form-group">
+                <label>Fullname</label>
                 <input
-                  name="city"
-                  value="thành phố Hồ Chí Minh"
                   type="text"
-                  className="block w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat border-transparent text-dark-200 focus:border-none focus:outline-none "
-                />
-                <input
-                  name="district"
-                  value="Quận 1"
-                  type="text"
-                  className="block w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat border-transparent text-dark-200 focus:border-none focus:outline-none "
+                  {...register("deliveryInfo.fullName", { required: true })}
+                  className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
                 />
               </div>
-              {/* <ToggleButton
-            type="province"
-            data={province}
-            setValue={setValue}
-          /> */}
+
+              <div className="flex mt-[15px] text-dark-200 form-group justify-between">
+                <div>
+                  <label>Email</label>
+                  <input
+                    type="text"
+                    {...register("deliveryInfo.email", { required: true })}
+                    className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
+                  />
+                </div>
+                <div>
+                  <label>Street Number</label>
+                  <input
+                    type="number"
+                    {...register("deliveryInfo.address.streetNumber", {
+                      required: true,
+                    })}
+                    className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col mt-[15px] text-dark-200 form-group">
+                <label>Street</label>
+                <input
+                  type="text"
+                  {...register("deliveryInfo.address.street", {
+                    required: true,
+                  })}
+                  className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
+                />
+              </div>
+
+              <div className="flex flex-col mt-[15px] text-dark-200 form-group">
+                <label>Ward</label>
+                <input
+                  type="text"
+                  {...register("deliveryInfo.address.ward", { required: true })}
+                  className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
+                />
+              </div>
+
+              <div className="flex mt-4 gap-4 justify-between">
+                <div>
+                  <label>City</label>
+                  <input
+                    type="text"
+                    {...register("deliveryInfo.address.city", {
+                      required: true,
+                    })}
+                    className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
+                  />
+                </div>
+                <div>
+                  <label>District</label>
+                  <input
+                    type="text"
+                    {...register("deliveryInfo.address.district", {
+                      required: true,
+                    })}
+                    className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col mt-[15px] text-dark-200 form-group">
+                <label>Note</label>
+                <textarea
+                  {...register("note")}
+                  className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
+                />
+              </div>
             </div>
 
-            </div>
             <div className="flex gap-3 justify-between items-center">
               <Link to="/">
                 <span className="text-sm text-primary-200 hover:underline cursor-pointer">
@@ -89,7 +135,7 @@ const Cart: React.FC = () => {
                 </span>
               </Link>
               <button
-                type="button"
+                type="submit"
                 className="h-14 px-6 py-2 font-semibold rounded-xl bg-primary-1 text-white hover:text-black hover:bg-white border hover:border-primary-1"
               >
                 Thanh Toán
@@ -102,12 +148,12 @@ const Cart: React.FC = () => {
         <div>
           <h2 className="text-[32px] uppercase mt-5 mb-[15px]">Detail</h2>
         </div>
-        {!bill ? (
+        {!data ? (
           <div className="flex justify-center items-center w-[200px]">
             Không có sản phẩm nào
           </div>
         ) : (
-          bill.items.map((item, index) => (
+          data.items.map((item: any, index: number) => (
             <>
               <div key={item.cart_detail_id}>
                 <div key={index} className="flex justify-between">
@@ -118,24 +164,38 @@ const Cart: React.FC = () => {
                   width={64}
                   height={64}
                 /> */}
-                <img
-          src={'https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png'}
-          alt={'ảnh'}
-          className="h-[64px] w-[64px] object-cover"
-        />
+                    <img
+                      src={
+                        "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png"
+                      }
+                      alt={"ảnh"}
+                      className="h-[64px] w-[64px] object-cover"
+                    />
                     <div className="flex flex-col">
-                      <span className="text-black">{item.product_name}</span>
+                      <span className="text-black line-clamp-2">
+                        {item.name}
+                      </span>
                       <span className="text-primary-200">
                         Quantity: {item.quantity}
                       </span>
                     </div>
                   </div>
-                  <span>{item.total_price}</span>
+                  <span>{formatVND(item.unitPrice * item.quantity)}</span>
                 </div>
               </div>
             </>
           ))
         )}
+        <i className="mtrl-select"></i>
+
+        <div className="flex flex-col mt-[15px] text-dark-200 form-group">
+                <label>Coupon</label>
+                <input
+                  type="text"
+                  {...register("couponId")}
+                  className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
+                />
+              </div>
         <i className="mtrl-select"></i>
         <div className="self-start w-full text-primary-200">
           <div className="flex justify-between mt-[14px]">

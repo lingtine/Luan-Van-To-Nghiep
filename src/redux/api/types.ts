@@ -89,7 +89,7 @@ export interface ISpecification {
   description: string;
 }
 export interface IOrder {
-  id: string;
+  id?: string;
   couponId: string;
   deliveryInfo: {
     fullName: string;

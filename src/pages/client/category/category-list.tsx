@@ -7,7 +7,7 @@ export default function CategoryList({ data }: any) {
   
   return (
     (data)  && (
-      <div className="grid grid-cols-5 grid-rows-2 gap-4">
+      <div className="grid grid-cols-4 grid-rows-2 gap-4">
         {data.lenght !==0 ? (data.map((item: any, index: number) => (
           <a
             key={index}

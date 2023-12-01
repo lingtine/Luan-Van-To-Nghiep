@@ -4,17 +4,18 @@ import React, { useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoIosSend } from "react-icons/io";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useAddToCartMutation } from "redux/api/cart/cart";
 import { useGetProductDetailQuery } from "redux/api/catalog/product";
 import { formatVND } from "utils/formatVND";
 
 export default function ProductDetailPage() {
   const { productId } = useParams();
-  const { data, isSuccess } = useGetProductDetailQuery(productId || "", {
+  const { data, isLoading } = useGetProductDetailQuery(productId || "", {
     refetchOnFocus: true,
   });
   const [quantity, setQuantity] = useState<number>(1)
-    const [addToCart] = useAddToCartMutation()
+    const [addToCart, isSuccess] = useAddToCartMutation()
 
   function handleAddToCart() {
     if(data) {
@@ -24,15 +25,18 @@ export default function ProductDetailPage() {
         quantity: quantity,
         unitPrice: data.unitPrice,
       }
-      // addToCart(dataItem)
-      console.log(dataItem);
+      addToCart(dataItem)
+      if(isSuccess) {
+        toast.success("Thêm vào giỏ hàng thành công");
+      }
+      
     }
   }
 
   
   return (
     <>
-    {isSuccess && (
+    {(!isLoading && data) && (
       <div className="py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 flex flex-col lg:flex-row">
         <div className="min-w-[60%] bg-banner-1">
