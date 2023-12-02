@@ -5,7 +5,7 @@ import { useGetDetailCartQuery } from "redux/api/cart/cart";
 import { formatVND } from "utils/formatVND";
 import { useCreateOrderMutation } from "redux/api/order/order";
 type Inputs = {
-  couponId: string,
+  couponId: string;
   deliveryInfo: {
     fullName: string;
     phoneNumber: string;
@@ -17,8 +17,8 @@ type Inputs = {
       street: string;
       streetNumber: string;
     };
+    note: string;
   };
-  note: string;
 };
 
 const Cart: React.FC = () => {
@@ -29,8 +29,8 @@ const Cart: React.FC = () => {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    createOrder(JSON.stringify(data, null, 2))
-    console.log(JSON.stringify(data, null, 2));
+    createOrder(data);
+    console.log(data);
   };
   const { data, isSuccess } = useGetDetailCartQuery(null);
   const [createOrder] = useCreateOrderMutation();
@@ -68,7 +68,9 @@ const Cart: React.FC = () => {
                   <label>Phone number</label>
                   <input
                     type="text"
-                    {...register("deliveryInfo.phoneNumber", { required: true })}
+                    {...register("deliveryInfo.phoneNumber", {
+                      required: true,
+                    })}
                     className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
                   />
                 </div>
@@ -130,7 +132,7 @@ const Cart: React.FC = () => {
               <div className="flex flex-col mt-[15px] text-dark-200 form-group">
                 <label>Note</label>
                 <textarea
-                  {...register("note")}
+                  {...register("deliveryInfo.note")}
                   className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
                 />
               </div>
@@ -197,13 +199,13 @@ const Cart: React.FC = () => {
         <i className="mtrl-select"></i>
 
         <div className="flex flex-col mt-[15px] text-dark-200 form-group">
-                <label>Coupon</label>
-                <input
-                  type="text"
-                  {...register("couponId")}
-                  className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
-                />
-              </div>
+          <label>Coupon</label>
+          <input
+            type="text"
+            {...register("couponId")}
+            className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
+          />
+        </div>
         <i className="mtrl-select"></i>
         <div className="self-start w-full text-primary-200">
           <div className="flex justify-between mt-[14px]">
