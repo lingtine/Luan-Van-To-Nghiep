@@ -29,8 +29,8 @@ const Cart: React.FC = () => {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    createOrder(JSON.stringify(data, null, 2))
-    console.log(JSON.stringify(data, null, 2));
+    createOrder(data)
+    console.log(data);
   };
   const { data, isSuccess } = useGetDetailCartQuery(null);
   const [createOrder] = useCreateOrderMutation();

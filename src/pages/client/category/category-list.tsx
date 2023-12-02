@@ -1,9 +1,12 @@
 import ProductCard from "components/products/product-card";
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 
 export default function CategoryList({ data }: any) {
-  console.log(data);
+  const { search } = useLocation();
+  const categoryId = new URLSearchParams(search).get('categoryId');
+  console.log(categoryId);
   
   return (
     (data)  && (

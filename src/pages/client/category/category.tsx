@@ -16,9 +16,10 @@ import CategoryList from "./category-list";
 interface CategoryPageProps {}
 
 const CategoryPage: React.FC<CategoryPageProps> = () => {
-  const { categoryId } = useParams();
+  const { categoryId,  } = useParams();
   const { data, isSuccess } = useGetListCategoryGroupsQuery(categoryId!);
-  console.log(categoryId, data);
+  const {data : products, isLoading} = useGetProductsQuery(null)
+
 
   return (
     <section className="container">

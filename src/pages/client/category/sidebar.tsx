@@ -9,6 +9,7 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({children, data}) => {
+  console.log(data);
   
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
@@ -99,6 +100,7 @@ function classNames(...classes: string[]) {
                         <Disclosure.Panel className="pt-6">
                           <div className="space-y-6">
                             {section.options.map((option, optionIdx) => (
+                              
                               <div key={option.value} className="flex items-center">
                                 <input
                                   id={`filter-mobile-${section.id}-${optionIdx}`}
