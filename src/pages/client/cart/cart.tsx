@@ -29,8 +29,8 @@ const Cart: React.FC = () => {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    createOrder(data)
-    console.log(data);
+    createOrder(JSON.stringify(data, null, 2))
+    console.log(JSON.stringify(data, null, 2));
   };
   const { data, isSuccess } = useGetDetailCartQuery(null);
   const [createOrder] = useCreateOrderMutation();
@@ -61,6 +61,14 @@ const Cart: React.FC = () => {
                   <input
                     type="text"
                     {...register("deliveryInfo.email", { required: true })}
+                    className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
+                  />
+                </div>
+                <div>
+                  <label>Phone number</label>
+                  <input
+                    type="text"
+                    {...register("deliveryInfo.phoneNumber", { required: true })}
                     className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
                   />
                 </div>
