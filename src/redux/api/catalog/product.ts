@@ -55,6 +55,24 @@ const productApi = createApi({
       },
       invalidatesTags: ["add-product"],
     }),
+    getProductHome: builder.query({
+      query: (params) => ({
+        url: "/catalogs/products/home",
+        method: "GET",
+        params: params,
+      }),
+      transformResponse: (response: { data: any }) => {
+        return response.data;
+      },
+      providesTags: [
+        "add-product",
+        "remove-product",
+        "update-product",
+        "add-specifications",
+        "remove-specifications",
+        "update-specifications",
+      ],
+    }),
     getProductDetail: builder.query({
       query: (productId: string) => ({
         url: `/catalogs/products/details/${productId}`,
@@ -196,6 +214,7 @@ const productApi = createApi({
 export const {
   useAddProductMutation,
   useDeleteProductMutation,
+  useGetProductHomeQuery,
   useGetProductDetailQuery,
   useGetProductsQuery,
   useUpdateProductMutation,

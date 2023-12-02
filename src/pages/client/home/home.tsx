@@ -5,10 +5,13 @@ import { Button } from "@material-tailwind/react";
 import CoreValue from "./Corevalue";
 import ProductsCarousel from "components/products/product-carousel";
 import { IProductDetailType } from "redux/api/types";
+import { useGetProductHomeQuery } from "redux/api/catalog/product";
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
-  const data: {
+  const { data, isSuccess, isLoading } = useGetProductHomeQuery(null);
+
+  const dataCategory: {
     id: string;
     title: string;
     heading: string;
@@ -45,9 +48,8 @@ const Home: React.FC<HomeProps> = () => {
       href: `/category/${encodeURIComponent("Bàn Phím Gamming")}`,
     },
   ];
-  
 
-  const renderData = data.map((item) => {
+  const renderData = isSuccess && data.map((item: any) => {
     const action = (
       <a href={item.href}>
         <Button size="sm">Xem Tất Cả</Button>
@@ -258,8 +260,8 @@ const Home: React.FC<HomeProps> = () => {
 
     return (
       <BoxTemplate
-        title={item.title}
-        heading={item.heading}
+        title={item.groupName}
+        heading={"Sản phẩm của chúng tôi"}
         key={item.id}
         action={action}
       >

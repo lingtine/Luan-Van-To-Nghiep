@@ -1,13 +1,14 @@
+import ProductCard from "components/products/product-card";
 import React, { useState } from "react";
-import ProductCard from "./product-card";
 
-export default function ProductsList({ data }: any) {
+
+export default function CategoryList({ data }: any) {
   console.log(data);
   
   return (
-    (data && data.products)  && (
-      <div className="grid grid-cols-5 grid-rows-2 gap-4">
-        {data.products.lenght !==0 ? (data.products.map((item: any, index: number) => (
+    (data)  && (
+      <div className="grid grid-cols-4 grid-rows-2 gap-4">
+        {data.lenght !==0 ? (data.map((item: any, index: number) => (
           <a
             key={index}
             href={`/products/detail/${item.id}`}

@@ -4,6 +4,7 @@ import { CiShoppingCart } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import CartBill from "pages/client/cart/cart-bill";
+import HeaderCategory from "./HeaderCategory";
 
 interface HeaderProps {}
 
@@ -14,6 +15,7 @@ const Header: React.FC<HeaderProps> = () => {
     setToogle(status)
   }
   return (
+    <>
     <div>
       <TopBar />
       <div className="container mx-auto px-8 gap-10  flex justify-between items-center py-6">
@@ -29,6 +31,10 @@ const Header: React.FC<HeaderProps> = () => {
         toogle && <CartBill onToogle={onToogle}/>
       }
     </div>
+    <hr className="bg-black text-black border-slate-500 border-t-[0.5px] w-full"></hr>
+    <HeaderCategory />
+    <hr className="bg-black text-black border-slate-500 border-t-[0.5px] w-full mb-3"></hr>
+    </>
   );
 };
 

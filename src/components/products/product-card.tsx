@@ -9,7 +9,12 @@ import {
 import React from "react";
 
 import { IProductDetailType } from "redux/api/types";
+<<<<<<< HEAD
 import { useFormatPrice } from "hooks/use-format-price";
+=======
+import { formatVND } from "utils/formatVND";
+
+>>>>>>> ca02bdb7201561b11de0153f99f03036d92c372c
 interface ProductCardProps {
   data: IProductDetailType | any;
 }
@@ -45,6 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
           >
             {data.description}
           </Typography>
+<<<<<<< HEAD
         </CardBody>
         <CardFooter className="pt-0">
           <Button
@@ -57,6 +63,30 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
         </CardFooter>
       </Card>
     )
+=======
+          <Typography color="blue-gray" className="font-medium">
+            {formatVND(data.unitPrice)}
+          </Typography>
+        </div>
+        <Typography
+          variant="small"
+          color="gray"
+          className="font-normal opacity-75 line-clamp-2 max-h-[42px]"
+        >
+          {data.description}
+        </Typography>
+      </CardBody>
+      <CardFooter className="pt-0">
+        <Button
+          ripple={false}
+          fullWidth={true}
+          className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+        >
+          Thêm vào giỏ hàng
+        </Button>
+      </CardFooter>
+    </Card>
+>>>>>>> ca02bdb7201561b11de0153f99f03036d92c372c
   );
 };
 
