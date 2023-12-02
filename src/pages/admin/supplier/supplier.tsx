@@ -35,7 +35,7 @@ const Supplier: React.FC<SupplierProps> = () => {
     {
       label: "Tên nhà cung cấp",
       render: (data: any) => {
-        return data.name;
+        return <div className="min-w-[160px]">{data.name}</div>;
       },
     },
 
@@ -48,13 +48,13 @@ const Supplier: React.FC<SupplierProps> = () => {
     {
       label: "Số điện thoại",
       render: (data: any) => {
-        return data.phoneNumber;
+        return <div className="min-w-[140px]">{data.phoneNumber}</div>;
       },
     },
     {
-      label: "Miêu tả",
+      label: "Địa chỉ",
       render: (data: any) => {
-        return data.description;
+        return data.address;
       },
     },
     {

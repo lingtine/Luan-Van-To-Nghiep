@@ -32,7 +32,7 @@ const Warehouse: React.FC<WarehouseProps> = () => {
     {
       label: "Tên Kho",
       render: (data: any) => {
-        return data.name;
+        return <div className="min-w-[100px]">{data.name}</div>;
       },
     },
     {
@@ -61,12 +61,12 @@ const Warehouse: React.FC<WarehouseProps> = () => {
       },
     },
 
-    {
-      label: "Miêu tả",
-      render: (data: any) => {
-        return data.description;
-      },
-    },
+    // {
+    //   label: "Miêu tả",
+    //   render: (data: any) => {
+    //     return data.description;
+    //   },
+    // },
 
     {
       label: "Loại kho",

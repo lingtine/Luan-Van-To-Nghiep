@@ -50,6 +50,7 @@ import {
   AddGoodsReceiptPage,
   AddGoodsIssuePage,
   ReportDetail,
+  StatisticalPage,
 } from "pages";
 
 const router = createBrowserRouter(
@@ -147,6 +148,7 @@ const router = createBrowserRouter(
         <Route path="warehouses" element={<WarehousesPage />} />
         <Route path="warehouses/:index" element={<WarehousesPage />} />
         <Route path="warehouses/add-warehouse" element={<AddWarehousePage />} />
+        <Route path="statistical" element={<StatisticalPage />} />
 
         <Route path="discountEvents" element={<DiscountEventsPage />} />
         <Route path="discountEvents/:index" element={<DiscountEventsPage />} />
