@@ -7,9 +7,11 @@ interface SidebarProps {
   children: React.ReactNode,
   data: any
   onSortOptionClick: (funcKey: string) => void;
+  onSortType: (type : string) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({children, data,onSortOptionClick}) => {
+const Sidebar: React.FC<SidebarProps> = ({children, data,onSortOptionClick, onSortType}) => {
+  const [isChecked, setIsChecked] = useState(false);
   const [sortOption, setSortOption] = useState<string | null>(null)
 const sortOptions = [
   // { name: 'Most Popular', href: '#', current: true,  },
@@ -232,7 +234,13 @@ function classNames(...classes: string[]) {
                               name={`${section.id}[]`}
                               defaultValue={option.value}
                               type="checkbox"
+                      
                               defaultChecked={option.checked}
+                              onClick={() => 
+                                {
+                                  onSortType(option.id)
+                                }
+                              }
                               className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                             />
                             <label

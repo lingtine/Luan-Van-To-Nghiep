@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, IconButton } from "@material-tailwind/react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useParams } from "react-router-dom";
 interface PaginationProps {
@@ -25,7 +25,9 @@ const Pagination: React.FC<PaginationProps> = ({
     .map((_, index) => {
       return (
         <li key={index}>
-          <Link to={index === 0 ? `${url}` : `${url}/${index}`}>
+          <Link 
+          to={index === 0 ? `${url}` : `${url}/${index}`}
+          >
             <IconButton variant={pageIndex == index ? "filled" : "text"}>
               {index + 1}
             </IconButton>
