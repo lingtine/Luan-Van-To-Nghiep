@@ -33,7 +33,12 @@ const Orders: React.FC<OrdersProps> = () => {
         return data.deliveryInfo.phoneNumber;
       },
     },
-
+    {
+      label: "Trạng Thái",
+      render: (data: any) => {
+        return data.status;
+      },
+    },
     {
       label: "Ghi chú",
       render: (data: any) => {
@@ -46,7 +51,6 @@ const Orders: React.FC<OrdersProps> = () => {
       render: (data: any) => {
         return (
           <div className="flex gap-4 justify-end">
-            <Button color="red">Xoá</Button>
             <Link to={`order-detail/${data.id}`}>
               <Button color="yellow">Detail</Button>
             </Link>

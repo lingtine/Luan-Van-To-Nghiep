@@ -51,6 +51,7 @@ import {
   AddGoodsIssuePage,
   ReportDetail,
   StatisticalPage,
+  OrderDetailAdminPage,
 } from "pages";
 import RequireAuth from "utils/RequireAuth";
 
@@ -72,7 +73,10 @@ const router = createBrowserRouter(
         <Route path="login" element={<LoginPage />}></Route>
         <Route path="register" element={<RegisterPage />}></Route>
         <Route path="forget-password" element={<ForgetPasswordPage />}></Route>
-        <Route path="profile" element={<RequireAuth WrappedComponent={ProfilePage} />}></Route>
+        <Route
+          path="profile"
+          element={<RequireAuth WrappedComponent={ProfilePage} />}
+        ></Route>
         <Route path="wishlist" element={<WishListPage />}></Route>
         <Route path="search" element={<SearchPage />}></Route>
 
@@ -91,6 +95,10 @@ const router = createBrowserRouter(
         <Route index element={<DashboardAdminPage />}></Route>
         <Route path="orders" element={<OrdersAdminPage />}></Route>
         <Route path="orders/:index" element={<OrdersAdminPage />}></Route>
+        <Route
+          path="orders/order-detail/:orderId"
+          element={<OrderDetailAdminPage />}
+        ></Route>
 
         <Route path="customers" element={<CustomersPage />}></Route>
         <Route path="customers/:index" element={<CustomersPage />}></Route>

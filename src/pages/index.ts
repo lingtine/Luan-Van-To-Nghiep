@@ -9,6 +9,8 @@ export { default as CustomersPage } from "./admin/customers/customers";
 export { default as DashboardAdminPage } from "./admin/dashboard/dashboard";
 export { default as LoginAdminPage } from "./admin/login/login-admin";
 export { default as OrdersAdminPage } from "./admin/orders/orders";
+export { default as OrderDetailAdminPage } from "./admin/orders/order-detail";
+
 export { default as AddProductPage } from "./admin/products/add-product";
 export { default as ProductDetailAdminPage } from "./admin/products/product-detail";
 export { default as ProductsAdminPage } from "./admin/products/products";

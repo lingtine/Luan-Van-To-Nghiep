@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 import customFetchBase from "redux/api/customFetchBase";
-import { IOrder } from "../types";
+import { IOrder, IOrderDetail } from "../types";
 
 const orderApi = createApi({
   reducerPath: "order",
@@ -27,6 +27,13 @@ const orderApi = createApi({
         method: "POST",
         body: data,
       }),
+    }),
+    getOrder: builder.query({
+      query: (orderId: string) => ({
+        url: `/orders/orders/GetOrderDetail/${orderId}`,
+        method: "GET",
+      }),
+      transformResponse: (response: { data: IOrderDetail }) => response.data,
     }),
     orderProcessing: builder.mutation({
       query: (orderId: string) => ({
@@ -96,6 +103,7 @@ export const {
   useExportOrderReportMutation,
   useGetOrderReportByStatusMutation,
   useGetOrderReportMutation,
+  useGetOrderQuery,
 } = orderApi;
 
 export default orderApi;
