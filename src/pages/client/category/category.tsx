@@ -17,18 +17,28 @@ import { IProductType } from "redux/api/types";
 interface CategoryPageProps {}
 
 const CategoryPage: React.FC<CategoryPageProps> = () => {
+  const [selectedSortOption, setSelectedSortOption] = useState<string | null>(null);
   const { categoryId } = useParams();
   const { data: listCategoryGroupsData, isSuccess: listCategoryGroupsSuccess } = useGetListCategoryGroupsQuery(categoryId!);
-  const { data: productAllData, isSuccess: productAllSuccess, refetch: refetchProducts } = useGetProductsQuery(`CategoryGroupId=${categoryId!}`);
+  const { data: productAllData, isSuccess: productAllSuccess, refetch: refetchProducts } = useGetProductsQuery(`CategoryGroupId=${categoryId!}&${selectedSortOption}`);
 
-  // Use useEffect to refetch products when categoryId changes
   useEffect(() => {
-    // Ensure that categoryId is defined before attempting to refetch
+
     if (categoryId) {
-      refetchProducts(); // Assuming refetchProducts accepts an object with parameters
+      refetchProducts(); 
     }
   }, [categoryId, refetchProducts]);
-  console.log(productAllData, categoryId);
+  
+  const handleSortOptionClick = (funcKey : string) => {
+    // Update the state with the selected sort option funcKey
+    setSelectedSortOption(funcKey);
+
+    if (categoryId) {
+      refetchProducts();
+    }
+    console.log(selectedSortOption);
+    
+  };
   
 
   return (
@@ -46,7 +56,7 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
       <div className="flex gap-4 my-8">
         {listCategoryGroupsSuccess ? (
           <>
-            <Sidebar data={listCategoryGroupsData.categories}>
+            <Sidebar data={listCategoryGroupsData.categories} onSortOptionClick={handleSortOptionClick}>
               <CategoryList data={productAllData?.data} />
             </Sidebar>
           </>

@@ -6,16 +6,17 @@ import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from
 interface SidebarProps {
   children: React.ReactNode,
   data: any
+  onSortOptionClick: (funcKey: string) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({children, data}) => {
-  
+const Sidebar: React.FC<SidebarProps> = ({children, data,onSortOptionClick}) => {
+  const [sortOption, setSortOption] = useState<string | null>(null)
 const sortOptions = [
-  { name: 'Most Popular', href: '#', current: true },
-  { name: 'Best Rating', href: '#', current: false },
-  { name: 'Newest', href: '#', current: false },
-  { name: 'Price: Low to High', href: '#', current: false },
-  { name: 'Price: High to Low', href: '#', current: false },
+  // { name: 'Most Popular', href: '#', current: true,  },
+  { name: 'Còn Hàng', href: '#', current: false, funcKey: 'IsOrderDesc=true&IsInStock=true' },
+  { name: 'Tên sản phẩm: A - Z', href: '#', current: false, funcKey: 'IsOrderDesc=true' },
+  { name: 'Giá: cao đến thấp', href: '#', current: false, funcKey: 'OrderBy=Price&IsOrderDesc=true' },
+  { name: 'Giá: thấp đến cao', href: '#', current: false, funcKey: 'OrderBy=Price&IsOrderDesc=false' },
 ]
 const filters = [
   {
@@ -138,7 +139,7 @@ function classNames(...classes: string[]) {
           <Menu as="div" className="relative inline-block text-left">
             <div>
               <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                Sort
+                {sortOption || "Lọc"}
                 <ChevronDownIcon
                   className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                   aria-hidden="true"
@@ -160,16 +161,19 @@ function classNames(...classes: string[]) {
                   {sortOptions.map((option) => (
                     <Menu.Item key={option.name}>
                       {({ active }) => (
-                        <a
-                          href={option.href}
+                        <li
                           className={classNames(
                             option.current ? 'font-medium text-gray-900' : 'text-gray-500',
                             active ? 'bg-gray-100' : '',
-                            'block px-4 py-2 text-sm'
+                            'block px-4 py-2 text-sm cursor-pointer' 
                           )}
+                          onClick={() => {
+                            onSortOptionClick(option.funcKey)
+                            setSortOption(option.name)
+                          }}
                         >
                           {option.name}
-                        </a>
+                        </li>
                       )}
                     </Menu.Item>
                   ))}
