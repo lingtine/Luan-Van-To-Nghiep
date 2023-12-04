@@ -191,3 +191,39 @@ export interface ICoupon {
   quantity: number;
   discountEventId: string;
 }
+
+export interface IOrderDetail {
+  id: string;
+  cartId: string;
+  deliveryInfo: {
+    fullName: string;
+    phoneNumber: string;
+    email: string;
+    address: {
+      city: string;
+      district: string;
+      ward: string;
+      street: string;
+      streetNumber: string;
+    };
+    note: string;
+  };
+  totalItems: number;
+  amount: number;
+  cost: number;
+  couponId: string;
+  createAt: string;
+  cart: {
+    id: string;
+    customerId: string;
+    status: string;
+    items: {
+      id: string;
+      productId: string;
+      name: string;
+      unitPrice: number;
+      quantity: number;
+    }[];
+  };
+  status: string;
+}

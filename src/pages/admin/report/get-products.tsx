@@ -15,14 +15,8 @@ import { IoSearchOutline } from "react-icons/io5";
 import useDebounce from "hooks/use-debounce";
 import { MeiliSearch } from "meilisearch";
 import { IListProduct } from "./form-goods-receipt";
-
+import { useGetProductsByParamsMutation } from "redux/api/catalog/product";
 import { TiDeleteOutline } from "react-icons/ti";
-const client = new MeiliSearch({
-  host: "http://ecommerce.quochao.id.vn:7700/",
-  apiKey: "5b9b8e6b23fdc6999583e126a2a8f271821668d9607a42bcc8ea7d86e587",
-});
-
-const index = client.getIndex("products");
 
 interface GetProductsProps {
   listProduct: IListProduct[];
@@ -33,77 +27,61 @@ const GetProducts: React.FC<GetProductsProps> = ({
   handleChangeListProduct,
   listProduct,
 }) => {
-  const [products, setProducts] = useState<IProductDetailType[]>();
   const [searchValue, setSearchValue] = useState("");
   const debounceSearch = useDebounce(searchValue, 500);
+  const [handleSearch, { isSuccess, isLoading, data }] =
+    useGetProductsByParamsMutation();
   useEffect(() => {
-    debounceSearch.trim();
-    async function searchWithMeili() {
-      const search = (await index).search(debounceSearch);
-      search.then((data) => {
-        setProducts(data.hits as IProductDetailType[]);
-      });
-    }
     if (debounceSearch && debounceSearch !== "") {
-      searchWithMeili();
-    } else {
-      setProducts(undefined);
+      handleSearch({ Keyword: debounceSearch });
     }
-  }, [debounceSearch]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
-  };
-
-  const handleGetProduct = (item: IProductDetailType) => {
-    setSearchValue("");
-    setProducts(undefined);
-    const product = listProduct.find((product) => product.id === item.id);
-    if (!product) {
-      const newItem = { ...item, quality: 0 };
-
-      handleChangeListProduct(() => [...listProduct, newItem]);
-    }
-  };
+  }, [debounceSearch, handleSearch]);
 
   let content;
 
-  if (products) {
-    content = products.map((item) => {
+  if (isSuccess && data) {
+    content = data.map((item) => {
       return (
-        <ListItem
+        <div
           onClick={() => {
-            handleGetProduct(item);
+            setSearchValue("");
+            handleChangeListProduct(() => {
+              if (listProduct) return [...listProduct, item];
+              else return [item];
+            });
+
+            console.log(listProduct);
           }}
-          key={item.id}
         >
-          <ListItemPrefix>
-            <Avatar variant="circular" alt={item.name} src={item.imageUrl} />
-          </ListItemPrefix>
-          <div>
-            <Typography variant="h6" color="blue-gray">
-              {item.name}
-            </Typography>
-            <Typography variant="small" color="gray" className="font-normal">
-              {item.description}
-            </Typography>
-          </div>
-        </ListItem>
+          <ListItem key={item.id}>
+            <ListItemPrefix>
+              <Avatar variant="circular" alt={item.name} src={item.imageUrl} />
+            </ListItemPrefix>
+            <div>
+              <Typography className="text-sm" variant="h6" color="blue-gray">
+                {item.name}
+              </Typography>
+              <p color="gray" className=" text-sm line-clamp-1 font-normal">
+                {item.description}
+              </p>
+            </div>
+          </ListItem>
+        </div>
       );
     });
   }
 
   let listProductContent;
-  if (listProduct.length !== 0) {
+  if (listProduct) {
     listProductContent = listProduct.map((item) => {
-      const handleChangeQuality = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const updateArray = listProduct.map((product) => {
-          return product.id === item.id
-            ? { ...product, quality: e.target.value }
-            : product;
-        }) as IListProduct[];
-        handleChangeListProduct(updateArray);
-      };
+      // const handleChangeQuality = (e: React.ChangeEvent<HTMLInputElement>) => {
+      //   const updateArray = listProduct.map((product) => {
+      //     return product.id === item.id
+      //       ? { ...product, quality: e.target.value }
+      //       : product;
+      //   }) as IListProduct[];
+      //   handleChangeListProduct(updateArray);
+      // };
 
       const handleRemove = () => {
         const updateArray = listProduct.filter((product) => {
@@ -114,28 +92,23 @@ const GetProducts: React.FC<GetProductsProps> = ({
 
       return (
         <ListItem
-          className="flex justify-between items-center"
-          onClick={() => {
-            handleGetProduct(item);
-          }}
+          ripple={true}
+          className="flex justify-between items-center "
           key={item.id}
         >
           <div className="flex items-center">
             <ListItemPrefix>
               <Avatar variant="circular" alt={item.name} src={item.imageUrl} />
             </ListItemPrefix>
-            <div>
+            <div className="overflow-hidden">
               <Typography variant="h6" color="blue-gray">
                 {item.name}
-              </Typography>
-              <Typography variant="small" color="gray" className="font-normal">
-                {item.description}
               </Typography>
             </div>
           </div>
           <div className="flex gap-4">
             <Input
-              onChange={handleChangeQuality}
+              //onChange={handleChangeQuality}
               crossOrigin={""}
               name="quality"
               value={item.quality}
@@ -164,7 +137,9 @@ const GetProducts: React.FC<GetProductsProps> = ({
           <Input
             crossOrigin={""}
             value={searchValue}
-            onChange={handleChange}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setSearchValue(e.target.value);
+            }}
             className="pr-20"
             containerProps={{
               className: "min-w-0",
@@ -178,9 +153,10 @@ const GetProducts: React.FC<GetProductsProps> = ({
           >
             <IoSearchOutline />
           </Button>
-          {products && products?.length !== 0 && (
-            <Card className="absolute w-full h-fit top-14">
-              <List>{content}</List>
+
+          {searchValue && (
+            <Card className="absolute w-full h-fit top-14 z-40">
+              <List className="max-h-[280px] overflow-y-auto ">{content}</List>
             </Card>
           )}
         </div>

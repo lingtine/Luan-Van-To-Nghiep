@@ -38,6 +38,16 @@ const productApi = createApi({
         "update-specifications",
       ],
     }),
+    getProductsByParams: builder.mutation({
+      query: (params) => ({
+        url: "/catalogs/products",
+        method: "GET",
+        params,
+      }),
+      transformResponse: (response: { data: IProductDetailType[] }) => {
+        return response.data;
+      },
+    }),
     addProduct: builder.mutation({
       query: (data: IProductType) => {
         var bodyFormData = new FormData();
@@ -222,6 +232,7 @@ export const {
   useRemoveSpecificationForProductMutation,
   useUpdateSpecificationForProductMutation,
 
+  useGetProductsByParamsMutation,
   useExportProductReportFileMutation,
   useExportProductReportMutation,
   useGetProductReportMutation,
