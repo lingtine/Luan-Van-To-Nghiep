@@ -56,7 +56,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
             fullWidth={true}
             className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
           >
-            Thêm vào giỏ hàng
+            Xem chi tiết
           </Button>
         </CardFooter>
       </Card>

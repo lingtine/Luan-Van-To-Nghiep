@@ -21,6 +21,20 @@ const orderApi = createApi({
         totalCount: number;
       }) => response,
     }),
+    getOrdersCustomer: builder.query({
+      query: (params) => ({
+        url: "/orders/orders/customer",
+        method: "GET",
+        params,
+      }),
+
+      transformResponse: (response: {
+        data: IOrder[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      }) => response,
+    }),
     createOrder: builder.mutation({
       query: (data) => ({
         url: "/orders/orders",
@@ -96,6 +110,7 @@ export const {
   useCreateOrderMutation,
   useGetOrdersByCustomerQuery,
   useGetOrdersQuery,
+  useGetOrdersCustomerQuery,
   useOrderProcessingMutation,
   useExportOrderReportByStatusFileMutation,
   useExportOrderReportByStatusMutation,

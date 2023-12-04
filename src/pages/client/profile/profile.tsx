@@ -6,6 +6,7 @@ import NotLogin from "components/not-login";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import TableOrder from "components/table/table-data";
+import { useGetOrdersCustomerQuery } from "redux/api/order/order";
 interface ProfilePageProps {
  isAuthenticated: boolean;
 }
@@ -13,6 +14,8 @@ interface ProfilePageProps {
 const ProfilePage: React.FC<ProfilePageProps> = ({isAuthenticated}) => {
   const userData = localStorage.getItem('user');
   const data = userData ? JSON.parse(userData) : null;
+  const {data : orders, isSuccess} = useGetOrdersCustomerQuery(null)
+  
   useEffect(() => {
     if(isAuthenticated) {
       redirect('/login')
@@ -37,7 +40,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({isAuthenticated}) => {
           id: Math.random().toString(),
           label: "Thông tin tài khoản",
           href: "/profile",
-          email: data.email || " ",
+          email: (data && data.email) || " ",
         },
         {
           id: Math.random().toString(),
@@ -102,7 +105,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({isAuthenticated}) => {
 
     <section className="mb-36">
       {renderDataSlideBar}
-      <TableOrder/>
+      <TableOrder data={isSuccess ? orders.data : ''}/>
     </section>
     
   </div> ) : 
