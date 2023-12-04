@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 export default function CategoryList({ data }: any) {
   const { search } = useLocation();
   const categoryId = new URLSearchParams(search).get('categoryId');
-  console.log(categoryId);
+
   
   return (
     (data)  && (

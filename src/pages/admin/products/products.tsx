@@ -10,12 +10,15 @@ import {
   useDeleteProductMutation,
 } from "redux/api/catalog/product";
 import { useParams } from "react-router-dom";
+import { useFormatPrice } from "hooks/use-format-price";
 interface ProductsProps {}
 
 const Products: React.FC<ProductsProps> = () => {
   const { index } = useParams();
+  const [formatPrice] = useFormatPrice();
   const { data, isSuccess, isLoading } = useGetProductsQuery({
     pageIndex: index,
+    pageSize: 20,
   });
   const [removeProduct] = useDeleteProductMutation();
   const configData = [
@@ -47,7 +50,7 @@ const Products: React.FC<ProductsProps> = () => {
     {
       label: "Giá bán",
       render: (data: any) => {
-        return data.unitPrice;
+        return formatPrice.format(data.unitPrice);
       },
     },
     {

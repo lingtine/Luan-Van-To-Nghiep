@@ -9,7 +9,6 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({children, data}) => {
-  console.log(data);
   
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
@@ -223,7 +222,7 @@ function classNames(...classes: string[]) {
                     <Disclosure.Panel className="pt-6">
                       <div className="space-y-4">
                         {data.map((option: any, optionIdx: number) => (
-                          <div key={option.value} className="flex items-center">
+                          <a key={option.value} className="flex items-center">
                             <input
                               id={`filter-${section.id}-${optionIdx}`}
                               name={`${section.id}[]`}
@@ -238,7 +237,7 @@ function classNames(...classes: string[]) {
                             >
                               {option.name}
                             </label>
-                          </div>
+                          </a>
                         ))}
                       </div>
                     </Disclosure.Panel>

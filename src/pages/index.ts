@@ -28,6 +28,7 @@ export { default as DiscountEventsPage } from "./admin/discount-events/discount-
 export { default as AddDiscountEventPage } from "./admin/discount-events/add-discount-event";
 export { default as CouponsPage } from "./admin/coupon/coupon";
 export { default as AddCouponPage } from "./admin/coupon/add-coupon";
+export { default as StatisticalPage } from "./admin/statistical/statistical";
 
 // clients page
 export { default as AboutPage } from "./client/about/about";

@@ -22,10 +22,10 @@ const orderApi = createApi({
       }) => response,
     }),
     createOrder: builder.mutation({
-      query: ({ id, ...ref }: any) => ({
-        url: "orders/orders",
+      query: (data) => ({
+        url: "/orders/orders",
         method: "POST",
-        data: ref,
+        body: data,
       }),
     }),
     orderProcessing: builder.mutation({

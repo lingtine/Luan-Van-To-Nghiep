@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useGetDetailCartQuery } from "redux/api/cart/cart";
 import { formatVND } from "utils/formatVND";
 import { useCreateOrderMutation } from "redux/api/order/order";
+import { toast } from "react-toastify";
 type Inputs = {
-  couponId: string,
+  couponId: string;
   deliveryInfo: {
     fullName: string;
     phoneNumber: string;
@@ -17,11 +18,12 @@ type Inputs = {
       street: string;
       streetNumber: string;
     };
+    note: string;
   };
-  note: string;
 };
 
 const Cart: React.FC = () => {
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -30,7 +32,7 @@ const Cart: React.FC = () => {
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     createOrder(data)
-    console.log(data);
+    toast.success("Tạo đơn hàng thành công")
   };
   const { data, isSuccess } = useGetDetailCartQuery(null);
   const [createOrder] = useCreateOrderMutation();
@@ -68,7 +70,9 @@ const Cart: React.FC = () => {
                   <label>Phone number</label>
                   <input
                     type="text"
-                    {...register("deliveryInfo.phoneNumber", { required: true })}
+                    {...register("deliveryInfo.phoneNumber", {
+                      required: true,
+                    })}
                     className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
                   />
                 </div>
@@ -130,7 +134,7 @@ const Cart: React.FC = () => {
               <div className="flex flex-col mt-[15px] text-dark-200 form-group">
                 <label>Note</label>
                 <textarea
-                  {...register("note")}
+                  {...register("deliveryInfo.note")}
                   className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
                 />
               </div>
@@ -156,7 +160,7 @@ const Cart: React.FC = () => {
         <div>
           <h2 className="text-[32px] uppercase mt-5 mb-[15px]">Detail</h2>
         </div>
-        {!data ? (
+        {!data && !data.items && data.items.lenght ? (
           <div className="flex justify-center items-center w-[200px]">
             Không có sản phẩm nào
           </div>
@@ -197,13 +201,13 @@ const Cart: React.FC = () => {
         <i className="mtrl-select"></i>
 
         <div className="flex flex-col mt-[15px] text-dark-200 form-group">
-                <label>Coupon</label>
-                <input
-                  type="text"
-                  {...register("couponId")}
-                  className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
-                />
-              </div>
+          <label>Coupon</label>
+          <input
+            type="text"
+            {...register("couponId")}
+            className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
+          />
+        </div>
         <i className="mtrl-select"></i>
         <div className="self-start w-full text-primary-200">
           <div className="flex justify-between mt-[14px]">

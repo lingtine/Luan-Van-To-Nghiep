@@ -1,4 +1,4 @@
-import ProductsList from "components/products/products-list";
+import ProductList from "components/products/product-list";
 import React from "react";
 import {
   useGetProductHomeQuery
@@ -18,6 +18,7 @@ const BoxTemplate: React.FC<BoxTemplateProps> = ({
   children,
   data
 }) => {
+  console.log('box', data);
   
   const HeaderContent: React.FC = () => {
     return (
@@ -40,9 +41,7 @@ const BoxTemplate: React.FC<BoxTemplateProps> = ({
     <>
     <div className="py-20 border-t">
       <HeaderContent />
-      {data && data.map((list: any) => (
-        <ProductsList data={list}/>
-      ))}
+      {children}
     </div>
     </>
   );

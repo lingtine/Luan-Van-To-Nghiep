@@ -1,8 +1,10 @@
 import React from "react";
 
-interface ProductListProps {}
+interface ProductListProps {
+  data: any
+}
 
-const ProductList: React.FC<ProductListProps> = () => {
+const ProductList: React.FC<ProductListProps> = ({data}) => {
   return <div>
     <h1>Category Product</h1>
     

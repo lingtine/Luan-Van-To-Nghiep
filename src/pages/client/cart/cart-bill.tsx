@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useGetDetailCartQuery } from "redux/api/cart/cart";
 interface BillProps {
   onToogle: (status: boolean) => void;
@@ -10,7 +10,7 @@ export default function CartBill({ onToogle }: BillProps) {
   const onclose = () => {
     onToogle(false);
   };
-  console.log(data);
+  const navigate = useNavigate()
 
   return (
     <div
@@ -27,47 +27,56 @@ export default function CartBill({ onToogle }: BillProps) {
           <div className="float-right">
             <button>Clear</button>
           </div>
-          <table className="mx-auto">
-            <thead>
-              <tr className="uppercase text-xs sm:text-sm text-palette-primary border-b border-palette-light">
-                <th className="font-primary font-normal px-6 py-4">Product</th>
-                <th className="font-primary font-normal px-6 py-4">Quantity</th>
-                <th className="font-primary font-normal px-6 py-4">Price</th>
-                <th className="font-primary font-normal px-6 py-4">Remove</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-palette-lighter">
-              {/* <ListItem /> */}
-              {isSuccess && data.items.map((item: any, index: number) => (
-                <tr className="text-center">
-                  <td className="font-primary font-normal px-6 py-4 line-clamp-2">
-                    {item.name}
-                  </td>
-                  <td className="font-primary font-normal px-6 py-4">{item.quantity}</td>
-                  <td className="font-primary font-normal px-6 py-4">{item.unitPrice}</td>
-                  <td className="font-primary font-normal px-6 py-4"> x</td>
+          {isSuccess && data.items && data.items.length > 0 ? (
+            <table className="mx-auto">
+              <thead>
+                <tr className="uppercase text-xs sm:text-sm text-palette-primary border-b border-palette-light">
+                  <th className="font-primary font-normal px-6 py-4">
+                    Product
+                  </th>
+                  <th className="font-primary font-normal px-6 py-4">
+                    Quantity
+                  </th>
+                  <th className="font-primary font-normal px-6 py-4">Price</th>
+                  <th className="font-primary font-normal px-6 py-4">Remove</th>
                 </tr>
-              ))}
-              <tr className="text-center">
-                <td></td>
-                <td className="font-primary text-base text-gray-600 font-semibold uppercase px-4 sm:px-6 py-4">
-                  Subtotal
-                </td>
-                <td className="font-primary text-lg text-palette-primary font-medium px-4 sm:px-6 py-4">
-                  <span className="text-xl">15.000.000đ</span>
-                </td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-palette-lighter">
+                {/* <ListItem /> */}
+                {data.items.map((item: any, index: number) => (
+                  <tr className="text-center">
+                    <td className="font-primary font-normal px-6 py-4 line-clamp-2">
+                      {item.name}
+                    </td>
+                    <td className="font-primary font-normal px-6 py-4">
+                      {item.quantity}
+                    </td>
+                    <td className="font-primary font-normal px-6 py-4">
+                      {item.unitPrice}
+                    </td>
+                    <td className="font-primary font-normal px-6 py-4"> x</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className="text-center w-[400px]">
+              <span className="font-primary text-lg text-palette-primary font-medium px-4 sm:px-6 py-4">
+                Bạn chưa mua sản phẩm nào
+              </span>
+            </div>
+          )}
         </div>
         <div className="max-w-sm mx-auto space-y-4 px-2">
-          <Link
-            onClick={() => onclose()}
-            to="/cart"
-            aria-label="checkout-products"
-            className="bg-primary-1 text-white text-lg font-primary font-semibold pt-2 pb-1 leading-relaxed flex  justify-center items-center focus:ring-1 focus:ring-palette-light focus:outline-none w-full hover:bg-palette-dark rounded-sm"
+         <button 
+            disabled={!(isSuccess && data.items && data.items.length > 0)}
+            className={`${(isSuccess && data.items && data.items.length > 0) ? '' : 'opacity-30'}bg-primary-1 text-white text-lg font-primary font-semibold pt-2 pb-1 leading-relaxed flex  justify-center items-center focus:ring-1 focus:ring-palette-light focus:outline-none w-full hover:bg-palette-dark rounded-sm`}
+            onClick={() => {
+            onclose() 
+            navigate('/cart')
+            }}
           >
+         
             Check Out
             <svg
               aria-hidden="true"
@@ -84,7 +93,8 @@ export default function CartBill({ onToogle }: BillProps) {
                 d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"
               ></path>
             </svg>
-          </Link>
+          
+         </button>
           <button
             onClick={() => onclose()}
             aria-label="back-to-products"
