@@ -1,7 +1,5 @@
 import React from "react";
-import { Button, Input } from "@material-tailwind/react";
-import { useGetSpecificationsQuery } from "redux/api/catalog/specification";
-import SelectBox from "components/select-box/select-box";
+import { Button } from "@material-tailwind/react";
 import { ISelected } from "components/select-box/select-box";
 import { useState } from "react";
 import { useAddSpecificationForProductMutation } from "redux/api/catalog/product";
@@ -12,45 +10,66 @@ interface FormAddSpecificationsProductProps {
   onClose: Function;
 }
 
+interface ISpecification {
+  specificationId: string;
+  specificationName: string;
+  specificationValue: string;
+}
+
 const FormAddSpecificationsProduct: React.FC<
   FormAddSpecificationsProductProps
 > = ({ productId, onClose }) => {
-  const [specificationData, setSpecificationData] = useState<
-    {
-      specificationId: string;
-      specificationName: string;
-      specificationValue: string;
-    }[]
-  >([
-    {
-      specificationId: "",
-      specificationName: "",
-      specificationValue: "",
-    },
-  ]);
-  const { data, isSuccess } = useGetSpecificationsQuery(null);
+  const [specificationsData, setSpecificationsData] = useState<
+    ISpecification[]
+  >([{ specificationId: "", specificationName: "", specificationValue: "" }]);
+
   const [addSpecification] = useAddSpecificationForProductMutation();
-  const [selected, setSelected] = useState<ISelected>();
-  const [value, setValue] = useState<string>("");
-  const renderSpecificationData = specificationData.map((item, index) => {
+
+  const renderSpecificationData = specificationsData.map((item, index) => {
     const indexData = index;
 
     return (
       <InputSpecification
+        onChange={(title: string, value: string | ISelected) => {
+          if (title === "value" && typeof value === "string") {
+            const newSpecificationsData = specificationsData.map(
+              (item, index) => {
+                if (index === indexData)
+                  return { ...item, specificationValue: value };
+                return item;
+              }
+            );
+            setSpecificationsData(newSpecificationsData);
+          } else if (typeof value === "object") {
+            const newSpecificationsData = specificationsData.map(
+              (item, index) => {
+                if (index === indexData)
+                  return {
+                    ...item,
+                    specificationId: value.id,
+                    specificationName: value.label,
+                  };
+                return item;
+              }
+            );
+            setSpecificationsData(newSpecificationsData);
+          }
+        }}
         specificationData={item}
         onRemove={() => {
-          const filterArray = specificationData.filter(
+          if (specificationsData.length <= 1) return;
+          const filterArray = specificationsData.filter(
             (_, index) => index !== indexData
           );
-          setSpecificationData(filterArray);
+          setSpecificationsData(filterArray);
         }}
       />
     );
   });
 
   const handleAddInput = () => {
-    setSpecificationData(() => [
-      ...specificationData,
+    setSpecificationsData(() => [
+      ...specificationsData,
       {
         specificationId: "",
         specificationName: "",
@@ -58,37 +77,14 @@ const FormAddSpecificationsProduct: React.FC<
       },
     ]);
   };
-  let content;
-  if (isSuccess) {
-    const updateData = data.data.map((item) => ({
-      ...item,
-      label: item.name,
-    }));
-    content = (
-      <SelectBox
-        label="Chọn Thông Số"
-        onChange={(option: ISelected) => {
-          setSelected(option);
-        }}
-        options={updateData}
-        selected={selected}
-      />
-    );
-  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (selected) {
+    if (specificationsData) {
       addSpecification({
         productId: productId,
-        data: [
-          {
-            specificationId: selected.id,
-            specificationName: selected.label,
-            specificationValue: value,
-          },
-        ],
+        data: specificationsData,
       });
     }
     onClose();
@@ -96,27 +92,15 @@ const FormAddSpecificationsProduct: React.FC<
 
   return (
     <form onSubmit={handleSubmit} action="" className="flex flex-col gap-4">
-      {/* <div className="border p-4 rounded-md border-blue-500 flex flex-col gap-4 overflow-y-scroll h-[236px]">
+      <div className="border p-4 rounded-md border-blue-500 flex flex-col gap-4 overflow-y-scroll h-[236px]">
         {renderSpecificationData}
-      </div> */}
+      </div>
 
       <div className="flex gap-4">
-        {content}
-        <div>
-          <Input
-            crossOrigin={""}
-            name="name"
-            label="Nhập giá trị"
-            className="w-100"
-            value={value}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setValue(e.target.value);
-            }}
-          />
-        </div>
-      </div>
-      <div>
-        <Button type="submit">Thêm Thông số</Button>
+        <Button onClick={handleAddInput}>Thêm Thông số</Button>
+        <Button type="submit" color="blue">
+          Xác nhận
+        </Button>
       </div>
     </form>
   );

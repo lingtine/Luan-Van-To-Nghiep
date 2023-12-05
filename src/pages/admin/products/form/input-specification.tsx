@@ -11,12 +11,13 @@ interface InputSpecificationProps {
     specificationName: string;
     specificationValue: string;
   };
+  onChange: Function;
   onRemove: Function;
 }
 
 const InputSpecification: React.FC<InputSpecificationProps> = ({
   specificationData,
-
+  onChange,
   onRemove,
 }) => {
   const [selected, setSelected] = useState<ISelected>();
@@ -32,6 +33,7 @@ const InputSpecification: React.FC<InputSpecificationProps> = ({
       <SelectBox
         label="Chọn Thông Số"
         onChange={(option: ISelected) => {
+          onChange("option", option);
           setSelected(option);
         }}
         options={updateData}
@@ -45,16 +47,20 @@ const InputSpecification: React.FC<InputSpecificationProps> = ({
       <div>
         <Input
           crossOrigin={""}
-          name="name"
+          name="specificationValue"
           label="Nhập giá trị"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            const { value } = e.target;
+
+            onChange("value", value);
+          }}
           className="w-100"
-          value={specificationData.specificationName}
+          value={specificationData.specificationValue}
         />
       </div>
       <IconButton
         onClick={() => {
           onRemove();
-          // setSpecificationData(filteredItems);
         }}
       >
         <CiTrash />
