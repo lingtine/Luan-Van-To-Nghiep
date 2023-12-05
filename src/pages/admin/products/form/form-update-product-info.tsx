@@ -70,7 +70,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
 
   useEffect(() => {
     if (result.isSuccess) {
-      navigate("/admin/products");
+      navigate(-1);
       toast.success("Chỉnh sửa sản phẩm thành công");
     }
   }, [result]);

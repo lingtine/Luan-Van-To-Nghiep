@@ -83,8 +83,10 @@ const Products: React.FC<ProductsProps> = () => {
 
   let content: React.ReactNode;
   if (isSuccess) {
+    const { pageSize, pageIndex } = data;
+
     const updateData = data.data.map((item, index) => {
-      return { ...item, index: index + 1 };
+      return { ...item, index: index + 1 + pageIndex * pageSize };
     });
 
     content = (
