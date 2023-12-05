@@ -35,6 +35,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
 
     console.log();
     if (dataForm.image) {
+      console.log(dataForm);
       updateProduct(dataForm);
     } else {
       const { image, ...updateDataForm } = dataForm;

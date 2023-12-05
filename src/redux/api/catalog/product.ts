@@ -107,13 +107,14 @@ const productApi = createApi({
       }: {
         id: string;
         name: string;
+        image?: File;
         description: string;
         unitPrice: number;
       }) => {
         var bodyFormData = new FormData();
         bodyFormData.append("Name", rest.name);
         bodyFormData.append("Description", rest.description);
-        //bodyFormData.append("Image", rest.image);
+        if (rest.image) bodyFormData.append("Image", rest.image);
         bodyFormData.append("UnitPrice", rest.unitPrice.toString());
 
         return {
