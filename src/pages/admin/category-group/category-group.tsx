@@ -68,9 +68,11 @@ const CategoryGroup: React.FC<CategoryGroupProps> = () => {
 
   let content: React.ReactNode;
   if (isSuccess) {
+    const { pageSize, pageIndex } = data;
+
     const dataUpdate = data.data.map((item, index) => ({
       ...item,
-      index: index + 1,
+      index: index + 1 + pageIndex * pageSize,
     }));
     content = <Table config={configData} data={dataUpdate}></Table>;
   } else if (isLoading) {

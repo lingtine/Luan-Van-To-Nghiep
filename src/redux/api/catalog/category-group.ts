@@ -15,7 +15,7 @@ const categoryGroupApi = createApi({
         method: "GET",
       }),
       providesTags: ["category-group"],
-      transformResponse: (response: { data: [ICategoryGroup] }, meta, arg) =>
+      transformResponse: (response: { data: ICategoryGroup[] }, meta, arg) =>
         response.data,
     }),
     getCategoryGroups: builder.query({

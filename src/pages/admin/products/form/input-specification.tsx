@@ -22,7 +22,9 @@ const InputSpecification: React.FC<InputSpecificationProps> = ({
 }) => {
   const [selected, setSelected] = useState<ISelected>();
 
-  const { data, isSuccess } = useGetSpecificationsQuery(null);
+  const { data, isSuccess } = useGetSpecificationsQuery({
+    pageSize: 9999,
+  });
   let content;
   if (isSuccess) {
     const updateData = data.data.map((item) => ({

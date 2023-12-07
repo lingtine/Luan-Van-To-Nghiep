@@ -41,23 +41,23 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
   let content: React.ReactNode;
 
   if (isSuccess) {
-    const renderProductSpecifications = data.productSpecifications.map(
-      (item) => {
-        return (
-          <div>
-            <label className="text-sm font-semibold">
-              {item.specificationName}
-            </label>
-            <Input
-              crossOrigin={""}
-              readOnly
-              value={item.specificationValue}
-              name="brand"
-            />
-          </div>
-        );
-      }
-    );
+    // const renderProductSpecifications = data.productSpecifications.map(
+    //   (item) => {
+    //     return (
+    //       <div>
+    //         <label className="text-sm font-semibold">
+    //           {item.specificationName}
+    //         </label>
+    //         <Input
+    //           crossOrigin={""}
+    //           readOnly
+    //           value={item.specificationValue}
+    //           name="brand"
+    //         />
+    //       </div>
+    //     );
+    //   }
+    // );
 
     content = (
       <>

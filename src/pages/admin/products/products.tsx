@@ -4,18 +4,22 @@ import { Button, Switch, Spinner } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import Pagination from "components/pagination/pagitnation";
 import { Link } from "react-router-dom";
-
+import { useState } from "react";
 import {
   useGetProductsQuery,
   useDeleteProductMutation,
 } from "redux/api/catalog/product";
 import { useParams } from "react-router-dom";
 import { useFormatPrice } from "hooks/use-format-price";
+import { ISelected } from "components/select-box/select-box";
+import SelectBoxCategoryGroup from "./selectBoxCategoryGroup";
+
 interface ProductsProps {}
 
 const Products: React.FC<ProductsProps> = () => {
   const { index } = useParams();
   const [formatPrice] = useFormatPrice();
+
   const { data, isSuccess, isLoading } = useGetProductsQuery({
     pageIndex: index,
     pageSize: 20,

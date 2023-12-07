@@ -133,7 +133,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
           <>
             <h3 className="text-sm font-semibold">Hình ảnh sản phẩm</h3>
             <img
-              className="h-96 w-full object-cover object-center"
+              className="h-96 w-full object-contain "
               src={product.imageUrl}
               alt={product.name}
             />
