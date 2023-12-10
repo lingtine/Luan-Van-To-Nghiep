@@ -5,7 +5,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoIosSend } from "react-icons/io";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useAddToCartMutation } from "redux/api/cart/cart";
+import { useAddToCartMutation, useGetDetailCartQuery } from "redux/api/cart/cart";
 import { useGetProductDetailQuery } from "redux/api/catalog/product";
 import { formatVND } from "utils/formatVND";
 
@@ -14,10 +14,12 @@ export default function ProductDetailPage() {
   const { data, isLoading } = useGetProductDetailQuery(productId || "", {
     refetchOnFocus: true,
   });
+  const { data : cartdata, isSuccess: loadcart, refetch } = useGetDetailCartQuery(null);
+
   const [quantity, setQuantity] = useState<number>(1)
     const [addToCart, isSuccess] = useAddToCartMutation()
 
-  function handleAddToCart() {
+  async function handleAddToCart() {
     if(data) {
       const dataItem = {
         productId: data.id,
@@ -25,11 +27,17 @@ export default function ProductDetailPage() {
         quantity: quantity,
         unitPrice: data.unitPrice,
       }
-      addToCart(dataItem)
+      try {
+         await addToCart(dataItem)
+         await refetch()
       if(isSuccess) {
         toast.success("Thêm vào giỏ hàng thành công");
       }
       
+      } catch (error) {
+        console.error("Error adding to cart:", error);
+        toast.error("Failed to add to cart");
+      }
     }
   }
 
@@ -38,9 +46,9 @@ export default function ProductDetailPage() {
     <>
     {(!isLoading && data) && (
       <div className="py-6">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 flex flex-col lg:flex-row">
-        <div className="min-w-[60%] bg-banner-1">
-          {/* <SliderProduct props={"imageValue"} data={detail.product_images} /> */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 flex flex-col lg:flex-row min-h-[700px]">
+        <div className="min-w-[60%] ">
+          <img className="h-full w-full max-h-[600px] object-contain" src={data.imageUrl || "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png"} alt="" />
         </div>
         <div className="mx-8">
           {/* <ItemHeading /> */}
@@ -53,20 +61,17 @@ export default function ProductDetailPage() {
             <span>{formatVND(data.unitPrice)}</span>
           </div>
           <div>
-            <div className="text-left border-b border-b-white-800 pb-3 line-clamp-6 overflow-auto">
-              <span>{data.description}</span>
-            </div>
+           
             <div>
-              {/* <h3 className="py-3 text-2xl flex uppercase">
+              <h3 className="py-3 text-2xl flex uppercase">
                 Thông tin sản phẩm
               </h3>
          
-              <ul className="text-left list-disc ml-6">
-                <li>Thiết kế sang trọng</li>
-                <li>Vỏ hợp kim rắn chắc</li>
-                <li>Camera siêu mượt</li>
-                <li>Nhiều ngăn nhỏ tiện lợi phía trong balo</li>
-              </ul> */}
+              <ul className="text-left list-disc ml-6 max-h-[500px] overflow-auto">
+                { data.productSpecifications && data.productSpecifications.map((info) => (
+                  <li key={info.id}>{info.specificationName} : {info.specificationValue}</li>
+                ))}
+              </ul>
             </div>
           </div>
           {/* <AddBTn /> */}
@@ -97,26 +102,22 @@ export default function ProductDetailPage() {
           </div>
         </div>
       </div>
-      <div className="px-4 sm:px-6 lg:px-14 mt-6 mx-auto">
+      {/* <div className="text-left border-b border-b-white-800 pb-3 overflow-auto">
+              <span>{data.description}</span>
+            </div> */}
+      {/* <div className="px-4 sm:px-6 lg:px-14 mt-6 mx-auto">
         <span className="font-semibold text-4xl whitespace-wrap uppercase my-8">
           Bình Luận
         </span>
 
         <div className="flex items-center gap-7 my-7 mr-4">
-        
-          {/* <img
-            src="https://images.unsplash.com/photo-1507965613665-5fbb4cbb8399?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDQzfHRvd0paRnNrcEdnfHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-            alt=""
-            className="h-[60px] w-[60px] object-fill rounded-full"
-          /> */}
-    
           <SearchBar className="max-w-[320px]" area label="Nhập bình luận về sản phẩm"/>
           <button className="w-[60px] h-[60px] bg-primary border border-primary-1 hover:bg-white flex items-center justify-center rounded-lg">
             <IoIosSend className="text-2xl"/>
           </button>
         </div>
         <Comments />
-      </div>
+      </div> */}
     </div>
     )}
     </>

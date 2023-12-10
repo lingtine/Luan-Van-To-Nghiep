@@ -5,11 +5,13 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import CartBill from "pages/client/cart/cart-bill";
 import HeaderCategory from "./HeaderCategory";
+import { useGetDetailCartQuery } from "redux/api/cart/cart";
 
 interface HeaderProps {}
 
 const Header: React.FC<HeaderProps> = () => {
   const [toogle, setToogle] = useState(false)
+  const { data, isSuccess, refetch } = useGetDetailCartQuery(null);
 
   const onToogle = (status : boolean) => {
     setToogle(status)
@@ -23,8 +25,11 @@ const Header: React.FC<HeaderProps> = () => {
 
         <SearchBar />
 
-        <div onClick={() => onToogle(true)} className="flex items-center gap-2">
+        <div onClick={() => onToogle(true)} className="flex items-center gap-2 relative cursor-pointer">
           <CiShoppingCart className="text-4xl" />
+          <span className="bg-red-500 text-white-200 text-xs rounded-full w-5 h-5 flex items-center justify-center ml-1 absolute bg-hoverColor top-0 right-[-8px]">
+                  {isSuccess ? data.items.length : "0"}
+          </span>
         </div>
       </div>
       {

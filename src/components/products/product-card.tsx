@@ -11,12 +11,14 @@ import React from "react";
 import { IProductDetailType } from "redux/api/types";
 import { useFormatPrice } from "hooks/use-format-price";
 import { formatVND } from "utils/formatVND";
+import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
   data: IProductDetailType | any;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
+  const navigate = useNavigate()
   const [formatPrice] = useFormatPrice();
   return (
     data && (
@@ -24,10 +26,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
         <CardHeader shadow={false} floated={false} className="h-60">
           <img
             src={
-              "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png"
+              data.imageUrl  || "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png"
             }
             alt={data.name}
-            className="h-full w-full object-cover"
+            className="h-full w-full object-contain"
           />
           {/* <div className="bg-banner-1 h-full w-full object-cover"></div> */}
         </CardHeader>
@@ -54,6 +56,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
           <Button
             ripple={false}
             fullWidth={true}
+            onClick={() => navigate(`/products/detail/${data.id}`)}
             className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
           >
             Xem chi tiết

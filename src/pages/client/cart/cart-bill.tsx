@@ -1,16 +1,20 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useGetDetailCartQuery } from "redux/api/cart/cart";
+import {
+  useDeleteItemsMutation,
+  useGetDetailCartQuery,
+} from "redux/api/cart/cart";
 interface BillProps {
   onToogle: (status: boolean) => void;
 }
 
 export default function CartBill({ onToogle }: BillProps) {
-  const { data, isSuccess } = useGetDetailCartQuery(null);
+  const { data, isSuccess, refetch } = useGetDetailCartQuery(null);
+  const [deleteItem, { isSuccess: removeSuccess }] = useDeleteItemsMutation();
   const onclose = () => {
     onToogle(false);
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <div
@@ -54,7 +58,16 @@ export default function CartBill({ onToogle }: BillProps) {
                     <td className="font-primary font-normal px-6 py-4">
                       {item.unitPrice}
                     </td>
-                    <td className="font-primary font-normal px-6 py-4"> x</td>
+                    <td
+                      onClick={() => {
+                        deleteItem(item.id);
+                        refetch();
+                      }}
+                      className="font-primary font-normal px-6 py-4"
+                    >
+                      {" "}
+                      x
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -68,15 +81,18 @@ export default function CartBill({ onToogle }: BillProps) {
           )}
         </div>
         <div className="max-w-sm mx-auto space-y-4 px-2">
-         <button 
+          <button
             disabled={!(isSuccess && data.items && data.items.length > 0)}
-            className={`${(isSuccess && data.items && data.items.length > 0) ? '' : 'opacity-30'}bg-primary-1 text-white text-lg font-primary font-semibold pt-2 pb-1 leading-relaxed flex  justify-center items-center focus:ring-1 focus:ring-palette-light focus:outline-none w-full hover:bg-palette-dark rounded-sm`}
+            className={`${
+              isSuccess && data.items && data.items.length > 0
+                ? ""
+                : "opacity-30"
+            }bg-primary-1 text-white text-lg font-primary font-semibold pt-2 pb-1 leading-relaxed flex  justify-center items-center focus:ring-1 focus:ring-palette-light focus:outline-none w-full hover:bg-palette-dark rounded-sm`}
             onClick={() => {
-            onclose() 
-            navigate('/cart')
+              onclose();
+              navigate("/cart");
             }}
           >
-         
             Check Out
             <svg
               aria-hidden="true"
@@ -93,8 +109,7 @@ export default function CartBill({ onToogle }: BillProps) {
                 d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"
               ></path>
             </svg>
-          
-         </button>
+          </button>
           <button
             onClick={() => onclose()}
             aria-label="back-to-products"
