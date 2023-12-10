@@ -14,7 +14,7 @@ const RequireAuth: FC<RequireAuthProps> = ({ WrappedComponent }: RequireAuthProp
   useEffect(() => {
     if(token && token !== "") {
       setAuth(true)
-    }
+    } 
   },[refreshToken, token])
   
   // Return the wrapped component with any additional logic

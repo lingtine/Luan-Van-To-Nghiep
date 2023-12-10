@@ -3,7 +3,15 @@ import { formatVND } from "utils/formatVND";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 
 export default function TableOrder({ data }: any) {
-  const [toggle, setToggle] = useState(false);
+  const [toggles, setToggles] = useState<boolean[]>(
+    Array(data.length).fill(false)
+  );
+
+  const handleToggle = (index: number) => {
+    const newToggles = [...toggles];
+    newToggles[index] = !newToggles[index];
+    setToggles(newToggles);
+  };
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -55,12 +63,12 @@ export default function TableOrder({ data }: any) {
                           {order.status}
                         </th>
                         <th scope="col" className="px-6 py-4">
-                          <div onClick={() => setToggle(!toggle)}>
+                          <div onClick={() => handleToggle(index)}>
                             <IoIosInformationCircleOutline />
                           </div>
                         </th>
                       </tr>
-                      {toggle && (
+                      {toggles[index] && (
                         <>
                           {" "}
                           <tr>
