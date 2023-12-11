@@ -69,7 +69,10 @@ const router = createBrowserRouter(
         <Route path="contact-us" element={<ContactPage />}></Route>
 
         <Route path="category/:categoryId" element={<CategoryPage />}></Route>
-
+        <Route
+          path="category/:categoryId/:index"
+          element={<CategoryPage />}
+        ></Route>
         <Route path="login" element={<LoginPage />}></Route>
         <Route path="register" element={<RegisterPage />}></Route>
         <Route path="forget-password" element={<ForgetPasswordPage />}></Route>
@@ -110,7 +113,7 @@ const router = createBrowserRouter(
         <Route path="inventory/:index" element={<InventoryPage />}></Route>
 
         <Route path="report" element={<ReportPage />}></Route>
-        <Route path="report/:index" element={<ReportPage />}></Route>
+        <Route path="reports/:index" element={<ReportPage />}></Route>
 
         <Route
           path="report/addGoodsReceipt"

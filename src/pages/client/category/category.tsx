@@ -17,36 +17,47 @@ import { IProductType } from "redux/api/types";
 interface CategoryPageProps {}
 
 const CategoryPage: React.FC<CategoryPageProps> = () => {
-  const [selectedSortOption, setSelectedSortOption] = useState<string | null>(null);
+  const [selectedSortOption, setSelectedSortOption] = useState<string | null>(
+    null
+  );
   const [selectedType, setSelectedType] = useState<string | null>(null);
-  const [ pageIndex, setPageIndex] = useState(0)
+  const [pageIndex, setPageIndex] = useState(0);
   const { categoryId } = useParams();
-  const { data: listCategoryGroupsData, isSuccess: listCategoryGroupsSuccess } = useGetListCategoryGroupsQuery(categoryId!);
-  const { data: productAllData, isSuccess: productAllSuccess, refetch: refetchProducts } = useGetProductsQuery(`CategoryGroupId=${categoryId!}&CategoryId=${selectedType ? selectedType : ''}&${selectedSortOption ? selectedSortOption : ''}&PageIndex=${pageIndex}&PageSize=12`);
+  const { data: listCategoryGroupsData, isSuccess: listCategoryGroupsSuccess } =
+    useGetListCategoryGroupsQuery(categoryId!);
+  const {
+    data: productAllData,
+    isSuccess: productAllSuccess,
+    refetch: refetchProducts,
+  } = useGetProductsQuery(
+    `CategoryGroupId=${categoryId!}&CategoryId=${
+      selectedType ? selectedType : ""
+    }&${
+      selectedSortOption ? selectedSortOption : ""
+    }&PageIndex=${pageIndex}&PageSize=12`
+  );
   const location = useLocation();
   const currentUrl = location.pathname + location.search;
   useEffect(() => {
     if (categoryId) {
-      refetchProducts(); 
-      setSelectedType(null)
+      refetchProducts();
+      setSelectedType(null);
     }
   }, [categoryId, refetchProducts]);
 
-  const handleSortOptionClick = (funcKey : string) => {
+  const handleSortOptionClick = (funcKey: string) => {
     setSelectedSortOption(funcKey);
 
     if (categoryId) {
       refetchProducts();
     }
-    
   };
-  const handleSortType = (type : string) => {
+  const handleSortType = (type: string) => {
     setSelectedType(type);
 
     if (categoryId) {
       refetchProducts();
     }
-    
   };
 
   return (
@@ -64,7 +75,11 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
       <div className="flex gap-4 my-8">
         {listCategoryGroupsSuccess ? (
           <>
-            <Sidebar data={listCategoryGroupsData.categories} onSortOptionClick={handleSortOptionClick} onSortType={handleSortType}>
+            <Sidebar
+              data={listCategoryGroupsData.categories}
+              onSortOptionClick={handleSortOptionClick}
+              onSortType={handleSortType}
+            >
               <CategoryList data={productAllData?.data} />
             </Sidebar>
           </>
@@ -74,7 +89,12 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
       </div>
 
       <div className="flex justify-center">
-        <Pagination pageIndex={pageIndex} url={currentUrl} pageSize={productAllSuccess ? productAllData.pageSize : 30} totalCount={20}  />
+        <Pagination
+          pageIndex={pageIndex}
+          url={currentUrl}
+          pageSize={productAllSuccess ? productAllData.pageSize : 30}
+          totalCount={20}
+        />
       </div>
     </section>
   );
