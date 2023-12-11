@@ -74,14 +74,14 @@ const GetProducts: React.FC<GetProductsProps> = ({
   let listProductContent;
   if (listProduct) {
     listProductContent = listProduct.map((item) => {
-      // const handleChangeQuality = (e: React.ChangeEvent<HTMLInputElement>) => {
-      //   const updateArray = listProduct.map((product) => {
-      //     return product.id === item.id
-      //       ? { ...product, quality: e.target.value }
-      //       : product;
-      //   }) as IListProduct[];
-      //   handleChangeListProduct(updateArray);
-      // };
+      const handleChangeQuality = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const updateArray = listProduct.map((product) => {
+          return product.id === item.id
+            ? { ...product, quality: e.target.value }
+            : product;
+        }) as IListProduct[];
+        handleChangeListProduct(updateArray);
+      };
 
       const handleRemove = () => {
         const updateArray = listProduct.filter((product) => {
@@ -108,13 +108,15 @@ const GetProducts: React.FC<GetProductsProps> = ({
           </div>
           <div className="flex gap-4">
             <Input
-              //onChange={handleChangeQuality}
+              onChange={handleChangeQuality}
               crossOrigin={""}
               name="quality"
+              max={1000}
+              min={0}
               value={item.quality}
               type="number"
               label="Số lượng"
-            ></Input>
+            />
 
             <IconButton onClick={handleRemove}>
               <TiDeleteOutline />

@@ -41,24 +41,6 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
   let content: React.ReactNode;
 
   if (isSuccess) {
-    // const renderProductSpecifications = data.productSpecifications.map(
-    //   (item) => {
-    //     return (
-    //       <div>
-    //         <label className="text-sm font-semibold">
-    //           {item.specificationName}
-    //         </label>
-    //         <Input
-    //           crossOrigin={""}
-    //           readOnly
-    //           value={item.specificationValue}
-    //           name="brand"
-    //         />
-    //       </div>
-    //     );
-    //   }
-    // );
-
     content = (
       <>
         <div className="border-b border-primary-1 pb-8">
@@ -72,13 +54,18 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
               <Button onClick={handleOpen}>Thêm thông số</Button>
             </div>
 
-            <div>
+            <div className="my-4">
               {data.productSpecifications.map((item) => {
                 return (
-                  <div className="flex justify-between my-8 items-center">
-                    <h3>{item.specificationName}</h3>
+                  <div className="flex gap-4 border border-primary-1 justify-between  items-center p-2">
+                    <h5 className="min-w-[200px]  ">
+                      {item.specificationName}
+                    </h5>
+
                     <p> {item.specificationValue}</p>
+
                     <IconButton
+                      className="min-w-[40px]"
                       onClick={() => {
                         removeSpecification({
                           productId: productId || "",

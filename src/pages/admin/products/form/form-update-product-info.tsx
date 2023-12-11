@@ -118,13 +118,18 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
           <Input
             crossOrigin={""}
             readOnly
-            value={product.name}
+            value={product.category.name}
             name="category"
           />
         </div>
         <div>
           <label className="text-sm font-semibold">Thương hiệu</label>
-          <Input crossOrigin={""} readOnly value={product.name} name="brand" />
+          <Input
+            crossOrigin={""}
+            readOnly
+            value={product.brand.name}
+            name="brand"
+          />
         </div>
       </div>
 

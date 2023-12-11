@@ -46,10 +46,9 @@ const FormGoodsReceipt: React.FC<FormGoodsReceiptProps> = () => {
       toast.error("Thông tin không hợp lệ");
     } else {
       dataForm.reportProducts = listProduct.map((product) => ({
-        quantity: product.quality,
+        quantity: +product.quality,
         productId: product.id,
       }));
-
       addReport(dataForm);
     }
   };

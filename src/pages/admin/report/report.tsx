@@ -87,20 +87,17 @@ const Report: React.FC<ReportProps> = () => {
               <Button>Chi tiết</Button>
             </Link> */}
 
-            {data.reportStatus !== "Inspected" ||
-              (data.reportStatus === "Cancelled" && (
-                <Button
-                  onClick={() => {
-                    if (data.reportStatus === "Creative")
-                      approveReport(data.id);
-                    if (data.reportStatus === "Approved")
-                      inspectReport(data.id);
-                  }}
-                  color="light-blue"
-                >
-                  {content}
-                </Button>
-              ))}
+            {content && (
+              <Button
+                onClick={() => {
+                  if (data.reportStatus === "Creative") approveReport(data.id);
+                  if (data.reportStatus === "Approved") inspectReport(data.id);
+                }}
+                color="light-blue"
+              >
+                {content}
+              </Button>
+            )}
             <Button
               color="red"
               disabled={

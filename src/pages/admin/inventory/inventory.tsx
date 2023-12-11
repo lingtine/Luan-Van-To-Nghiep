@@ -13,6 +13,7 @@ const Inventory: React.FC<InventoryProps> = () => {
   const { index } = useParams();
   const { data, isSuccess, isLoading } = useGetProductWarehouseQuery({
     pageIndex: index,
+    pageSize: 20,
   });
   // const [removeInventory, { isSuccess: removeSuccess }] =
   //   useRemoveInventoryMutation();
@@ -36,36 +37,45 @@ const Inventory: React.FC<InventoryProps> = () => {
         return data.name;
       },
     },
-
-    {
-      label: "Trạng thái",
-      render: (data: any) => {
-        return data.status;
-      },
-    },
     {
       label: "Số lượng",
       render: (data: any) => {
-        return data.quantity;
+        return <div className="min-w-[80px]">{data.quantity}</div>;
       },
     },
     {
-      label: "Tuỳ chọn",
+      label: "Trạng thái",
       render: (data: any) => {
         return (
-          <div className="flex gap-4 justify-end">
+          <div className="min-w-[160px] flex justify-end">
             <Button
-              // onClick={() => {
-              //   removeInventory(data.id);
-              // }}
-              color="red"
+              color={data.status === "OutStock" ? "red" : "green"}
+              ripple={false}
             >
-              Xoá
+              {data.status}
             </Button>
           </div>
         );
       },
     },
+
+    // {
+    //   label: "Tuỳ chọn",
+    //   render: (data: any) => {
+    //     return (
+    //       <div className="flex gap-4 justify-end">
+    //         <Button
+    //           // onClick={() => {
+    //           //   removeInventory(data.id);
+    //           // }}
+    //           color="red"
+    //         >
+    //           Xoá
+    //         </Button>
+    //       </div>
+    //     );
+    //   },
+    // },
   ];
 
   // useEffect(() => {
@@ -91,7 +101,7 @@ const Inventory: React.FC<InventoryProps> = () => {
             pageIndex={data.pageIndex}
             pageSize={data.pageSize}
             totalCount={data.totalCount}
-            url="/admin/inventorys"
+            url="/admin/inventory"
           />
         </div>
       </>

@@ -18,6 +18,7 @@ const Warehouse: React.FC<WarehouseProps> = () => {
   const { index } = useParams();
   const { data, isSuccess, isLoading } = useGetWarehousesQuery({
     pageIndex: index,
+    pageSize: 20,
   });
   const [removeWarehouse, { isSuccess: removeSuccess }] =
     useRemoveWarehouseMutation();

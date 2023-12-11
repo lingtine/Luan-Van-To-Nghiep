@@ -13,6 +13,7 @@ const productWarehouseApi = createApi({
       query: (params) => ({
         url: "/warehouses/warehouse-products",
         method: "GET",
+        params,
       }),
       providesTags: ["add", "remove"],
       transformResponse: (response: {

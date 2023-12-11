@@ -107,7 +107,7 @@ const router = createBrowserRouter(
         <Route path="products/:index" element={<ProductsAdminPage />}></Route>
 
         <Route path="inventory" element={<InventoryPage />}></Route>
-        <Route path="inventory:index" element={<InventoryPage />}></Route>
+        <Route path="inventory/:index" element={<InventoryPage />}></Route>
 
         <Route path="report" element={<ReportPage />}></Route>
         <Route path="report/:index" element={<ReportPage />}></Route>
