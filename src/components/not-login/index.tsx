@@ -5,7 +5,7 @@ export default function NotLogin() {
   return (
     <div
       id="bill"
-      className="container flex top-0 right-0 justify-center  mx-auto mb-20 min-w-[100vw] min-h-[500px] z-50 transition ease-in-out delay-150"
+      className="container flex top-0 right-0 justify-center  mx-auto mb-20  min-h-[500px] z-50 transition ease-in-out delay-150"
     >
       <div className=" flex flex-col justify-center gap-4 w-fit max-w-[600px] h-full float-right z-50 bg-white-200 transition ease-in-out delay-150">
         <div>

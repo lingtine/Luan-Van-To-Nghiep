@@ -18,7 +18,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formatPrice] = useFormatPrice();
   return (
     data && (
@@ -26,7 +26,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
         <CardHeader shadow={false} floated={false} className="h-60">
           <img
             src={
-              data.imageUrl  || "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png"
+              data.imageUrl ||
+              "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png"
             }
             alt={data.name}
             className="h-full w-full object-contain"
@@ -34,11 +35,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
           {/* <div className="bg-banner-1 h-full w-full object-cover"></div> */}
         </CardHeader>
         <CardBody className="p-3">
-          <div className="mb-2 flex items-center justify-between">
+          <div className="mb-2 gap-4 flex items-center justify-between">
             <div className="line-clamp-2">
-            <Typography color="blue-gray" className="font-medium">
-              {data.name}
-            </Typography>
+              <Typography color="blue-gray" className="font-medium">
+                {data.name}
+              </Typography>
             </div>
             <Typography color="blue-gray" className="font-medium">
               {formatPrice.format(data.unitPrice)}
