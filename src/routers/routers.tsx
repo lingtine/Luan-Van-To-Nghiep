@@ -4,6 +4,8 @@ import {
   Route,
 } from "react-router-dom";
 
+import AuthGuard from "auth/auth-guard";
+import AuthClientGuard from "auth/auth-client-guard";
 import ProductDetailPage from "pages/products/ProductDetail";
 import {
   AdminLayout,
@@ -52,6 +54,7 @@ import {
   ReportDetail,
   StatisticalPage,
   OrderDetailAdminPage,
+  CartClientPage,
 } from "pages";
 import RequireAuth from "utils/RequireAuth";
 
@@ -65,6 +68,14 @@ const router = createBrowserRouter(
         ></Route>
         <Route index element={<HomePage />}></Route>
         <Route path="cart" element={<CartPage />}></Route>
+        <Route
+          path="cart-client"
+          element={
+            <AuthClientGuard>
+              <CartClientPage />
+            </AuthClientGuard>
+          }
+        ></Route>
         <Route path="about" element={<AboutPage />}></Route>
         <Route path="contact-us" element={<ContactPage />}></Route>
 
@@ -78,7 +89,11 @@ const router = createBrowserRouter(
         <Route path="forget-password" element={<ForgetPasswordPage />}></Route>
         <Route
           path="profile"
-          element={<RequireAuth WrappedComponent={ProfilePage} />}
+          element={
+            <AuthClientGuard>
+              <ProfilePage />
+            </AuthClientGuard>
+          }
         ></Route>
         <Route path="wishlist" element={<WishListPage />}></Route>
         <Route path="search" element={<SearchPage />}></Route>
@@ -93,7 +108,14 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/cart/check-out" element={<CheckOutPage />}></Route>
 
-      <Route path="/login-admin" element={<LoginAdminPage />}></Route>
+      <Route
+        path="/login-admin"
+        element={
+          <AuthGuard>
+            <LoginAdminPage />
+          </AuthGuard>
+        }
+      ></Route>
       <Route path="/admin/" element={<AdminLayout />}>
         <Route index element={<DashboardAdminPage />}></Route>
         <Route path="orders" element={<OrdersAdminPage />}></Route>

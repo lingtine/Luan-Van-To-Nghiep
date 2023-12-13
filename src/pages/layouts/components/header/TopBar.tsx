@@ -1,16 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "redux/store";
 interface TopBarProps {}
 
 const TopBar: React.FC<TopBarProps> = () => {
-  const isLogin = true;
+  const { accessToken } = useAppSelector((state) => state.authSlice);
 
   return (
     <div className="w-full bg-primary text-color-1 p-1">
       <div className="container flex justify-end text-sm gap-6">
         <Link to={"/about"}>Về chúng tôi</Link>
         <Link to={"/contact"}>Góp ý</Link>
-        {isLogin ? (
+        {accessToken ? (
           <Link to={"/profile"}>Tài khoản</Link>
         ) : (
           <>

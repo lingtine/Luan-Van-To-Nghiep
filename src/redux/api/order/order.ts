@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-
+import cartApi from "../cart/cart";
 import customFetchBase from "redux/api/customFetchBase";
 import { IOrder, IOrderDetail } from "../types";
 
@@ -43,6 +43,13 @@ const orderApi = createApi({
         method: "POST",
         body: data,
       }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+
+          await dispatch(cartApi.endpoints.getDetailCart.initiate(null));
+        } catch (error) {}
+      },
     }),
     getOrder: builder.query({
       query: (orderId: string) => ({

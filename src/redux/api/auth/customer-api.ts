@@ -31,7 +31,12 @@ const customerApi = createApi({
             url: "customers/customers/info",
           };
         },
-        transformResponse: (response: { data: IUserDetail[] }) => response.data,
+        transformResponse: (response: {
+          data: IUserDetail;
+          pageIndex: number;
+          pageSize: number;
+          totalCount: number;
+        }) => response,
 
         async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
           try {

@@ -3,7 +3,8 @@ import SlideBar from "./components/slide-bar/slide-bar";
 import { AiOutlineUser } from "react-icons/ai";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAppSelector } from "redux/store";
-
+import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
 interface AdminLayoutProps {}
 
 const AdminLayout: React.FC<AdminLayoutProps> = () => {
@@ -16,6 +17,12 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
 
   if (!accessToken) {
     return <Navigate to={"/login-admin"} />;
+  }
+
+  const jwtValue = jwtDecode(accessToken) as { role: [] | string };
+  if (!Array.isArray(jwtValue.role)) {
+    toast.warning("Bạn không có quyền truy cập");
+    return <Navigate to={"/"} />;
   }
 
   return (

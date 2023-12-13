@@ -36,7 +36,7 @@ const authApi = createApi({
             if (jwt) {
               await dispatch(employeeApi.endpoints.getEmployee.initiate(null));
               const jsonData = JSON.stringify(jwt);
-              localStorage.setItem('user', jsonData);
+              localStorage.setItem("user", jsonData);
             }
           } catch (error) {}
         },

@@ -44,26 +44,20 @@ const InputQuantity: React.FC<InputQuantityProps> = ({
     }
   };
   return (
-    <div className="flex h-fit items-center min-w-[120px] justify-between border border-color-black max-w-[159px]">
-      <span
-        className={"p-2 border-r border-r-color-black "}
-        onClick={handleDecrease}
-      >
+    <div className="flex h-fit  items-center rounded-md min-w-[120px] justify-between border border-gray-400 max-w-[159px]">
+      <span className={"p-2  "} onClick={handleDecrease}>
         <HiOutlineMinus />
       </span>
+
       <input
+        aria-label="input-number"
         className={"max-w-[32px] text-center"}
         value={quantity}
         onBlur={handleBlur}
         onChange={handleChange}
         type={"number"}
       />
-      <span
-        className={
-          "p-2 text-secondary bg-secondary-3 border-l border-l-secondary-3"
-        }
-        onClick={handleIncrease}
-      >
+      <span className={"p-2  "} onClick={handleIncrease}>
         <HiOutlinePlus />
       </span>
     </div>

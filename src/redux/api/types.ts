@@ -192,6 +192,21 @@ export interface ICoupon {
   discountEventId: string;
 }
 
+export interface IProductInOrder {
+  id: string;
+  productId: string;
+  name: string;
+  unitPrice: number;
+  quantity: number;
+}
+
+export interface ICartDetail {
+  id: string;
+  customerId: string;
+  status: string;
+  items: IProductInOrder[];
+}
+
 export interface IOrderDetail {
   id: string;
   cartId: string;
@@ -217,13 +232,7 @@ export interface IOrderDetail {
     id: string;
     customerId: string;
     status: string;
-    items: {
-      id: string;
-      productId: string;
-      name: string;
-      unitPrice: number;
-      quantity: number;
-    }[];
+    items: IProductInOrder[];
   };
   status: string;
 }

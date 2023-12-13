@@ -1,26 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Breadcrumbs } from "@material-tailwind/react";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaHouse } from "react-icons/fa6";
 import NotLogin from "components/not-login";
-import { AiOutlineEdit } from "react-icons/ai";
-import { BsFillTrash3Fill } from "react-icons/bs";
 import TableOrder from "components/table/table-data";
-import { useGetOrdersCustomerQuery } from "redux/api/order/order";
-interface ProfilePageProps {
- isAuthenticated: boolean;
-}
+import { useGetCustomerDetailQuery } from "redux/api/auth/customer-api";
 
-const ProfilePage: React.FC<ProfilePageProps> = ({isAuthenticated}) => {
-  const userData = localStorage.getItem('user');
-  const data = userData ? JSON.parse(userData) : null;
-  const {data : orders, isSuccess} = useGetOrdersCustomerQuery(null)
-  
-  useEffect(() => {
-    if(isAuthenticated) {
-      redirect('/login')
-    }
-  },[])
+interface ProfilePageProps {}
+
+const ProfilePage: React.FC<ProfilePageProps> = () => {
+  const { data } = useGetCustomerDetailQuery(null);
   const dataSlideBar: {
     id: string;
     label: string;
@@ -28,7 +17,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({isAuthenticated}) => {
       id: string;
       label: string;
       href: string;
-      email?:string;
+      email?: string;
       address?: string;
     }[];
   }[] = [
@@ -40,13 +29,13 @@ const ProfilePage: React.FC<ProfilePageProps> = ({isAuthenticated}) => {
           id: Math.random().toString(),
           label: "Thông tin tài khoản",
           href: "/profile",
-          email: (data && data.email) || " ",
+          email: (data && data.data.email) || " ",
         },
         {
           id: Math.random().toString(),
           label: "Địa chỉ giao hàng",
           href: "/profile/addresses",
-          address: "111 Bijoy sarani, Dhaka, DH 1515, Bangladesh."
+          address: "111 Bijoy sarani, Dhaka, DH 1515, Bangladesh.",
         },
       ],
     },
@@ -72,7 +61,10 @@ const ProfilePage: React.FC<ProfilePageProps> = ({isAuthenticated}) => {
             className="text-sm font-light opacity-50 my-1 pl-8"
             key={child.id}
           >
-            {child.label} : <span>{(child.email || child.address) ? (child.email || child.address) : ""}</span>
+            {child.label} :{" "}
+            <span>
+              {child.email || child.address ? child.email || child.address : ""}
+            </span>
           </li>
         );
       });
@@ -88,28 +80,28 @@ const ProfilePage: React.FC<ProfilePageProps> = ({isAuthenticated}) => {
     return <ul key={item.id}>{renderItem}</ul>;
   });
   return (
-    isAuthenticated ? 
-    (<div className="container">
-    <section className="flex justify-between my-10">
-      <Breadcrumbs>
-        <Link to={"/"} className="opacity-60">
-          <FaHouse />
-        </Link>
-        <Link to={"/profile"}>Tài khoản</Link>
-      </Breadcrumbs>
-      <p>Chào mừng : <span className="text-primary font-bold">{`${data.name || 'user'}`}</span></p>
-    </section>
-    <section className="mb-36">
+    <div className="container">
+      <section className="flex justify-between my-10">
+        <Breadcrumbs>
+          <Link to={"/"} className="opacity-60">
+            <FaHouse />
+          </Link>
+          <Link to={"/profile"}>Tài khoản</Link>
+        </Breadcrumbs>
+        <p>
+          Chào mừng :{" "}
+          <span className="text-primary font-bold">{`${
+            data?.data.name || "user"
+          }`}</span>
+        </p>
+      </section>
+      <section className="mb-36"></section>
 
-    </section>
-
-    <section className="mb-36">
-      {renderDataSlideBar}
-      <TableOrder data={isSuccess ? orders.data : ''}/>
-    </section>
-    
-  </div> ) : 
-   <NotLogin/>
+      <section className="mb-36">
+        {renderDataSlideBar}
+        {/* <TableOrder data={isSuccess ? orders.data : ""} /> */}
+      </section>
+    </div>
   );
 };
 

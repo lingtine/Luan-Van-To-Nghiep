@@ -9,6 +9,7 @@ import { Mutex } from "async-mutex";
 import { logout } from "../features/auth/authSlice";
 import { getCookie } from "utils/cookies/cookies";
 import { changeAuth } from "../features/auth/authSlice";
+
 import type { RootState } from "../store";
 
 const baseUrl = `http://ecommerce.quochao.id.vn/`;
@@ -36,7 +37,7 @@ const customFetchBase: BaseQueryFn<
   // wait until the mutex is available without locking it
   await mutex.waitForUnlock();
   let result = await baseQuery(args, api, extraOptions);
-  if (result.error && result.error.status === 401  ) {
+  if (result.error && result.error.status === 401) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
 
