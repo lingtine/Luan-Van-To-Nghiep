@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Breadcrumbs } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaHouse } from "react-icons/fa6";
 import NotLogin from "components/not-login";
 import TableOrder from "components/table/table-data";
+import { useLogoutMutation } from "redux/api/auth/authApi";
 import { useGetCustomerDetailQuery } from "redux/api/auth/customer-api";
-
+import { Button } from "@material-tailwind/react";
+import { useAppSelector } from "redux/store";
 interface ProfilePageProps {}
 
 const ProfilePage: React.FC<ProfilePageProps> = () => {
+  const [logout, { isSuccess }] = useLogoutMutation();
+  const { refreshToken } = useAppSelector((state) => state.authSlice);
+  const navigate = useNavigate();
   const { data } = useGetCustomerDetailQuery(null);
   const dataSlideBar: {
     id: string;
@@ -52,6 +57,12 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
     },
   ];
 
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/");
+    }
+  }, [isSuccess]);
+
   const renderDataSlideBar = dataSlideBar.map((item) => {
     let content;
     if (item.children) {
@@ -81,7 +92,7 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
   });
   return (
     <div className="container">
-      <section className="flex justify-between my-10">
+      <section className="flex justify-between ">
         <Breadcrumbs>
           <Link to={"/"} className="opacity-60">
             <FaHouse />
@@ -95,11 +106,18 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
           }`}</span>
         </p>
       </section>
-      <section className="mb-36"></section>
+      <section>{renderDataSlideBar}</section>
 
       <section className="mb-36">
-        {renderDataSlideBar}
         {/* <TableOrder data={isSuccess ? orders.data : ""} /> */}
+        <Button
+          size="sm"
+          onClick={() => {
+            logout({ refreshToken });
+          }}
+        >
+          Đăng suất
+        </Button>
       </section>
     </div>
   );
