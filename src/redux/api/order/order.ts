@@ -6,6 +6,7 @@ import { IOrder, IOrderDetail } from "../types";
 const orderApi = createApi({
   reducerPath: "order",
   baseQuery: customFetchBase,
+  tagTypes: ["processing-Order"],
   endpoints: (builder) => ({
     getOrders: builder.query({
       query: (params) => ({
@@ -14,6 +15,7 @@ const orderApi = createApi({
         params,
       }),
 
+      providesTags: ["processing-Order"],
       transformResponse: (response: {
         data: IOrder[];
         pageIndex: number;
@@ -54,6 +56,7 @@ const orderApi = createApi({
         url: `orders/orders/process/${orderId}`,
         method: "POST",
       }),
+      invalidatesTags: ["processing-Order"],
     }),
     getOrderReportByStatus: builder.mutation({
       query: (data: { start: string; end: string }) => ({
@@ -61,6 +64,7 @@ const orderApi = createApi({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["processing-Order"],
     }),
     exportOrderReportByStatus: builder.mutation({
       query: (data: { start: string; end: string }) => ({

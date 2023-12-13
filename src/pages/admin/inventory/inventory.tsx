@@ -116,14 +116,7 @@ const Inventory: React.FC<InventoryProps> = () => {
 
   return (
     <div className="px-4 ">
-      <div className="flex justify-end my-4">
-        <Link to="/admin/Inventorys/add-Inventory">
-          <Button className="flex gap-2 items-center">
-            <AiOutlinePlusCircle />
-            Thêm kho
-          </Button>
-        </Link>
-      </div>
+      <div className="flex justify-end my-4"></div>
       {content}
     </div>
   );

@@ -57,12 +57,7 @@ const Products: React.FC<ProductsProps> = () => {
         return formatPrice.format(data.unitPrice);
       },
     },
-    {
-      label: "Active",
-      render: (data: any) => {
-        return <Switch crossOrigin={"use-credentials"}></Switch>;
-      },
-    },
+
     {
       label: "Tuỳ chọn",
       render: (data: any) => {
