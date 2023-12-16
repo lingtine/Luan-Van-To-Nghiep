@@ -2,24 +2,27 @@ import React from "react";
 import { InputDate } from "components";
 import { Button } from "@material-tailwind/react";
 import { useState } from "react";
-import { useGetOrderReportByStatusMutation } from "redux/api/order/order";
+import {
+  useGetProductReportMutation,
+  useProductRevenueByIdReportingMutation,
+  useProductRevenuePeriodicReportingMutation,
+  useProductRevenueReportingMutation,
+} from "redux/api/catalog/product";
 
 import { toast } from "react-toastify";
 import { Spinner } from "@material-tailwind/react";
-import TableOrderReport from "./components/table-order-report";
-interface StatisticalProps {}
+import TableProductReport from "./components/table-product-report";
+interface ReportOrderProps {}
 
-const Statistical: React.FC<StatisticalProps> = () => {
+const ReportOrder: React.FC<ReportOrderProps> = () => {
   const [dateEnd, setDateEnd] = useState<Date>();
   const [dateStart, setDateStart] = useState<Date>();
 
   const [getOrderReport, { isSuccess, isLoading, data }] =
-    useGetOrderReportByStatusMutation();
+    useProductRevenueReportingMutation();
 
   const handleClick = () => {
     if (dateStart && dateEnd) {
-      console.log(dateStart > dateEnd);
-
       if (dateStart > dateEnd) {
         toast.error("Ngày bắt đầu phải sớm hơn");
       } else {
@@ -42,8 +45,9 @@ const Statistical: React.FC<StatisticalProps> = () => {
       </div>
     );
   } else if (isSuccess) {
+    console.log(data);
     if (data && data.length !== 0) {
-      content = <TableOrderReport listOrder={data} />;
+      content = <TableProductReport listOrder={data} />;
     } else if (data && data.length === 0) {
       content = <p>Không có dữ liệu</p>;
     }
@@ -67,4 +71,4 @@ const Statistical: React.FC<StatisticalProps> = () => {
   );
 };
 
-export default Statistical;
+export default ReportOrder;

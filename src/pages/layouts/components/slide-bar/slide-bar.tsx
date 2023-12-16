@@ -36,12 +36,12 @@ const SlideBar: React.FC<SlideBarProps> = () => {
     setOpen(open === value ? 0 : value);
   };
   const navigation = [
-    {
-      label: "Dashboard",
-      href: "/admin",
-      current: true,
-      icon: <BsHouse />,
-    },
+    // {
+    //   label: "Dashboard",
+    //   href: "/admin",
+    //   current: true,
+    //   icon: <BsHouse />,
+    // },
     {
       label: "Quản lý đơn hàng",
       href: "/admin/orders",
@@ -121,6 +121,21 @@ const SlideBar: React.FC<SlideBarProps> = () => {
         {
           label: "Sự kiện giảm giá",
           href: "discountEvents",
+        },
+      ],
+    },
+    {
+      label: "Thống kê",
+      current: false,
+      icon: <BiSolidDiscount />,
+      children: [
+        {
+          label: "Thông kê đơn hàng",
+          href: "report-order",
+        },
+        {
+          label: "Thông kế sản phẩm",
+          href: "report-product",
         },
       ],
     },

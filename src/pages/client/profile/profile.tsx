@@ -8,13 +8,20 @@ import { useLogoutMutation } from "redux/api/auth/authApi";
 import { useGetCustomerDetailQuery } from "redux/api/auth/customer-api";
 import { Button } from "@material-tailwind/react";
 import { useAppSelector } from "redux/store";
+import { jwtDecode } from "jwt-decode";
 interface ProfilePageProps {}
 
 const ProfilePage: React.FC<ProfilePageProps> = () => {
   const [logout, { isSuccess }] = useLogoutMutation();
-  const { refreshToken } = useAppSelector((state) => state.authSlice);
+  const { refreshToken, accessToken } = useAppSelector(
+    (state) => state.authSlice
+  );
+
   const navigate = useNavigate();
-  const { data } = useGetCustomerDetailQuery(null);
+  const { data, isSuccess: noTest } = useGetCustomerDetailQuery(null);
+  if (noTest) {
+    console.log(data);
+  }
   const dataSlideBar: {
     id: string;
     label: string;
@@ -109,11 +116,12 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
       <section>{renderDataSlideBar}</section>
 
       <section className="mb-36">
-        {/* <TableOrder data={isSuccess ? orders.data : ""} /> */}
+        {/* <TableOrder data={isSuccess ? data?.data/ : ""} /> */}
         <Button
           size="sm"
           onClick={() => {
             logout({ refreshToken });
+            navigate("/");
           }}
         >
           Đăng suất

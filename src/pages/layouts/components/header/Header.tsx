@@ -35,7 +35,7 @@ const Header: React.FC<HeaderProps> = () => {
             className="flex items-center gap-2 relative cursor-pointer"
           >
             <CiShoppingCart className="text-4xl" />
-            <span className="bg-red-500 text-white-200 text-xs rounded-full w-5 h-5 flex items-center justify-center ml-1 absolute bg-hoverColor top-0 right-[-8px]">
+            <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center ml-1 absolute bg-hoverColor top-0 right-[-8px]">
               {isSuccess ? data.items.length : "0"}
             </span>
           </Link>

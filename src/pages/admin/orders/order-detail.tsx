@@ -1,6 +1,6 @@
 import Table from "components/table/table";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   useGetOrderQuery,
   useOrderProcessingMutation,
@@ -14,6 +14,7 @@ import OrderInfo from "./order-infor";
 interface OrderDetailProps {}
 
 const OrderDetail: React.FC<OrderDetailProps> = () => {
+  const navigate = useNavigate();
   const { orderId } = useParams();
   const [changeOrderProcess, result] = useOrderProcessingMutation();
   const { data, isSuccess } = useGetOrderQuery(orderId || "");
@@ -27,8 +28,9 @@ const OrderDetail: React.FC<OrderDetailProps> = () => {
       renderButtonOrderProcessing = (
         <Button
           color="yellow"
-          onClick={() => {
-            changeOrderProcess(id);
+          onClick={async () => {
+            await changeOrderProcess(id);
+            navigate(-1);
           }}
         >
           Xử lý

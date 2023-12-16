@@ -6,8 +6,7 @@ import { formatVND } from "utils/formatVND";
 import { useCreateOrderMutation } from "redux/api/order/order";
 import { useGetCouponsQuery } from "redux/api/discount/coupon";
 import { toast } from "react-toastify";
-import SelectBox from "components/select-box/select-box";
-import { ISelected } from "components/select-box/select-box";
+import SelectBox, { ISelected } from "components/select-box/select-box";
 
 type Inputs = {
   couponId: string;
@@ -42,12 +41,13 @@ const Cart: React.FC = () => {
       createOrder({ ...data, couponId: selected.id });
     }
   };
-  const { data, isSuccess } = useGetDetailCartQuery(null);
+  const { data, isSuccess, refetch } = useGetDetailCartQuery(null);
   const [createOrder, result] = useCreateOrderMutation();
 
   useEffect(() => {
     if (result.isSuccess) {
       toast.success("Tạo đơn hàng thành công");
+      refetch();
       navigate("/");
     }
   }, [result]);

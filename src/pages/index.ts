@@ -31,7 +31,7 @@ export { default as AddDiscountEventPage } from "./admin/discount-events/add-dis
 export { default as CouponsPage } from "./admin/coupon/coupon";
 export { default as AddCouponPage } from "./admin/coupon/add-coupon";
 export { default as StatisticalPage } from "./admin/statistical/statistical";
-
+export { default as ReportOrderPage } from "./admin/statistical/report-product";
 // clients page
 export { default as AboutPage } from "./client/about/about";
 export { default as CartPage } from "./client/cart/cart";

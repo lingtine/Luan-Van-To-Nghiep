@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import customFetchBase from "redux/api/customFetchBase";
 
-import { IProductDetailType, IProductType } from "../types";
+import { IProductDetailType, IProductType, IProductReport } from "../types";
 
 const productApi = createApi({
   reducerPath: "product",
@@ -205,6 +205,9 @@ const productApi = createApi({
         body: data,
         method: "POST",
       }),
+
+      transformResponse: (response: { data: { data: IProductReport[] } }) =>
+        response.data.data,
     }),
     exportProductReportFile: builder.mutation({
       query: (data: { start: string; end: string }) => ({

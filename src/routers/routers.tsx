@@ -55,8 +55,8 @@ import {
   StatisticalPage,
   OrderDetailAdminPage,
   CartClientPage,
+  ReportOrderPage,
 } from "pages";
-import RequireAuth from "utils/RequireAuth";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -194,6 +194,8 @@ const router = createBrowserRouter(
         <Route path="coupons" element={<CouponsPage />} />
         <Route path="coupons/:index" element={<CouponsPage />} />
         <Route path="coupons/add-coupon" element={<AddCouponPage />} />
+        <Route path="report-order" element={<StatisticalPage />} />
+        <Route path="report-product" element={<ReportOrderPage />} />
       </Route>
     </Route>
   )

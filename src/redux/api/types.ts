@@ -236,3 +236,19 @@ export interface IOrderDetail {
   };
   status: string;
 }
+
+export interface IOrderReport {
+  revenue: number;
+  status: string;
+  totalAmount: number;
+  totalDiscount: number;
+  totalOrder: number;
+  totalProduct: number;
+}
+
+export interface IProductReport {
+  date: null;
+  productId: string;
+  productName: string;
+  revenue: number;
+}

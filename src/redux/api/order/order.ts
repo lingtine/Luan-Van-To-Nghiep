@@ -2,11 +2,11 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import cartApi from "../cart/cart";
 import customFetchBase from "redux/api/customFetchBase";
 import { IOrder, IOrderDetail } from "../types";
-
+import { ICartDetail, IOrderReport } from "../types";
 const orderApi = createApi({
   reducerPath: "order",
   baseQuery: customFetchBase,
-  tagTypes: ["processing-Order"],
+  tagTypes: ["processing-Order", "create-order"],
   endpoints: (builder) => ({
     getOrders: builder.query({
       query: (params) => ({
@@ -43,13 +43,6 @@ const orderApi = createApi({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        try {
-          await queryFulfilled;
-
-          await dispatch(cartApi.endpoints.getDetailCart.initiate(null));
-        } catch (error) {}
-      },
     }),
     getOrder: builder.query({
       query: (orderId: string) => ({
@@ -71,6 +64,9 @@ const orderApi = createApi({
         method: "POST",
         body: data,
       }),
+
+      transformResponse: (response: { data: { data: IOrderReport[] } }) =>
+        response.data.data,
       invalidatesTags: ["processing-Order"],
     }),
     exportOrderReportByStatus: builder.mutation({

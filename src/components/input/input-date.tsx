@@ -12,18 +12,19 @@ import { SelectSingleEventHandler } from "react-day-picker";
 
 import { VscChevronRight, VscChevronLeft } from "react-icons/vsc";
 interface InputDateProps {
+  label: string;
   date?: Date;
   setDate: SelectSingleEventHandler;
 }
 
-const InputDate: React.FC<InputDateProps> = ({ date, setDate }) => {
+const InputDate: React.FC<InputDateProps> = ({ date, setDate, label }) => {
   return (
     <div>
       <Popover placement="bottom">
         <PopoverHandler>
           <Input
             crossOrigin={""}
-            label="Chọn ngày"
+            label={label}
             onChange={() => null}
             value={date ? format(date, "P") : ""}
           />
