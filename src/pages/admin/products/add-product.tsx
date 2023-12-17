@@ -89,7 +89,7 @@ const AddProduct: React.FC<AddProductProps> = () => {
       <SelectBox
         label="Chọn Nhóm Danh Mục"
         onChange={(option: ISelected) => {
-          getCategories(option.id);
+          getCategories({ GroupId: option.id, PageSize: 99 });
           setCategoryGroupSelected(option);
         }}
         options={updateData}
