@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "redux/store";
+import LanguageSwitcher from "./ButtonLanguage";
 interface TopBarProps {}
 
 const TopBar: React.FC<TopBarProps> = () => {
@@ -9,6 +10,7 @@ const TopBar: React.FC<TopBarProps> = () => {
   return (
     <div className="w-full bg-primary text-color-1 p-1">
       <div className="container flex justify-end text-sm gap-6">
+        <LanguageSwitcher />
         <Link to={"/about"}>Về chúng tôi</Link>
         <Link to={"/contact"}>Góp ý</Link>
         {accessToken ? (

@@ -9,6 +9,7 @@ import { useGetCustomerDetailQuery } from "redux/api/auth/customer-api";
 import { Button } from "@material-tailwind/react";
 import { useAppSelector } from "redux/store";
 import { jwtDecode } from "jwt-decode";
+import { useGetOrdersCustomerQuery } from "redux/api/order/order";
 interface ProfilePageProps {}
 
 const ProfilePage: React.FC<ProfilePageProps> = () => {
@@ -16,12 +17,11 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
   const { refreshToken, accessToken } = useAppSelector(
     (state) => state.authSlice
   );
+  const {data : orders, isSuccess : getOrder} = useGetOrdersCustomerQuery(null)
 
   const navigate = useNavigate();
   const { data, isSuccess: noTest } = useGetCustomerDetailQuery(null);
-  if (noTest) {
-    console.log(data);
-  }
+
   const dataSlideBar: {
     id: string;
     label: string;
@@ -116,7 +116,7 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
       <section>{renderDataSlideBar}</section>
 
       <section className="mb-36">
-        {/* <TableOrder data={isSuccess ? data?.data/ : ""} /> */}
+        <TableOrder data={getOrder ? orders.data : ""} />
         <Button
           size="sm"
           onClick={() => {

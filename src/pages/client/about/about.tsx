@@ -5,7 +5,10 @@ import { CiDollar } from "react-icons/ci";
 import { TbMoneybag } from "react-icons/tb";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import CoreValue from "../home/Corevalue";
+import { useTranslation } from "react-i18next";
+
 const About: React.FC = () => {
+  const { t } = useTranslation();
   const dataInfo: {
     id: string;
     icon: React.ReactNode;
@@ -105,21 +108,17 @@ const About: React.FC = () => {
         <div className="flex items-center my-20">
           <div className="flex-[0_0_50%] max-w-[50%] p-16">
             <h2 className="text-5xl font-semibold my-10">
-              Giới thiệu Techwave
+              {t("about")}
             </h2>
             <p className="text-base font-normal text-justify">
-              Ra mắt vào năm 2015, Techwave là nơi mua sắm trực tuyến hàng đầu
-              Nam Á với sự hiện diện tích cực ở Bangladesh. Được hỗ trợ bởi
-              nhiều giải pháp tiếp thị, dữ liệu và dịch vụ phù hợp, Techwave có
-              10.500 đại lý và 300 thương hiệu và phục vụ 3 triệu khách hàng
-              trên toàn khu vực.
+            {t("description")}
             </p>
             <br></br>
-            <p className="text-base font-normal text-justify">
+            {/* <p className="text-base font-normal text-justify">
               Techwave có hơn 1 triệu sản phẩm để cung cấp, tăng trưởng với tốc
               độ rất nhanh. Độc quyền cung cấp nhiều loại tài sản đa dạng khác
               nhau từ người tiêu dùng.
-            </p>
+            </p> */}
           </div>
           <div className="flex-[0_0_50%] max-w-[50%]">
             <img src="images/about/out-story.png" alt="slide" />

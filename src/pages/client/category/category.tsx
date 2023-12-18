@@ -25,6 +25,7 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
   const { categoryId } = useParams();
   const { data: listCategoryGroupsData, isSuccess: listCategoryGroupsSuccess } =
     useGetListCategoryGroupsQuery(categoryId!);
+    const [oldType, setOldType] = useState<any>('');
   const {
     data: productAllData,
     isSuccess: productAllSuccess,
@@ -36,25 +37,48 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
       selectedSortOption ? selectedSortOption : ""
     }&PageIndex=${pageIndex}&PageSize=12`
   );
+  
   const location = useLocation();
-  const currentUrl = location.pathname + location.search;
+  const currentUrl = window.location.pathname
+  const lastSlashIndex = currentUrl.lastIndexOf('/');
+  const desiredPart = currentUrl.substring(0, lastSlashIndex);
+  
   useEffect(() => {
     if (categoryId) {
       refetchProducts();
       setSelectedType(null);
     }
+    if(oldType === selectedType) {
+      setSelectedType(null);
+      refetchProducts();
+    } else {
+
+    }
+  const urlPath = window.location.href
+  const parts = urlPath.split('/');
+  const desiredPart = parts[parts.length - 1];
+  setPageIndex(Number(desiredPart) - 1)
   }, [categoryId, refetchProducts]);
 
   const handleSortOptionClick = (funcKey: string) => {
     setSelectedSortOption(funcKey);
-
+    console.log(funcKey);
+    
     if (categoryId) {
       refetchProducts();
     }
   };
   const handleSortType = (type: string) => {
-    setSelectedType(type);
-
+    setOldType(selectedType)
+    console.log('old', oldType);
+    console.log('new', type , selectedType);
+    if(oldType === selectedType || oldType == null) {
+      setSelectedType(null);
+      refetchProducts();
+    } else {
+      setSelectedType(type);
+      refetchProducts();
+    }
     if (categoryId) {
       refetchProducts();
     }
@@ -91,7 +115,7 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
       <div className="flex justify-center">
         <Pagination
           pageIndex={pageIndex}
-          url={currentUrl}
+          url={desiredPart}
           pageSize={productAllSuccess ? productAllData.pageSize : 30}
           totalCount={20}
         />

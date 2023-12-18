@@ -26,7 +26,7 @@ const Pagination: React.FC<PaginationProps> = ({
       return (
         <li key={index}>
           <Link 
-          to={index === 0 ? `${url}` : `${url}/${index}`}
+          to={index === 0 ? `${url}` : `${url}/${index + 1}`}
           >
             <IconButton variant={pageIndex == index ? "filled" : "text"}>
               {index + 1}

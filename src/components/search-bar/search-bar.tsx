@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { formatVND } from "utils/formatVND";
 
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 interface SearchBarProps {
   className?: string;
   label?: string;
@@ -20,6 +21,7 @@ const client = new MeiliSearch({
 const index = client.getIndex("products");
 
 const SearchBar: React.FC<SearchBarProps> = ({ className, label, area }) => {
+  const {t} = useTranslation()
   const [productsSearch, setProductsSearch] = useState([]);
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState<string>("");
@@ -46,13 +48,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ className, label, area }) => {
         {area ? (
           <textarea
             className="flex-1 bg-transparent border-none"
-            placeholder={label ? label : "Nhập tên sản phẩm"}
+            placeholder={label ? label : t("search")}
           ></textarea>
         ) : (
           <>
             <input
               className="flex-1 bg-transparent"
-              placeholder={label ? label : "Nhập tên sản phẩm"}
+              placeholder={label ? label : t("search")}
               onChange={(e) => setSearchValue(e.target.value)}
               value={searchValue}
             />
