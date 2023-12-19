@@ -15,6 +15,20 @@ const productApi = createApi({
     "remove-specifications",
   ],
   endpoints: (builder) => ({
+    getProductCarousel: builder.query({
+      query: () => ({
+        url: "/catalogs/products",
+        method: "GET",
+        params: {
+          PageSize: 4,
+          IsInStock: true,
+          OrderBy: "Price",
+          IsOrderDesc: true,
+        },
+      }),
+      transformResponse: (response: { data: IProductDetailType[] }) =>
+        response.data,
+    }),
     getProducts: builder.query({
       query: (params) => ({
         url: "/catalogs/products",
@@ -235,7 +249,7 @@ export const {
   useAddSpecificationForProductMutation,
   useRemoveSpecificationForProductMutation,
   useUpdateSpecificationForProductMutation,
-
+  useGetProductCarouselQuery,
   useGetProductsByParamsMutation,
   useExportProductReportFileMutation,
   useExportProductReportMutation,

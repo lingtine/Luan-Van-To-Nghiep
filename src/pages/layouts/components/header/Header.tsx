@@ -41,7 +41,7 @@ const Header: React.FC<HeaderProps> = () => {
           )}
         </div>
 
-        <p className="font-bold uppercase text-lg text xl:text-4xl">
+        <p className="font-bold uppercase text-lg lg:text-2xl xl:text-4xl">
           <Link to="/">TechWave</Link>
         </p>
 
@@ -49,14 +49,14 @@ const Header: React.FC<HeaderProps> = () => {
           <HeaderCategory />
         </div>
         <div className="flex gap-4">
-          <div className="relative w-full max-w-xs hidden lg:block">
+          <div className="relative w-full max-w-xs hidden xl:block">
             <SearchBar />
           </div>
           <Link
             to={accessToken ? "/cart-client" : "/login"}
             className="flex items-center gap-2 relative cursor-pointer"
           >
-            <CiShoppingCart className="text-2xl xl:text-4xl" />
+            <CiShoppingCart className="text-2xl lg:text-3xl xl:text-4xl" />
             <span className="bg-red-500 text-white text-sm lg:text-xs rounded-full w-4 h-4 lg:w-5 lg:h-5 flex items-center justify-center ml-1 absolute bg-hoverColor top-0 right-[-8px]">
               {isSuccess ? data.items.length : "0"}
             </span>

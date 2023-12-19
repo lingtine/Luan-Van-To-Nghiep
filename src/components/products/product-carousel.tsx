@@ -28,10 +28,10 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
       <div
         key={product.id}
         className={classNames(
-          "max-w-[268px] flex-shrink-0  mx-4 duration-700 ease-in-out h-fit"
+          "lg:max-w-[25%] flex-[0_0_25%] lg:px-4 max-w-full  flex-shrink-0   duration-700 ease-in-out h-fit"
         )}
         style={{
-          transform: `translateX(-${118 * carouselIndex}%)`,
+          transform: `translateX(calc(-${100 * carouselIndex}% ) )`,
         }}
       >
         <ProductCard data={product} />
@@ -40,19 +40,25 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
   });
 
   return (
-    <div className="w-full h-full ">
-      <div className="flex justify-between">
-        <IconButton onClick={onPrev} disabled={carouselIndex === 0}>
-          <FiArrowLeftCircle />
-        </IconButton>
-        <IconButton
-          onClick={onNext}
-          disabled={carouselIndex === products.length - lengthCarousel - 1}
-        >
-          <FiArrowRightCircle />
-        </IconButton>
+    <div className="w-full h-full px-8 relative">
+      <button
+        onClick={onPrev}
+        className="cursor-auto absolute top-[50%] z-20 text-2xl"
+        disabled={carouselIndex === 0}
+      >
+        <FiArrowLeftCircle />
+      </button>
+      <button
+        onClick={onNext}
+        className="cursor-auto absolute top-[50%] right-0 z-20 text-2xl"
+        disabled={carouselIndex === products.length - lengthCarousel - 1}
+      >
+        <FiArrowRightCircle />
+      </button>
+
+      <div className={`flex lg:-mx-4 overflow-hidden cursor-auto `}>
+        {renderProducts}
       </div>
-      <div className={`flex gap-2 overflow-hidden `}>{renderProducts}</div>
     </div>
   );
 };

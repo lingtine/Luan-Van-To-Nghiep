@@ -14,7 +14,7 @@ import { formatVND } from "utils/formatVND";
 import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
-  data: IProductDetailType | any;
+  data: IProductDetailType;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
@@ -22,7 +22,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const [formatPrice] = useFormatPrice();
   return (
     data && (
-      <Card className="w-full h-fit border">
+      <Card className="w-full h-fit border relative">
+        {!data.isInStock && (
+          <div className="absolute z-40 right-2 top-2 text-sm text-secondary p-1 rounded-md font-semibold bg-primary">
+            Hết Hàng
+          </div>
+        )}
         <CardHeader shadow={false} floated={false} className="h-60">
           <img
             src={
@@ -37,7 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
         <CardBody className="p-3">
           <div className="mb-2 gap-4 flex items-center justify-between">
             <div className="line-clamp-2">
-              <Typography color="blue-gray" className="font-medium">
+              <Typography color="blue-gray" className="font-medium text-sm">
                 {data.name}
               </Typography>
             </div>
