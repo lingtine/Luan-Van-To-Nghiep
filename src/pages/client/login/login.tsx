@@ -6,7 +6,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
   return (
     <div className="flex">
       <img
-        className="flex[0_0_50%] max-w-[50%]"
+        className="hidden lg:block max-w-[50%] flex-[0_0_50%]"
         src="images/login/login-image.png"
         alt="login"
       />

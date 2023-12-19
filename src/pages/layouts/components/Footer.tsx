@@ -2,7 +2,7 @@ interface FooterProps {}
 
 const Footer: React.FC<FooterProps> = () => {
   return (
-    <div className="bg-black">
+    <div className="bg-black overflow-hidden">
       <div className="container mx-auto pt-20">
         <div className="flex flex-wrap -mx-8 ">
           <div className="flex-[0_0_100%] px-8 max-w-full md:flex-[0_0_50%] md:max-w-[50%] lg:max-w-[25%] lg:flex-[0_0_25%]">
