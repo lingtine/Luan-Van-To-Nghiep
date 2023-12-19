@@ -1,7 +1,6 @@
 import ProductCard from "./product-card";
 import { FiArrowRightCircle, FiArrowLeftCircle } from "react-icons/fi";
 import { useState } from "react";
-import { Button, IconButton, carousel } from "@material-tailwind/react";
 import { IProductDetailType } from "redux/api/types";
 import classNames from "classnames";
 interface ProductsCarouselProps {
@@ -28,7 +27,7 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
       <div
         key={product.id}
         className={classNames(
-          "lg:max-w-[25%] flex-[0_0_25%] lg:px-4 max-w-full  flex-shrink-0   duration-700 ease-in-out h-fit"
+          "lg:max-w-[25%] lg:flex-[0_0_25%] md:max-w-[50%] md:flex-[0_0_50%] flex-[0_0_100%] md:px-4 max-w-full  flex-shrink-0   duration-700 ease-in-out h-fit"
         )}
         style={{
           transform: `translateX(calc(-${100 * carouselIndex}% ) )`,
@@ -42,6 +41,7 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
   return (
     <div className="w-full h-full px-8 relative">
       <button
+        title="prev"
         onClick={onPrev}
         className="cursor-auto absolute top-[50%] z-20 text-2xl"
         disabled={carouselIndex === 0}
@@ -49,6 +49,7 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
         <FiArrowLeftCircle />
       </button>
       <button
+        title="next"
         onClick={onNext}
         className="cursor-auto absolute top-[50%] right-0 z-20 text-2xl"
         disabled={carouselIndex === products.length - lengthCarousel - 1}

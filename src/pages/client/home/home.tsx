@@ -4,12 +4,12 @@ import BoxTemplate from "components/box-template/box-template";
 import { Button } from "@material-tailwind/react";
 import CoreValue from "./Corevalue";
 import ProductsCarousel from "components/products/product-carousel";
-import { IProductDetailType } from "redux/api/types";
+
 import { useGetProductHomeQuery } from "redux/api/catalog/product";
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
-  const { data, isSuccess, isLoading } = useGetProductHomeQuery(null);
+  const { data, isSuccess } = useGetProductHomeQuery(null);
 
   let renderData;
   if (isSuccess) {

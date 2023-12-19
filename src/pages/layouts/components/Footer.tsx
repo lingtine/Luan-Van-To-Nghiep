@@ -4,8 +4,8 @@ const Footer: React.FC<FooterProps> = () => {
   return (
     <div className="bg-black">
       <div className="container mx-auto pt-20">
-        <div className="grid grid-cols-4 gap-21 mb-12">
-          <div className="">
+        <div className="flex flex-wrap -mx-8 ">
+          <div className="flex-[0_0_100%] px-8 max-w-full md:flex-[0_0_50%] md:max-w-[50%] lg:max-w-[25%] lg:flex-[0_0_25%]">
             <div className="my-2">
               <h5 className="text-secondary font-bold text-lg">Exclusive</h5>
             </div>
@@ -18,7 +18,7 @@ const Footer: React.FC<FooterProps> = () => {
               </li>
             </ul>
           </div>
-          <div className="">
+          <div className="flex-[0_0_100%] px-8 max-w-full md:flex-[0_0_50%] md:max-w-[50%] lg:max-w-[25%] lg:flex-[0_0_25%]">
             <div className="my-2">
               <h5 className="text-secondary font-bold text-lg">Support</h5>
             </div>
@@ -34,7 +34,7 @@ const Footer: React.FC<FooterProps> = () => {
               </li>
             </ul>
           </div>
-          <div className="">
+          <div className="flex-[0_0_100%] px-8 max-w-full md:flex-[0_0_50%] md:max-w-[50%] lg:max-w-[25%] lg:flex-[0_0_25%]">
             <div className="my-2">
               <h5 className="text-secondary font-bold text-lg">Account</h5>
             </div>
@@ -54,7 +54,7 @@ const Footer: React.FC<FooterProps> = () => {
               </li>
             </ul>
           </div>
-          <div className="">
+          <div className="flex-[0_0_100%] px-8 max-w-full md:flex-[0_0_50%] md:max-w-[50%] lg:max-w-[25%] lg:flex-[0_0_25%]">
             <div className="my-2">
               <h5 className="text-secondary font-bold text-lg">Quick Link</h5>
             </div>
@@ -75,8 +75,11 @@ const Footer: React.FC<FooterProps> = () => {
           </div>
         </div>
         <div className="py-4 border-t-secondary">
-          <p className="text-secondary text-center">
-            @ Copyright Rimel 2022. All right reserved
+          <p className="text-secondary text-center text-sm">
+            Công ty TNHH Thương Mại và Dịch Vụ Kỹ Thuật DIỆU PHÚC - GPĐKKD:
+            0316172372 cấp tại Sở KH & ĐT TP. HCM. Địa chỉ văn phòng: 350-352 Võ
+            Văn Kiệt, Phường Cô Giang, Quận 1, Thành phố Hồ Chí Minh, Việt Nam.
+            Điện thoại: 028.7108.9666.
           </p>
         </div>
       </div>
