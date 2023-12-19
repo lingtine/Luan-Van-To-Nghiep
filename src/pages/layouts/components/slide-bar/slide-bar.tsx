@@ -1,5 +1,4 @@
 import React from "react";
-import { BsHouse } from "react-icons/bs";
 import { BsMinecartLoaded } from "react-icons/bs";
 import { BiUserCircle } from "react-icons/bi";
 import { IoExitOutline } from "react-icons/io5";

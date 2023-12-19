@@ -2,7 +2,7 @@ import useDebounce from "hooks/use-debounce";
 import MeiliSearch from "meilisearch";
 import React, { useEffect, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+
 import { formatVND } from "utils/formatVND";
 
 import { useNavigate } from "react-router-dom";
@@ -39,7 +39,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ className, label, area }) => {
     }
   }, [debounceSearch]);
   return (
-    <div className="relative w-full">
+    <>
       <div
         className={`flex flex-1 border text-base border-primary-1 px-4 py-2 min-w-[230px] items-center rounded-lg ${className}`}
       >
@@ -81,7 +81,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ className, label, area }) => {
             ))}
         </ul>
       </div>
-    </div>
+    </>
   );
 };
 

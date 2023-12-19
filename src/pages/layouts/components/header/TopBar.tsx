@@ -7,8 +7,8 @@ const TopBar: React.FC<TopBarProps> = () => {
   const { accessToken } = useAppSelector((state) => state.authSlice);
 
   return (
-    <div className="w-full bg-primary text-color-1 p-1">
-      <div className="container flex justify-end text-sm gap-6">
+    <div className="w-full bg-primary text-color-1 p-1 py-2">
+      <div className="container flex justify-around xl:justify-end text-sm gap-6">
         <Link to={"/about"}>Về chúng tôi</Link>
         <Link to={"/contact"}>Góp ý</Link>
         {accessToken ? (

@@ -1,4 +1,3 @@
-import { authSlice } from "./../features/auth/authSlice";
 import {
   BaseQueryFn,
   FetchArgs,

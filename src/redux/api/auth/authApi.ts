@@ -62,7 +62,7 @@ const authApi = createApi({
 
         async onQueryStarted(args, { dispatch, queryFulfilled }) {
           try {
-            const { data } = await queryFulfilled;
+            await queryFulfilled;
             dispatch(logout());
             dispatch(logoutUser());
           } catch (error) {}

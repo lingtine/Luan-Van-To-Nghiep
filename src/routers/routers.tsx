@@ -6,7 +6,7 @@ import {
 
 import AuthGuard from "auth/auth-guard";
 import AuthClientGuard from "auth/auth-client-guard";
-import ProductDetailPage from "pages/products/ProductDetail";
+
 import {
   AdminLayout,
   DefaultLayout,
@@ -56,6 +56,7 @@ import {
   OrderDetailAdminPage,
   CartClientPage,
   ReportOrderPage,
+  ProductDetailPage,
 } from "pages";
 
 const router = createBrowserRouter(

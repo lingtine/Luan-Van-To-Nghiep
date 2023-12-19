@@ -1,8 +1,8 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import cartApi from "../cart/cart";
+
 import customFetchBase from "redux/api/customFetchBase";
 import { IOrder, IOrderDetail } from "../types";
-import { ICartDetail, IOrderReport } from "../types";
+import { IOrderReport } from "../types";
 const orderApi = createApi({
   reducerPath: "order",
   baseQuery: customFetchBase,

@@ -1,14 +1,11 @@
-import ProductList from "components/products/product-list";
 import React from "react";
-import {
-  useGetProductHomeQuery
-} from "redux/api/catalog/product";
+
 interface BoxTemplateProps {
   heading: string;
   title: string;
   children: React.ReactNode;
   action?: React.ReactNode;
-  data?: any
+  data?: any;
 }
 
 const BoxTemplate: React.FC<BoxTemplateProps> = ({
@@ -16,10 +13,10 @@ const BoxTemplate: React.FC<BoxTemplateProps> = ({
   title,
   action,
   children,
-  data
+  data,
 }) => {
-  console.log('box', data);
-  
+  console.log("box", data);
+
   const HeaderContent: React.FC = () => {
     return (
       <div className="flex justify-between items-end">
@@ -32,17 +29,16 @@ const BoxTemplate: React.FC<BoxTemplateProps> = ({
 
           <h1 className="text-4xl mt-5 font-semibold mb-4">{title}</h1>
         </div>
-       
       </div>
     );
   };
 
   return (
     <>
-    <div className="py-20 border-t">
-      <HeaderContent />
-      {children}
-    </div>
+      <div className="py-20 border-t">
+        <HeaderContent />
+        {children}
+      </div>
     </>
   );
 };

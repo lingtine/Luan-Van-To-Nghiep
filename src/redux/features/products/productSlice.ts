@@ -1,18 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { set_cookie, delete_cookie, getCookie } from "utils/cookies/cookies";
 
+interface IProductDetailParams {
+  OrderBy?: string;
+  IsOrderDesc?: boolean;
+  CategoryGroupId?: string;
+  CategoryId?: string;
+  BrandId?: string;
+  MinPrice?: string;
+  MaxPrice?: string;
+  IsInStock?: number;
+  Keyword?: string;
+  PageIndex?: number;
+  PageSize?: number;
+}
 
-const initialState = {
-  
-};
+const initialState: IProductDetailParams = {};
 
-export const authSlice = createSlice({
+export const ProductDetailAdmin = createSlice({
   initialState,
   name: "product-detail",
   reducers: {
-   
+    clear() {
+      return initialState;
+    },
+    onChange(
+      state,
+      action: { payload: { label: string; value: number | string | boolean } }
+    ) {},
   },
 });
 
-export default authSlice.reducer;
-
+export default ProductDetailAdmin.reducer;

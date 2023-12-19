@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { HiOutlinePlus, HiOutlineMinus } from "react-icons/hi";
 interface InputQuantityProps {
   quantity: number;
