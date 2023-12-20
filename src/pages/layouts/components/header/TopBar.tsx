@@ -10,9 +10,9 @@ const TopBar: React.FC<TopBarProps> = () => {
     <div className="w-full bg-primary text-color-1 p-1 py-2">
       <div className="container flex justify-around xl:justify-end text-sm gap-6">
         <Link to={"/about"}>Về chúng tôi</Link>
-        <Link to={"/contact"}>Góp ý</Link>
+        <Link to={"/contact-us"}>Góp ý</Link>
         {accessToken ? (
-          <Link to={"/profile"}>Tài khoản</Link>
+          <Link to={"/account"}>Tài khoản</Link>
         ) : (
           <>
             <Link to={"/register"}>Đăng kí</Link>

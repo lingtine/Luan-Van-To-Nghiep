@@ -60,7 +60,7 @@ const TableProducts: React.FC<TableProductsProps> = ({ listProducts }) => {
   return (
     <div className="flex-1">
       <h3 className="text-xl my-4 font-semibold">
-        Giỏ Hàng({listProducts.length + " sản phẩm"})
+        Giỏ Hàng ({listProducts.length + " sản phẩm"})
       </h3>
       <div>
         <Table config={configTable} data={listProducts} />

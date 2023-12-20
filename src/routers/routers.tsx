@@ -32,7 +32,6 @@ import {
   OrdersAdminPage,
   ProductDetailAdminPage,
   ProductsAdminPage,
-  ProfilePage,
   RegisterPage,
   SearchPage,
   WishListPage,
@@ -56,6 +55,10 @@ import {
   OrderDetailAdminPage,
   CartClientPage,
   ReportOrderPage,
+  AccountLayout,
+  AccountAddressPage,
+  AccountOrderPage,
+  AccountPage,
   ProductDetailPage,
 } from "pages";
 
@@ -63,10 +66,6 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/" element={<DefaultLayout />}>
-        <Route
-          path="/products/detail/:productId"
-          element={<ProductDetailPage />}
-        ></Route>
         <Route index element={<HomePage />}></Route>
         <Route path="cart" element={<CartPage />}></Route>
         <Route
@@ -89,22 +88,26 @@ const router = createBrowserRouter(
         <Route path="register" element={<RegisterPage />}></Route>
         <Route path="forget-password" element={<ForgetPasswordPage />}></Route>
         <Route
-          path="profile"
+          path="account"
           element={
             <AuthClientGuard>
-              <ProfilePage />
+              <AccountLayout />
             </AuthClientGuard>
           }
-        ></Route>
+        >
+          <Route path="" element={<AccountPage />}></Route>
+          <Route path="orders" element={<AccountOrderPage />}></Route>
+          <Route path="address" element={<AccountAddressPage />}></Route>
+        </Route>
         <Route path="wishlist" element={<WishListPage />}></Route>
         <Route path="search" element={<SearchPage />}></Route>
 
         <Route path="reset-password" element={<ResetPasswordPage />}></Route>
 
-        {/* <Route
-          path="category/:productDetail"
+        <Route
+          path="product-detail/:productId"
           element={<ProductDetailPage />}
-        ></Route> */}
+        ></Route>
         <Route path="*" element={<NotFoundPage />}></Route>
       </Route>
       <Route path="/cart/check-out" element={<CheckOutPage />}></Route>

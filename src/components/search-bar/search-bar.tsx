@@ -70,7 +70,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ className, label, area }) => {
               <li className="cursor-pointer px-2 py-3 border border-gray-500 flex justify-between ">
                 <div
                   onClick={() => {
-                    navigate(`/products/detail/${product.id}`);
+                    navigate(`/product-detail/${product.id}`);
                     setSearchValue("");
                   }}
                 >

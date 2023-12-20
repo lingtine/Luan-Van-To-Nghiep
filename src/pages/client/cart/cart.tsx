@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useGetDetailCartQuery } from "redux/api/cart/cart";
 import { formatVND } from "utils/formatVND";
@@ -7,6 +7,9 @@ import { useCreateOrderMutation } from "redux/api/order/order";
 import { useGetCouponsQuery } from "redux/api/discount/coupon";
 import { toast } from "react-toastify";
 import SelectBox, { ISelected } from "components/select-box/select-box";
+
+import { useGetCustomerDetailQuery } from "redux/api/auth/customer-api";
+import CustomerInfo from "./components/customer-info";
 
 type Inputs = {
   couponId: string;
@@ -27,13 +30,17 @@ type Inputs = {
 
 const Cart: React.FC = () => {
   const navigate = useNavigate();
+  const { data: dataUser, isSuccess: isSuccessGetUser } =
+    useGetCustomerDetailQuery(null);
+  if (isSuccessGetUser) {
+    console.log(dataUser);
+  }
   const { data: dataCoupon, isSuccess: getCouponSuccess } =
     useGetCouponsQuery(null);
   const [selected, setSelected] = useState<ISelected>();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -70,124 +77,8 @@ const Cart: React.FC = () => {
 
   return (
     <div className="m-auto flex max-w-[1200px] bg-white my-7 py-7 h-screen border border-primary-1">
-      <div className="px-8 flex flex-col border-r-2 h-full basis-1/2">
-        <div>
-          <h2 className="text-[32px] uppercase mt-5 mb-[15px]">Checkout</h2>
-        </div>
-        <div className="gap-6 flex-1">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col justify-between h-full"
-          >
-            <div>
-              <div className="flex flex-col text-dark-200 form-group">
-                <label>Fullname</label>
-                <input
-                  type="text"
-                  {...register("deliveryInfo.fullName", { required: true })}
-                  className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
-                />
-              </div>
+      {dataUser && <CustomerInfo user={dataUser} />}
 
-              <div className="flex mt-[15px] text-dark-200 form-group justify-between">
-                <div>
-                  <label>Email</label>
-                  <input
-                    type="text"
-                    {...register("deliveryInfo.email", { required: true })}
-                    className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
-                  />
-                </div>
-                <div>
-                  <label>Phone number</label>
-                  <input
-                    type="text"
-                    {...register("deliveryInfo.phoneNumber", {
-                      required: true,
-                    })}
-                    className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
-                  />
-                </div>
-                <div>
-                  <label>Street Number</label>
-                  <input
-                    type="number"
-                    {...register("deliveryInfo.address.streetNumber", {
-                      required: true,
-                    })}
-                    className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col mt-[15px] text-dark-200 form-group">
-                <label>Street</label>
-                <input
-                  type="text"
-                  {...register("deliveryInfo.address.street", {
-                    required: true,
-                  })}
-                  className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
-                />
-              </div>
-
-              <div className="flex flex-col mt-[15px] text-dark-200 form-group">
-                <label>Ward</label>
-                <input
-                  type="text"
-                  {...register("deliveryInfo.address.ward", { required: true })}
-                  className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
-                />
-              </div>
-
-              <div className="flex mt-4 gap-4 justify-between">
-                <div>
-                  <label>City</label>
-                  <input
-                    type="text"
-                    {...register("deliveryInfo.address.city", {
-                      required: true,
-                    })}
-                    className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
-                  />
-                </div>
-                <div>
-                  <label>District</label>
-                  <input
-                    type="text"
-                    {...register("deliveryInfo.address.district", {
-                      required: true,
-                    })}
-                    className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col mt-[15px] text-dark-200 form-group">
-                <label>Note</label>
-                <textarea
-                  {...register("deliveryInfo.note")}
-                  className="block border border-primary-1 w-full px-1 py-1 pb-1 text-base bg-transparent bg-center bg-no-repeat text-dark-200"
-                />
-              </div>
-            </div>
-
-            <div className="flex gap-3 justify-between items-center">
-              <Link to="/">
-                <span className="text-sm text-primary-200 hover:underline cursor-pointer">
-                  Tiếp tục mua hàng
-                </span>
-              </Link>
-              <button
-                type="submit"
-                className="h-14 px-6 py-2 font-semibold rounded-xl bg-primary-1 text-white hover:text-black hover:bg-white border hover:border-primary-1"
-              >
-                Thanh Toán
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
       <div className="basis-1/2 px-6 flex flex-col gap-4 ">
         <div>
           <h2 className="text-[32px] uppercase mt-5 mb-[15px]">Detail</h2>

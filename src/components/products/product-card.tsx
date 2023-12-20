@@ -6,13 +6,15 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
-import React from "react";
+import React, { useEffect } from "react";
+import { MdAddShoppingCart } from "react-icons/md";
 
 import { IProductDetailType } from "redux/api/types";
 import { useFormatPrice } from "hooks/use-format-price";
-import { formatVND } from "utils/formatVND";
+import { useAddToCartMutation } from "redux/api/cart/cart";
 import { useNavigate } from "react-router-dom";
-
+import { IconButton } from "@material-tailwind/react";
+import { toast } from "react-toastify";
 interface ProductCardProps {
   data: IProductDetailType;
 }
@@ -20,12 +22,37 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const navigate = useNavigate();
   const [formatPrice] = useFormatPrice();
+  const [addProduct, { isSuccess, isLoading }] = useAddToCartMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Đã thêm sản phẩm vào giỏ hàng");
+    }
+  }, [isSuccess]);
+
   return (
     data && (
-      <Card className="w-full h-fit border relative">
+      <Card className="w-full h-fit border relative group ">
         {!data.isInStock && (
           <div className="absolute z-40 right-2 top-2 text-sm text-secondary p-1 rounded-md font-semibold bg-primary">
             Hết Hàng
+          </div>
+        )}
+        {data.isInStock && !isLoading && (
+          <div className="hidden group-hover:block absolute bg z-50 right-0 top-[50%]">
+            <IconButton
+              className="rounded-full"
+              onClick={() => {
+                addProduct({
+                  productId: data.id,
+                  productName: data.name,
+                  quantity: 1,
+                  unitPrice: data.unitPrice,
+                });
+              }}
+            >
+              <MdAddShoppingCart />
+            </IconButton>
           </div>
         )}
         <CardHeader shadow={false} floated={false} className="h-60">
@@ -37,8 +64,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
             alt={data.name}
             className="h-full w-full object-contain"
           />
-          {/* <div className="bg-banner-1 h-full w-full object-cover"></div> */}
         </CardHeader>
+
         <CardBody className="p-3">
           <div className="mb-2 gap-4 flex items-center justify-between">
             <div className="line-clamp-2">
@@ -62,7 +89,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
           <Button
             ripple={false}
             fullWidth={true}
-            onClick={() => navigate(`/products/detail/${data.id}`)}
+            onClick={() => navigate(`/product-detail/${data.id}`)}
             className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
           >
             Xem chi tiết

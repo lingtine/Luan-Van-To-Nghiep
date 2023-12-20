@@ -3,7 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import { changeAuth } from "redux/features/auth/authSlice";
 import { logout } from "redux/features/auth/userSlice";
 import { logout as logoutUser } from "redux/features/auth/userSlice";
-
+import customerApi from "./customer-api";
 import employeeApi from "../auth/employeeApi";
 
 import customFetchBase from "redux/api/customFetchBase";
@@ -30,13 +30,16 @@ const authApi = createApi({
             const { data } = await queryFulfilled;
 
             await dispatch(changeAuth(data));
-            let jwt = jwtDecode(data.accessToken);
+            let jwt = jwtDecode(data.accessToken) as {
+              role: [] | string;
+            };
 
-            console.log("jwt token ", jwt);
-            if (jwt) {
+            if (Array.isArray(jwt.role)) {
               await dispatch(employeeApi.endpoints.getEmployee.initiate(null));
-              const jsonData = JSON.stringify(jwt);
-              localStorage.setItem("user", jsonData);
+            } else if (jwt.role) {
+              await dispatch(
+                customerApi.endpoints.getCustomerDetail.initiate(null)
+              );
             }
           } catch (error) {}
         },

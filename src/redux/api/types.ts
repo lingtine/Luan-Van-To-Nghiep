@@ -14,6 +14,28 @@ export interface IDepartment {
   description: string;
 }
 
+export interface IDeliveryInfo {
+  id: string;
+  name: string;
+  address: {
+    number: string;
+    street: string;
+    ward: string;
+    district: string;
+    city: string;
+  };
+  phoneNumber: string;
+}
+
+export interface ICustomerDetail {
+  deliveryInfos: IDeliveryInfo[];
+  email: string;
+  id: string;
+  purchases: [];
+  name: string;
+  wishlists: [];
+}
+
 export interface IUserDetail {
   address: string | null;
   department: IDepartment | null;
