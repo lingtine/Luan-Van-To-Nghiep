@@ -36,7 +36,7 @@ const productApi = createApi({
         params,
       }),
       transformResponse: (response: {
-        data: IProductType[];
+        data: IProductDetailType[];
         pageIndex: number;
         pageSize: number;
         totalCount: number;
@@ -54,7 +54,7 @@ const productApi = createApi({
     }),
     getProductsByParams: builder.mutation({
       query: (params) => ({
-        url: "/catalogs/products",
+        url: "/catalogs/products/",
         method: "GET",
         params,
       }),

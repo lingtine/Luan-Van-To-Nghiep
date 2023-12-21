@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import Table from "components/table/table";
 import { IOrder } from "redux/api/types";
 import { Button } from "@material-tailwind/react";

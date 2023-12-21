@@ -10,7 +10,7 @@ export interface ISelected {
 interface SelectBoxProps {
   options: ISelected[];
   placeholder?: string;
-  selected?: ISelected;
+  selected?: ISelected | null;
   onChange: Function;
   label: string;
 }
