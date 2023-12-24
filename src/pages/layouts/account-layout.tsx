@@ -6,17 +6,21 @@ import { useGetCustomerDetailQuery } from "redux/api/auth/customer-api";
 interface AccountLayoutProps {}
 
 const AccountLayout: React.FC<AccountLayoutProps> = () => {
-  const {} = useGetCustomerDetailQuery(null);
-  return (
-    <div className="container flex my-20 gap-10">
-      <div className="flex">
-        <SlideBarAccount />
+  const { data, isSuccess } = useGetCustomerDetailQuery(null);
+
+  if (isSuccess) {
+    return (
+      <div className="container flex my-20 gap-10">
+        <div className="flex">
+          <SlideBarAccount />
+        </div>
+        <div className="flex-1">
+          <Outlet />
+        </div>
       </div>
-      <div className="flex-1">
-        <Outlet />
-      </div>
-    </div>
-  );
+    );
+  }
+  return <></>;
 };
 
 export default AccountLayout;

@@ -20,6 +20,7 @@ const SlideBarAccount: React.FC<SlideBarAccountProps> = () => {
 
   const navigate = useNavigate();
   const { refreshToken } = useAppSelector((state) => state.authSlice);
+  const { user } = useAppSelector((state) => state.userSlice);
 
   const navigation = [
     {
@@ -49,7 +50,7 @@ const SlideBarAccount: React.FC<SlideBarAccountProps> = () => {
     <aside className="border border-x p-6 shadow-md rounded-md">
       <div className="flex flex-col items-center gap-4">
         <FaUserCircle className="text-6xl" />
-        <h4 className="font-semibold">Nguyễn Hùng Anh</h4>
+        <h4 className="font-semibold">{user?.name}</h4>
       </div>
       <ul className="flex flex-col">
         {navigation.map((item, index) => {

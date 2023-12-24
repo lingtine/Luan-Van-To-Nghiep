@@ -3,6 +3,7 @@ import TotalCustomerCart from "./components/total-customer-cart";
 import TotalOrderCreateCard from "./components/total-order-create-card";
 import TotalRevenueCard from "./components/total-revenue-card";
 import ProductRevenuePieChart from "./components/product-revenue-pie-chart";
+import ChartContent from "./components/chart-content";
 interface DashboardAdminProps {}
 
 const DashboardAdmin: React.FC<DashboardAdminProps> = () => {
@@ -15,6 +16,7 @@ const DashboardAdmin: React.FC<DashboardAdminProps> = () => {
       </div>
       <div className="my-8 px-8">
         <ProductRevenuePieChart />
+        <ChartContent />
       </div>
     </div>
   );
