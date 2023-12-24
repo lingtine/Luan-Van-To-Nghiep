@@ -22,20 +22,14 @@ const cartApi = createApi({
       }: {
         productId: string;
         productName: string;
-        quantity: any;
+        quantity: number;
         unitPrice: number;
       }) => {
-        // var bodyFormData = new FormData();
-        // bodyFormData.append("productId", rest.productId);
-        // bodyFormData.append("productName", rest.productName);
-        // bodyFormData.append("quantity", rest.quantity);
-        // bodyFormData.append("UnitPrice", rest.unitPrice.toString());
-
         const product = {
           productId: rest.productId,
           productName: rest.productName,
           quantity: rest.quantity,
-          UnitPrice: rest.unitPrice.toString(),
+          unitPrice: rest.unitPrice,
         };
 
         return {

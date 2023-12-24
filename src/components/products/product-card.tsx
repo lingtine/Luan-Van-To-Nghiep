@@ -15,12 +15,14 @@ import { useAddToCartMutation } from "redux/api/cart/cart";
 import { useNavigate } from "react-router-dom";
 import { IconButton } from "@material-tailwind/react";
 import { toast } from "react-toastify";
+import { useAppSelector } from "redux/store";
 interface ProductCardProps {
   data: IProductDetailType;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const navigate = useNavigate();
+  const { accessToken } = useAppSelector((state) => state.authSlice);
   const [formatPrice] = useFormatPrice();
   const [addProduct, { isSuccess, isLoading }] = useAddToCartMutation();
 
@@ -38,7 +40,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
             Hết Hàng
           </div>
         )}
-        {data.isInStock && !isLoading && (
+        {accessToken && data.isInStock && !isLoading && (
           <div className="hidden group-hover:block absolute bg z-50 right-0 top-[50%]">
             <IconButton
               className="rounded-full"

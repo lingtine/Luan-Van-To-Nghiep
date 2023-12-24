@@ -3,12 +3,11 @@ import { InputDate } from "components";
 import { Button } from "@material-tailwind/react";
 import { useState } from "react";
 import {
-  useGetProductReportMutation,
-  useProductRevenueByIdReportingMutation,
-  useProductRevenuePeriodicReportingMutation,
   useProductRevenueReportingMutation,
+  useGetProductReportMutation,
 } from "redux/api/catalog/product";
 
+import PieChart from "components/charts/pie-chart";
 import { toast } from "react-toastify";
 import { Spinner } from "@material-tailwind/react";
 import TableProductReport from "./components/table-product-report";
@@ -47,7 +46,21 @@ const ReportOrder: React.FC<ReportOrderProps> = () => {
   } else if (isSuccess) {
     console.log(data);
     if (data && data.length !== 0) {
-      content = <TableProductReport listOrder={data} />;
+      const options = data.map((item) => {
+        return item.productName;
+      });
+      const series = data.map((item) => {
+        return item.revenue;
+      });
+      content = (
+        <PieChart
+          title="Biểu đồ doanh thu sản phẩm"
+          series={series}
+          options={options}
+          width={800}
+          height={800}
+        />
+      );
     } else if (data && data.length === 0) {
       content = <p>Không có dữ liệu</p>;
     }

@@ -16,9 +16,11 @@ interface OrderDetailProps {}
 const OrderDetail: React.FC<OrderDetailProps> = () => {
   const navigate = useNavigate();
   const { orderId } = useParams();
-  const [changeOrderProcess, result] = useOrderProcessingMutation();
+  const [changeOrderProcess] = useOrderProcessingMutation();
   const { data, isSuccess } = useGetOrderQuery(orderId || "");
-
+  if (isSuccess) {
+    console.log(data);
+  }
   let renderButtonOrderProcessing: React.ReactNode;
 
   if (isSuccess) {

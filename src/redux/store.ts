@@ -24,6 +24,7 @@ import discountEventApi from "./api/discount/discount-event";
 import couponApi from "./api/discount/coupon";
 import cartApi from "./api/cart/cart";
 import orderInternalApi from "./api/order/order-internal";
+import reportingApi from "./api/warehouse/reporting";
 
 export const store = configureStore({
   reducer: {
@@ -35,7 +36,7 @@ export const store = configureStore({
     [orderApi.reducerPath]: orderApi.reducer,
     [discountEventApi.reducerPath]: discountEventApi.reducer,
     [couponApi.reducerPath]: couponApi.reducer,
-    [getProductHome.reducerPath]: getProductHome.reducer,
+
     [customerApi.reducerPath]: customerApi.reducer,
     [employeeApi.reducerPath]: employeeApi.reducer,
     [brandApi.reducerPath]: brandApi.reducer,
@@ -43,7 +44,7 @@ export const store = configureStore({
     [categoryGroupApi.reducerPath]: categoryGroupApi.reducer,
     [productApi.reducerPath]: productApi.reducer,
     [specificationsApi.reducerPath]: specificationsApi.reducer,
-
+    [reportingApi.reducerPath]: reportingApi.reducer,
     [goodsIssueApi.reducerPath]: goodsIssueApi.reducer,
     [goodsReceiptApi.reducerPath]: goodsReceiptApi.reducer,
     [productWarehouseApi.reducerPath]: productWarehouseApi.reducer,
@@ -61,7 +62,7 @@ export const store = configureStore({
       .concat(discountEventApi.middleware)
       .concat(couponApi.middleware)
       .concat(orderInternalApi.middleware)
-
+      .concat(reportingApi.middleware)
       .concat(goodsIssueApi.middleware)
       .concat(reportApi.middleware)
       .concat(stockApi.middleware)

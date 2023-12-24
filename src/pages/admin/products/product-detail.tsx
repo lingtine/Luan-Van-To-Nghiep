@@ -27,6 +27,7 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
   const { data, isSuccess } = useGetProductDetailQuery(productId || "", {
     refetchOnFocus: true,
   });
+
   const [removeSpecification] = useRemoveSpecificationForProductMutation();
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => {

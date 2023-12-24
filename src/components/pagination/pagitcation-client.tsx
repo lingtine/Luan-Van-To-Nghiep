@@ -65,7 +65,7 @@ const PaginationClient: React.FC<PaginationClientProps> = ({
         variant="text"
         className="flex items-center gap-2 rounded-full"
         onClick={next}
-        disabled={pageIndex === maxSizePage}
+        disabled={pageIndex === maxSizePage || totalNumber < pageSize}
       >
         Next
         <FaArrowRight strokeWidth={2} className="h-4 w-4" />

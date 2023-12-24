@@ -9,7 +9,7 @@ import { useGetProductHomeQuery } from "redux/api/catalog/product";
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
-  const { data, isSuccess } = useGetProductHomeQuery(null);
+  const { data, isSuccess, isLoading } = useGetProductHomeQuery(null);
 
   let renderData;
   if (isSuccess) {
@@ -32,7 +32,6 @@ const Home: React.FC<HomeProps> = () => {
       );
     });
   }
-
   return (
     <div className="container">
       <Banner />

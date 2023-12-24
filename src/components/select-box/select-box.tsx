@@ -74,7 +74,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
           </div>
         </div>
         {isOpened && options.length !== 0 && (
-          <ul className="absolute w-full shadow-lg p-4 max-h-[200px] overflow-y-auto  left-0  bg-white rounded-es-2xl rounded-ee-2xl  z-30">
+          <ul className="absolute w-full shadow-lg p-4 max-h-[200px] overflow-y-auto  left-0  bg-white rounded-es-2xl rounded-ee-2xl  z-50">
             {renderOptions}
           </ul>
         )}

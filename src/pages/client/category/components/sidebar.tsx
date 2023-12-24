@@ -29,6 +29,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const { data, isSuccess } = useGetCategoriesQuery({
     GroupId: categoryId,
+    PageSize: 100,
   });
   const [open, setOpen] = useState(1);
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);

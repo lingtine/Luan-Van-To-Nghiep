@@ -2,7 +2,7 @@ import { SearchBar } from "components";
 import TopBar from "./TopBar";
 import { CiShoppingCart } from "react-icons/ci";
 import { Link } from "react-router-dom";
-
+import { Badge } from "@material-tailwind/react";
 import HeaderCategory from "./HeaderCategory";
 import { useAppSelector } from "redux/store";
 import { useGetDetailCartQuery } from "redux/api/cart/cart";
@@ -56,10 +56,9 @@ const Header: React.FC<HeaderProps> = () => {
             to={accessToken ? "/cart-client" : "/login"}
             className="flex items-center gap-2 relative cursor-pointer"
           >
-            <CiShoppingCart className="text-2xl lg:text-3xl xl:text-4xl" />
-            <span className="bg-red-500 text-white text-sm lg:text-xs rounded-full w-4 h-4 lg:w-5 lg:h-5 flex items-center justify-center ml-1 absolute bg-hoverColor top-0 right-[-8px]">
-              {isSuccess ? data.items.length : "0"}
-            </span>
+            <Badge content={isSuccess ? data.items.length : 0}>
+              <CiShoppingCart className="text-2xl lg:text-3xl xl:text-4xl" />
+            </Badge>
           </Link>
         </div>
       </div>

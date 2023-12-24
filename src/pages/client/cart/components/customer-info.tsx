@@ -49,81 +49,69 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ user, fn, coupon }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!coupon) {
-      toast.warning("Vui nhập mã giảm giá");
+    if (address) {
+      const { address: deliveryInfo, name, phoneNumber } = address;
+
+      createOrder({
+        couponId: coupon?.id,
+        deliveryInfo: {
+          fullName: name,
+          phoneNumber: phoneNumber,
+          email: user.email,
+          address: {
+            city: deliveryInfo.city,
+            district: deliveryInfo.district,
+            ward: deliveryInfo.ward,
+            street: deliveryInfo.street,
+            streetNumber: deliveryInfo.number,
+          },
+          note: note,
+        },
+      });
+      setNote("");
     } else {
-      if (address) {
-        const { address: deliveryInfo, name, phoneNumber } = address;
+      if (
+        delivery.city.trim().length === 0 ||
+        delivery.district.trim().length === 0 ||
+        delivery.name.trim().length === 0 ||
+        delivery.number.trim().length === 0 ||
+        delivery.phoneNumber.trim().length === 0 ||
+        delivery.street.trim().length === 0 ||
+        delivery.ward.trim().length === 0
+      ) {
+        toast.error("Vui lòng nhập đầy đủ thông tin");
+      } else {
+        const { id, city, district, name, number, phoneNumber, street, ward } =
+          delivery;
 
         createOrder({
-          couponId: coupon.id,
+          couponId: coupon?.id,
           deliveryInfo: {
             fullName: name,
             phoneNumber: phoneNumber,
             email: user.email,
             address: {
-              city: deliveryInfo.city,
-              district: deliveryInfo.district,
-              ward: deliveryInfo.ward,
-              street: deliveryInfo.street,
-              streetNumber: deliveryInfo.number,
+              city: city,
+              district: district,
+              ward: ward,
+              street: street,
+              streetNumber: number,
             },
             note: note,
           },
         });
+        setDelivery({
+          id: "",
+          city: "",
+          number: "",
+          district: "",
+          street: "",
+          ward: "",
+          name: "",
+          phoneNumber: "",
+        });
+
         setNote("");
-      } else {
-        if (
-          delivery.city.trim().length === 0 ||
-          delivery.district.trim().length === 0 ||
-          delivery.name.trim().length === 0 ||
-          delivery.number.trim().length === 0 ||
-          delivery.phoneNumber.trim().length === 0 ||
-          delivery.street.trim().length === 0 ||
-          delivery.ward.trim().length === 0
-        ) {
-          toast.error("Vui lòng nhập đầy đủ thông tin");
-        } else {
-          const {
-            id,
-            city,
-            district,
-            name,
-            number,
-            phoneNumber,
-            street,
-            ward,
-          } = delivery;
-
-          createOrder({
-            couponId: coupon.id,
-            deliveryInfo: {
-              fullName: name,
-              phoneNumber: phoneNumber,
-              email: user.email,
-              address: {
-                city: city,
-                district: district,
-                ward: ward,
-                street: street,
-                streetNumber: number,
-              },
-              note: note,
-            },
-          });
-          setDelivery({
-            id: "",
-            city: "",
-            number: "",
-            district: "",
-            street: "",
-            ward: "",
-            name: "",
-            phoneNumber: "",
-          });
-
-          setNote("");
-        }
       }
     }
   };

@@ -1,43 +1,32 @@
 import useDebounce from "hooks/use-debounce";
-import MeiliSearch from "meilisearch";
+
 import React, { useEffect, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
-import { formatVND } from "utils/formatVND";
-
-import { useNavigate } from "react-router-dom";
+import ProductsSearch from "./products-search";
+import { useGetProductsByParamsMutation } from "redux/api/catalog/product";
 interface SearchBarProps {
   className?: string;
   label?: string;
   area?: boolean;
 }
 
-const client = new MeiliSearch({
-  host: "http://ecommerce.quochao.id.vn:7700/",
-  apiKey: "5b9b8e6b23fdc6999583e126a2a8f271821668d9607a42bcc8ea7d86e587",
-});
-
-const index = client.getIndex("products");
-
 const SearchBar: React.FC<SearchBarProps> = ({ className, label, area }) => {
-  const [productsSearch, setProductsSearch] = useState([]);
-  const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState<string>("");
+  const [getProducts, { isSuccess, data }] = useGetProductsByParamsMutation();
   const debounceSearch = useDebounce(searchValue, 500) as string;
 
   useEffect(() => {
     debounceSearch.trim();
-    async function searchMeili() {
-      const search = (await index).search(debounceSearch);
-      search.then((data: any) => {
-        setProductsSearch(data.hits);
-        console.log(data.hits);
-      });
-    }
+
     if (debounceSearch !== "") {
-      searchMeili();
+      getProducts({ Keyword: debounceSearch, PageSize: 10 });
     }
   }, [debounceSearch]);
+  const handleClear = () => {
+    setSearchValue("");
+  };
+
   return (
     <>
       <div
@@ -62,24 +51,16 @@ const SearchBar: React.FC<SearchBarProps> = ({ className, label, area }) => {
           </>
         )}
       </div>
-      <div className="absolute z-50 w-full bg-white ">
-        <ul>
-          {debounceSearch &&
-            searchValue &&
-            productsSearch.map((product: any) => (
-              <li className="cursor-pointer px-2 py-3 border border-gray-500 flex justify-between ">
-                <div
-                  onClick={() => {
-                    navigate(`/product-detail/${product.id}`);
-                    setSearchValue("");
-                  }}
-                >
-                  <span>{product.name}</span>
-                  <span>{formatVND(product.unitPrice)}</span>
-                </div>
-              </li>
-            ))}
-        </ul>
+      <div className="absolute z-50 w-full bg-white  ">
+        {debounceSearch &&
+          isSuccess &&
+          searchValue &&
+          data &&
+          (data.length === 0 ? (
+            <div className="p-8 shadow-xl text-sm">Không tìm thấy sản phẩm</div>
+          ) : (
+            <ProductsSearch onClear={handleClear} data={data} />
+          ))}
       </div>
     </>
   );

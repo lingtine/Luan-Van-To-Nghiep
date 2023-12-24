@@ -38,6 +38,11 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
   const handleChangePageIndex = (index: number) => {
     setPageCurrent(index);
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setSort(null);
+    handleCleanFilter();
+  }, [categoryId]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -52,6 +57,12 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
     } else {
       setIsInStock({ status });
     }
+    setPageCurrent(0);
+  };
+
+  const handleCleanFilter = () => {
+    setCategory(null);
+    setIsInStock(null);
     setPageCurrent(0);
   };
 
@@ -94,11 +105,7 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
             onChangeIsInStock={handleChangeIsInStock}
           />
           <Button
-            onClick={() => {
-              setCategory(null);
-              setIsInStock(null);
-              setPageCurrent(0);
-            }}
+            onClick={handleCleanFilter}
             fullWidth
             disabled={category === null && isInStock === null}
           >

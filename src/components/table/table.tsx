@@ -50,8 +50,8 @@ const Table: React.FC<TableProps> = ({ data, config }) => {
     );
   });
   return (
-    <Card className="h-full w-full">
-      <table className="w-full table-auto text-left">
+    <Card className=" h-full w-full overflow-auto ">
+      <table className="w-full min-w-[800px] table-auto text-left overflow-auto">
         <thead className="">
           <tr>{renderLabel}</tr>
         </thead>

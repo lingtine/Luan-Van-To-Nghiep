@@ -136,6 +136,10 @@ const SlideBar: React.FC<SlideBarProps> = () => {
           label: "Thông kế sản phẩm",
           href: "report-product",
         },
+        {
+          label: "Thông kế kho",
+          href: "report-warehouse",
+        },
       ],
     },
   ];
@@ -199,7 +203,7 @@ const SlideBar: React.FC<SlideBarProps> = () => {
   });
 
   return (
-    <Card className="fixed rounded-none  h-full bg-[#22345e] min-w-fit z-10 max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+    <>
       <div className="mb-2 p-4">
         <Typography variant="h5" className="text-secondary">
           TeachWave
@@ -220,7 +224,7 @@ const SlideBar: React.FC<SlideBarProps> = () => {
           Log Out
         </ListItem>
       </List>
-    </Card>
+    </>
   );
 };
 
