@@ -1,25 +1,21 @@
-import { Button } from "@material-tailwind/react";
 import React from "react";
-import { useGetOrderReportMutation } from "redux/api/order/order";
-
+import TotalCustomerCart from "./components/total-customer-cart";
+import TotalOrderCreateCard from "./components/total-order-create-card";
+import TotalRevenueCard from "./components/total-revenue-card";
+import ProductRevenuePieChart from "./components/product-revenue-pie-chart";
 interface DashboardAdminProps {}
 
 const DashboardAdmin: React.FC<DashboardAdminProps> = () => {
-  const [get, { isSuccess }] = useGetOrderReportMutation();
-
   return (
-    <div>
-      <Button
-        onClick={() => {
-          get({
-            start: "2023-11-30T07:46:31.706Z",
-            end: "2023-11-30T07:46:31.706Z",
-            reporterId: "733e1283-14f3-48b2-81ce-08dbdddbce06",
-          });
-        }}
-      >
-        Nhấn
-      </Button>
+    <div className="container mx-auto">
+      <div className="flex justify-around">
+        <TotalCustomerCart />
+        <TotalOrderCreateCard />
+        <TotalRevenueCard />
+      </div>
+      <div className="my-8 px-8">
+        <ProductRevenuePieChart />
+      </div>
     </div>
   );
 };

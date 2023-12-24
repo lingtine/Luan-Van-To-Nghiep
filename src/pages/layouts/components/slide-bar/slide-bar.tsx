@@ -8,6 +8,9 @@ import { useEffect } from "react";
 import { BsChevronDown } from "react-icons/bs";
 import { FaWarehouse } from "react-icons/fa6";
 import { BiSolidDiscount } from "react-icons/bi";
+import { BsHouse } from "react-icons/bs";
+import { FaSquarePollVertical } from "react-icons/fa6";
+
 import {
   Card,
   Typography,
@@ -35,12 +38,12 @@ const SlideBar: React.FC<SlideBarProps> = () => {
     setOpen(open === value ? 0 : value);
   };
   const navigation = [
-    // {
-    //   label: "Dashboard",
-    //   href: "/admin",
-    //   current: true,
-    //   icon: <BsHouse />,
-    // },
+    {
+      label: "Dashboard",
+      href: "/admin",
+      current: true,
+      icon: <BsHouse />,
+    },
     {
       label: "Quản lý đơn hàng",
       href: "/admin/orders",
@@ -126,7 +129,7 @@ const SlideBar: React.FC<SlideBarProps> = () => {
     {
       label: "Thống kê",
       current: false,
-      icon: <BiSolidDiscount />,
+      icon: <FaSquarePollVertical />,
       children: [
         {
           label: "Thông kê đơn hàng",

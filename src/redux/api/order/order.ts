@@ -111,6 +111,18 @@ const orderApi = createApi({
       }),
       transformResponse: (response: { data: IOrder[] }) => response.data,
     }),
+    getTotalRevenue: builder.query({
+      query: () => ({
+        url: "/orders/orders/GetTotalRevenue",
+        method: "GET",
+      }),
+    }),
+    getTotalOrderCreate: builder.query({
+      query: () => ({
+        url: "/orders/orders/GetTotalOrderCreated",
+        method: "GET",
+      }),
+    }),
   }),
 });
 export const {
@@ -126,6 +138,8 @@ export const {
   useGetOrderReportByStatusMutation,
   useGetOrderReportMutation,
   useGetOrderQuery,
+  useGetTotalOrderCreateQuery,
+  useGetTotalRevenueQuery,
 } = orderApi;
 
 export default orderApi;

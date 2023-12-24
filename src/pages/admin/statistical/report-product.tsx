@@ -2,15 +2,12 @@ import React from "react";
 import { InputDate } from "components";
 import { Button } from "@material-tailwind/react";
 import { useState } from "react";
-import {
-  useProductRevenueReportingMutation,
-  useGetProductReportMutation,
-} from "redux/api/catalog/product";
+import { useProductRevenueReportingMutation } from "redux/api/catalog/product";
 
 import PieChart from "components/charts/pie-chart";
 import { toast } from "react-toastify";
 import { Spinner } from "@material-tailwind/react";
-import TableProductReport from "./components/table-product-report";
+
 interface ReportOrderProps {}
 
 const ReportOrder: React.FC<ReportOrderProps> = () => {

@@ -82,6 +82,12 @@ const customerApi = createApi({
 
         invalidatesTags: ["remove-deliveryInfo"],
       }),
+      getTotalCustomer: builder.query({
+        query: () => ({
+          url: "/customers/customers/CountCustomer",
+          method: "GET",
+        }),
+      }),
     };
   },
 });
@@ -92,5 +98,6 @@ export const {
   useAddDeliveryInfoMutation,
   useChangeDeliveryInfoDefaultMutation,
   useRemoveDeliveryInfoMutation,
+  useGetTotalCustomerQuery,
 } = customerApi;
 export default customerApi;
