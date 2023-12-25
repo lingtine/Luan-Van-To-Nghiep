@@ -27,13 +27,13 @@ const ChartContent: React.FC<ChartContentProps> = () => {
     );
 
     const viewRates = result.data.data.data.map(
-      (item: { viewRate: number }) => {
-        return item.viewRate;
+      (item: { viewCount: number }) => {
+        return item.viewCount;
       }
     );
     const boughtRate = result.data.data.data.map(
-      (item: { boughtRate: number }) => {
-        return item.boughtRate;
+      (item: { boughtCount: number }) => {
+        return item.boughtCount;
       }
     );
 
