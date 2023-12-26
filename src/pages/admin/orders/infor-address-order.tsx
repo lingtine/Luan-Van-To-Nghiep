@@ -22,7 +22,6 @@ const InForAddressOrder: React.FC<InForAddressOrderProps> = ({
         <div className=" font-semibold">Email </div>
         <p>{deliveryInfo.email}</p>
       </div>
-
       <div className="flex justify-between py-4 border-t border-teal-400">
         <div className=" font-semibold">Địa chỉ</div>
         <p>

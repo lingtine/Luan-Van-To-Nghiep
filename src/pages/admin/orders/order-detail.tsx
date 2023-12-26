@@ -48,28 +48,30 @@ const OrderDetail: React.FC<OrderDetailProps> = () => {
   }
 
   return (
-    <>
-      <div className="flex justify-between items-center px-8">
-        <h3 className="text-3xl font-bold my-8">Đơn hàng chi tiết</h3>
-        <div>{renderButtonOrderProcessing} </div>
+    <div className="container px-8">
+      <div className="flex-[0_0_100%] max-w-[100%]">
+        <div className="flex justify-between items-center px-8">
+          <h3 className="text-3xl font-bold my-8">Đơn hàng chi tiết</h3>
+          <div>{renderButtonOrderProcessing} </div>
+        </div>
       </div>
-      <div className="flex ">
-        <div className="flex flex-col flex-[0_0_60%]">
+      <div className="flex-[0_0_100%] max-w-[100%] flex">
+        <div className="flex-[0_0_66.66666%] max-w-[66.66666%] flex flex-col ">
           {isSuccess && (
             <>
-              <TableProductOrder data={data.cart.items} />{" "}
+              <TableProductOrder data={data.cart.items} />
               <InForAddressOrder deliveryInfo={data.deliveryInfo} />
             </>
           )}
           {}
         </div>
-        <div className="flex-[0_0_40%] px-6">
+        <div className="flex-[0_0_33.33333%] max-w-[33.33333%]">
           {isSuccess && (
             <OrderInfo timeCreate={data.createAt} amount={data.amount} />
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

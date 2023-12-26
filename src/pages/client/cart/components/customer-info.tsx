@@ -97,7 +97,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ user, fn, coupon }) => {
               street: street,
               streetNumber: number,
             },
-            note: note,
+            note: "",
           },
         });
         setDelivery({

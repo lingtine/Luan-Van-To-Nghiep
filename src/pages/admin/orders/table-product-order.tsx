@@ -1,11 +1,13 @@
 import React from "react";
 import Table from "components/table/table";
-
+import { useFormatPrice } from "hooks/use-format-price";
 interface TableProductOrderProps {
   data: {}[];
 }
 
 const TableProductOrder: React.FC<TableProductOrderProps> = ({ data }) => {
+  const [formatPrice] = useFormatPrice();
+
   const configTableProduct = [
     {
       label: "STT",
@@ -29,7 +31,7 @@ const TableProductOrder: React.FC<TableProductOrderProps> = ({ data }) => {
     {
       label: "Giá Bán",
       render: (data: any) => {
-        return data.unitPrice;
+        return formatPrice.format(data.unitPrice);
       },
     },
 
@@ -37,11 +39,14 @@ const TableProductOrder: React.FC<TableProductOrderProps> = ({ data }) => {
       label: "Tổng giá",
       render: (data: any) => {
         return (
-          <div className="text-right">{data.quantity * data.unitPrice}</div>
+          <div className="text-right">
+            {formatPrice.format(data.quantity * data.unitPrice)}
+          </div>
         );
       },
     },
   ];
+
   const updateData = data.map((item, index) => ({
     ...item,
     index: index + 1,
