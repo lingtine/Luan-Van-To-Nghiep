@@ -1,9 +1,7 @@
 import React from "react";
 import Table from "components/table/table";
 import { Button, Spinner } from "@material-tailwind/react";
-import { AiOutlinePlusCircle } from "react-icons/ai";
 import Pagination from "components/pagination/pagitnation";
-import { Link } from "react-router-dom";
 
 import { useGetProductWarehouseQuery } from "redux/api/warehouse/product";
 import { useParams } from "react-router-dom";
@@ -15,8 +13,6 @@ const Inventory: React.FC<InventoryProps> = () => {
     pageIndex: index,
     pageSize: 20,
   });
-  // const [removeInventory, { isSuccess: removeSuccess }] =
-  //   useRemoveInventoryMutation();
 
   const configData = [
     {

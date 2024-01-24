@@ -12,7 +12,7 @@ import authSlice from "./features/auth/authSlice";
 import employeeApi from "./api/auth/employeeApi";
 import specificationsApi from "./api/catalog/specification";
 import orderApi from "./api/order/order";
-import getProductHome from "./api/catalog/product";
+
 import goodsIssueApi from "./api/warehouse/goodsIssue";
 import goodsReceiptApi from "./api/warehouse/goodsReceipt";
 import productWarehouseApi from "./api/warehouse/product";

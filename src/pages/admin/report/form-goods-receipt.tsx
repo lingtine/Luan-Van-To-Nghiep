@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, Textarea, Button } from "@material-tailwind/react";
+import { Textarea, Button } from "@material-tailwind/react";
 import { useCreateReportMutation } from "redux/api/warehouse/report";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";

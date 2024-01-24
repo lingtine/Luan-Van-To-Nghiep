@@ -1,11 +1,10 @@
 import React from "react";
 import { useAppSelector } from "redux/store";
 import { Input } from "@material-tailwind/react";
-import { useGetOrdersByCustomerQuery } from "redux/api/order/order";
+
 interface AccountPageProps {}
 
 const AccountPage: React.FC<AccountPageProps> = () => {
-  const { data, isSuccess } = useGetOrdersByCustomerQuery(null);
   const { user } = useAppSelector((state) => state.userSlice);
 
   if (user) {

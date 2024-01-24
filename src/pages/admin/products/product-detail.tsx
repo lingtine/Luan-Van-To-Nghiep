@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import {
-  Input,
   Rating,
   Typography,
   Button,
@@ -12,10 +11,8 @@ import {
   useRemoveSpecificationForProductMutation,
 } from "redux/api/catalog/product";
 import { AiFillEye, AiFillHeart } from "react-icons/ai";
-import TableProductSpecifications from "components/table/table-product-specifications";
 import FormUpdateProductInfo from "./form/form-update-product-info";
 import { useState } from "react";
-import { IProductDetailType } from "redux/api/types";
 import { CiTrash } from "react-icons/ci";
 
 import FormAddSpecificationsProduct from "./form/form-add-specifications-product";

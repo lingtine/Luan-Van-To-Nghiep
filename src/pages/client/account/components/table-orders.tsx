@@ -43,19 +43,19 @@ const TableOrder: React.FC<TableOrderProps> = ({ data }) => {
               Đang Xử Lý
             </Button>
           );
-        } else if (data.Delivered) {
+        } else if (data.status === "Delivered") {
           content = (
             <Button color="green" size="sm" ripple={false}>
               Đã Giao
             </Button>
           );
-        } else if (data.Returned) {
+        } else if (data.status === "Returned") {
           content = (
             <Button color="gray" size="sm" ripple={false}>
               Đã Trả Hàng{" "}
             </Button>
           );
-        } else if (data.Canceled) {
+        } else if (data.status === "Canceled") {
           content = (
             <Button color="red" size="sm" ripple={false}>
               Hủy

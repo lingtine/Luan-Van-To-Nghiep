@@ -1,12 +1,12 @@
 import React from "react";
-import { Input, Textarea, Button } from "@material-tailwind/react";
+import { Textarea, Button } from "@material-tailwind/react";
 import { useCreateReportMutation } from "redux/api/warehouse/report";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { IReport } from "redux/api/types";
 import SelectBoxDataWarehouse from "./select-box-warehouse";
-import SelectBoxDataSupplier from "./select-box-supplier";
+
 import GetProducts from "./get-products";
 import { IProductDetailType } from "redux/api/types";
 

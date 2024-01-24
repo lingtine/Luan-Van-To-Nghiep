@@ -27,11 +27,7 @@ function ProductDetailPage() {
     }
   );
 
-  const {
-    data: cartdata,
-    isSuccess: loadcart,
-    refetch,
-  } = useGetDetailCartQuery(null);
+  const { refetch } = useGetDetailCartQuery(null);
 
   const [quantity, setQuantity] = useState<number>(1);
   const [addToCart] = useAddToCartMutation();
@@ -75,7 +71,7 @@ function ProductDetailPage() {
                     data.imageUrl ||
                     "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png"
                   }
-                  alt=""
+                  alt={data.name}
                 />
               </div>
               <div className="min-w-[50%]  py-8 px-4 flex flex-col gap-4 border shadow-md rounded-lg">
@@ -90,7 +86,7 @@ function ProductDetailPage() {
                 </h2>
                 <span className="flex items-center gap-4">
                   <Rating readonly value={data.numberOfStar} />
-                  <p>{"(" + data.viewCount + " lượt xem" + ")"} </p>
+                  <p>{`(${data.viewCount} lượt xem)`} </p>
                 </span>
                 <p className="text-2xl">{formatVND(data.unitPrice)}</p>
                 <div className="flex justify-between">

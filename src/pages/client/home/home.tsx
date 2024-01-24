@@ -9,7 +9,7 @@ import { useGetProductHomeQuery } from "redux/api/catalog/product";
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
-  const { data, isSuccess, isLoading } = useGetProductHomeQuery(null);
+  const { data, isSuccess } = useGetProductHomeQuery(null);
 
   let renderData;
   if (isSuccess) {

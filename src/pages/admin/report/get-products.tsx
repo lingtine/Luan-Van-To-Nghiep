@@ -10,10 +10,10 @@ import {
   Card,
   Typography,
 } from "@material-tailwind/react";
-import { IProductDetailType } from "redux/api/types";
+
 import { IoSearchOutline } from "react-icons/io5";
 import useDebounce from "hooks/use-debounce";
-import { MeiliSearch } from "meilisearch";
+
 import { IListProduct } from "./form-goods-receipt";
 import { useGetProductsByParamsMutation } from "redux/api/catalog/product";
 import { TiDeleteOutline } from "react-icons/ti";
@@ -29,8 +29,7 @@ const GetProducts: React.FC<GetProductsProps> = ({
 }) => {
   const [searchValue, setSearchValue] = useState("");
   const debounceSearch = useDebounce(searchValue, 500);
-  const [handleSearch, { isSuccess, isLoading, data }] =
-    useGetProductsByParamsMutation();
+  const [handleSearch, { isSuccess, data }] = useGetProductsByParamsMutation();
   useEffect(() => {
     if (debounceSearch && debounceSearch !== "") {
       handleSearch({ Keyword: debounceSearch });

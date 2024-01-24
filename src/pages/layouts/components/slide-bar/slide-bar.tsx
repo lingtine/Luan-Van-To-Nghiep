@@ -12,7 +12,6 @@ import { BsHouse } from "react-icons/bs";
 import { FaSquarePollVertical } from "react-icons/fa6";
 
 import {
-  Card,
   Typography,
   List,
   ListItem,
@@ -105,10 +104,6 @@ const SlideBar: React.FC<SlideBarProps> = () => {
           label: "Nhà cung cấp",
           href: "suppliers",
         },
-        {
-          label: "Thông kê",
-          href: "statistical",
-        },
       ],
     },
     {
@@ -132,15 +127,15 @@ const SlideBar: React.FC<SlideBarProps> = () => {
       icon: <FaSquarePollVertical />,
       children: [
         {
-          label: "Thông kê đơn hàng",
+          label: "Thống kê đơn hàng",
           href: "report-order",
         },
         {
-          label: "Thông kế sản phẩm",
+          label: "Thống kê sản phẩm",
           href: "report-product",
         },
         {
-          label: "Thông kế kho",
+          label: "Thống kê kho",
           href: "report-warehouse",
         },
       ],

@@ -34,7 +34,15 @@ const CartInputQuantity: React.FC<CartInputQuantityProps> = ({ data }) => {
         deleteProduct(data.productId);
       }
     }
-  }, [debounceValue]);
+  }, [
+    debounceValue,
+    data.name,
+    data.productId,
+    data.unitPrice,
+    data.quantity,
+    updateQuality,
+    deleteProduct,
+  ]);
 
   return (
     <InputQuantity maxQuantity={99} onChange={handleChange} quantity={value} />

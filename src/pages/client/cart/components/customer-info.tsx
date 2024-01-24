@@ -13,7 +13,7 @@ interface CustomerInfoProps {
 
 const CustomerInfo: React.FC<CustomerInfoProps> = ({ user, fn, coupon }) => {
   const navigate = useNavigate();
-  const [dataForm, setDataForm] = useState({
+  const [dataForm] = useState({
     ...user,
   });
   const [note, setNote] = useState("");
@@ -36,7 +36,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ user, fn, coupon }) => {
       fn();
       navigate("/");
     }
-  }, [result]);
+  }, [result, fn, navigate]);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -81,7 +81,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ user, fn, coupon }) => {
       ) {
         toast.error("Vui lòng nhập đầy đủ thông tin");
       } else {
-        const { id, city, district, name, number, phoneNumber, street, ward } =
+        const { city, district, name, number, phoneNumber, street, ward } =
           delivery;
 
         createOrder({
@@ -251,7 +251,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ user, fn, coupon }) => {
         <Link to="/">
           <Button variant="text">Tiếp tục mua hàng</Button>
         </Link>
-        <Button type="submit">Thanh Toán</Button>
+        <Button type="submit">Đặt hàng</Button>
       </div>
     </form>
   );

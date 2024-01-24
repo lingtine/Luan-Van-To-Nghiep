@@ -16,7 +16,7 @@ const TotalRevenueCard: React.FC<TotalRevenueCardProps> = () => {
         </div>
         <div>
           <h4 className="text-lg font-semibold">{format.format(data.data)}</h4>
-          <p className="text-sm font-medium">Doanh thu</p>
+          <p className="text-sm font-medium">Doanh thu ngày</p>
         </div>
       </div>
     );

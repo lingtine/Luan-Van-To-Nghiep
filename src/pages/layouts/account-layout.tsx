@@ -6,7 +6,7 @@ import { useGetCustomerDetailQuery } from "redux/api/auth/customer-api";
 interface AccountLayoutProps {}
 
 const AccountLayout: React.FC<AccountLayoutProps> = () => {
-  const { data, isSuccess } = useGetCustomerDetailQuery(null);
+  const { isSuccess } = useGetCustomerDetailQuery(null);
 
   if (isSuccess) {
     return (

@@ -2,7 +2,7 @@ import React from "react";
 
 import { BiStoreAlt } from "react-icons/bi";
 import { CiDollar } from "react-icons/ci";
-import { TbMoneybag } from "react-icons/tb";
+
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import CoreValue from "../home/Corevalue";
 const About: React.FC = () => {

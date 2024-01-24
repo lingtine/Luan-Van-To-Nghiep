@@ -22,14 +22,14 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
   const { categoryId } = useParams();
   const [sort, setSort] = useState<null | ISort>(null);
   const [pageCurrent, setPageCurrent] = useState<number>(0);
-  const [category, setCategory] = useState<ICategory | null>(null);
+  const [categories, setCategories] = useState<ICategory[] | null>(null);
   const [isInStock, setIsInStock] = useState<{ status: boolean } | null>(null);
 
   const { data, isSuccess } = useGetProductsQuery({
     CategoryGroupId: categoryId,
     PageIndex: pageCurrent,
     PageSize: 24,
-    CategoryId: category?.id,
+
     IsInStock: isInStock?.status,
     OrderBy: sort?.OrderBy,
     IsOrderDesc: sort?.IsOrderDesc,
@@ -47,8 +47,20 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pageCurrent]);
-  const handleChangeCategory = (item: ICategory) => {
-    setCategory(item);
+  const handleChangeCategories = (item: ICategory) => {
+    setCategories(() => {
+      if (categories) {
+        const category = categories.find((category) => category.id === item.id);
+
+        return category
+          ? categories.filter(function (category) {
+              return category.id !== item.id;
+            })
+          : [...categories, item];
+      } else {
+        return [item];
+      }
+    });
     setPageCurrent(0);
   };
   const handleChangeIsInStock = (status: boolean | null) => {
@@ -61,7 +73,7 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
   };
 
   const handleCleanFilter = () => {
-    setCategory(null);
+    setCategories(null);
     setIsInStock(null);
     setPageCurrent(0);
   };
@@ -99,15 +111,15 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
       <div className="container flex flex-wrap lg:-mx-4   my-8">
         <div className="flex-[0_0_100%] max-w-[100%] lg:flex-[0_0_25%] lg:max-w-[25%] p-4">
           <Sidebar
-            category={category}
-            onChangeCategory={handleChangeCategory}
+            categories={categories}
+            onChangeCategories={handleChangeCategories}
             isInStock={isInStock}
             onChangeIsInStock={handleChangeIsInStock}
           />
           <Button
             onClick={handleCleanFilter}
             fullWidth
-            disabled={category === null && isInStock === null}
+            disabled={categories === null && isInStock === null}
           >
             Xoá bộ lọc
           </Button>

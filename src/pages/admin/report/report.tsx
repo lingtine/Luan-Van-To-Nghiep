@@ -5,9 +5,6 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import Pagination from "components/pagination/pagitnation";
 import { Link } from "react-router-dom";
 
-import { useEffect } from "react";
-
-import { toast } from "react-toastify";
 import {
   useGetReportsQuery,
   useApproveReportMutation,

@@ -14,7 +14,7 @@ const TotalCustomerCart: React.FC<TotalCustomerCartProps> = () => {
         </div>
         <div>
           <h4 className="text-lg font-semibold">{data.data}</h4>
-          <p className="text-sm font-medium">Người dùng mới</p>
+          <p className="text-sm font-medium">Người dùng </p>
         </div>
       </div>
     );

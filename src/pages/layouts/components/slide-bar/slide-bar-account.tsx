@@ -11,7 +11,6 @@ import { IoIosLogOut } from "react-icons/io";
 import { TbTruckDelivery } from "react-icons/tb";
 import { RiBillLine } from "react-icons/ri";
 import { FaRegAddressCard } from "react-icons/fa6";
-import { useGetCustomerDetailQuery } from "redux/api/auth/customer-api";
 
 interface SlideBarAccountProps {}
 

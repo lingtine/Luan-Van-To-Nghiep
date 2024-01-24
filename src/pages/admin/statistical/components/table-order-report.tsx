@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Button } from "@material-tailwind/react";
 import Table from "components/table/table";
 import { useFormatPrice } from "hooks/use-format-price";
 import { IOrderReport } from "redux/api/types";
@@ -56,7 +56,45 @@ const TableOrderReport: React.FC<TableOrderReportProps> = ({ listOrder }) => {
     {
       label: "Trạng thái",
       render: (data: IOrderReport) => {
-        return data.status;
+        let content;
+        if (data.status === "Created") {
+          content = (
+            <Button color="indigo" size="sm" ripple={false}>
+              Mới
+            </Button>
+          );
+        } else if (data.status === "Processing") {
+          content = (
+            <Button color="yellow" size="sm" ripple={false}>
+              Đang xử lý
+            </Button>
+          );
+        } else if (data.status === "Delivering") {
+          content = (
+            <Button color="light-green" size="sm" ripple={false}>
+              Đang giao
+            </Button>
+          );
+        } else if (data.status === "Delivered") {
+          content = (
+            <Button color="green" size="sm" ripple={false}>
+              Đã Giao
+            </Button>
+          );
+        } else if (data.status === "Returned") {
+          content = (
+            <Button color="gray" size="sm" ripple={false}>
+              Đã Trả Hàng{" "}
+            </Button>
+          );
+        } else if (data.status === "Canceled") {
+          content = (
+            <Button color="red" size="sm" ripple={false}>
+              Hủy
+            </Button>
+          );
+        }
+        return content;
       },
     },
   ];

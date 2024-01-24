@@ -10,18 +10,19 @@ import {
   List,
   ListItem,
   Radio,
+  Checkbox,
 } from "@material-tailwind/react";
 import { ICategory } from "redux/api/types";
 interface SidebarProps {
-  category: ICategory | null;
-  onChangeCategory: Function;
+  categories: ICategory[] | null;
+  onChangeCategories: Function;
   isInStock: { status: boolean } | null;
   onChangeIsInStock: Function;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
-  category,
-  onChangeCategory,
+  categories,
+  onChangeCategories,
   isInStock,
   onChangeIsInStock,
 }) => {
@@ -58,15 +59,19 @@ const Sidebar: React.FC<SidebarProps> = ({
         <AccordionBody className="py-1">
           <List className="p-0">
             {data.data.map((item) => {
+              const isChecked = categories?.find((category) => {
+                return category.id === item.id;
+              });
+
               return (
                 <ListItem
                   onClick={() => {
-                    onChangeCategory(item);
+                    onChangeCategories(item);
                   }}
                   key={item.id}
                 >
-                  <Radio
-                    checked={category?.id === item.id}
+                  <Checkbox
+                    checked={!!isChecked}
                     crossOrigin={""}
                     name={"category"}
                   />

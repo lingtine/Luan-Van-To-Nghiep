@@ -1,5 +1,4 @@
-import Table from "components/table/table";
-import React from "react";
+import React, { useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   useGetOrderQuery,
@@ -10,6 +9,8 @@ import { Button } from "@material-tailwind/react";
 import TableProductOrder from "./table-product-order";
 import InForAddressOrder from "./infor-address-order";
 import OrderInfo from "./order-infor";
+import { useReactToPrint } from "react-to-print";
+import ComponentToPrint from "./components/component-to-print";
 
 interface OrderDetailProps {}
 
@@ -46,13 +47,23 @@ const OrderDetail: React.FC<OrderDetailProps> = () => {
       );
     }
   }
+  const componentRef = useRef<HTMLDivElement>(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   return (
     <div className="container px-8">
       <div className="flex-[0_0_100%] max-w-[100%]">
+        <div className="hidden">
+          <ComponentToPrint ref={componentRef} />
+        </div>
         <div className="flex justify-between items-center px-8">
           <h3 className="text-3xl font-bold my-8">Đơn hàng chi tiết</h3>
-          <div>{renderButtonOrderProcessing} </div>
+          <div className="flex gap-4">
+            <Button onClick={handlePrint}>In Hoá Đơn</Button>
+            {renderButtonOrderProcessing}{" "}
+          </div>
         </div>
       </div>
       <div className="flex-[0_0_100%] max-w-[100%] flex">
