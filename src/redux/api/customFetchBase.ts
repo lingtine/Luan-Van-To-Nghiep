@@ -11,7 +11,7 @@ import { changeAuth } from "../features/auth/authSlice";
 
 import type { RootState } from "../store";
 
-const baseUrl = `http://ecommerce.quochao.id.vn/`;
+const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
 // Create a new mutex
 const mutex = new Mutex();
