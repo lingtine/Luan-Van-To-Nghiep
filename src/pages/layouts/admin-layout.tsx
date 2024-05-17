@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SlideBar from "./components/slide-bar/slide-bar";
+import SideBar from "./components/side-bar/side-bar";
 import { AiOutlineUser } from "react-icons/ai";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAppSelector } from "redux/store";
@@ -7,7 +7,8 @@ import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 import { IoMenu } from "react-icons/io5";
 
-import SlideBarAdmin from "./components/slide-bar/slide-bar-admin";
+import SlideBarAdmin from "./components/side-bar/side-bar-mobile";
+
 interface AdminLayoutProps {}
 
 const AdminLayout: React.FC<AdminLayoutProps> = () => {
@@ -48,7 +49,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
           status={isOpen}
         >
           <div className="bg-[#22345e] h-full overflow-y-auto">
-            <SlideBar />
+            <SideBar />
           </div>
         </SlideBarAdmin>
       )}
@@ -62,8 +63,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
 
   return (
     <>
-      <SlideBar />
-      <div className="ml-72">
+      <SideBar />
+      <div className="ml-80">
         {readerHeader}
         <Outlet />
       </div>

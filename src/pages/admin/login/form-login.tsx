@@ -74,34 +74,10 @@ const FormLogin: React.FC<FormLoginProps> = () => {
               }}
             />
           </div>
-          {/* <Checkbox
-            crossOrigin={"use-credentials"}
-            label={
-              <Typography
-                variant="small"
-                color="gray"
-                className="flex items-center font-normal"
-              >
-                I agree the
-                <a
-                  href="#"
-                  className="font-medium transition-colors hover:text-gray-900"
-                >
-                  &nbsp;Terms and Conditions
-                </a>
-              </Typography>
-            }
-            containerProps={{ className: "-ml-2.5" }}
-          /> */}
+
           <Button type="submit" className="mt-6" fullWidth>
             Đăng nhập
           </Button>
-          {/* <Typography color="gray" className="mt-4 text-center font-normal">
-            Already have an account?{" "}
-            <a href="#" className="font-medium text-gray-900">
-              Sign In
-            </a>
-          </Typography> */}
         </form>
       </Card>
     </div>

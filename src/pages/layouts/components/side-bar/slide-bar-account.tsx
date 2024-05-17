@@ -45,6 +45,12 @@ const SlideBarAccount: React.FC<SlideBarAccountProps> = () => {
     }
   }, [isSuccess, navigate]);
 
+  const handleLogout = () => {
+    if (refreshToken) {
+      logout({ refreshToken });
+    }
+  };
+
   return (
     <aside className="border border-x p-6 shadow-md rounded-md">
       <div className="flex flex-col items-center gap-4">
@@ -74,12 +80,7 @@ const SlideBarAccount: React.FC<SlideBarAccountProps> = () => {
           );
         })}
         <li className="p-4 ">
-          <Button
-            onClick={() => {
-              logout({ refreshToken });
-            }}
-            className="flex gap-4 items-center"
-          >
+          <Button onClick={handleLogout} className="flex gap-4 items-center">
             <IoIosLogOut /> <p>{"Đăng xuất"}</p>
           </Button>
         </li>

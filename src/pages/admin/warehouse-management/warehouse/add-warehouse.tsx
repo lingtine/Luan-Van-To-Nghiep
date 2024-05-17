@@ -100,7 +100,7 @@ const AddWarehouse: React.FC<AddWarehouseProps> = () => {
               value={dataForm.address}
               crossOrigin={"use-credentials"}
               variant="outlined"
-              label="Tên địa chỉ"
+              label="Địa chỉ"
             />
             <Input
               name="email"
@@ -130,7 +130,7 @@ const AddWarehouse: React.FC<AddWarehouseProps> = () => {
               name="description"
               onChange={handleChange}
               value={dataForm.description}
-              label="Miêu tả đặt tả"
+              label="Miêu tả miêu tả"
             />
           </div>
           <div className="flex justify-end my-4">

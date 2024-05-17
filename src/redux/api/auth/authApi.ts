@@ -7,13 +7,16 @@ import customerApi from "./customer-api";
 import employeeApi from "../auth/employeeApi";
 
 import customFetchBase from "redux/api/customFetchBase";
+
+import { ILogin, ILogout, IRegister, ILoginRes } from "share/types/auth";
+
 const authApi = createApi({
   reducerPath: "auth",
   baseQuery: customFetchBase,
   endpoints(builder) {
     return {
-      login: builder.mutation({
-        query: (data: { email: string; password: string }) => {
+      login: builder.mutation<ILoginRes, ILogin>({
+        query: (data) => {
           return {
             url: "auths/auth/login",
             method: "POST",
@@ -21,9 +24,7 @@ const authApi = createApi({
           };
         },
         transformResponse: ({ data }) => {
-          return {
-            ...data,
-          };
+          return { ...data };
         },
         async onQueryStarted(args, { dispatch, queryFulfilled }) {
           try {
@@ -45,8 +46,8 @@ const authApi = createApi({
         },
       }),
 
-      register: builder.mutation({
-        query: (data) => {
+      register: builder.mutation<any, IRegister>({
+        query: (data: IRegister) => {
           return {
             url: "/auths/auth/registerV2",
             method: "POST",
@@ -54,7 +55,7 @@ const authApi = createApi({
           };
         },
       }),
-      logout: builder.mutation({
+      logout: builder.mutation<any, ILogout>({
         query: (data) => {
           return {
             url: "/auths/auth/logout",

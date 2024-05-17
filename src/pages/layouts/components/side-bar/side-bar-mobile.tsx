@@ -4,17 +4,13 @@ import { IconButton } from "@material-tailwind/react";
 
 import { CiCircleRemove } from "react-icons/ci";
 
-interface SlideBarAdminProps {
+interface SideBarMobileProps {
   children: React.ReactNode;
   onClose: Function;
   status: boolean;
 }
 
-const SlideBarAdmin: React.FC<SlideBarAdminProps> = ({
-  onClose,
-  children,
-  status,
-}) => {
+const SideBarMobile: React.FC<SideBarMobileProps> = ({ onClose, children }) => {
   useEffect(() => {
     document.body.classList.add("overflow-hidden");
     return () => {
@@ -55,4 +51,4 @@ const SlideBarAdmin: React.FC<SlideBarAdminProps> = ({
   );
 };
 
-export default SlideBarAdmin;
+export default SideBarMobile;

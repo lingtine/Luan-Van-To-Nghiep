@@ -25,9 +25,14 @@ const MenuSection: React.FC<MenuSectionProps> = () => {
 
   const handleOpen = (num: number) => {
     if (num === open) {
-      return;
+      setOpen(0);
+    } else {
+      setOpen(num);
     }
-    setOpen(num);
+  };
+
+  const handleLogout = () => {
+    if (refreshToken) logout({ refreshToken });
   };
 
   return (
@@ -41,12 +46,7 @@ const MenuSection: React.FC<MenuSectionProps> = () => {
           onOpen={handleOpen}
         />
       ))}
-      <ListItem
-        className="text-secondary"
-        onClick={() => {
-          logout({ refreshToken });
-        }}
-      >
+      <ListItem className="text-secondary" onClick={handleLogout}>
         <ListItemPrefix>
           <IoExitOutline />
         </ListItemPrefix>

@@ -53,7 +53,7 @@ const Table: React.FC<TableProps> = ({ data, config }) => {
     <Card className=" h-full w-full overflow-auto ">
       <table className="w-full min-w-[800px] table-auto text-left overflow-auto">
         <thead className="">
-          <tr>{renderLabel}</tr>
+          <tr className="whitespace-nowrap">{renderLabel}</tr>
         </thead>
         <tbody className="w-full">{renderedRow}</tbody>
       </table>

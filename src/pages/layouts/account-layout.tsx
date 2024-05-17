@@ -1,5 +1,5 @@
 import React from "react";
-import SlideBarAccount from "./components/slide-bar/slide-bar-account";
+import SlideBarAccount from "./components/side-bar/slide-bar-account";
 
 import { Outlet } from "react-router-dom";
 import { useGetCustomerDetailQuery } from "redux/api/auth/customer-api";
