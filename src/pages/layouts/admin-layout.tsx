@@ -1,23 +1,21 @@
 import React, { useState } from "react";
 import SideBar from "./components/side-bar/side-bar";
-import { AiOutlineUser } from "react-icons/ai";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAppSelector } from "redux/store";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 import { IoMenu } from "react-icons/io5";
-
 import SlideBarAdmin from "./components/side-bar/side-bar-mobile";
 
 interface AdminLayoutProps {}
 
 const AdminLayout: React.FC<AdminLayoutProps> = () => {
+  const location = useLocation();
+  const pageName = location.pathname.split("/")[2] || "Dashboard";
   const { accessToken } = useAppSelector((state) => {
     return state.authSlice;
   });
-  const { user } = useAppSelector((state) => {
-    return state.userSlice;
-  });
+
   const [isOpen, setIsOpen] = useState(false);
 
   if (!accessToken) {
@@ -31,7 +29,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
   }
 
   const readerHeader = (
-    <header className="w-full bg-secondary flex justify-between items-center  lg:justify-end p-4 mb-8 shadow-lg">
+    <header className="w-full bg-secondary flex justify-between items-center  p-4 mb-8 shadow-lg">
       <button
         title="menu"
         className=" lg:hidden cursor-pointer"
@@ -54,9 +52,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
         </SlideBarAdmin>
       )}
 
-      <div className="text-xl text-primary-1 flex items-center gap-4">
-        <AiOutlineUser />
-        <p className="text-base">{user?.name}</p>
+      <div className="text-xl font-semibold uppercase text-primary-1 flex items-center gap-4">
+        {pageName}
       </div>
     </header>
   );
