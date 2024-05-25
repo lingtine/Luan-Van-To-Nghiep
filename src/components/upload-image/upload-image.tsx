@@ -8,8 +8,7 @@ import React, { RefObject } from "react";
 import { useState, useRef } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsImage } from "react-icons/bs";
-
-import { CiCircleRemove } from "react-icons/ci";
+import { MdDelete } from "react-icons/md";
 interface UploadImageProps {
   onChange: Function;
 }
@@ -42,45 +41,14 @@ const UploadImage: React.FC<UploadImageProps> = ({ onChange }) => {
 
   let content;
 
-  if (file) {
-    const url = URL.createObjectURL(file);
+  if (!file) {
     content = (
-      <>
-        <figure className="w-full relative">
-          <img
-            className="h-full w-full rounded-xl object-cover object-center"
-            src={url}
-            alt={file.name}
-          />
+      <div className="border rounded-xl py-8 border-dashed border-blue-600">
+        <div className="my-8 flex justify-center">
+          <BsImage className="text-8xl" />
+        </div>
 
-          <CiCircleRemove
-            onClick={handleRemove}
-            className="absolute top-0 right-0 text-2xl cursor-pointer"
-          />
-        </figure>
-        <Typography variant="small" className="mt-2 text-center font-normal">
-          {file.name}
-        </Typography>
-      </>
-    );
-  } else {
-    content = (
-      <div className="my-8 flex justify-center">
-        <BsImage className="text-8xl" />
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex flex-col  rounded-md   justify-center ">
-      <Typography variant="h4" className="my-4">
-        Thêm Hình ảnh
-      </Typography>
-      <div>{content}</div>
-      {!!file ? (
-        <></>
-      ) : (
-        <div className="flex justify-center">
+        <div className="flex justify-center ">
           <input
             className="border-none"
             ref={inputRef}
@@ -98,7 +66,32 @@ const UploadImage: React.FC<UploadImageProps> = ({ onChange }) => {
             Tải hình ảnh lên
           </Button>
         </div>
-      )}
+      </div>
+    );
+  } else {
+    const url = URL.createObjectURL(file);
+
+    content = (
+      <div className="flex justify-between items-center p-4 border rounded-xl bg-blue-gray-50">
+        <div className="flex gap-4 items-center ">
+          <img className="w-20" alt={file.name} src={url} />
+          <span>{file.name}</span>
+        </div>
+        <div>
+          <IconButton color="red" onClick={handleRemove}>
+            <MdDelete className="text-lg" />
+          </IconButton>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col  rounded-md   justify-center ">
+      <Typography variant="h4" className="my-4">
+        Thêm Hình ảnh
+      </Typography>
+      {content}
     </div>
   );
 };
