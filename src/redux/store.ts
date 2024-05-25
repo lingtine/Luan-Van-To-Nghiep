@@ -13,6 +13,7 @@ import employeeApi from "./api/auth/employeeApi";
 import specificationsApi from "./api/catalog/specification";
 import orderApi from "./api/order/order";
 
+import departmentApi from "./api/auth/department-api";
 import goodsIssueApi from "./api/warehouse/goodsIssue";
 import goodsReceiptApi from "./api/warehouse/goodsReceipt";
 import productWarehouseApi from "./api/warehouse/product";
@@ -30,6 +31,7 @@ export const store = configureStore({
   reducer: {
     authSlice: authSlice,
     [userSlide.name]: userSlide.reducer,
+    [departmentApi.reducerPath]: departmentApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
     [orderInternalApi.reducerPath]: orderInternalApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
@@ -56,6 +58,7 @@ export const store = configureStore({
   devTools: process.env.NODE_ENV === "development",
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({})
+      .concat(departmentApi.middleware)
       .concat(cartApi.middleware)
       .concat(goodsReceiptApi.middleware)
       .concat(productWarehouseApi.middleware)
