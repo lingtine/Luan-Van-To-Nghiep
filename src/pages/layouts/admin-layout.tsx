@@ -25,7 +25,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
   }
 
   const jwtValue = jwtDecode(accessToken) as { role: [] | string };
-  if (!Array.isArray(jwtValue.role)) {
+  if (jwtValue.role === "Customer") {
     toast.warning("Bạn không có quyền truy cập");
     return <Navigate to={"/"} />;
   }

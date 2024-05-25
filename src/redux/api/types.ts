@@ -8,6 +8,16 @@ export interface IUser {
   __v: number;
 }
 
+export interface IEmployee {
+  address?: string;
+  department?: string;
+  email: string;
+  id: string;
+  imageUrl?: null;
+  name: string;
+  phone?: string;
+}
+
 export interface IDepartment {
   id: string;
   name: string;

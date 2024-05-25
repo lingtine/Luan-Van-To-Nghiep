@@ -12,11 +12,11 @@ const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
 
   if (accessToken) {
     const jwtValue = jwtDecode(accessToken) as { role: [] | string };
-    if (Array.isArray(jwtValue.role)) {
-      return <Navigate to={"/admin"} />;
-    } else {
+    if (jwtValue.role === "Customer") {
       toast.warning("Bạn không có quyền truy cập");
       return <Navigate to={"/"} />;
+    } else {
+      return <Navigate to={"/admin"} />;
     }
   }
 

@@ -34,12 +34,15 @@ const authApi = createApi({
             let jwt = jwtDecode(data.accessToken) as {
               role: [] | string;
             };
-
             if (Array.isArray(jwt.role)) {
               await dispatch(employeeApi.endpoints.getEmployee.initiate(null));
-            } else if (jwt.role) {
+            } else if (jwt.role === "customer") {
               await dispatch(
                 customerApi.endpoints.getCustomerDetail.initiate(null)
+              );
+            } else if (jwt.role === "Employee") {
+              await dispatch(
+                employeeApi.endpoints.getEmployeeDetail.initiate(null)
               );
             }
           } catch (error) {}
