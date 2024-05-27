@@ -16,6 +16,7 @@ import ProductSpecification from "./components/product-specifications";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "redux/store";
 import ProductDetailSkeleton from "components/skeleton/product-detail-skeleton";
+import ProductReview from "./components/ProductReview";
 function ProductDetailPage() {
   const { productId } = useParams();
   const navigate = useNavigate();
@@ -112,12 +113,16 @@ function ProductDetailPage() {
                 <div className="flex py-4 space-x-4"></div>
               </div>
             </div>
-
-            {data.productSpecifications.length !== 0 && (
-              <div className="max-w-[50%] my-20">
-                <ProductSpecification data={data.productSpecifications} />
+            <div className="flex flex-row gap-4">
+              {data.productSpecifications.length !== 0 && (
+                <div className="my-20 flex flex-col basis-1/2">
+                  <ProductSpecification data={data.productSpecifications} />
+                </div>
+              )}
+              <div className="max-w-[50%] my-20 flex flex-col basis-1/2">
+                <ProductReview />
               </div>
-            )}
+            </div>
           </div>
         )}
       </>
