@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useGetSpecificationsQuery } from "redux/api/catalog/specification";
 import { CiTrash } from "react-icons/ci";
 import SelectBox from "components/select-box/select-box";
@@ -13,24 +13,30 @@ interface InputSpecificationProps {
   };
   onChange: Function;
   onRemove: Function;
+  productSpecificationIds: string[];
 }
 
 const InputSpecification: React.FC<InputSpecificationProps> = ({
   specificationData,
   onChange,
   onRemove,
+  productSpecificationIds,
 }) => {
+  
   const [selected, setSelected] = useState<ISelected>();
 
   const { data, isSuccess } = useGetSpecificationsQuery({
     pageSize: 9999,
   });
   let content;
-  if (isSuccess) {
-    const updateData = data.data.map((item) => ({
-      ...item,
-      label: item.name,
-    }));
+  if (isSuccess) {    
+    const updateData = data.data
+      .filter((x) => !productSpecificationIds.includes(x.id))
+      .map((item) => ({
+        ...item,
+        label: item.name,
+      }));
+
     content = (
       <SelectBox
         label="Chọn Thông Số"
@@ -43,6 +49,17 @@ const InputSpecification: React.FC<InputSpecificationProps> = ({
       />
     );
   }
+
+  useEffect(() => {
+    if (specificationData) {
+      let option = {
+        id: specificationData.specificationId,
+        label: specificationData.specificationName,
+      };
+      setSelected(option);
+    }
+  }, [specificationData]);
+
   return (
     <div className="flex gap-4">
       {content}
