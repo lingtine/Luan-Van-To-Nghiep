@@ -37,6 +37,14 @@ const Category: React.FC<CategoryProps> = () => {
       },
     },
 
+    // Add category group
+    {
+      label: "Nhóm danh Mục",
+      render: (data: any) => {
+        return data.categoryGroup?.name;
+      },
+    },
+
     {
       label: "Miêu tả",
       render: (data: any) => {

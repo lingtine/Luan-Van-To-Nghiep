@@ -120,6 +120,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
             readOnly
             value={product.category.name}
             name="category"
+            disabled
           />
         </div>
         <div>
@@ -129,6 +130,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
             readOnly
             value={product.brand.name}
             name="brand"
+            disabled
           />
         </div>
       </div>
