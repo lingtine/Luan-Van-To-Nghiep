@@ -54,9 +54,12 @@ const SelectBox: React.FC<SelectBoxProps> = ({
       </div>
     );
   });
-  let content = selected ? selected.label : placeholder;
-  content =  content?.length === 0 ? "Select..." : content;
+  
+  let content = selected?.label || placeholder;
 
+  content = (content === undefined || content.length === 0) ? "Select..." : content;
+
+  
   return (
     <div className="relative h-10 w-72 min-w-[200px]">
       <div
