@@ -54,6 +54,12 @@ const SelectBox: React.FC<SelectBoxProps> = ({
       </div>
     );
   });
+  
+  let content = selected?.label || placeholder;
+
+  content = (content === undefined || content.length === 0) ? "Select..." : content;
+
+  
   return (
     <div className="relative h-10 w-72 min-w-[200px]">
       <div
@@ -65,7 +71,8 @@ const SelectBox: React.FC<SelectBoxProps> = ({
             onClick={handleDropDown}
             className="flex items-center justify-between"
           >
-            <p>{selected ? selected.label : placeholder || "Select..."}</p>
+            {/* <p>{selected ? selected.label : placeholder || "Select..."}</p> */}
+            <p>{content}</p>
             {isOpened && options.length !== 1 ? (
               <BiDownArrow />
             ) : (

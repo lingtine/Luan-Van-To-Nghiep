@@ -72,6 +72,7 @@ export interface ICategory {
   categoryGroupId: string;
   name: string;
   description: string;
+  categoryGroup?: ICategoryGroup; // Add category group
 }
 export interface IBrand {
   id: string;

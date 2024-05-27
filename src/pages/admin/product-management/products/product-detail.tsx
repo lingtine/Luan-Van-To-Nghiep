@@ -123,8 +123,8 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
         <Modal onClose={handleClose}>
           <FormAddSpecificationsProduct
             onClose={handleClose}
-            productId={productId || ""}
-          />
+            productId={productId || ""} 
+            productSpecifications={ data?.productSpecifications || []}          />
         </Modal>
       )}
     </div>

@@ -4,10 +4,12 @@ import { ISelected } from "components/select-box/select-box";
 import { useState } from "react";
 import { useAddSpecificationForProductMutation } from "redux/api/catalog/product";
 import InputSpecification from "./input-specification";
+import { IProductSpecifications } from "redux/api/types";
 
 interface FormAddSpecificationsProductProps {
   productId: string;
   onClose: Function;
+  productSpecifications: IProductSpecifications[];
 }
 
 interface ISpecification {
@@ -18,10 +20,18 @@ interface ISpecification {
 
 const FormAddSpecificationsProduct: React.FC<
   FormAddSpecificationsProductProps
-> = ({ productId, onClose }) => {
+> = ({ productId, onClose, productSpecifications }) => {
   const [specificationsData, setSpecificationsData] = useState<
     ISpecification[]
-  >([{ specificationId: "", specificationName: "", specificationValue: "" }]);
+  >(() =>
+    productSpecifications.length
+      ? productSpecifications
+      : [{ specificationId: "", specificationName: "", specificationValue: "" }]
+  );
+  const [existingIds, setExistingIds] = useState<string[]>(productSpecifications.map((x) => x.specificationId) || []);
+
+  // existingSpecifications ??
+  // [{ specificationId: "", specificationName: "", specificationValue: "" }]
 
   const [addSpecification] = useAddSpecificationForProductMutation();
 
@@ -39,6 +49,7 @@ const FormAddSpecificationsProduct: React.FC<
                 return item;
               }
             );
+            
             setSpecificationsData(newSpecificationsData);
           } else if (typeof value === "object") {
             const newSpecificationsData = specificationsData.map(
@@ -52,6 +63,8 @@ const FormAddSpecificationsProduct: React.FC<
                 return item;
               }
             );
+            
+            setExistingIds([...existingIds, value.id])
             setSpecificationsData(newSpecificationsData);
           }
         }}
@@ -63,6 +76,7 @@ const FormAddSpecificationsProduct: React.FC<
           );
           setSpecificationsData(filterArray);
         }}
+        productSpecificationIds={existingIds}
       />
     );
   });
@@ -80,7 +94,7 @@ const FormAddSpecificationsProduct: React.FC<
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     if (specificationsData) {
       addSpecification({
         productId: productId,
@@ -91,8 +105,8 @@ const FormAddSpecificationsProduct: React.FC<
   };
 
   return (
-    <form onSubmit={handleSubmit} action="" className="flex flex-col gap-4">
-      <div className="border p-4 rounded-md border-blue-500 flex flex-col gap-4 overflow-y-scroll h-[236px]">
+    <form onSubmit={handleSubmit} action="" className="flex flex-col gap-4 h-full">
+      <div className="border p-4 rounded-md border-blue-500 flex flex-col gap-4 overflow-y-scroll h-full">
         {renderSpecificationData}
       </div>
 

@@ -32,16 +32,16 @@ const navigation: INavigator[] = [
     icon: <BsMinecartLoaded />,
     children: [
       {
-        label: "Danh mục sản phẩm",
-        href: "category",
-      },
-      {
         label: "Sản phẩm",
         href: "products",
       },
       {
-        label: "Danh mục nhóm sản phẩm",
+        label: "Nhóm danh mục",
         href: "category-group",
+      },
+      {
+        label: "Danh mục",
+        href: "category",
       },
       {
         label: "Thương hiệu",
@@ -62,11 +62,11 @@ const navigation: INavigator[] = [
         href: "warehouses",
       },
       {
-        label: "Sản phẩm",
+        label: "Tồn kho",
         href: "inventory",
       },
       {
-        label: "Nhập xuất kho",
+        label: "Xuất, Nhập kho",
         href: "report",
       },
 
@@ -81,13 +81,14 @@ const navigation: INavigator[] = [
     icon: <BiSolidDiscount />,
     children: [
       {
-        label: "Mã giảm giá",
-        href: "coupons",
-      },
-      {
         label: "Sự kiện giảm giá",
         href: "discountEvents",
       },
+      {
+        label: "Mã giảm giá",
+        href: "coupons",
+      },
+      
     ],
   },
   {
