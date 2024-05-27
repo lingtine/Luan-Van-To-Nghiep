@@ -24,7 +24,7 @@ const SelectBoxDataSupplier: React.FC<SelectBoxDataSupplierProps> = ({
         onChange={handleSelect}
         options={updateData}
         selected={selected}
-        label="Supplier"
+        label="Nhà cung cấp"
       />
     );
   }

@@ -85,23 +85,24 @@ const Supplier: React.FC<SupplierProps> = () => {
   let content: React.ReactNode;
 
   if (isSuccess) {
-    // const updateData = data.data.map((item, index) => ({
-    //   ...item,
-    //   index: index + 1,
-    // }));
-    // content = (
-    //   <>
-    //     <Table config={configData} data={updateData}></Table>
-    //     <div className="flex justify-center my-8">
-    //       <Pagination
-    //         pageIndex={data.pageIndex}
-    //         pageSize={data.pageSize}
-    //         totalCount={data.totalCount}
-    //         url="/admin/suppliers"
-    //       />
-    //     </div>
-    //   </>
-    // );
+    const updateData = data.data.map((item, index) => ({
+      ...item,
+      index: index + 1,
+    }));
+    console.log("🚀 ~ updateData ~ updateData:", data)
+    content = (
+      <>
+        <Table config={configData} data={updateData}></Table>
+        <div className="flex justify-center my-8">
+          <Pagination
+            pageIndex={data.pageIndex}
+            pageSize={data.pageSize}
+            totalCount={data.totalCount}
+            url="/admin/suppliers"
+          />
+        </div>
+      </>
+    );
   } else if (isLoading) {
     return (
       <div className="flex justify-center items-center h-[100vh]">

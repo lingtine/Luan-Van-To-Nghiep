@@ -15,8 +15,8 @@ const Pagination: React.FC<PaginationProps> = ({
   totalCount,
   url,
 }) => {
-  const maxSizePage = Math.floor(totalCount / pageSize) + 1;
-
+  const maxSizePage = Math.ceil(totalCount / pageSize);
+  
   const router = useNavigate();
   let renderItemPage;
   renderItemPage = Array(maxSizePage)
@@ -46,13 +46,13 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   const handleForward = () => {
-    if (pageIndex) {
+    if (pageIndex !== undefined || pageIndex !== null) {
       if (pageIndex !== maxSizePage) {
         router(`${url}/${pageIndex + 1}`);
       }
     }
   };
-
+  
   return (
     <ul className="flex items-center gap-2 bg-white py-1 px-2 rounded-md">
       <li>

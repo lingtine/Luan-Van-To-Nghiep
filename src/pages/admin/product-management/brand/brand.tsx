@@ -76,12 +76,13 @@ const Brand: React.FC<BrandProps> = () => {
 
   if (isSuccess) {
     const { pageSize, pageIndex } = data;
+    console.log("🚀 ~ Brand data:", data)
 
     const updateData = data.data.map((item, index) => ({
       ...item,
       index: index + 1 + pageIndex * pageSize,
     }));
-
+    
     content = (
       <>
         <Table config={configData} data={updateData}></Table>;
