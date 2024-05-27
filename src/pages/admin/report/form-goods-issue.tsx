@@ -78,6 +78,7 @@ const FormGoodsIssue: React.FC<FormGoodsIssueProps> = () => {
                 from: value,
               }));
             }}
+            label="Kho xuất hàng"
           />
           <SelectBoxDataWarehouse
             getSelected={(value: string, name: string) => {
@@ -86,6 +87,7 @@ const FormGoodsIssue: React.FC<FormGoodsIssueProps> = () => {
                 to: value,
               }));
             }}
+            label="Kho nhập hàng"
           />
           <Textarea
             name="description"

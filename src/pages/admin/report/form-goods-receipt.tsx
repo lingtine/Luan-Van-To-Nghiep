@@ -77,6 +77,7 @@ const FormGoodsReceipt: React.FC<FormGoodsReceiptProps> = () => {
                 to: value,
               }));
             }}
+            label="Kho nhận hàng"
           />
           <SelectBoxDataSupplier
             getSelected={(value: string, name: string) => {
