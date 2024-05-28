@@ -64,8 +64,8 @@ function ProductDetailPage() {
       <>
         {data && (
           <div className="container mx-auto my-20">
-            <div className=" px-4 sm:px-6 lg:px-8 mt-6 flex flex-col lg:flex-row ">
-              <div className="min-w-[50%] ">
+            <div className=" px-4 sm:px-6 lg:px-8 mt-6 flex flex-col lg:flex-row gap-4">
+              <div className="basis-1/2 shadow-md rounded-lg">
                 <img
                   className="h-full w-full  max-h-[400px] object-contain "
                   src={
@@ -75,7 +75,7 @@ function ProductDetailPage() {
                   alt={data.name}
                 />
               </div>
-              <div className="min-w-[50%]  py-8 px-4 flex flex-col gap-4 border shadow-md rounded-lg">
+              <div className="basis-1/2  py-8 px-4 flex flex-col gap-4 border shadow-md rounded-lg">
                 {data.isInStock || (
                   <p className="bg-[#ff563029] rounded w-fit text-sm uppercase text-[#B71D18] font-bold p-2">
                     {"Hết hàng"}
@@ -113,14 +113,50 @@ function ProductDetailPage() {
                 <div className="flex py-4 space-x-4"></div>
               </div>
             </div>
-            <div className="flex flex-row gap-4">
-              {data.productSpecifications.length !== 0 && (
-                <div className="my-20 flex flex-col basis-1/2">
-                  <ProductSpecification data={data.productSpecifications} />
+
+            <div className="sm:px-6 lg:px-8 mt-6 lg:flex-row flex flex-col gap-4 justify-between">
+              <div className="flex flex-col basis-2/3">
+                {/* Description */}
+
+                <div
+                  className="w-full min-h-40 h-96
+                shadow-md rounded-lg 
+                border border-gray-300 
+                mb-4 p-4
+                "
+                >
+                  {data.description}
                 </div>
-              )}
-              <div className="max-w-[50%] my-20 flex flex-col basis-1/2">
-                <ProductReview />
+
+                {/* Review */}
+                <div
+                  className="w-full
+                shadow-md rounded-lg 
+                border border-gray-300"
+                >
+                  <ProductReview numberOfStar={3} />
+                </div>
+              </div>
+
+              <div
+                className="flex flex-col basis-1/3 shadow-md p-4 h-fit
+                border border-gray-300 rounded-lg overflow-hidden
+                "
+              >
+                <ProductSpecification data={data.productSpecifications} />
+                <div>
+                  <button
+                    className="
+                  bg-white border border-gray-300 text-gray-900
+                    cursor-pointer flex justify-center items-center
+                    w-full h-9 mt-4 px-4 py-3 text-center whitespace-nowrap duration-500 
+                    rounded-lg shadow-sm text-sm gap-1.5 transition-colors
+                    hover:shadow-lg 
+                    "
+                  >
+                    Xem cấu hình chi tiết
+                  </button>
+                </div>
               </div>
             </div>
           </div>

@@ -285,3 +285,12 @@ export interface IProductReport {
   productName: string;
   revenue: number;
 }
+
+export interface IProductReview{
+  productId: string,
+  customerId:string,
+  comment?:string,
+  numberOfStar: number,
+  createdAt: null,
+  imageUrls?: string[]
+}

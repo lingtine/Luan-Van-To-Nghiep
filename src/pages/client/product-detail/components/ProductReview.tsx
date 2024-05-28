@@ -1,22 +1,29 @@
-import ReviewStar from "./ReviewStar";
+import Comment from "./Comment";
+import CommentForm from "./CommentForm";
+import "./index.css";
 
-interface ProductReviewProps {}
+interface ProductReviewProps {
+  numberOfStar: number;
+}
 
-const ProductReview = ({}: ProductReviewProps) => {
+const ProductReview = ({ numberOfStar }: ProductReviewProps) => {
   return (
-    <div>
-      <div>User profile</div>
-      <div className="grid grid-rows-4 gap-4">
-        <ReviewStar numberOfStar={4} />
+    <div className="divide-y">
+      <div className="p-4"> 
+        <CommentForm />
       </div>
       <div>
-        <form action="">
-          <input type="text" name="" id="" placeholder="Review" />
-          <button>Gửi</button>
-        </form>
+      {[...Array(10)].map((comment, index)=> <Comment/>)}
       </div>
     </div>
   );
 };
 
 export default ProductReview;
+/*
+Container
+  Form -> enter comment
+  List Comment
+    Comment
+      Nested comment
+*/
