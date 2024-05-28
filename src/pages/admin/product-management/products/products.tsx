@@ -11,10 +11,13 @@ import {
 } from "redux/api/catalog/product";
 import { useParams } from "react-router-dom";
 import { useFormatPrice } from "hooks/use-format-price";
+import { IProductDetailType } from "redux/api/types";
 
-interface ProductsProps {}
+interface IProductTable extends IProductDetailType {
+  index: number;
+}
 
-const Products: React.FC<ProductsProps> = () => {
+const Products = () => {
   const { index } = useParams();
   const [formatPrice] = useFormatPrice();
 
@@ -26,13 +29,13 @@ const Products: React.FC<ProductsProps> = () => {
   const configData = [
     {
       label: "STT",
-      render: (data: any) => {
+      render: (data: IProductTable) => {
         return data.index;
       },
     },
     {
       label: "Sản phẩm",
-      render: (data: any) => {
+      render: (data: IProductTable) => {
         return (
           <div className="flex items-center gap-4  min-w-[300px] max-h-[100px] overflow-y-hidden">
             <img className="w-8" src={data.imageUrl} alt={data.name} />
@@ -45,20 +48,20 @@ const Products: React.FC<ProductsProps> = () => {
 
     {
       label: "Miêu tả",
-      render: (data: any) => {
+      render: (data: IProductTable) => {
         return <div className="line-clamp-3">{data.description}</div>;
       },
     },
     {
       label: "Giá bán",
-      render: (data: any) => {
+      render: (data: IProductTable) => {
         return formatPrice.format(data.unitPrice);
       },
     },
 
     {
       label: "Tuỳ chọn",
-      render: (data: any) => {
+      render: (data: IProductTable) => {
         return (
           <div className="flex gap-4 min-w-[200px]">
             <Link to={`/admin/products/product-detail/${data.id}`}>
@@ -82,7 +85,7 @@ const Products: React.FC<ProductsProps> = () => {
   if (isSuccess) {
     const { pageSize, pageIndex } = data;
 
-    const updateData = data.data.map((item, index) => {
+    const updateData: IProductTable[] = data.data.map((item, index) => {
       return { ...item, index: index + 1 + pageIndex * pageSize };
     });
 

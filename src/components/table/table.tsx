@@ -2,15 +2,15 @@ import React from "react";
 import { Card, Typography } from "@material-tailwind/react";
 
 import classNames from "classnames";
-interface TableProps {
-  data: {}[];
+interface TableProps<T> {
+  data: T[];
   config: {
     label: string;
-    render: Function;
+    render: (data: T) => React.ReactNode;
   }[];
 }
 
-const Table: React.FC<TableProps> = ({ data, config }) => {
+const Table = <T,>({ data, config }: TableProps<T>) => {
   const renderLabel = config.map((colum, index) => {
     return (
       <th

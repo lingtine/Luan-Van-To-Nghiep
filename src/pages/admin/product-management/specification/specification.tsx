@@ -12,9 +12,13 @@ import {
   useDeleteSpecificationMutation,
 } from "redux/api/catalog/specification";
 import { useParams } from "react-router-dom";
-interface SpecificationProps {}
+import { ISpecification } from "redux/api/types";
 
-const Specification: React.FC<SpecificationProps> = () => {
+interface ISpecificationTable extends ISpecification {
+  index: number;
+}
+
+const Specification = () => {
   const { index } = useParams();
   const { data, isSuccess, isLoading } = useGetSpecificationsQuery({
     pageIndex: index,
@@ -25,27 +29,27 @@ const Specification: React.FC<SpecificationProps> = () => {
   const configData = [
     {
       label: "STT",
-      render: (data: any) => {
+      render: (data: ISpecificationTable) => {
         return data.index;
       },
     },
     {
       label: "Tên đặt tả",
-      render: (data: any) => {
+      render: (data: ISpecificationTable) => {
         return data.name;
       },
     },
 
     {
       label: "Miêu tả",
-      render: (data: any) => {
+      render: (data: ISpecificationTable) => {
         return data.description;
       },
     },
 
     {
       label: "Tuỳ chọn",
-      render: (data: any) => {
+      render: (data: ISpecificationTable) => {
         return (
           <div className="flex gap-4 justify-end">
             <Button
@@ -73,7 +77,7 @@ const Specification: React.FC<SpecificationProps> = () => {
   if (isSuccess) {
     const { pageIndex, pageSize } = data;
 
-    const updateData = data.data.map((item, index) => ({
+    const updateData: ISpecificationTable[] = data.data.map((item, index) => ({
       ...item,
       index: index + 1 + pageIndex * pageSize,
     }));

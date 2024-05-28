@@ -12,9 +12,13 @@ import {
   useRemoveDiscountEventMutation,
 } from "redux/api/discount/discount-event";
 
-interface DiscountEventProps {}
+import { IDiscountEvent } from "redux/api/types";
 
-const DiscountEvent: React.FC<DiscountEventProps> = () => {
+interface IDiscountEventTable extends IDiscountEvent {
+  index: number;
+}
+
+const DiscountEvent = () => {
   const { index } = useParams();
   const { data, isSuccess, isLoading } = useGetDiscountEventsQuery({
     pageIndex: index,
@@ -25,27 +29,27 @@ const DiscountEvent: React.FC<DiscountEventProps> = () => {
   const configData = [
     {
       label: "STT",
-      render: (data: any) => {
+      render: (data: IDiscountEventTable) => {
         return data.index;
       },
     },
     {
       label: "Tên sự kiện",
-      render: (data: any) => {
+      render: (data: IDiscountEventTable) => {
         return data.name;
       },
     },
 
     {
       label: "Miêu tả sự kiện",
-      render: (data: any) => {
+      render: (data: IDiscountEventTable) => {
         return data.description;
       },
     },
 
     {
       label: "Tuỳ chọn",
-      render: (data: any) => {
+      render: (data: IDiscountEventTable) => {
         return (
           <div className="flex gap-4 justify-end">
             <Button
@@ -73,7 +77,7 @@ const DiscountEvent: React.FC<DiscountEventProps> = () => {
   if (isSuccess) {
     const { pageSize, pageIndex } = data;
 
-    const updateData = data.data.map((item, index) => ({
+    const updateData: IDiscountEventTable[] = data.data.map((item, index) => ({
       ...item,
       index: index + 1 + pageIndex * pageSize,
     }));

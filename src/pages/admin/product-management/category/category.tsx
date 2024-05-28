@@ -12,9 +12,14 @@ import {
   useDeleteCategoryMutation,
 } from "redux/api/catalog/category";
 import { useParams } from "react-router-dom";
-interface CategoryProps {}
 
-const Category: React.FC<CategoryProps> = () => {
+import { ICategory } from "redux/api/types";
+
+interface ICategoryTable extends ICategory {
+  index: number;
+}
+
+const Category = () => {
   const { index } = useParams();
 
   const { data, isSuccess, isLoading } = useGetCategoriesQuery({
@@ -26,13 +31,13 @@ const Category: React.FC<CategoryProps> = () => {
   const configData = [
     {
       label: "STT",
-      render: (data: any) => {
+      render: (data: ICategoryTable) => {
         return data.index;
       },
     },
     {
       label: "Tên Danh Mục",
-      render: (data: any) => {
+      render: (data: ICategoryTable) => {
         return data.name;
       },
     },
@@ -40,21 +45,21 @@ const Category: React.FC<CategoryProps> = () => {
     // Add category group
     {
       label: "Nhóm danh Mục",
-      render: (data: any) => {
+      render: (data: ICategoryTable) => {
         return data.categoryGroup?.name;
       },
     },
 
     {
       label: "Miêu tả",
-      render: (data: any) => {
+      render: (data: ICategoryTable) => {
         return data.description;
       },
     },
 
     {
       label: "Tuỳ chọn",
-      render: (data: any) => {
+      render: (data: ICategoryTable) => {
         return (
           <div className="flex gap-4 justify-end">
             <Button
@@ -82,7 +87,7 @@ const Category: React.FC<CategoryProps> = () => {
   if (isSuccess) {
     const { pageSize, pageIndex } = data;
 
-    const updateData = data.data.map((item, index) => ({
+    const updateData: ICategoryTable[] = data.data.map((item, index) => ({
       ...item,
       index: index + 1 + pageIndex * pageSize,
     }));

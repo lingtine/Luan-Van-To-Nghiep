@@ -10,9 +10,14 @@ import {
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-interface CategoryGroupProps {}
 
-const CategoryGroup: React.FC<CategoryGroupProps> = () => {
+import { ICategoryGroup } from "redux/api/types";
+
+interface ICategoryGroupTable extends ICategoryGroup {
+  index: number;
+}
+
+const CategoryGroup = () => {
   const { index } = useParams();
 
   const { data, isLoading, isSuccess } = useGetCategoryGroupsQuery({
@@ -23,27 +28,27 @@ const CategoryGroup: React.FC<CategoryGroupProps> = () => {
   const configData = [
     {
       label: "STT",
-      render: (data: any) => {
+      render: (data: ICategoryGroupTable) => {
         return data.index;
       },
     },
     {
       label: "Tên Nhóm Danh Mục",
-      render: (data: any) => {
+      render: (data: ICategoryGroupTable) => {
         return data.name;
       },
     },
 
     {
       label: "Miêu tả",
-      render: (data: any) => {
+      render: (data: ICategoryGroupTable) => {
         return data.description;
       },
     },
 
     {
       label: "Tuỳ chọn",
-      render: (data: any) => {
+      render: (data: ICategoryGroupTable) => {
         return (
           <div className="flex gap-4 justify-end">
             <Button
@@ -70,7 +75,7 @@ const CategoryGroup: React.FC<CategoryGroupProps> = () => {
   if (isSuccess) {
     const { pageSize, pageIndex } = data;
 
-    const dataUpdate = data.data.map((item, index) => ({
+    const dataUpdate: ICategoryGroupTable[] = data.data.map((item, index) => ({
       ...item,
       index: index + 1 + pageIndex * pageSize,
     }));

@@ -74,11 +74,18 @@ export interface ICategory {
   description: string;
   categoryGroup?: ICategoryGroup; // Add category group
 }
+export interface IBrandInput {
+  id?: string;
+  name: string;
+  description: string;
+  image: File;
+}
+
 export interface IBrand {
   id: string;
   name: string;
   description: string;
-  image: File;
+  imageUrl: string;
 }
 
 export interface IProductType {
@@ -138,6 +145,41 @@ export interface IOrder {
     note: string;
   };
 }
+
+export interface IOrderAdmin {
+  id?: string;
+  couponId: string;
+  deliveryInfo: {
+    fullName: string;
+    phoneNumber: string;
+    email: string;
+    address: {
+      city: string;
+      district: string;
+      ward: string;
+      street: string;
+      streetNumber: string;
+    };
+    note: string;
+  };
+  status:
+    | "Created"
+    | "Processing"
+    | "Delivering"
+    | "Delivered"
+    | "Returned"
+    | "Canceled";
+}
+
+export interface IWarehouseInput {
+  name: string;
+  description: string;
+  email: string;
+  address: string;
+  fax: string;
+  hotLine: string;
+  warehouseType: string;
+}
 export interface IWarehouse {
   id: string;
   name: string;
@@ -146,7 +188,7 @@ export interface IWarehouse {
   address: string;
   fax: string;
   hotLine: string;
-  warehouseType: string;
+  type: string;
 }
 
 export interface ISupplier {
@@ -165,14 +207,26 @@ export interface IStock {
   isReceipt: boolean;
 }
 
-export interface IReport {
-  id: string;
-
+export interface IReportInput {
   from?: string;
   to?: string;
   reportType: string;
   description: string;
   supplierId?: string;
+  reportProducts: {
+    productId: string;
+    quantity: number;
+  }[];
+}
+export interface IReport {
+  id: string;
+  from?: string;
+  to?: string;
+  reportType: string;
+  description: string;
+  supplierId?: string;
+  reportStatus: "Creative" | "Approved" | "Inspected" | "Cancelled";
+  createAt: string;
   reportProducts: {
     productId: string;
     quantity: number;

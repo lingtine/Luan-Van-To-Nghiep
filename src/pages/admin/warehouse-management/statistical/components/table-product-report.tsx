@@ -6,33 +6,38 @@ import { IProductReport } from "redux/api/types";
 interface TableProductReportProps {
   listOrder: IProductReport[];
 }
+interface IProductReportTable extends IProductReport {
+  index: number;
+}
 
 const TableProductReport: React.FC<TableProductReportProps> = ({
   listOrder,
 }) => {
   const [formatPrice] = useFormatPrice();
 
-  const updateListOrder = listOrder.map((item, index) => ({
-    ...item,
-    index: index + 1,
-  }));
+  const updateListOrder: IProductReportTable[] = listOrder.map(
+    (item, index) => ({
+      ...item,
+      index: index + 1,
+    })
+  );
 
   const configData = [
     {
       label: "STT",
-      render: (data: any) => {
+      render: (data: IProductReportTable) => {
         return data.index;
       },
     },
     {
       label: "Tên sản phẩm",
-      render: (data: IProductReport) => {
+      render: (data: IProductReportTable) => {
         return data.productName;
       },
     },
     {
       label: "Doanh thu",
-      render: (data: IProductReport) => {
+      render: (data: IProductReportTable) => {
         return (
           <div className="text-right">{formatPrice.format(data.revenue)}</div>
         );

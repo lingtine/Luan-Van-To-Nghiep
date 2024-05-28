@@ -27,7 +27,7 @@ const categoryGroupApi = createApi({
       providesTags: ["category-group"],
       transformResponse: (
         response: {
-          data: {}[];
+          data: ICategoryGroup[];
           pageIndex: number;
           pageSize: number;
           totalCount: number;

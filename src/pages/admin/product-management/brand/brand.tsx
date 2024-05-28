@@ -12,9 +12,13 @@ import {
 } from "redux/api/catalog/brand";
 import { useParams } from "react-router-dom";
 
-interface BrandProps {}
+import { IBrand } from "redux/api/types";
 
-const Brand: React.FC<BrandProps> = () => {
+interface IBrandTable extends IBrand {
+  index: number;
+}
+
+const Brand = () => {
   const { index } = useParams();
 
   const { data, isSuccess, isLoading } = useGetBrandsQuery({
@@ -24,13 +28,13 @@ const Brand: React.FC<BrandProps> = () => {
   const configData = [
     {
       label: "STT",
-      render: (data: any) => {
+      render: (data: IBrandTable) => {
         return data.index;
       },
     },
     {
       label: "Tên Thương Hiệu",
-      render: (data: any) => {
+      render: (data: IBrandTable) => {
         return (
           <div className="flex items-center gap-4">
             <img className="w-28" src={data.imageUrl} alt={data.name} />
@@ -43,14 +47,14 @@ const Brand: React.FC<BrandProps> = () => {
 
     {
       label: "Miêu tả",
-      render: (data: any) => {
+      render: (data: IBrandTable) => {
         return data.description;
       },
     },
 
     {
       label: "Tuỳ chọn",
-      render: (data: any) => {
+      render: (data: IBrandTable) => {
         return (
           <div className="flex gap-4 justify-end">
             <Button
@@ -76,13 +80,13 @@ const Brand: React.FC<BrandProps> = () => {
 
   if (isSuccess) {
     const { pageSize, pageIndex } = data;
-    console.log("🚀 ~ Brand data:", data)
+    console.log("🚀 ~ Brand data:", data);
 
-    const updateData = data.data.map((item, index) => ({
+    const updateData: IBrandTable[] = data.data.map((item, index) => ({
       ...item,
       index: index + 1 + pageIndex * pageSize,
     }));
-    
+
     content = (
       <>
         <Table config={configData} data={updateData}></Table>;

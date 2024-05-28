@@ -5,25 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCreateWarehouseMutation } from "redux/api/warehouse/warehouse";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { IWarehouseInput } from "redux/api/types";
 
-interface IDataForm {
-  id: string;
-  name: string;
-  description: string;
-  email: string;
-  address: string;
-  fax: string;
-  hotLine: string;
-  warehouseType: string;
-}
-
-interface AddWarehouseProps {}
-
-const AddWarehouse: React.FC<AddWarehouseProps> = () => {
+const AddWarehouse = () => {
   const navigate = useNavigate();
   const [addWarehouse, { isSuccess }] = useCreateWarehouseMutation();
-  const [dataForm, setDataForm] = useState<IDataForm>({
-    id: "",
+  const [dataForm, setDataForm] = useState<IWarehouseInput>({
     address: "",
     email: "",
     fax: "",

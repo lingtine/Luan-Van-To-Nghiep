@@ -2,7 +2,7 @@ import customFetchBase from "../customFetchBase";
 
 import { createApi } from "@reduxjs/toolkit/query/react";
 
-import { IWarehouse } from "../types";
+import { IWarehouse, IWarehouseInput } from "../types";
 
 const warehouseApi = createApi({
   reducerPath: "warehouse",
@@ -24,10 +24,10 @@ const warehouseApi = createApi({
       }) => response,
     }),
     createWarehouse: build.mutation({
-      query: ({ id, ...ref }: IWarehouse) => ({
+      query: (data: IWarehouseInput) => ({
         url: "/warehouses/warehouses",
         method: "POST",
-        body: ref,
+        body: data,
       }),
       invalidatesTags: ["add"],
     }),

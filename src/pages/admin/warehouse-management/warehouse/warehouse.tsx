@@ -12,9 +12,13 @@ import {
   useRemoveWarehouseMutation,
 } from "redux/api/warehouse/warehouse";
 import { useParams } from "react-router-dom";
-interface WarehouseProps {}
+import { IWarehouse } from "redux/api/types";
 
-const Warehouse: React.FC<WarehouseProps> = () => {
+interface IWarehouseTable extends IWarehouse {
+  index: number;
+}
+
+const Warehouse = () => {
   const { index } = useParams();
   const { data, isSuccess, isLoading } = useGetWarehousesQuery({
     pageIndex: index,
@@ -26,59 +30,59 @@ const Warehouse: React.FC<WarehouseProps> = () => {
   const configData = [
     {
       label: "STT",
-      render: (data: any) => {
+      render: (data: IWarehouseTable) => {
         return data.index;
       },
     },
     {
       label: "Tên Kho",
-      render: (data: any) => {
+      render: (data: IWarehouseTable) => {
         return <div className="min-w-[100px]">{data.name}</div>;
       },
     },
     {
       label: "Địa chỉ",
-      render: (data: any) => {
+      render: (data: IWarehouseTable) => {
         return data.address;
       },
     },
     {
       label: "Email",
-      render: (data: any) => {
+      render: (data: IWarehouseTable) => {
         return data.email;
       },
     },
     {
       label: "Hotline",
-      render: (data: any) => {
+      render: (data: IWarehouseTable) => {
         return data.hotLine;
       },
     },
 
     {
       label: "Fax",
-      render: (data: any) => {
+      render: (data: IWarehouseTable) => {
         return data.fax;
       },
     },
 
     // {
     //   label: "Miêu tả",
-    //   render: (data: any) => {
+    //   render: (data: IWarehouseTable) => {
     //     return data.description;
     //   },
     // },
 
     {
       label: "Loại kho",
-      render: (data: any) => {
+      render: (data: IWarehouseTable) => {
         return data.type;
       },
     },
 
     {
       label: "Tuỳ chọn",
-      render: (data: any) => {
+      render: (data: IWarehouseTable) => {
         return (
           <div className="flex gap-4 justify-end">
             <Button
@@ -104,7 +108,7 @@ const Warehouse: React.FC<WarehouseProps> = () => {
   let content: React.ReactNode;
 
   if (isSuccess) {
-    const updateData = data.data.map((item, index) => ({
+    const updateData: IWarehouseTable[] = data.data.map((item, index) => ({
       ...item,
       index: index + 1,
     }));

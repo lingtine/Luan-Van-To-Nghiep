@@ -2,7 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 
 import customFetchBase from "redux/api/customFetchBase";
 
-import { IBrand } from "../types";
+import { IBrand, IBrandInput } from "../types";
 
 const brandApi = createApi({
   reducerPath: "brand",
@@ -41,7 +41,7 @@ const brandApi = createApi({
       transformResponse: (response: { data: IBrand[] }) => response.data,
     }),
     addBrand: builder.mutation({
-      query: (data: IBrand) => {
+      query: (data: IBrandInput) => {
         var bodyFormData = new FormData();
         bodyFormData.append("Name", data.name);
         bodyFormData.append("Description", data.description);
@@ -64,7 +64,7 @@ const brandApi = createApi({
       }),
     }),
     updateBrand: builder.mutation({
-      query: (data: IBrand) => {
+      query: (data: IBrandInput) => {
         var bodyFormData = new FormData();
         bodyFormData.append("Name", data.name);
         bodyFormData.append("Description", data.description);

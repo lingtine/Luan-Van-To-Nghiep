@@ -5,9 +5,13 @@ import Pagination from "components/pagination/pagitnation";
 
 import { useGetProductWarehouseQuery } from "redux/api/warehouse/product";
 import { useParams } from "react-router-dom";
-interface InventoryProps {}
+import { IProductWarehouse } from "redux/api/types";
 
-const Inventory: React.FC<InventoryProps> = () => {
+interface IProductWarehouseTable extends IProductWarehouse {
+  index: number;
+}
+
+const Inventory = () => {
   const { index } = useParams();
   const { data, isSuccess, isLoading } = useGetProductWarehouseQuery({
     pageIndex: index,
@@ -17,31 +21,31 @@ const Inventory: React.FC<InventoryProps> = () => {
   const configData = [
     {
       label: "STT",
-      render: (data: any) => {
+      render: (data: IProductWarehouseTable) => {
         return data.index;
       },
     },
     {
       label: "sku",
-      render: (data: any) => {
+      render: (data: IProductWarehouseTable) => {
         return data.sku;
       },
     },
     {
       label: "Tên sản phẩm",
-      render: (data: any) => {
+      render: (data: IProductWarehouseTable) => {
         return data.name;
       },
     },
     {
       label: "Số lượng",
-      render: (data: any) => {
+      render: (data: IProductWarehouseTable) => {
         return <div className="min-w-[80px]">{data.quantity}</div>;
       },
     },
     {
       label: "Trạng thái",
-      render: (data: any) => {
+      render: (data: IProductWarehouseTable) => {
         return (
           <div className="min-w-[160px] flex justify-end">
             <Button
@@ -54,41 +58,19 @@ const Inventory: React.FC<InventoryProps> = () => {
         );
       },
     },
-
-    // {
-    //   label: "Tuỳ chọn",
-    //   render: (data: any) => {
-    //     return (
-    //       <div className="flex gap-4 justify-end">
-    //         <Button
-    //           // onClick={() => {
-    //           //   removeInventory(data.id);
-    //           // }}
-    //           color="red"
-    //         >
-    //           Xoá
-    //         </Button>
-    //       </div>
-    //     );
-    //   },
-    // },
   ];
-
-  // useEffect(() => {
-  //   if (removeSuccess) {
-  //     toast.success("Xoá thành công");
-  //   }
-  // }, [removeSuccess]);
 
   let content: React.ReactNode;
 
   if (isSuccess) {
     const { pageSize, pageIndex } = data;
 
-    const updateData = data.data.map((item, index) => ({
-      ...item,
-      index: index + 1 + pageIndex * pageSize,
-    }));
+    const updateData: IProductWarehouseTable[] = data.data.map(
+      (item, index) => ({
+        ...item,
+        index: index + 1 + pageIndex * pageSize,
+      })
+    );
     content = (
       <>
         <Table config={configData} data={updateData}></Table>

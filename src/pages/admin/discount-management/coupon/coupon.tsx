@@ -12,9 +12,12 @@ import {
   useRemoveCouponMutation,
 } from "redux/api/discount/coupon";
 import { useParams } from "react-router-dom";
-interface CouponProps {}
+import { ICoupon } from "redux/api/types";
+interface ICouponTable extends ICoupon {
+  index: number;
+}
 
-const Coupon: React.FC<CouponProps> = () => {
+const Coupon = () => {
   const { index } = useParams();
 
   const { data, isSuccess, isLoading } = useGetCouponsQuery({
@@ -26,38 +29,38 @@ const Coupon: React.FC<CouponProps> = () => {
   const configData = [
     {
       label: "STT",
-      render: (data: any) => {
+      render: (data: ICouponTable) => {
         return data.index;
       },
     },
     {
       label: "Tên phiếu giảm giá",
-      render: (data: any) => {
+      render: (data: ICouponTable) => {
         return data.name;
       },
     },
 
     {
       label: "Số lượng",
-      render: (data: any) => {
+      render: (data: ICouponTable) => {
         return data.quantity;
       },
     },
     {
       label: "Giá được giảm",
-      render: (data: any) => {
+      render: (data: ICouponTable) => {
         return data.reducedPrice;
       },
     },
     {
       label: "Miêu tả phiếu giảm giá",
-      render: (data: any) => {
+      render: (data: ICouponTable) => {
         return data.description;
       },
     },
     {
       label: "Tuỳ chọn",
-      render: (data: any) => {
+      render: (data: ICouponTable) => {
         return (
           <div className="flex gap-4 justify-end">
             <Button
@@ -85,7 +88,7 @@ const Coupon: React.FC<CouponProps> = () => {
   if (isSuccess) {
     const { pageSize, pageIndex } = data;
 
-    const updateData = data.data.map((item, index) => ({
+    const updateData: ICouponTable[] = data.data.map((item, index) => ({
       ...item,
       index: index + 1 + pageIndex * pageSize,
     }));

@@ -12,9 +12,13 @@ import {
   useInspectReportMutation,
 } from "redux/api/warehouse/report";
 import { useParams } from "react-router-dom";
-interface ReportProps {}
+import { IReport } from "redux/api/types";
 
-const Report: React.FC<ReportProps> = () => {
+interface IReportTable extends IReport {
+  index: number;
+}
+
+const Report = () => {
   const { index } = useParams();
 
   const { data, isSuccess, isLoading } = useGetReportsQuery({
@@ -27,13 +31,13 @@ const Report: React.FC<ReportProps> = () => {
   const configData = [
     {
       label: "STT",
-      render: (data: any) => {
+      render: (data: IReportTable) => {
         return data.index;
       },
     },
     {
       label: "Loại phiếu",
-      render: (data: any) => {
+      render: (data: IReportTable) => {
         return data.reportType === "GoodsReceiptReport"
           ? "Phiếu Nhập"
           : "Phiếu xuất";
@@ -42,13 +46,13 @@ const Report: React.FC<ReportProps> = () => {
 
     {
       label: "Miêu tả",
-      render: (data: any) => {
+      render: (data: IReportTable) => {
         return data.description;
       },
     },
     {
       label: "Trạng thái",
-      render: (data: any) => {
+      render: (data: IReportTable) => {
         if (data.reportStatus === "Creative") return "Khởi tạo";
         if (data.reportStatus === "Approved") return "Đã xác nhận";
 
@@ -59,7 +63,7 @@ const Report: React.FC<ReportProps> = () => {
     },
     {
       label: "Ngày tạo phiếu",
-      render: (data: any) => {
+      render: (data: IReportTable) => {
         const time = new Date(data.createAt);
 
         return (
@@ -74,7 +78,7 @@ const Report: React.FC<ReportProps> = () => {
 
     {
       label: "Tuỳ chọn",
-      render: (data: any) => {
+      render: (data: IReportTable) => {
         let content = "";
         if (data.reportStatus === "Creative") content = "Xác nhận";
         if (data.reportStatus === "Approved") content = "Kiểm tra";

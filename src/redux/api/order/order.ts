@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 import customFetchBase from "redux/api/customFetchBase";
-import { IOrder, IOrderDetail } from "../types";
+import { IOrder, IOrderDetail, IOrderAdmin } from "../types";
 import { IOrderReport } from "../types";
 const orderApi = createApi({
   reducerPath: "order",
@@ -17,7 +17,7 @@ const orderApi = createApi({
 
       providesTags: ["processing-Order"],
       transformResponse: (response: {
-        data: IOrder[];
+        data: IOrderAdmin[];
         pageIndex: number;
         pageSize: number;
         totalCount: number;

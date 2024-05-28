@@ -4,7 +4,7 @@ import { useCreateReportMutation } from "redux/api/warehouse/report";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { IReport } from "redux/api/types";
+import { IReportInput } from "redux/api/types";
 import SelectBoxDataWarehouse from "./select-box-warehouse";
 
 import GetProducts from "./get-products";
@@ -19,8 +19,7 @@ const FormGoodsIssue: React.FC<FormGoodsIssueProps> = () => {
   const [listProduct, setListProduct] = useState<IListProduct[]>([]);
 
   const navigate = useNavigate();
-  const [dataForm, setDataForm] = useState<IReport>({
-    id: "",
+  const [dataForm, setDataForm] = useState<IReportInput>({
     reportProducts: [],
     reportType: "GoodsIssueReport",
     from: "",

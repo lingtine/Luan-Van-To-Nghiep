@@ -7,6 +7,10 @@ interface TableOrderReportProps {
   listOrder: IOrderReport[];
 }
 
+interface IIOrderReportTable extends IOrderReport {
+  index: number;
+}
+
 const TableOrderReport: React.FC<TableOrderReportProps> = ({ listOrder }) => {
   const [formatPrice] = useFormatPrice();
 
@@ -18,44 +22,44 @@ const TableOrderReport: React.FC<TableOrderReportProps> = ({ listOrder }) => {
   const configData = [
     {
       label: "STT",
-      render: (data: any) => {
+      render: (data: IIOrderReportTable) => {
         return data.index;
       },
     },
     {
       label: "Doanh thu",
-      render: (data: IOrderReport) => {
+      render: (data: IIOrderReportTable) => {
         return formatPrice.format(data.revenue);
       },
     },
 
     {
       label: "Giá trị đơn hàng",
-      render: (data: IOrderReport) => {
+      render: (data: IIOrderReportTable) => {
         return formatPrice.format(data.totalAmount);
       },
     },
     {
       label: "Tiền đã giảm giá",
-      render: (data: IOrderReport) => {
+      render: (data: IIOrderReportTable) => {
         return formatPrice.format(data.totalDiscount);
       },
     },
     {
       label: "Số lượng loại sản phẩm",
-      render: (data: IOrderReport) => {
+      render: (data: IIOrderReportTable) => {
         return data.totalOrder;
       },
     },
     {
       label: "Số lượng sản phẩm",
-      render: (data: IOrderReport) => {
+      render: (data: IIOrderReportTable) => {
         return data.totalProduct;
       },
     },
     {
       label: "Trạng thái",
-      render: (data: IOrderReport) => {
+      render: (data: IIOrderReportTable) => {
         let content;
         if (data.status === "Created") {
           content = (

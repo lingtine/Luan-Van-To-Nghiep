@@ -4,9 +4,13 @@ import Pagination from "components/pagination/pagitnation";
 import { Spinner } from "@material-tailwind/react";
 import { useGetCustomersQuery } from "redux/api/auth/customer-api";
 import { useParams } from "react-router-dom";
-interface CustomersProps {}
+import { IUserDetail } from "redux/api/types";
 
-const Customers: React.FC<CustomersProps> = () => {
+interface ICustomerTable extends IUserDetail {
+  index: number;
+}
+
+const Customers = () => {
   const { index } = useParams();
   const { data, isSuccess, isLoading } = useGetCustomersQuery({
     pageIndex: index,
@@ -15,31 +19,20 @@ const Customers: React.FC<CustomersProps> = () => {
   const configData = [
     {
       label: "STT",
-      render: (data: any) => {
+      render: (data: ICustomerTable) => {
         return data.index;
       },
     },
     {
       label: "Tên Khách hàng",
-      render: (data: any) => {
+      render: (data: ICustomerTable) => {
         return data.name;
       },
     },
     {
       label: "Tên Email",
-      render: (data: any) => {
+      render: (data: ICustomerTable) => {
         return data.name;
-      },
-    },
-
-    {
-      label: "Tuỳ chọn",
-      render: (data: any) => {
-        return (
-          <div className="flex gap-4 justify-end">
-            {/* <Button>Xoá</Button> */}
-          </div>
-        );
       },
     },
   ];
@@ -48,7 +41,7 @@ const Customers: React.FC<CustomersProps> = () => {
 
   if (isSuccess) {
     const { pageSize, pageIndex } = data;
-    const updateData = data.data.map((item, index) => ({
+    const updateData: ICustomerTable[] = data.data.map((item, index) => ({
       ...item,
       index: index + 1 + pageIndex * pageSize,
     }));

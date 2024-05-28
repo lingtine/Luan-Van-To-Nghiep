@@ -16,7 +16,7 @@ const FormLogin: React.FC<FormLoginProps> = () => {
     if (isSuccess) {
       navigate("/admin/");
     }
-  }, [isSuccess]);
+  }, [isSuccess, navigate]);
 
   const handleTyping = (e: React.ChangeEvent<EventTarget>) => {
     const { name, value } = e.target as HTMLInputElement;
@@ -32,55 +32,56 @@ const FormLogin: React.FC<FormLoginProps> = () => {
   };
 
   return (
-    <div className="border px-12 py-8 border-primary-1 rounded-md shadow-xl">
-      <Card color="transparent" shadow={false}>
-        <Typography variant="h4" color="blue-gray">
-          Đăng nhập
-        </Typography>
-        <form
-          onSubmit={handleSubmit}
-          className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
-        >
-          <div className="mb-1 flex flex-col gap-6">
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Email
-            </Typography>
-            <Input
-              crossOrigin={"use-credentials"}
-              size="lg"
-              name="email"
-              value={dataForm.email}
-              onChange={handleTyping}
-              placeholder="name@mail.com"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Mật khẩu
-            </Typography>
-            <Input
-              crossOrigin={"use-credentials"}
-              type="password"
-              size="lg"
-              name="password"
-              value={dataForm.password}
-              onChange={handleTyping}
-              placeholder="********"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
-          </div>
+    <Card color="white" shadow={false} className="px-12 py-8 shadow">
+      <Typography variant="h4" color="black" className="py-2 text-center">
+        Đăng nhập
+      </Typography>
+      <Typography variant="small" color="black" className="text-center">
+        Chào mừng bạn đến trang admin
+      </Typography>
+      <form
+        onSubmit={handleSubmit}
+        className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
+      >
+        <div className="mb-1 flex flex-col gap-6">
+          <Typography variant="h6" color="black" className="-mb-3">
+            Email
+          </Typography>
+          <Input
+            crossOrigin={"use-credentials"}
+            size="lg"
+            name="email"
+            value={dataForm.email}
+            onChange={handleTyping}
+            placeholder="name@gmail.com"
+            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+            labelProps={{
+              className: "before:content-none after:content-none",
+            }}
+          />
+          <Typography variant="h6" color="black" className="-mb-3">
+            Mật khẩu
+          </Typography>
+          <Input
+            crossOrigin={"use-credentials"}
+            type="password"
+            size="lg"
+            name="password"
+            value={dataForm.password}
+            onChange={handleTyping}
+            placeholder="********"
+            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+            labelProps={{
+              className: "before:content-none after:content-none",
+            }}
+          />
+        </div>
 
-          <Button type="submit" className="mt-6" fullWidth>
-            Đăng nhập
-          </Button>
-        </form>
-      </Card>
-    </div>
+        <Button type="submit" className="mt-6" fullWidth>
+          Đăng nhập
+        </Button>
+      </form>
+    </Card>
   );
 };
 

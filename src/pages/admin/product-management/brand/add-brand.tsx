@@ -6,14 +6,12 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAddBrandMutation } from "redux/api/catalog/brand";
 import { toast } from "react-toastify";
-import { IBrand } from "redux/api/types";
+import { IBrandInput } from "redux/api/types";
 import { useNavigate } from "react-router-dom";
 
-interface AddBrandProps {}
-
-const AddBrand: React.FC<AddBrandProps> = () => {
+const AddBrand = () => {
   const [addBrand, { isSuccess }] = useAddBrandMutation();
-  const [dataForm, setDataForm] = useState<IBrand>({
+  const [dataForm, setDataForm] = useState<IBrandInput>({
     id: "",
     name: "",
     description: "",
@@ -49,7 +47,7 @@ const AddBrand: React.FC<AddBrandProps> = () => {
       toast.success("Tạo thành công");
       navigate("/admin/brand");
     }
-  }, [isSuccess]);
+  }, [isSuccess, navigate]);
 
   return (
     <div className="px-8">

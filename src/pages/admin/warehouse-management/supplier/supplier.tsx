@@ -14,9 +14,13 @@ import {
 
 import { useParams } from "react-router-dom";
 
-interface SupplierProps {}
+import { ISupplier } from "redux/api/types";
 
-const Supplier: React.FC<SupplierProps> = () => {
+interface ISupplierTable extends ISupplier {
+  index: number;
+}
+
+const Supplier = () => {
   const { index } = useParams();
 
   const { data, isSuccess, isLoading } = useGetSuppliersQuery({
@@ -28,38 +32,38 @@ const Supplier: React.FC<SupplierProps> = () => {
   const configData = [
     {
       label: "STT",
-      render: (data: any) => {
+      render: (data: ISupplierTable) => {
         return data.index;
       },
     },
     {
       label: "Tên nhà cung cấp",
-      render: (data: any) => {
+      render: (data: ISupplierTable) => {
         return <div className="min-w-[160px]">{data.name}</div>;
       },
     },
 
     {
       label: "Email",
-      render: (data: any) => {
+      render: (data: ISupplierTable) => {
         return data.email;
       },
     },
     {
       label: "Số điện thoại",
-      render: (data: any) => {
+      render: (data: ISupplierTable) => {
         return <div className="min-w-[140px]">{data.phoneNumber}</div>;
       },
     },
     {
       label: "Địa chỉ",
-      render: (data: any) => {
+      render: (data: ISupplierTable) => {
         return data.address;
       },
     },
     {
       label: "Tuỳ chọn",
-      render: (data: any) => {
+      render: (data: ISupplierTable) => {
         return (
           <div className="flex gap-4 justify-end">
             <Button
@@ -85,11 +89,11 @@ const Supplier: React.FC<SupplierProps> = () => {
   let content: React.ReactNode;
 
   if (isSuccess) {
-    const updateData = data.data.map((item, index) => ({
+    const updateData: ISupplierTable[] = data.data.map((item, index) => ({
       ...item,
       index: index + 1,
     }));
-    console.log("🚀 ~ updateData ~ updateData:", data)
+    console.log("🚀 ~ updateData ~ updateData:", data);
     content = (
       <>
         <Table config={configData} data={updateData}></Table>

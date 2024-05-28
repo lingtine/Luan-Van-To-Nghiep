@@ -2,7 +2,7 @@ import customFetchBase from "../customFetchBase";
 
 import { createApi } from "@reduxjs/toolkit/query/react";
 
-import { IReport } from "../types";
+import { IReport, IReportInput } from "../types";
 
 const reportApi = createApi({
   reducerPath: "report",
@@ -24,10 +24,10 @@ const reportApi = createApi({
       }) => response,
     }),
     createReport: build.mutation({
-      query: ({ id, ...ref }: IReport) => ({
+      query: (data: IReportInput) => ({
         url: "/warehouses/reports",
         method: "POST",
-        body: ref,
+        body: data,
       }),
       invalidatesTags: ["add"],
     }),
