@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "components/table/table";
 import { Button, Spinner } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
@@ -13,6 +13,10 @@ import {
 import { useParams } from "react-router-dom";
 
 import { IBrand } from "redux/api/types";
+import {
+  ConfirmDialog,
+  IContentConfirm,
+} from "components/confirm-dialog/confirm-dialog";
 
 interface IBrandTable extends IBrand {
   index: number;
@@ -20,6 +24,21 @@ interface IBrandTable extends IBrand {
 
 const Brand = () => {
   const { index } = useParams();
+  const [productRemove, setProductRemove] = useState<IContentConfirm>();
+
+  const handleToggle = (data?: IContentConfirm) => {
+    if (data) {
+      setProductRemove(() => {
+        return {
+          id: data.id,
+          title: data.title,
+          content: data.content,
+        };
+      });
+    } else {
+      setProductRemove(undefined);
+    }
+  };
 
   const { data, isSuccess, isLoading } = useGetBrandsQuery({
     pageIndex: index,
@@ -59,7 +78,12 @@ const Brand = () => {
           <div className="flex gap-4 justify-end">
             <Button
               onClick={() => {
-                removeBrand(data.id);
+                handleToggle({
+                  id: data.id,
+                  title: `Bạn có muốn xóa thương hiệu ${data.name}`,
+                  content:
+                    "Thao tác này sẽ xóa bản ghi. Một khi đã xóa thì không thể khôi phục lại.",
+                });
               }}
               color="red"
             >
@@ -80,8 +104,6 @@ const Brand = () => {
 
   if (isSuccess) {
     const { pageSize, pageIndex } = data;
-    console.log("🚀 ~ Brand data:", data);
-
     const updateData: IBrandTable[] = data.data.map((item, index) => ({
       ...item,
       index: index + 1 + pageIndex * pageSize,
@@ -120,6 +142,16 @@ const Brand = () => {
         </Link>
       </div>
       {content}
+      <ConfirmDialog
+        data={productRemove}
+        setData={handleToggle}
+        handleConfirm={() => {
+          if (productRemove) {
+            removeBrand(productRemove.id);
+            setProductRemove(undefined);
+          }
+        }}
+      />
     </div>
   );
 };

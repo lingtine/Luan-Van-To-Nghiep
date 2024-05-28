@@ -8,31 +8,34 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 
+export interface IContentConfirm {
+  id: string;
+  title: string;
+  content: string;
+}
 interface IConfirmDialog {
-  isOpen: boolean;
-  setIsOpen: () => void;
+  data?: IContentConfirm;
+  setData: (data?: IContentConfirm) => void;
   handleConfirm: () => void;
-  title?: string;
-  content?: string;
 }
 
 export const ConfirmDialog: React.FC<IConfirmDialog> = ({
-  isOpen,
-  setIsOpen,
+  data,
+  setData,
   handleConfirm,
-  title,
-  content,
 }) => {
   return (
     <>
-      <Dialog open={isOpen} handler={setIsOpen}>
-        {title && <DialogHeader>{title}</DialogHeader>}
-        {content && <DialogBody>{content}</DialogBody>}
+      <Dialog open={!!data} handler={setData}>
+        {data && <DialogHeader>{data.title}</DialogHeader>}
+        {data && <DialogBody>{data.content}</DialogBody>}
         <DialogFooter>
           <Button
             variant="text"
             color="red"
-            onClick={setIsOpen}
+            onClick={() => {
+              setData();
+            }}
             className="mr-1"
           >
             <span>Hủy</span>
