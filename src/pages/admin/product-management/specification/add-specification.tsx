@@ -35,10 +35,7 @@ const AddSpecification: React.FC<AddSpecificationProps> = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (
-      dataForm.name.trim().length === 0 ||
-      dataForm.description.trim().length === 0
-    ) {
+    if (dataForm.name.trim().length === 0) {
       toast.error("Thông tin không hợp lệ");
     } else {
       addSpecification(dataForm);

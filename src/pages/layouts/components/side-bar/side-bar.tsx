@@ -37,7 +37,7 @@ const SideBar: React.FC<SideBarProps> = () => {
           <Typography variant="h6" color="white">
             {user?.name}
           </Typography>
-          <Typography variant="small" color="blue" className="font-normal">
+          <Typography variant="small" color="white" className="font-semibold">
             Employee
           </Typography>
         </div>

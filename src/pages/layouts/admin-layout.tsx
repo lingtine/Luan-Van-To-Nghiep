@@ -32,7 +32,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
     <header className="w-full bg-secondary flex justify-between items-center  p-4 mb-8 shadow-lg">
       <button
         title="menu"
-        className=" lg:hidden cursor-pointer"
+        className="lg:hidden cursor-pointer"
         onClick={() => {
           setIsOpen(true);
         }}

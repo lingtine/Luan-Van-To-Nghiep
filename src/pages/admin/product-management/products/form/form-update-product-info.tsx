@@ -66,14 +66,14 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
     } else {
       setIsUpdate(true);
     }
-  }, [dataForm]);
+  }, [dataForm, product.name, product.unitPrice, product.description]);
 
   useEffect(() => {
     if (result.isSuccess) {
       navigate(-1);
       toast.success("Chỉnh sửa sản phẩm thành công");
     }
-  }, [result]);
+  }, [result, navigate]);
 
   return (
     <form onSubmit={handleSubmit} action="" className="flex flex-wrap gap-5 ">
