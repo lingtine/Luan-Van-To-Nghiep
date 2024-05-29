@@ -57,8 +57,6 @@ const Brand = () => {
         return (
           <div className="flex items-center gap-4">
             <img className="w-28" src={data.imageUrl} alt={data.name} />
-
-            {/* <p>{data.name}</p> */}
           </div>
         );
       },

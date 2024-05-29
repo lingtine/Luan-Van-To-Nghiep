@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "components/table/table";
 import { Button, Spinner } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
@@ -14,6 +14,10 @@ import {
 import { useParams } from "react-router-dom";
 
 import { ICategory } from "redux/api/types";
+import {
+  ConfirmDialog,
+  IContentConfirm,
+} from "components/confirm-dialog/confirm-dialog";
 
 interface ICategoryTable extends ICategory {
   index: number;
@@ -21,13 +25,22 @@ interface ICategoryTable extends ICategory {
 
 const Category = () => {
   const { index } = useParams();
+  const [categoryRemove, setCategoryRemove] = useState<IContentConfirm>();
 
   const { data, isSuccess, isLoading } = useGetCategoriesQuery({
     pageIndex: index,
   });
   const [removeCategory, { isSuccess: removeSuccess }] =
     useDeleteCategoryMutation();
-
+  const handleCategoryRemove = (data?: IContentConfirm) => {
+    if (data) {
+      setCategoryRemove(() => {
+        return data;
+      });
+    } else {
+      setCategoryRemove(undefined);
+    }
+  };
   const configData = [
     {
       label: "STT",
@@ -64,7 +77,12 @@ const Category = () => {
           <div className="flex gap-4 justify-end">
             <Button
               onClick={() => {
-                removeCategory(data.id);
+                handleCategoryRemove({
+                  id: data.id,
+                  title: `Bạn có muốn xoá danh mục ${data.name}`,
+                  content:
+                    "Thao tác này sẽ xóa bản ghi. Một khi đã xóa thì không thể khôi phục lại.",
+                });
               }}
               color="red"
             >
@@ -123,6 +141,16 @@ const Category = () => {
         </Link>
       </div>
       {content}
+      <ConfirmDialog
+        data={categoryRemove}
+        setData={handleCategoryRemove}
+        handleConfirm={() => {
+          if (categoryRemove) {
+            removeCategory(categoryRemove.id);
+            handleCategoryRemove();
+          }
+        }}
+      />
     </div>
   );
 };

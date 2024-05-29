@@ -1,69 +1,40 @@
-import React from "react";
-import Table from "components/table/table";
-import { Button, Spinner } from "@material-tailwind/react";
+import { useEffect, useState } from "react";
+import { Button } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { useDeleteCategoryGroupMutation } from "redux/api/catalog/category-group";
+
 import {
-  useGetCategoryGroupsQuery,
-  useDeleteCategoryGroupMutation,
-} from "redux/api/catalog/category-group";
-import { useEffect } from "react";
+  ConfirmDialog,
+  IContentConfirm,
+} from "components/confirm-dialog/confirm-dialog";
+import ModalAddCategoryGroup from "./modal-add-category-group";
+import TableCategoryGroup from "./table-category-group";
+
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
-
-import { ICategoryGroup } from "redux/api/types";
-
-interface ICategoryGroupTable extends ICategoryGroup {
-  index: number;
-}
 
 const CategoryGroup = () => {
-  const { index } = useParams();
-
-  const { data, isLoading, isSuccess } = useGetCategoryGroupsQuery({
-    pageIndex: index,
-  });
   const [removeCategoryGroup, { isSuccess: removeIsSuccess }] =
     useDeleteCategoryGroupMutation();
-  const configData = [
-    {
-      label: "STT",
-      render: (data: ICategoryGroupTable) => {
-        return data.index;
-      },
-    },
-    {
-      label: "Tên Nhóm Danh Mục",
-      render: (data: ICategoryGroupTable) => {
-        return data.name;
-      },
-    },
 
-    {
-      label: "Miêu tả",
-      render: (data: ICategoryGroupTable) => {
-        return data.description;
-      },
-    },
+  //sản phẩm cần xoá
+  const [categoryGroupRemove, setCategoryGroupRemove] =
+    useState<IContentConfirm>();
+  const [isOpen, setIsOpen] = useState(false);
 
-    {
-      label: "Tuỳ chọn",
-      render: (data: ICategoryGroupTable) => {
-        return (
-          <div className="flex gap-4 justify-end">
-            <Button
-              onClick={() => {
-                removeCategoryGroup(data.id);
-              }}
-              color="red"
-            >
-              Xoá
-            </Button>
-          </div>
-        );
-      },
-    },
-  ];
+  // mở phần thêm sản phẩm
+  const handleToggleAdd = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleCategoryGroupRemove = (data?: IContentConfirm) => {
+    if (data) {
+      setCategoryGroupRemove(() => {
+        return data;
+      });
+    } else {
+      setCategoryGroupRemove(undefined);
+    }
+  };
 
   useEffect(() => {
     if (removeIsSuccess) {
@@ -71,34 +42,29 @@ const CategoryGroup = () => {
     }
   }, [removeIsSuccess]);
 
-  let content: React.ReactNode;
-  if (isSuccess) {
-    const { pageSize, pageIndex } = data;
-
-    const dataUpdate: ICategoryGroupTable[] = data.data.map((item, index) => ({
-      ...item,
-      index: index + 1 + pageIndex * pageSize,
-    }));
-    content = <Table config={configData} data={dataUpdate}></Table>;
-  } else if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-[100vh]">
-        <Spinner className="h-12 w-12" />
-      </div>
-    );
-  }
   return (
-    <div className="px-4 ">
-      <div className="flex justify-end my-4">
-        <Link to="/admin/category-group/add-category-group">
-          <Button className="flex gap-2 items-center">
+    <>
+      <div className="px-4 ">
+        <div className="flex justify-end my-4">
+          <Button className="flex gap-2 items-center" onClick={handleToggleAdd}>
             <AiOutlinePlusCircle />
             Thêm Nhóm Danh Mục
           </Button>
-        </Link>
+        </div>
+        <TableCategoryGroup onRemove={handleCategoryGroupRemove} />
       </div>
-      {content}
-    </div>
+      <ConfirmDialog
+        data={categoryGroupRemove}
+        setData={handleCategoryGroupRemove}
+        handleConfirm={() => {
+          if (categoryGroupRemove) {
+            removeCategoryGroup(categoryGroupRemove.id);
+            handleCategoryGroupRemove();
+          }
+        }}
+      />
+      {isOpen && <ModalAddCategoryGroup onToggle={handleToggleAdd} />}
+    </>
   );
 };
 

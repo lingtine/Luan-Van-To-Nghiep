@@ -63,11 +63,14 @@ const AddBrand = () => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex justify-between gap-4">
-        <section className="flex-[0_0_30%]">
+      <form
+        onSubmit={handleSubmit}
+        className="flex justify-between gap-10 p-10"
+      >
+        <section className="flex-[0_0_50%]">
           <UploadImage onChange={handleChangeImage} />
         </section>
-        <section className=" flex-[0_0_70%]">
+        <section className=" flex-[0_0_50%]">
           <header className="text-2xl my-4 font-bold ">
             Thông tin thương hiệu
           </header>

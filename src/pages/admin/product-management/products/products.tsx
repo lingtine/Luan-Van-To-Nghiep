@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "components/table/table";
 import { Button, Spinner } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
@@ -13,6 +13,11 @@ import { useParams } from "react-router-dom";
 import { useFormatPrice } from "hooks/use-format-price";
 import { IProductDetailType } from "redux/api/types";
 
+import {
+  ConfirmDialog,
+  IContentConfirm,
+} from "components/confirm-dialog/confirm-dialog";
+
 interface IProductTable extends IProductDetailType {
   index: number;
 }
@@ -20,12 +25,22 @@ interface IProductTable extends IProductDetailType {
 const Products = () => {
   const { index } = useParams();
   const [formatPrice] = useFormatPrice();
-
+  const [productRemove, setProductRemove] = useState<IContentConfirm>();
   const { data, isSuccess, isLoading } = useGetProductsQuery({
     pageIndex: index,
     pageSize: 20,
   });
   const [removeProduct] = useDeleteProductMutation();
+  const handleToggleProduct = (data?: IContentConfirm) => {
+    if (data) {
+      setProductRemove(() => {
+        return data;
+      });
+    } else {
+      setProductRemove(undefined);
+    }
+  };
+
   const configData = [
     {
       label: "STT",
@@ -69,7 +84,12 @@ const Products = () => {
             </Link>
             <Button
               onClick={() => {
-                removeProduct(data.id);
+                handleToggleProduct({
+                  id: data.id,
+                  title: `Bạn có muốn xoá sản phẩm ${data.name}`,
+                  content:
+                    "Thao tác này sẽ xóa bản ghi. Một khi đã xóa thì không thể khôi phục lại.",
+                });
               }}
               color="red"
             >
@@ -121,6 +141,16 @@ const Products = () => {
         </Link>
       </div>
       {content}
+      <ConfirmDialog
+        data={productRemove}
+        setData={handleToggleProduct}
+        handleConfirm={() => {
+          if (productRemove) {
+            removeProduct(productRemove.id);
+            handleToggleProduct();
+          }
+        }}
+      />
     </div>
   );
 };
