@@ -59,6 +59,7 @@ function ProductDetailPage() {
       }
     }
   }
+
   if (isSuccess) {
     return (
       <>
@@ -134,7 +135,8 @@ function ProductDetailPage() {
                 shadow-md rounded-lg 
                 border border-gray-300"
                 >
-                  <ProductReview numberOfStar={3} />
+                  <ProductReview 
+                  productId={data.id} />
                 </div>
               </div>
 

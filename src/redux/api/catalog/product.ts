@@ -112,7 +112,8 @@ const productApi = createApi({
       ],
 
       transformResponse: (response: { data: IProductDetailType }) =>
-        response.data,
+        // TODO
+        response.data || response,
     }),
     updateProduct: builder.mutation({
       query: ({
