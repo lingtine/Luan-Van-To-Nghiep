@@ -1,3 +1,4 @@
+import Pagination from "components/pagination/pagitnation";
 import { useGetReviewsByProductsQuery } from "redux/api/catalog/review";
 import Comment from "./Comment";
 import CommentForm from "./CommentForm";
@@ -8,9 +9,12 @@ interface ProductReviewProps {
 }
 
 const ProductReview = ({ productId }: ProductReviewProps) => {
-  const { data, isFetching, isSuccess } =
-    useGetReviewsByProductsQuery(productId);
-
+  const { data, isSuccess } = useGetReviewsByProductsQuery({
+    productId,
+    params: { pageIndex: 0, pageSize: 10 },
+  });
+  console.log("🚀 ~ ProductReview ~ data:", data);
+  console.log("🚀 ~ ProductReview ~ isSuccess:", isSuccess);
   return (
     <div>
       <div className="items-center p-6">
@@ -24,9 +28,21 @@ const ProductReview = ({ productId }: ProductReviewProps) => {
         </div>
         {isSuccess && (
           <div>
-            {(data || []).map((comment, index) => (
-              <Comment review={comment} key={index} />
-            ))}
+            <div>
+              {data.data
+                ?.filter((review) => review.comment)
+                .map((comment) => (
+                  <Comment review={comment} key={comment.id} />
+                ))}
+            </div>
+            {data.totalCount >= data.pageSize * (data.pageIndex + 1) && (
+              <div className="flex justify-center my-8">
+                <Pagination
+                  pageIndex={data.pageIndex}
+                  pageSize={data.pageSize}
+                  totalCount={data.totalCount} url={""}                />
+              </div>
+            )}
           </div>
         )}
       </div>

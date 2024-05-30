@@ -1,4 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
+import { useParams } from "react-router-dom";
 import customFetchBase from "redux/api/customFetchBase";
 import { IProductReview, IReviewRequest } from "../types";
 
@@ -7,20 +8,19 @@ const reviewApi = createApi({
   baseQuery: customFetchBase,
   tagTypes: ["ADD", "UPDATE", "DELETE"],
   endpoints: (builder) => ({
-
     addReviewProduct: builder.mutation({
       query: (data: IReviewRequest) => {
-        var bodyFormData = new FormData();
+        const bodyFormData = new FormData();
 
         bodyFormData.append("ProductId", data.productId);
         bodyFormData.append("NumberOfStar", data.numberOfStar.toString());
         bodyFormData.append("Comment", data.comment);
-        
+
         if (data.attachments) {
-          for (let i = 0; i < data.attachments.length; i++) {
-            bodyFormData.append("Attachments", data.attachments[i]);
+          for (const element of data.attachments) {
+            bodyFormData.append("Attachments", element);
           }
-        }        
+        }
         return {
           url: `/catalogs/reviews`,
           method: "POST",
@@ -37,7 +37,7 @@ const reviewApi = createApi({
         ...rest
       }: {
         reviewId: string;
-        numberOfStar: Number;
+        numberOfStar: number;
         comment: string;
         imageUrls: string;
       }) => ({
@@ -56,14 +56,27 @@ const reviewApi = createApi({
     }),
 
     getReviewsByProducts: builder.query({
-      query: (productId: string) => ({
+      query: ({
+        productId,
+        params,
+      }: {
+        productId: string;
+        params: {
+          pageIndex: number;
+          pageSize: number;
+        };
+      }) => ({
         url: `/catalogs/reviews/${productId}`,
         method: "GET",
+        params,
       }),
       providesTags: ["ADD", "DELETE", "UPDATE"],
-      transformResponse: (response: { data: IProductReview[] }) =>
-        // TODO
-        response.data || response,
+      transformResponse: (response: {
+        data: IProductReview[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      }) => response,
     }),
   }),
 });
