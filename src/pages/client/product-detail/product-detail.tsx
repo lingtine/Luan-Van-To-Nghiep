@@ -17,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "redux/store";
 import ProductDetailSkeleton from "components/skeleton/product-detail-skeleton";
 import ProductReview from "./components/ProductReview";
+import ProductsCarousel from "components/products/product-carousel";
+
 function ProductDetailPage() {
   const { productId } = useParams();
   const navigate = useNavigate();
@@ -117,8 +119,16 @@ function ProductDetailPage() {
 
             <div className="sm:px-6 lg:px-8 mt-6 lg:flex-row flex flex-col gap-4 justify-between">
               <div className="flex flex-col basis-2/3">
-                {/* Description */}
+                {/* Related products */}
+                {/* {isSuccess && data && data.relatedProducts && (
+                  
+                )} */}
 
+                <div>
+                  <ProductsCarousel products={[data]} lengthCarousel={10} />
+                </div>
+
+                {/* Description */}
                 <div className="w-full min-h-fit h-fit shadow-md rounded-lg border border-gray-300 mb-4 p-4">
                   {data.description}
                 </div>
@@ -129,8 +139,7 @@ function ProductDetailPage() {
                 shadow-md rounded-lg 
                 border border-gray-300"
                 >
-                  <ProductReview 
-                  productId={data.id} />
+                  <ProductReview productId={data.id} />
                 </div>
               </div>
 

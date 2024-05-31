@@ -114,6 +114,7 @@ export interface IProductDetailType {
   productSpecifications: IProductSpecifications[];
   rateCount: number;
   viewCount: number;
+  relatedProducts?: IProductDetailType[]
 }
 
 export interface ISpecification {

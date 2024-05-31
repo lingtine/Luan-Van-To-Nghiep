@@ -14,6 +14,8 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
 }) => {
   const [carouselIndex, setCarouselIndex] = useState<number>(0);
 
+  console.log("123", products);
+
   const onPrev = () => {
     if (carouselIndex > 0) setCarouselIndex(carouselIndex - 1);
   };
