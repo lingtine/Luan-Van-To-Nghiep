@@ -9,7 +9,7 @@ const ProductSpecification: React.FC<ProductSpecificationProps> = ({
 }) => {
   return (
     <>
-      <h4 className="text-xl font-bold my-4">Thông số sản phẩm</h4>
+      <h4 className="text-xl font-bold mb-4">Thông số kỹ thuật</h4>
       <ul className="[&>*:nth-child(odd)]:bg-[#f2f2f2] rounded-lg border border-gray-300">
         {data.map((item, index) => {
           return (

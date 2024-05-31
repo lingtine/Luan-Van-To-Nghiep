@@ -1,14 +1,12 @@
-import { Button, Rating, Textarea } from "@material-tailwind/react";
-import { useState } from "react";
-import { toast } from "react-toastify";
+import { Rating, Textarea } from "@material-tailwind/react";
 import { IProductReview } from "redux/api/types";
-import { useAppSelector } from "redux/store";
 
 interface CommentProps {
   review: IProductReview;
 }
 
 const Comment = ({ review }: CommentProps) => {
+  
   // const [editComment, setEditComment] = useState(review.comment ?? "");
   // const [isDisableEdit, setIsDisableEdit] = useState(true);
   // const [isOpenReply, setIsOpenReply] = useState(false);

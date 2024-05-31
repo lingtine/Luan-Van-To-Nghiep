@@ -12,7 +12,7 @@ import { useGetProductDetailQuery } from "redux/api/catalog/product";
 import { Rating, Button } from "@material-tailwind/react";
 import { formatVND } from "utils/formatVND";
 import InputQuantity from "components/input/input-quantity";
-import ProductSpecification from "./components/product-specifications";
+import ProductSpecification from "./components/ProductSpecification";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "redux/store";
 import ProductDetailSkeleton from "components/skeleton/product-detail-skeleton";
@@ -66,7 +66,7 @@ function ProductDetailPage() {
         {data && (
           <div className="container mx-auto my-20">
             <div className=" px-4 sm:px-6 lg:px-8 mt-6 flex flex-col lg:flex-row gap-4">
-              <div className="basis-1/2 shadow-md rounded-lg">
+              <div className="basis-1/2  py-8 px-4 flex flex-col gap-4 border shadow-md rounded-lg">
                 <img
                   className="h-full w-full  max-h-[400px] object-contain "
                   src={
@@ -119,13 +119,7 @@ function ProductDetailPage() {
               <div className="flex flex-col basis-2/3">
                 {/* Description */}
 
-                <div
-                  className="w-full min-h-40 h-96
-                shadow-md rounded-lg 
-                border border-gray-300 
-                mb-4 p-4
-                "
-                >
+                <div className="w-full min-h-fit h-fit shadow-md rounded-lg border border-gray-300 mb-4 p-4">
                   {data.description}
                 </div>
 
@@ -146,7 +140,7 @@ function ProductDetailPage() {
                 "
               >
                 <ProductSpecification data={data.productSpecifications} />
-                <div>
+                {/* <div>
                   <button
                     className="
                   bg-white border border-gray-300 text-gray-900
@@ -158,7 +152,7 @@ function ProductDetailPage() {
                   >
                     Xem cấu hình chi tiết
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

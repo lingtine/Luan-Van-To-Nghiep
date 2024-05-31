@@ -1,7 +1,5 @@
-import { Button, Input, Rating, Textarea } from "@material-tailwind/react";
-import { jwtDecode } from "jwt-decode";
-import { useEffect } from "react";
-import { useState } from "react";
+import { Button, Rating, Textarea } from "@material-tailwind/react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useAddReviewProductMutation } from "redux/api/catalog/review";
 import { useAppSelector } from "redux/store";
@@ -36,21 +34,28 @@ const CommentForm = ({ isChild, productId }: ICommentFormProps) => {
   const avatarClassNames = `w-${avatarSize} h-${avatarSize} rounded-full`;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     if (!accessToken) {
-      toast.warning("Bạn cần đăng nhập để trả lời bình luận");
+      toast.warning("Bạn cần đăng nhập để bình luận");
     } else {
-      event.preventDefault();
       setComment("");
       setStar(5);
       createReview(dataForm);
     }
+    
   };
+  
+  // TODO: toast done
+  // useEffect(() => {
+  //   toast.done("Thao tác thành công")
+  // },[result.isSuccess])
 
   const handleCommentChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setComment(event.target.value);
-    setDataForm(() => ({ ...dataForm, comment: comment }));
+    setDataForm(() => ({ ...dataForm, comment: event.target.value }));
   };
 
   const handleChangeStar = (currentStar: number) => {
