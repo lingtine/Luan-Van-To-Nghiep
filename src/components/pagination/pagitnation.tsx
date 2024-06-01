@@ -16,22 +16,50 @@ const Pagination: React.FC<PaginationProps> = ({
   url,
 }) => {
   const maxSizePage = Math.ceil(totalCount / pageSize);
-  
+  const getPagination = () => {
+    const pages = [];
+    const startPage = Math.max(1, pageIndex - 2);
+    const endPage = Math.min(maxSizePage - 1, pageIndex + 2);
+
+    pages.push(0); // Always show the first page
+
+    if (startPage > 2) {
+      pages.push("..."); // Ellipsis for skipped pages
+    }
+
+    for (let i = startPage; i < endPage; i++) {
+      pages.push(i);
+    }
+
+    if (endPage < maxSizePage - 1) {
+      pages.push("...");
+    }
+
+    pages.push(maxSizePage - 1); // Always show the last page
+
+    console.log(pages);
+    return pages;
+  };
+
+  const pagination = getPagination();
+
   const router = useNavigate();
   let renderItemPage;
-  renderItemPage = Array(maxSizePage)
-    .fill(0)
-    .map((_, index) => {
-      return (
+  renderItemPage = pagination.map((page, index) => (
+    <React.Fragment key={index}>
+      {page === "..." ? (
+        <span className="px-4 py-2">...</span>
+      ) : (
         <li key={index}>
-          <Link to={index === 0 ? `${url}` : `${url}/${index}`}>
-            <IconButton variant={pageIndex === index ? "filled" : "text"}>
-              {index + 1}
+          <Link to={page === 0 ? `${url}` : `${url}/${page}`}>
+            <IconButton variant={pageIndex === page ? "filled" : "text"}>
+              {+page + 1}
             </IconButton>
           </Link>
         </li>
-      );
-    });
+      )}
+    </React.Fragment>
+  ));
 
   const handleBack = () => {
     if (pageIndex) {
@@ -52,7 +80,7 @@ const Pagination: React.FC<PaginationProps> = ({
       }
     }
   };
-  
+
   return (
     <ul className="flex items-center gap-2 bg-white py-1 px-2 rounded-md">
       <li>

@@ -17,6 +17,31 @@ const PaginationClient: React.FC<PaginationClientProps> = ({
   onChange,
 }) => {
   const maxSizePage = Math.floor(totalNumber / pageSize) + 1;
+  const getPagination = () => {
+    const pages = [];
+    const startPage = Math.max(2, pageIndex - 2);
+    const endPage = Math.min(maxSizePage - 1, pageIndex + 2);
+
+    pages.push(1); // Always show the first page
+
+    if (startPage > 2) {
+      pages.push("..."); // Ellipsis for skipped pages
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+
+    if (endPage < maxSizePage - 1) {
+      pages.push("...");
+    }
+
+    pages.push(maxSizePage); // Always show the last page
+
+    return pages;
+  };
+
+  const pagination = getPagination();
 
   const getItemProps = (index: number) =>
     ({
@@ -50,16 +75,19 @@ const PaginationClient: React.FC<PaginationClientProps> = ({
       >
         <FaArrowLeft strokeWidth={2} className="h-4 w-4" /> Previous
       </Button>
+
       <div className="flex items-center gap-2">
-        {Array(maxSizePage)
-          .fill(0)
-          .map((_, index) => {
-            return (
+        {pagination.map((page, index) => (
+          <React.Fragment key={index}>
+            {page === "..." ? (
+              <span className="px-4 py-2">...</span>
+            ) : (
               <IconButton key={index} {...getItemProps(index)}>
                 {index + 1}
               </IconButton>
-            );
-          })}
+            )}
+          </React.Fragment>
+        ))}
       </div>
       <Button
         variant="text"
