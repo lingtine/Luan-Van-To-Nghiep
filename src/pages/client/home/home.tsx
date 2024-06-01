@@ -23,7 +23,7 @@ const Home: React.FC<HomeProps> = () => {
       return (
         <BoxTemplate
           title={item.groupName}
-          heading={"Sản phẩm của chúng tôi"}
+          heading={item.groupName}
           key={item.id}
           action={action}
         >
@@ -32,6 +32,7 @@ const Home: React.FC<HomeProps> = () => {
       );
     });
   }
+  console.log("Current");
   return (
     <div className="container">
       <Banner />
