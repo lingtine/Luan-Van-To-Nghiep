@@ -9,15 +9,21 @@ const ProductSpecification: React.FC<ProductSpecificationProps> = ({
 }) => {
   return (
     <>
-      <h4 className="text-xl font-bold my-4">Thông số sản phẩm</h4>
-      <ul>
-        {data.map((item) => {
+      <h4 className="text-xl font-bold mb-4">Thông số kỹ thuật</h4>
+      <ul className="[&>*:nth-child(odd)]:bg-[#f2f2f2] rounded-lg border border-gray-300">
+        {data.map((item, index) => {
           return (
             <li
-              className="flex  text-sm px-2 items-center  gap-4 justify-between border border-primary-1"
+              className={`flex text-sm px-4 py-2 items-center gap-4 justify-between h-16
+              ${
+                index === 0 ? 'rounded-t-lg' : ''
+              } ${index === data.length - 1 ? 'rounded-b-lg' : ''}
+              `}
               key={item.id}
             >
-              <span className="min-w-[50%] py-4 flex[0_0_50%] h-full border-r border-primary-1">
+              <span 
+              className="py-4 flex[0_0_50%] h-full"
+              >
                 {item.specificationName}
               </span>
               <span>{item.specificationValue}</span>

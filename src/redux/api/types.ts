@@ -121,6 +121,7 @@ export interface IProductDetailType {
   productSpecifications: IProductSpecifications[];
   rateCount: number;
   viewCount: number;
+  relatedProducts?: IProductDetailType[]
 }
 
 export interface ISpecification {
@@ -338,4 +339,30 @@ export interface IProductReport {
   productId: string;
   productName: string;
   revenue: number;
+}
+
+export interface IReviewUser {
+  id:       string;
+  name:     string;
+  imageUrl: string;
+}
+
+export interface IProductReview {
+  id:             string;
+  productId:      string;
+  customerId:     string;
+  numberOfStar:   number;
+  comment:        string;
+  imageUrls:      any[];
+  createdAt:      Date;
+  lastModifiedAt: Date;
+  reviewUser:     IReviewUser;
+  children?:       IProductReview[]
+}
+
+export interface IReviewRequest{
+  productId: string;
+  numberOfStar: number;
+  comment: string;
+  attachments?: FileList;
 }

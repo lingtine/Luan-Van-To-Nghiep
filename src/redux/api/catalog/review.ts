@@ -1,5 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
+import { useParams } from "react-router-dom";
 import customFetchBase from "redux/api/customFetchBase";
+import { IProductReview, IReviewRequest } from "../types";
 
 const reviewApi = createApi({
   reducerPath: "reviewProduct",
@@ -7,25 +9,35 @@ const reviewApi = createApi({
   tagTypes: ["ADD", "UPDATE", "DELETE"],
   endpoints: (builder) => ({
     addReviewProduct: builder.mutation({
-      query: (data: {
-        productId: string;
-        numberOfStar: number;
-        comment: string;
-        imageUrls: string;
-      }) => ({
-        url: "/catalogs/reviews",
-        method: "POST",
-        body: data,
-      }),
+      query: (data: IReviewRequest) => {
+        const bodyFormData = new FormData();
+
+        bodyFormData.append("ProductId", data.productId);
+        bodyFormData.append("NumberOfStar", data.numberOfStar.toString());
+        bodyFormData.append("Comment", data.comment);
+
+        if (data.attachments) {
+          for (const element of data.attachments) {
+            bodyFormData.append("Attachments", element);
+          }
+        }
+        return {
+          url: `/catalogs/reviews`,
+          method: "POST",
+          body: bodyFormData,
+          formData: true,
+        };
+      },
       invalidatesTags: ["ADD"],
     }),
+
     updateReviewProduct: builder.mutation({
       query: ({
         reviewId,
         ...rest
       }: {
         reviewId: string;
-        numberOfStar: Number;
+        numberOfStar: number;
         comment: string;
         imageUrls: string;
       }) => ({
@@ -44,11 +56,27 @@ const reviewApi = createApi({
     }),
 
     getReviewsByProducts: builder.query({
-      query: (productId: string) => ({
+      query: ({
+        productId,
+        params,
+      }: {
+        productId: string;
+        params: {
+          pageIndex: number;
+          pageSize: number;
+        };
+      }) => ({
         url: `/catalogs/reviews/${productId}`,
         method: "GET",
+        params,
       }),
       providesTags: ["ADD", "DELETE", "UPDATE"],
+      transformResponse: (response: {
+        data: IProductReview[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      }) => response,
     }),
   }),
 });
