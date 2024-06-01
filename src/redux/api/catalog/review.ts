@@ -1,5 +1,4 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { useParams } from "react-router-dom";
 import customFetchBase from "redux/api/customFetchBase";
 import { IProductReview, IReviewRequest } from "../types";
 

@@ -43,13 +43,14 @@ const CommentForm = ({ isChild, productId }: ICommentFormProps) => {
       setStar(5);
       createReview(dataForm);
     }
-    
   };
-  
+
   // TODO: toast done
-  // useEffect(() => {
-  //   toast.done("Thao tác thành công")
-  // },[result.isSuccess])
+  useEffect(() => {
+    if (result.isSuccess) {
+      toast.success("Thao tác thành công");
+    }
+  }, [result.isSuccess]);
 
   const handleCommentChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>

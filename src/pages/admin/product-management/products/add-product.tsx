@@ -63,7 +63,7 @@ const AddProduct = () => {
       dataForm.description.trim().toString().length === 0 ||
       dataForm.sku.trim().toString().length === 0 ||
       !dataForm.image ||
-      dataForm.name.trim().toString().length == 0 ||
+      dataForm.name.trim().toString().length === 0 ||
       dataForm.unitPrice <= 0
     ) {
       toast.error("Thông tin không hợp lệ");
@@ -77,7 +77,7 @@ const AddProduct = () => {
       toast.success("Tạo sản phẩm thành công");
       navigate("/admin/products");
     }
-  }, [result]);
+  }, [result, navigate]);
 
   let content, contentCategory, contentBrands: React.ReactNode;
   if (getCategoryGroupSuccess) {
