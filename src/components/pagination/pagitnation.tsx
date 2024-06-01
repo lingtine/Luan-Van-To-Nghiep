@@ -18,6 +18,10 @@ const Pagination: React.FC<PaginationProps> = ({
   const maxSizePage = Math.ceil(totalCount / pageSize);
   const getPagination = () => {
     const pages = [];
+    if (maxSizePage === 1) {
+      pages.push(0);
+      return pages;
+    }
     const startPage = Math.max(1, pageIndex - 2);
     const endPage = Math.min(maxSizePage - 1, pageIndex + 2);
 
