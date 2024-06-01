@@ -131,7 +131,7 @@ const Products = () => {
   }
 
   return (
-    <div className="px-4 ">
+    <div className="px-4 overflow-hidden">
       <div className="flex justify-end my-4 ">
         <Link to="/admin/products/add-product">
           <Button className="flex gap-2 items-center">

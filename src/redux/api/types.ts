@@ -96,6 +96,7 @@ export interface IProductType {
   image: File;
   categoryId: string;
   brandId: string;
+  sku: string;
 }
 export interface IProductSpecifications {
   id: string;
@@ -121,7 +122,7 @@ export interface IProductDetailType {
   productSpecifications: IProductSpecifications[];
   rateCount: number;
   viewCount: number;
-  relatedProducts?: IProductDetailType[]
+  relatedProducts?: IProductDetailType[];
 }
 
 export interface ISpecification {
@@ -342,25 +343,25 @@ export interface IProductReport {
 }
 
 export interface IReviewUser {
-  id:       string;
-  name:     string;
+  id: string;
+  name: string;
   imageUrl: string;
 }
 
 export interface IProductReview {
-  id:             string;
-  productId:      string;
-  customerId:     string;
-  numberOfStar:   number;
-  comment:        string;
-  imageUrls:      any[];
-  createdAt:      Date;
+  id: string;
+  productId: string;
+  customerId: string;
+  numberOfStar: number;
+  comment: string;
+  imageUrls: any[];
+  createdAt: Date;
   lastModifiedAt: Date;
-  reviewUser:     IReviewUser;
-  children?:       IProductReview[]
+  reviewUser: IReviewUser;
+  children?: IProductReview[];
 }
 
-export interface IReviewRequest{
+export interface IReviewRequest {
   productId: string;
   numberOfStar: number;
   comment: string;

@@ -70,6 +70,7 @@ const productApi = createApi({
         bodyFormData.append("Image", data.image);
         bodyFormData.append("UnitPrice", data.unitPrice.toString());
         bodyFormData.append("CategoryId", data.categoryId);
+        bodyFormData.append("Sku", data.sku);
         bodyFormData.append("BrandId", data.brandId);
         return {
           url: "/catalogs/products",

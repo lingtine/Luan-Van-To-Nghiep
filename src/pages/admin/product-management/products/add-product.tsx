@@ -12,9 +12,8 @@ import { useAddProductMutation } from "redux/api/catalog/product";
 import { IProductType } from "redux/api/types";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-interface AddProductProps {}
 
-const AddProduct: React.FC<AddProductProps> = () => {
+const AddProduct = () => {
   const [getCategories, { isSuccess: getCategorySuccess, data: categoryData }] =
     useGetCategoriesByParametersMutation();
   const { data: brandsData, isSuccess: getBrandsSuccess } =
@@ -33,6 +32,7 @@ const AddProduct: React.FC<AddProductProps> = () => {
     unitPrice: 0,
     brandId: "",
     categoryId: "",
+    sku: "",
   });
   const [categoryGroupSelected, setCategoryGroupSelected] =
     useState<ISelected>();
@@ -61,6 +61,7 @@ const AddProduct: React.FC<AddProductProps> = () => {
       dataForm.brandId.trim().toString().length === 0 ||
       dataForm.categoryId.trim().toString().length === 0 ||
       dataForm.description.trim().toString().length === 0 ||
+      dataForm.sku.trim().toString().length === 0 ||
       !dataForm.image ||
       dataForm.name.trim().toString().length == 0 ||
       dataForm.unitPrice <= 0
@@ -164,6 +165,14 @@ const AddProduct: React.FC<AddProductProps> = () => {
               crossOrigin={"use-credentials"}
               variant="outlined"
               label="Tên sản phẩm"
+            />
+            <Input
+              onChange={handleChange}
+              name="sku"
+              value={dataForm?.sku}
+              crossOrigin={"use-credentials"}
+              variant="outlined"
+              label="Sku"
             />
             <Input
               onChange={handleChange}
