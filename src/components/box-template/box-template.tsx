@@ -11,12 +11,9 @@ interface BoxTemplateProps {
 const BoxTemplate: React.FC<BoxTemplateProps> = ({
   heading,
   title,
-  action,
   children,
   data,
 }) => {
-  console.log("box", data);
-
   const HeaderContent: React.FC = () => {
     return (
       <div className="flex justify-between items-end">

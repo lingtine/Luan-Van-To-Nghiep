@@ -48,8 +48,6 @@ const GetProducts: React.FC<GetProductsProps> = ({
               if (listProduct) return [...listProduct, item];
               else return [item];
             });
-
-            console.log(listProduct);
           }}
         >
           <ListItem key={item.id}>

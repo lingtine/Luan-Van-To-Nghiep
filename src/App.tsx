@@ -4,6 +4,7 @@ import { RouterProvider } from "react-router-dom";
 import { getCookie } from "utils/cookies/cookies";
 import { jwtDecode } from "jwt-decode";
 import { useGetEmployeeMutation } from "redux/api/auth/employeeApi";
+import { useGetCustomerMutation } from "redux/api/auth/customer-api";
 import { useEffect } from "react";
 
 import { ToastContainer } from "react-toastify";
@@ -13,13 +14,17 @@ import "./App.css";
 const App: React.FC = () => {
   const accessToken = getCookie("accessToken");
 
-  const [get, {}] = useGetEmployeeMutation();
+  const [getEmployee, {}] = useGetEmployeeMutation();
+  const [getCustomer, {}] = useGetCustomerMutation();
 
   useEffect(() => {
     if (accessToken) {
-      const data = jwtDecode(accessToken);
-
-      if (data) get({});
+      const data: { role: string } = jwtDecode(accessToken);
+      if (data.role === "Customer") {
+        getCustomer({});
+      } else {
+        getEmployee({});
+      }
     }
   }, []);
 

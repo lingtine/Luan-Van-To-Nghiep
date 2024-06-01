@@ -36,7 +36,6 @@ function ProductDetailPage() {
   const [addToCart] = useAddToCartMutation();
 
   async function handleAddToCart() {
-    console.log(accessToken);
     if (!accessToken) {
       toast.info("Bạn cần phẩm đăng nhập trước");
       navigate("/login");
@@ -55,7 +54,6 @@ function ProductDetailPage() {
             toast.success("Thêm vào giỏ hàng thành công");
           }
         } catch (error) {
-          console.error("Error adding to cart:", error);
           toast.error("Failed to add to cart");
         }
       }

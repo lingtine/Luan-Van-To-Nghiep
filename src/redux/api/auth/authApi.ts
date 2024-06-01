@@ -34,6 +34,7 @@ const authApi = createApi({
             let jwt = jwtDecode(data.accessToken) as {
               role: [] | string;
             };
+
             if (Array.isArray(jwt.role)) {
               await dispatch(employeeApi.endpoints.getEmployee.initiate(null));
             } else if (jwt.role === "customer") {

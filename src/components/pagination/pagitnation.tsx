@@ -41,7 +41,6 @@ const Pagination: React.FC<PaginationProps> = ({
 
     pages.push(maxSizePage - 1); // Always show the last page
 
-    console.log(pages);
     return pages;
   };
 

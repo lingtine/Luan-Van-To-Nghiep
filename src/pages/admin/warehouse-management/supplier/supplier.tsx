@@ -93,7 +93,6 @@ const Supplier = () => {
       ...item,
       index: index + 1,
     }));
-    console.log("🚀 ~ updateData ~ updateData:", data);
     content = (
       <>
         <Table config={configData} data={updateData}></Table>

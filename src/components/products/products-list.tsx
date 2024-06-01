@@ -1,9 +1,6 @@
-import React, { useState } from "react";
 import ProductCard from "./product-card";
 
 export default function ProductsList({ data }: any) {
-  console.log(data);
-
   return (
     data &&
     data.products && (

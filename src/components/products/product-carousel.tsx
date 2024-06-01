@@ -14,14 +14,11 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
 }) => {
   const [carouselIndex, setCarouselIndex] = useState<number>(0);
 
-  console.log("123", products);
-
   const onPrev = () => {
     if (carouselIndex > 0) setCarouselIndex(carouselIndex - 1);
   };
   const onNext = () => {
     setCarouselIndex(carouselIndex + 1);
-    console.log(carouselIndex);
   };
 
   const renderProducts = products.map((product, index) => {

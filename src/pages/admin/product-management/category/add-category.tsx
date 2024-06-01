@@ -47,8 +47,6 @@ const AddCategory: React.FC<AddCategoryProps> = () => {
     } else {
       addCategory({ ...dataForm, categoryGroupId: selected.id, id: "" });
     }
-
-    console.log({ ...dataForm, categoryGroupId: selected?.id });
   };
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

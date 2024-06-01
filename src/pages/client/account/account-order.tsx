@@ -8,7 +8,6 @@ const AccountOrder: React.FC<AccountOrderProps> = () => {
   const { data, isSuccess } = useGetOrdersByCustomerQuery(null);
 
   if (isSuccess) {
-    console.log(data);
     return (
       <>
         {data.length !== 0 ? (

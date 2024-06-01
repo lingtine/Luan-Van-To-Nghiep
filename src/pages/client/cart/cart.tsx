@@ -16,9 +16,7 @@ const Cart: React.FC = () => {
 
   const { data: dataUser, isSuccess: isSuccessGetUser } =
     useGetCustomerDetailQuery(null);
-  if (isSuccessGetUser) {
-    console.log(dataUser);
-  }
+
   const { data: dataCoupon, isSuccess: getCouponSuccess } =
     useGetCouponsQuery(null);
   const [selected, setSelected] = useState<ICouponInput>();

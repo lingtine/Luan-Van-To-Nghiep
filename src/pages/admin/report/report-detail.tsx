@@ -5,8 +5,6 @@ interface ReportDetailProps {}
 const ReportDetail: React.FC<ReportDetailProps> = () => {
   const { reportId } = useParams();
 
-  console.log(reportId);
-
   return <div></div>;
 };
 

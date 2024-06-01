@@ -28,14 +28,10 @@ const SideBar: React.FC<SideBarProps> = () => {
   return (
     <div className="fixed w-80 bg-[#22345e] h-full py-4 p-2 flex flex-col">
       <div className="mb-2 p-4 flex items-center gap-4">
-        {/* <Avatar
-            src="https://docs.material-tailwind.com/img/face-2.jpg"
-            alt="avatar"
-          /> */}
         <FaUserCircle className="text-5xl text-white" />
         <div>
           <Typography variant="h6" color="white">
-            {user?.name}
+            {user?.name || "user"}
           </Typography>
           <Typography variant="small" color="white" className="font-semibold">
             Employee

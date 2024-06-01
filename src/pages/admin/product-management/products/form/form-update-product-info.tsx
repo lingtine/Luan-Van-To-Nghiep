@@ -33,9 +33,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log();
     if (dataForm.image) {
-      console.log(dataForm);
       updateProduct(dataForm);
     } else {
       const { image, ...updateDataForm } = dataForm;

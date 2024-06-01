@@ -18,8 +18,6 @@ const Statistical: React.FC<StatisticalProps> = () => {
 
   const handleClick = () => {
     if (dateStart && dateEnd) {
-      console.log(dateStart > dateEnd);
-
       if (dateStart > dateEnd) {
         toast.error("Ngày bắt đầu phải sớm hơn");
       } else {

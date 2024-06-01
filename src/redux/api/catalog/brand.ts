@@ -46,7 +46,6 @@ const brandApi = createApi({
         bodyFormData.append("Name", data.name);
         bodyFormData.append("Description", data.description);
         bodyFormData.append("Image", data.image);
-        console.log(bodyFormData);
         return {
           url: "/catalogs/brands",
           method: "POST",

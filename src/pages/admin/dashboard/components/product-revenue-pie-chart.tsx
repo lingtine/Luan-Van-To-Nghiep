@@ -27,7 +27,6 @@ const ProductRevenuePieChart: React.FC<ProductRevenuePieChartProps> = () => {
       </div>
     );
   } else if (isSuccess) {
-    console.log(data);
     if (data && data.length !== 0) {
       const options = data.map((item) => {
         return item.productName;

@@ -57,6 +57,27 @@ const customerApi = createApi({
           } catch (error) {}
         },
       }),
+      getCustomer: builder.mutation({
+        query: () => {
+          return {
+            method: "GET",
+            url: "customers/customers/info",
+          };
+        },
+        transformResponse: (response: {
+          data: ICustomerDetail;
+          pageIndex: number;
+          pageSize: number;
+          totalCount: number;
+        }) => response.data,
+
+        async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
+          try {
+            const { data } = await queryFulfilled;
+            await dispatch(setUser(data));
+          } catch (error) {}
+        },
+      }),
 
       addDeliveryInfo: builder.mutation({
         query: ({ id, ...rest }: IDeliveryInfo) => ({
@@ -94,6 +115,7 @@ const customerApi = createApi({
 
 export const {
   useGetCustomersQuery,
+  useGetCustomerMutation,
   useGetCustomerDetailQuery,
   useAddDeliveryInfoMutation,
   useChangeDeliveryInfoDefaultMutation,
