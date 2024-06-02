@@ -36,22 +36,22 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
   });
 
   return (
-    <div className="w-full h-full px-4 relative flex items-center gap-4 justify-between">
+    <div className="relative flex items-center justify-between w-full h-full gap-4 px-4">
       <button
         title="prev"
         onClick={onPrev}
-        className="cursor-auto z-20 text-2xl"
+        className="z-20 text-2xl cursor-auto"
         disabled={carouselIndex === 0}
       >
         <FiArrowLeftCircle />
       </button>
-      <div className={`flex lg:-mx-4 overflow-hidden cursor-auto`}>
+      <div className="flex overflow-hidden cursor-auto lg:-mx-4 scroll-smooth">
         {renderProducts}
       </div>
       <button
         title="next"
         onClick={onNext}
-        className="cursor-auto z-20 text-2xl disabled:opacity-2"
+        className="z-20 text-2xl cursor-auto disabled:opacity-2"
         disabled={carouselIndex === products.length - lengthCarousel - 1}
       >
         <FiArrowRightCircle />

@@ -15,15 +15,11 @@ const BoxTemplate: React.FC<BoxTemplateProps> = ({
   data,
 }) => {
   return (
-    <div className="py-10 border-t">
-      <div className="flex justify-between items-end mb-8">
-        <div>
-          <div className="relative before:absolute before:bg-secondary-3 before:content-[''] before:h-10 before:w-5 before:rounded  h-10 flex items-center">
-            <h3 className="pl-8 text-secondary-3 font-semibold text-xl ">
-              {heading}
-            </h3>
-          </div>
-        </div>
+    <div className="py-20 border-t">
+      <div className="flex justify-between mb-8 relative before:absolute before:bg-secondary-3 before:content-[''] before:h-10 before:w-5 before:rounded  h-10 items-center">
+        <h3 className="pl-8 text-secondary-3 font-semibold text-xl ">
+          {heading}
+        </h3>
       </div>
       {children}
     </div>
