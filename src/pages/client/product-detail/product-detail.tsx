@@ -18,6 +18,8 @@ import { useAppSelector } from "redux/store";
 import ProductDetailSkeleton from "components/skeleton/product-detail-skeleton";
 import ProductReview from "./components/ProductReview";
 import ProductsCarousel from "components/products/product-carousel";
+import RelatedCarousel from "./components/RelatedCarousel";
+import { IProductDetailType } from "redux/api/types";
 
 function ProductDetailPage() {
   const { productId } = useParams();
@@ -59,6 +61,179 @@ function ProductDetailPage() {
       }
     }
   }
+
+  const product: IProductDetailType = {
+    brand: {
+      id: "brand123",
+      name: "Example Brand",
+      description: "Description of Example Brand",
+      imageUrl: "example.com/brandimage.jpg",
+    },
+    category: {
+      id: "category123",
+      categoryGroupId: "group123",
+      name: "Example Category",
+      description: "Description of Example Category",
+    },
+    id: "product123",
+    isActive: true,
+    isInStock: true,
+    likeCount: 100,
+    name: "Example Product",
+    numberOfStar: 4,
+    productImages: [],
+    description: "Description of Example Product",
+    unitPrice: 50,
+    imageUrl: "example.com/productimage.jpg",
+    productSpecifications: [
+      {
+        id: "spec123",
+        productId: "product123",
+        specificationId: "specification123",
+        specificationName: "Example Specification",
+        specificationValue: "Example Value",
+      },
+    ],
+    rateCount: 50,
+    viewCount: 200,
+    relatedProducts: [
+      {
+        brand: {
+          id: "brand456",
+          name: "Related Brand 1",
+          description: "Description of Related Brand 1",
+          imageUrl: "example.com/relatedbrand1.jpg",
+        },
+        category: {
+          id: "category456",
+          categoryGroupId: "group123",
+          name: "Related Category 1",
+          description: "Description of Related Category 1",
+        },
+        id: "relatedProduct1",
+        isActive: true,
+        isInStock: true,
+        likeCount: 80,
+        name: "Related Product 1",
+        numberOfStar: 4.5,
+        productImages: [],
+        description: "Description of Related Product 1",
+        unitPrice: 60,
+        imageUrl: "example.com/relatedproductimage1.jpg",
+        productSpecifications: [],
+        rateCount: 40,
+        viewCount: 150,
+      },
+      {
+        brand: {
+          id: "brand456",
+          name: "Related Brand 1",
+          description: "Description of Related Brand 1",
+          imageUrl: "example.com/relatedbrand1.jpg",
+        },
+        category: {
+          id: "category456",
+          categoryGroupId: "group123",
+          name: "Related Category 1",
+          description: "Description of Related Category 1",
+        },
+        id: "relatedProduct1",
+        isActive: true,
+        isInStock: true,
+        likeCount: 80,
+        name: "Related Product 1",
+        numberOfStar: 4.5,
+        productImages: [],
+        description: "Description of Related Product 1",
+        unitPrice: 60,
+        imageUrl: "example.com/relatedproductimage1.jpg",
+        productSpecifications: [],
+        rateCount: 40,
+        viewCount: 150,
+      },
+      {
+        brand: {
+          id: "brand456",
+          name: "Related Brand 1",
+          description: "Description of Related Brand 1",
+          imageUrl: "example.com/relatedbrand1.jpg",
+        },
+        category: {
+          id: "category456",
+          categoryGroupId: "group123",
+          name: "Related Category 1",
+          description: "Description of Related Category 1",
+        },
+        id: "relatedProduct1",
+        isActive: true,
+        isInStock: true,
+        likeCount: 80,
+        name: "Related Product 1",
+        numberOfStar: 4.5,
+        productImages: [],
+        description: "Description of Related Product 1",
+        unitPrice: 60,
+        imageUrl: "example.com/relatedproductimage1.jpg",
+        productSpecifications: [],
+        rateCount: 40,
+        viewCount: 150,
+      },
+      {
+        brand: {
+          id: "brand456",
+          name: "Related Brand 1",
+          description: "Description of Related Brand 1",
+          imageUrl: "example.com/relatedbrand1.jpg",
+        },
+        category: {
+          id: "category456",
+          categoryGroupId: "group123",
+          name: "Related Category 1",
+          description: "Description of Related Category 1",
+        },
+        id: "relatedProduct1",
+        isActive: true,
+        isInStock: true,
+        likeCount: 80,
+        name: "Related Product 1",
+        numberOfStar: 4.5,
+        productImages: [],
+        description: "Description of Related Product 1",
+        unitPrice: 60,
+        imageUrl: "example.com/relatedproductimage1.jpg",
+        productSpecifications: [],
+        rateCount: 40,
+        viewCount: 150,
+      },
+      {
+        brand: {
+          id: "brand456",
+          name: "Related Brand 1",
+          description: "Description of Related Brand 1",
+          imageUrl: "example.com/relatedbrand1.jpg",
+        },
+        category: {
+          id: "category456",
+          categoryGroupId: "group123",
+          name: "Related Category 1",
+          description: "Description of Related Category 1",
+        },
+        id: "relatedProduct1",
+        isActive: true,
+        isInStock: true,
+        likeCount: 80,
+        name: "Related Product 1",
+        numberOfStar: 4.5,
+        productImages: [],
+        description: "Description of Related Product 1",
+        unitPrice: 60,
+        imageUrl: "example.com/relatedproductimage1.jpg",
+        productSpecifications: [],
+        rateCount: 40,
+        viewCount: 150,
+      },
+    ],
+  };
 
   if (isSuccess) {
     return (
@@ -116,15 +291,21 @@ function ProductDetailPage() {
             </div>
 
             <div className="sm:px-6 lg:px-8 mt-6 lg:flex-row flex flex-col gap-4 justify-between">
-              <div className="flex flex-col basis-2/3">
+              <div className="flex flex-col basis-2/3 gap-4">
                 {/* Related products */}
                 {/* {isSuccess && data && data.relatedProducts && (
                   
                 )} */}
 
-                <div>
+                {/* <div>
                   <ProductsCarousel products={[data]} lengthCarousel={10} />
-                </div>
+                </div> */}
+
+                {product.relatedProducts && (
+                  <div>
+                    <RelatedCarousel products={product.relatedProducts} lengthCarousel={2}/>
+                  </div>
+                )}
 
                 {/* Description */}
                 <div className="w-full min-h-fit h-fit shadow-md rounded-lg border border-gray-300 mb-4 p-4">
