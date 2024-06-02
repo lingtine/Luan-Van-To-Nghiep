@@ -32,6 +32,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
     }
   }, [isSuccess]);
 
+  const handleAddToCart = () => {
+    if (!accessToken) {
+      toast.warning("Bạn cần phẩm đăng nhập trước");
+      navigate("/login");
+    }else{
+      addProduct({
+        productId: data.id,
+        productName: data.name,
+        quantity: 1,
+        unitPrice: data.unitPrice,
+      });
+    }
+  }
+
   return (
     data && (
       <Card className="w-full h-fit border relative group ">
@@ -44,14 +58,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
           <div className="hidden group-hover:block absolute bg z-50 right-0 top-[50%]">
             <IconButton
               className="rounded-full"
-              onClick={() => {
-                addProduct({
-                  productId: data.id,
-                  productName: data.name,
-                  quantity: 1,
-                  unitPrice: data.unitPrice,
-                });
-              }}
+              onClick={handleAddToCart}
             >
               <MdAddShoppingCart />
             </IconButton>

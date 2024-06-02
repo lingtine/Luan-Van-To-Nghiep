@@ -1,25 +1,22 @@
-import React from "react";
 import { useState } from "react";
 
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { Button, Rating } from "@material-tailwind/react";
+import InputQuantity from "components/input/input-quantity";
+import ProductDetailSkeleton from "components/skeleton/product-detail-skeleton";
+import { useNavigate } from "react-router-dom";
 import {
   useAddToCartMutation,
   useGetDetailCartQuery,
 } from "redux/api/cart/cart";
 import { useGetProductDetailQuery } from "redux/api/catalog/product";
-import { Rating, Button } from "@material-tailwind/react";
-import { formatVND } from "utils/formatVND";
-import InputQuantity from "components/input/input-quantity";
-import ProductSpecification from "./components/ProductSpecification";
-import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "redux/store";
-import ProductDetailSkeleton from "components/skeleton/product-detail-skeleton";
+import { formatVND } from "utils/formatVND";
 import ProductReview from "./components/ProductReview";
-import ProductsCarousel from "components/products/product-carousel";
+import ProductSpecification from "./components/ProductSpecification";
 import RelatedCarousel from "./components/RelatedCarousel";
-import { IProductDetailType } from "redux/api/types";
 
 function ProductDetailPage() {
   const { productId } = useParams();
@@ -39,7 +36,7 @@ function ProductDetailPage() {
 
   async function handleAddToCart() {
     if (!accessToken) {
-      toast.info("Bạn cần phẩm đăng nhập trước");
+      toast.warning("Bạn cần phẩm đăng nhập trước");
       navigate("/login");
     } else {
       if (data) {
@@ -61,179 +58,6 @@ function ProductDetailPage() {
       }
     }
   }
-
-  const product: IProductDetailType = {
-    brand: {
-      id: "brand123",
-      name: "Example Brand",
-      description: "Description of Example Brand",
-      imageUrl: "example.com/brandimage.jpg",
-    },
-    category: {
-      id: "category123",
-      categoryGroupId: "group123",
-      name: "Example Category",
-      description: "Description of Example Category",
-    },
-    id: "product123",
-    isActive: true,
-    isInStock: true,
-    likeCount: 100,
-    name: "Example Product",
-    numberOfStar: 4,
-    productImages: [],
-    description: "Description of Example Product",
-    unitPrice: 50,
-    imageUrl: "example.com/productimage.jpg",
-    productSpecifications: [
-      {
-        id: "spec123",
-        productId: "product123",
-        specificationId: "specification123",
-        specificationName: "Example Specification",
-        specificationValue: "Example Value",
-      },
-    ],
-    rateCount: 50,
-    viewCount: 200,
-    relatedProducts: [
-      {
-        brand: {
-          id: "brand456",
-          name: "Related Brand 1",
-          description: "Description of Related Brand 1",
-          imageUrl: "example.com/relatedbrand1.jpg",
-        },
-        category: {
-          id: "category456",
-          categoryGroupId: "group123",
-          name: "Related Category 1",
-          description: "Description of Related Category 1",
-        },
-        id: "relatedProduct1",
-        isActive: true,
-        isInStock: true,
-        likeCount: 80,
-        name: "Related Product 1",
-        numberOfStar: 4.5,
-        productImages: [],
-        description: "Description of Related Product 1",
-        unitPrice: 60,
-        imageUrl: "example.com/relatedproductimage1.jpg",
-        productSpecifications: [],
-        rateCount: 40,
-        viewCount: 150,
-      },
-      {
-        brand: {
-          id: "brand456",
-          name: "Related Brand 1",
-          description: "Description of Related Brand 1",
-          imageUrl: "example.com/relatedbrand1.jpg",
-        },
-        category: {
-          id: "category456",
-          categoryGroupId: "group123",
-          name: "Related Category 1",
-          description: "Description of Related Category 1",
-        },
-        id: "relatedProduct1",
-        isActive: true,
-        isInStock: true,
-        likeCount: 80,
-        name: "Related Product 1",
-        numberOfStar: 4.5,
-        productImages: [],
-        description: "Description of Related Product 1",
-        unitPrice: 60,
-        imageUrl: "example.com/relatedproductimage1.jpg",
-        productSpecifications: [],
-        rateCount: 40,
-        viewCount: 150,
-      },
-      {
-        brand: {
-          id: "brand456",
-          name: "Related Brand 1",
-          description: "Description of Related Brand 1",
-          imageUrl: "example.com/relatedbrand1.jpg",
-        },
-        category: {
-          id: "category456",
-          categoryGroupId: "group123",
-          name: "Related Category 1",
-          description: "Description of Related Category 1",
-        },
-        id: "relatedProduct1",
-        isActive: true,
-        isInStock: true,
-        likeCount: 80,
-        name: "Related Product 1",
-        numberOfStar: 4.5,
-        productImages: [],
-        description: "Description of Related Product 1",
-        unitPrice: 60,
-        imageUrl: "example.com/relatedproductimage1.jpg",
-        productSpecifications: [],
-        rateCount: 40,
-        viewCount: 150,
-      },
-      {
-        brand: {
-          id: "brand456",
-          name: "Related Brand 1",
-          description: "Description of Related Brand 1",
-          imageUrl: "example.com/relatedbrand1.jpg",
-        },
-        category: {
-          id: "category456",
-          categoryGroupId: "group123",
-          name: "Related Category 1",
-          description: "Description of Related Category 1",
-        },
-        id: "relatedProduct1",
-        isActive: true,
-        isInStock: true,
-        likeCount: 80,
-        name: "Related Product 1",
-        numberOfStar: 4.5,
-        productImages: [],
-        description: "Description of Related Product 1",
-        unitPrice: 60,
-        imageUrl: "example.com/relatedproductimage1.jpg",
-        productSpecifications: [],
-        rateCount: 40,
-        viewCount: 150,
-      },
-      {
-        brand: {
-          id: "brand456",
-          name: "Related Brand 1",
-          description: "Description of Related Brand 1",
-          imageUrl: "example.com/relatedbrand1.jpg",
-        },
-        category: {
-          id: "category456",
-          categoryGroupId: "group123",
-          name: "Related Category 1",
-          description: "Description of Related Category 1",
-        },
-        id: "relatedProduct1",
-        isActive: true,
-        isInStock: true,
-        likeCount: 80,
-        name: "Related Product 1",
-        numberOfStar: 4.5,
-        productImages: [],
-        description: "Description of Related Product 1",
-        unitPrice: 60,
-        imageUrl: "example.com/relatedproductimage1.jpg",
-        productSpecifications: [],
-        rateCount: 40,
-        viewCount: 150,
-      },
-    ],
-  };
 
   if (isSuccess) {
     return (
@@ -301,9 +125,9 @@ function ProductDetailPage() {
                   <ProductsCarousel products={[data]} lengthCarousel={10} />
                 </div> */}
 
-                {product.relatedProducts && (
+                {data.relatedProducts && (
                   <div>
-                    <RelatedCarousel products={product.relatedProducts} lengthCarousel={2}/>
+                    <RelatedCarousel products={data.relatedProducts} lengthCarousel={2}/>
                   </div>
                 )}
 
