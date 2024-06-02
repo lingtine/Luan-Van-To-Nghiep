@@ -37,7 +37,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
     if (!accessToken) {
       toast.warning("Bạn cần phẩm đăng nhập trước");
       navigate("/login");
-    }else{
+    } else {
       addProduct({
         productId: data.id,
         productName: data.name,
@@ -45,7 +45,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
         unitPrice: data.unitPrice,
       });
     }
-  }
+  };
 
   return (
     data && (
@@ -57,10 +57,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
         )}
         {accessToken && data.isInStock && !isLoading && (
           <div className="hidden group-hover:block absolute bg z-50 right-0 top-[50%]">
-            <IconButton
-              className="rounded-full"
-              onClick={handleAddToCart}
-            >
+            <IconButton className="rounded-full" onClick={handleAddToCart}>
               <MdAddShoppingCart />
             </IconButton>
           </div>
@@ -72,7 +69,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
               "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png"
             }
             alt={data.name}
-            className="h-full w-full object-contain"
+            className="h-full w-full max-h-[200px] max-w-[200px] object-contain"
+            sizes=""
           />
         </CardHeader>
 

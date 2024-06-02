@@ -20,7 +20,7 @@ const RelatedCarousel = ({
   const onNext = () => {
     setCarouselIndex(carouselIndex + 1);
   };
-  
+
   const renderProducts = products.map((product, index) => {
     return (
       <div
@@ -34,12 +34,9 @@ const RelatedCarousel = ({
       </div>
     );
   });
-
+  console.log(carouselIndex, lengthCarousel);
   return (
-    <div
-      className="relative flex items-center justify-between 
-    w-full h-full gap-4"
-    >
+    <div className="relative flex items-center justify-between w-full h-full gap-4">
       <button
         title="prev"
         onClick={onPrev}
@@ -48,7 +45,7 @@ const RelatedCarousel = ({
       >
         <FiArrowLeftCircle />
       </button>
-      <div className="flex overflow-hidden cursor-auto lg:-mx-4 scroll-smooth">
+      <div className="w-full flex items-center justify-start overflow-hidden cursor-auto lg:-mx-4 scroll-smooth gap-4">
         {renderProducts}
       </div>
       <button

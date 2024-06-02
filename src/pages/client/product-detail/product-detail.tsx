@@ -58,13 +58,17 @@ function ProductDetailPage() {
       }
     }
   }
-
+  
   if (isSuccess) {
     return (
       <>
         {data && (
           <div className="container mx-auto my-20">
-            <div className=" px-4 sm:px-6 lg:px-8 mt-6 flex flex-col lg:flex-row gap-4">
+            {/* Main */}
+            <div
+              className="
+            px-4 sm:px-6 lg:px-8 mt-6 flex flex-col lg:flex-row gap-4"
+            >
               <div className="basis-1/2  py-8 px-4 flex flex-col gap-4 border shadow-md rounded-lg">
                 <img
                   className="h-full w-full  max-h-[400px] object-contain "
@@ -126,9 +130,10 @@ function ProductDetailPage() {
                 </div> */}
 
                 {data.relatedProducts && (
-                  <div>
-                    <RelatedCarousel products={data.relatedProducts} lengthCarousel={2}/>
-                  </div>
+                  <RelatedCarousel
+                    products={data.relatedProducts}
+                    lengthCarousel={2}
+                  />
                 )}
 
                 {/* Description */}
