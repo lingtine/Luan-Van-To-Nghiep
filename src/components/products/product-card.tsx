@@ -5,6 +5,7 @@ import {
   CardFooter,
   Typography,
   Button,
+  Rating,
 } from "@material-tailwind/react";
 import React, { useEffect } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
@@ -48,7 +49,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
 
   return (
     data && (
-      <Card className="w-full h-fit border relative group ">
+      <Card className="w-full h-[450px] border relative group flex justify-between">
         {!data.isInStock && (
           <div className="absolute z-40 right-2 top-2 text-sm text-secondary p-1 rounded-md font-semibold bg-primary">
             Hết Hàng
@@ -76,7 +77,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
         </CardHeader>
 
         <CardBody className="p-3">
-          <div className="mb-2 gap-4 flex items-center justify-between">
+          {/* <div className="mb-2 gap-4 flex items-center justify-between">
             <div className="line-clamp-2">
               <Typography color="blue-gray" className="font-medium text-sm">
                 {data.name}
@@ -85,11 +86,26 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
             <Typography color="blue-gray" className="font-medium">
               {formatPrice.format(data.unitPrice)}
             </Typography>
+          </div> */}
+          <div className="line-clamp-2">
+            <Typography
+              color="blue-gray"
+              className="font-medium text-sm overflow-hidden"
+            >
+              {data.name}
+            </Typography>
           </div>
+          <div className="flex-col justify-between items-center">
+            <Rating readonly value={data.numberOfStar} />
+            <Typography color="blue-gray" className="font-medium text-right">
+              {formatPrice.format(data.unitPrice)}
+            </Typography>
+          </div>
+
           <Typography
             variant="small"
             color="gray"
-            className="font-normal opacity-75 line-clamp-2 max-h-[42px]"
+            className="font-normal opacity-75 line-clamp-2 max-h-[42px] overflow-hidden"
           >
             {data.description}
           </Typography>

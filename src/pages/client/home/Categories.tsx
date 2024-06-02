@@ -30,7 +30,7 @@ const Categories: React.FC<CategoriesProps> = () => {
           heading="Thể loại"
           data={data}
         >
-          <div className="py-16 px-8 flex justify-between flex-wrap gap-4">
+          <div className="py-10 px-8 flex justify-between flex-wrap gap-4">
             {content}
           </div>
         </BoxTemplate>
