@@ -12,6 +12,8 @@ const customerApi = createApi({
     "add-deliveryInfo",
     "remove-deliveryInfo",
     "change-deliveryInfo-default",
+    "add-wishlist",
+    "delete-wishlist",
   ],
   endpoints(builder) {
     return {
@@ -57,6 +59,7 @@ const customerApi = createApi({
           } catch (error) {}
         },
       }),
+
       getCustomer: builder.mutation({
         query: () => {
           return {
@@ -87,6 +90,7 @@ const customerApi = createApi({
         }),
         invalidatesTags: ["add-deliveryInfo"],
       }),
+
       changeDeliveryInfoDefault: builder.mutation({
         query: (deliveryInfoId: string) => ({
           url: `/customers/customers/delivery-infos/${deliveryInfoId}`,
@@ -95,6 +99,7 @@ const customerApi = createApi({
 
         invalidatesTags: ["change-deliveryInfo-default"],
       }),
+
       removeDeliveryInfo: builder.mutation({
         query: (deliveryInfoId: string) => ({
           url: `/customers/customers/delivery-infos/${deliveryInfoId}`,
@@ -103,11 +108,30 @@ const customerApi = createApi({
 
         invalidatesTags: ["remove-deliveryInfo"],
       }),
+
       getTotalCustomer: builder.query({
         query: () => ({
           url: "/customers/customers/CountCustomer",
           method: "GET",
         }),
+      }),
+
+      addWishlist: builder.mutation({
+        query: (productId: string) => ({
+          url: `/customers/customers/wishlist/${productId}`,
+          method: "POST",
+        }),
+
+        invalidatesTags: ["add-wishlist"],
+      }),
+
+      deleteWishlist: builder.mutation({
+        query: (productId: string) => ({
+          url: `/customers/customers/wishlist/${productId}`,
+          method: "DELETE",
+        }),
+
+        invalidatesTags: ["delete-wishlist"],
       }),
     };
   },
@@ -121,5 +145,7 @@ export const {
   useChangeDeliveryInfoDefaultMutation,
   useRemoveDeliveryInfoMutation,
   useGetTotalCustomerQuery,
+  useAddWishlistMutation,
+  useDeleteWishlistMutation,
 } = customerApi;
 export default customerApi;

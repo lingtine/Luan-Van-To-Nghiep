@@ -32,7 +32,7 @@ const Home: React.FC<HomeProps> = () => {
       );
     });
   }
-  console.log("Current");
+
   return (
     <div className="container">
       <Banner />

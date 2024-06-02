@@ -34,7 +34,7 @@ const RelatedCarousel = ({
       </div>
     );
   });
-  console.log(carouselIndex, lengthCarousel);
+
   return (
     <div className="relative flex items-center justify-between w-full h-full gap-4">
       <button
