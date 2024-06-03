@@ -1,5 +1,11 @@
 import React from "react";
-import { Button, Input, Textarea } from "@material-tailwind/react";
+import {
+  Button,
+  IconButton,
+  Input,
+  Textarea,
+  Typography,
+} from "@material-tailwind/react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import UploadImage from "components/upload-image/upload-image";
 import { Link } from "react-router-dom";
@@ -9,11 +15,26 @@ import { useGetAllCategoryGroupsQuery } from "redux/api/catalog/category-group";
 import { useGetAllBrandsQuery } from "redux/api/catalog/brand";
 import SelectBox, { ISelected } from "components/select-box/select-box";
 import { useAddProductMutation } from "redux/api/catalog/product";
-import { IProductType } from "redux/api/types";
+import {
+  IAddProductType,
+  IProductAddSpecification,
+  IProductSpecifications,
+  IProductType,
+  ISpecification,
+} from "redux/api/types";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import UploadMultiple from "components/upload-image/UploadMultiple";
+import FormAddSpecificationsProduct from "./form/form-add-specifications-product";
+import Modal from "components/modal/modal";
+import { CiTrash } from "react-icons/ci";
 
 const AddProduct = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [relatedImages, setRelatedImages] = useState<FileList | null>(null);
+  const [specifications, setSpecifications] = useState<
+    IProductSpecifications[]
+  >([]);
   const [getCategories, { isSuccess: getCategorySuccess, data: categoryData }] =
     useGetCategoriesByParametersMutation();
   const { data: brandsData, isSuccess: getBrandsSuccess } =
@@ -24,8 +45,7 @@ const AddProduct = () => {
 
   const navigate = useNavigate();
 
-  const [dataForm, setDataForm] = useState<IProductType>({
-    id: "",
+  const [dataForm, setDataForm] = useState<IAddProductType>({
     name: "",
     description: "",
     image: new DataTransfer().files[0],
@@ -33,6 +53,8 @@ const AddProduct = () => {
     brandId: "",
     categoryId: "",
     sku: "",
+    specifications: [],
+    relatedImages: new DataTransfer().files,
   });
   const [categoryGroupSelected, setCategoryGroupSelected] =
     useState<ISelected>();
@@ -56,21 +78,71 @@ const AddProduct = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (
-      dataForm.brandId.trim().toString().length === 0 ||
-      dataForm.categoryId.trim().toString().length === 0 ||
-      dataForm.description.trim().toString().length === 0 ||
-      dataForm.sku.trim().toString().length === 0 ||
-      !dataForm.image ||
-      dataForm.name.trim().toString().length === 0 ||
-      dataForm.unitPrice <= 0
-    ) {
-      toast.error("Thông tin không hợp lệ");
-    } else {
-      addProduct(dataForm);
+    if (!isOpen) {
+      if (
+        dataForm.brandId.trim().toString().length === 0 ||
+        dataForm.categoryId.trim().toString().length === 0 ||
+        dataForm.description.trim().toString().length === 0 ||
+        dataForm.sku.trim().toString().length === 0 ||
+        !dataForm.image ||
+        dataForm.name.trim().toString().length === 0 ||
+        dataForm.unitPrice <= 0
+      ) {
+        toast.error("Thông tin không hợp lệ aaaaa");
+      } else {
+        addProduct(dataForm);
+      }
     }
   };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleOpen = () => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    setIsOpen(true);
+  };
+
+  const handleUploadRelatedImages = (images: FileList) => {
+    setRelatedImages(images);
+  };
+
+  const handleAddSpecifications = (children: IProductSpecifications[]) => {
+    setSpecifications(children);
+  };
+
+  const handleRemoveSpecification = (specificationId: string) => {
+    setSpecifications((prev) =>
+      prev.filter((x) => x.specificationId !== specificationId)
+    );
+  };
+
+  useEffect(() => {
+    setDataForm(() => {
+      return {
+        ...dataForm,
+        specifications: specifications.map(
+          (x: IProductSpecifications): IProductAddSpecification => {
+            return {
+              specificationId: x.specificationId,
+              specificationName: x.specificationName,
+              specificationValue: x.specificationValue,
+            };
+          }
+        ),
+      };
+    });
+  }, [specifications]);
+
+  useEffect(() => {
+    if (relatedImages) {
+      setDataForm(() => {
+        return { ...dataForm, relatedImages: relatedImages };
+      });
+    }
+  }, [relatedImages]);
 
   useEffect(() => {
     if (result.isSuccess) {
@@ -149,50 +221,113 @@ const AddProduct = () => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex justify-between gap-4">
-        <section className="flex-[0_0_30%]">
-          <UploadImage onChange={handleChangeImage} />
-        </section>
-        <section className=" flex-[0_0_70%]">
-          <header className="text-2xl my-4 font-bold ">
-            Thông tin sản phẩm
-          </header>
-          <div className="flex flex-col gap-4">
-            <Input
-              onChange={handleChange}
-              name="name"
-              value={dataForm?.name}
-              crossOrigin={"use-credentials"}
-              variant="outlined"
-              label="Tên sản phẩm"
-            />
-            <Input
-              onChange={handleChange}
-              name="sku"
-              value={dataForm?.sku}
-              crossOrigin={"use-credentials"}
-              variant="outlined"
-              label="Sku"
-            />
-            <Input
-              onChange={handleChange}
-              name="unitPrice"
-              type="number"
-              value={dataForm?.unitPrice}
-              crossOrigin={"use-credentials"}
-              variant="outlined"
-              label="Giá sản phẩm"
-            />
-            {contentBrands}
-            {content}
+      <form
+        onSubmit={handleSubmit}
+        className="flex-col justify-between gap-4 divide-y-2"
+      >
+        <div className="flex gap-4 justify-between mb-2">
+          <section className="w-full flex-col">
+            <Typography variant="h4" className="my-4">
+              Thêm Hình ảnh
+            </Typography>
+            <UploadImage onChange={handleChangeImage} />
+          </section>
+          <section className=" w-full">
+            <header className="text-2xl my-4 font-bold ">
+              Thông tin sản phẩm
+            </header>
+            <div className="flex flex-col gap-4">
+              <Input
+                onChange={handleChange}
+                name="name"
+                value={dataForm?.name}
+                crossOrigin={"use-credentials"}
+                variant="outlined"
+                label="Tên sản phẩm"
+              />
+              <Input
+                onChange={handleChange}
+                name="sku"
+                value={dataForm?.sku}
+                crossOrigin={"use-credentials"}
+                variant="outlined"
+                label="Sku"
+              />
+              <Input
+                onChange={handleChange}
+                name="unitPrice"
+                type="number"
+                value={dataForm?.unitPrice}
+                crossOrigin={"use-credentials"}
+                variant="outlined"
+                label="Giá sản phẩm"
+              />
+              {contentBrands}
+              {content}
 
-            {contentCategory}
-            <Textarea
-              onChange={handleChange}
-              name="description"
-              value={dataForm?.description}
-              label="Miêu tả sản phẩm"
-            />
+              {contentCategory}
+              <Textarea
+                onChange={handleChange}
+                name="description"
+                value={dataForm?.description}
+                label="Miêu tả sản phẩm"
+              />
+            </div>
+          </section>
+        </div>
+
+        <section>
+          <div className="flex w-full justify-between gap-4 ">
+            {/* Image */}
+            <div className="w-full flex-row items-center mt-4 basis-1/2">
+              <h1 className="text-xl font-semibold mb-4">Hình ảnh liên quan</h1>
+              <UploadMultiple
+                handleUploadRelatedImages={handleUploadRelatedImages}
+              />
+            </div>
+
+            {/* Specification */}
+            <div className="flex-col basis-1/2 items-start mt-4">
+              <div className="flex justify-between">
+                <h4 className="text-xl font-semibold">Thông số kỹ thuật</h4>
+                <Button onClick={handleOpen}>Thêm thông số</Button>
+              </div>
+
+              <div className="my-4  overflow-y-scroll max-h-[400px]">
+                {specifications.map((item) => {
+                  return (
+                    <div className="flex gap-4 border border-primary-1 justify-between  items-center p-2">
+                      <h5 className="min-w-[200px]  ">
+                        {item.specificationName}
+                      </h5>
+
+                      <p> {item.specificationValue}</p>
+
+                      <IconButton
+                        className="min-w-[40px]"
+                        onClick={() =>
+                          handleRemoveSpecification(item.specificationId)
+                        }
+                      >
+                        <CiTrash />
+                      </IconButton>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            {/* Modal */}
+            {isOpen && (
+              <Modal onClose={handleClose}>
+                <FormAddSpecificationsProduct
+                  onClose={handleClose}
+                  productId={""}
+                  productSpecifications={specifications}
+                  isAdd={true}
+                  handleAddSpecifications={handleAddSpecifications}
+                />
+              </Modal>
+            )}
           </div>
           <div className="flex justify-end my-4">
             <Button type="submit">Thêm sản phẩm</Button>
