@@ -108,14 +108,14 @@ const Orders = () => {
     content = (
       <>
         <Table config={configData} data={updateData}></Table>
-        <div className="flex justify-center my-8">
+        {/* <div className="flex justify-center my-8">
           <Pagination
             pageIndex={data.pageIndex}
             pageSize={data.pageSize}
             totalCount={data.totalCount}
             url="/admin/orders"
           />
-        </div>
+        </div> */}
       </>
     );
   } else if (isLoading) {

@@ -18,7 +18,7 @@ const ProductsSearch: React.FC<ProductsSearchProps> = ({ data, onClear }) => {
   const [formatPrice] = useFormatPrice();
   const navigate = useNavigate();
   return (
-    <Card className="w-full max-h-[320px] overflow-hidden overflow-y-scroll">
+    <Card className="w-full  max-h-[320px] overflow-hidden overflow-y-scroll">
       <List>
         {data.map((product) => {
           return (

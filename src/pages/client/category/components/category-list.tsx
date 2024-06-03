@@ -12,7 +12,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ data }) => {
         return (
           <div
             key={product.id}
-            className="flex-[0_0_50%] max-w-[50%] md:flex-[0_0_33.33333%] md:max-w-[33.33333%] xl:flex-[0_0_25%] xl:max-w-[25%] p-1 md:p-2"
+            className="flex-[0_0_50%] max-w-[50%] md:flex-[0_0_33.33333%] md:max-w-[33.33333%]  p-1 md:p-2"
           >
             <ProductCard data={product} />
           </div>
