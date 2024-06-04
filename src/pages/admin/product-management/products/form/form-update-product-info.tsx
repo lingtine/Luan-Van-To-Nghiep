@@ -21,38 +21,47 @@ interface FormUpdateProductInfoProps {
 const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
   product,
 }) => {
+  const navigate = useNavigate();
+  const [isUpload, setIsUpload] = useState(false);
+  const [image, setImage] = useState<string | undefined>(product.imageUrl);
   const [isOpen, setIsOpen] = useState(false);
   const [relatedImages, setRelatedImages] = useState<FileList | null>(null);
   const [specifications, setSpecifications] = useState<
     IProductSpecifications[]
-  >([]);
-  const navigate = useNavigate();
+  >(product.productSpecifications);
   const [updateProduct, result] = useUpdateProductMutation();
   const [isUpdate, setIsUpdate] = useState(false);
+
   const [dataForm, setDataForm] = useState<{
     id: string;
     name: string;
     description: string;
     image: File;
     unitPrice: number;
+    relatedImages?: FileList;
+    specifications?: IProductAddSpecification[];
   }>({
     id: product.id,
     name: product.name,
     description: product.description,
     image: new DataTransfer().files[0],
     unitPrice: product.unitPrice,
+    relatedImages: new DataTransfer().files,
+    specifications: product.productSpecifications,
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("🚀 ~ handleSubmit ~ FormData:", dataForm)
 
-    if (dataForm.image) {
-      updateProduct(dataForm);
-    } else {
-      const { image, ...updateDataForm } = dataForm;
-      updateProduct(updateDataForm);
-    }
+    // if (dataForm.image) {
+    //   updateProduct(dataForm);
+    // } else {
+    //   const { image, ...updateDataForm } = dataForm;
+    //   updateProduct(updateDataForm);
+    // }
   };
+
   const handleChangeData = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -68,9 +77,16 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
 
   const handleUploadRelatedImages = (images: FileList) => {
     setRelatedImages(images);
+    setDataForm(() => {
+      return { ...dataForm, relatedImages: images };
+    });
   };
+
   const handleAddSpecifications = (children: IProductSpecifications[]) => {
     setSpecifications(children);
+    setDataForm(() => {
+      return { ...dataForm, specifications: children };
+    });
   };
 
   const handleRemoveSpecification = (specificationId: string) => {
@@ -84,11 +100,14 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
     document.documentElement.scrollTop = 0;
     setIsOpen(true);
   };
+
   const handleClose = () => {
     setIsOpen(false);
   };
 
   useEffect(() => {
+    setIsUpdate(true);
+
     setDataForm(() => {
       return {
         ...dataForm,
@@ -106,6 +125,8 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
   }, [specifications]);
 
   useEffect(() => {
+    setIsUpdate(true);
+
     if (relatedImages) {
       setDataForm(() => {
         return { ...dataForm, relatedImages: relatedImages };
@@ -139,6 +160,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
       action=""
       className="flex-col flex-wrap gap-4 divide-y-4"
     >
+      {/* Main image + Information */}
       <div className="flex justify-between w-full gap-4">
         <div className="flex flex-col gap-4 w-full">
           <div>
@@ -191,21 +213,32 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
         </div>
 
         <div className="w-full">
-          {product.imageUrl ? (
-            <>
-              <h3 className="text-sm font-semibold">Hình ảnh sản phẩm</h3>
-              <img
-                className="h-96 w-full object-contain "
-                src={product.imageUrl}
-                alt={product.name}
-              />
-            </>
-          ) : (
+          <h3 className="text-sm font-semibold">Hình ảnh sản phẩm</h3>
+          {isUpload ? (
             <UploadImage onChange={handleChangeImage} />
+          ) : (
+            <img
+              className="h-96 w-full object-contain "
+              src={image}
+              alt={product.name}
+            />
           )}
+          <div className="w-full text-right">
+            {!isUpload && (
+              <Button
+                onClick={() => {
+                  setIsUpload(true);
+                }}
+                className=" bg-primary-3-700"
+              >
+                Update
+              </Button>
+            )}
+          </div>
         </div>
       </div>
 
+      {/* Related images + Specifications */}
       <div className="mt-4">
         <div className="flex w-full justify-between gap-4">
           {/* Image */}
@@ -225,7 +258,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
             </div>
 
             <div className="my-4 overflow-y-scroll max-h-[400px]">
-              {product.productSpecifications.map((item) => {
+              {specifications.map((item) => {
                 return (
                   <div className="flex gap-4 border border-primary-1 justify-between  items-center p-2">
                     <h5 className="min-w-[200px]  ">
@@ -260,6 +293,8 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
             </Modal>
           )}
         </div>
+
+        {/* Submit */}
         <div className="text-right">
           <Button disabled={!isUpdate} type="submit">
             Cập nhật

@@ -1,18 +1,21 @@
-import {
-  Button
-} from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
+import Modal from "components/modal/modal";
 import { RefObject, useRef, useState } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsImage } from "react-icons/bs";
 interface IUploadMultipleProps {
   handleUploadRelatedImages: Function;
-  images?: string[]
+  images?: string[];
 }
 
-const UploadMultiple = ({handleUploadRelatedImages, images}: IUploadMultipleProps) => {
-  const [files, setFiles] = useState<FileList|undefined>(undefined);
+const UploadMultiple = ({
+  handleUploadRelatedImages,
+  images,
+}: IUploadMultipleProps) => {
+  const [files, setFiles] = useState<FileList | undefined>(undefined);
   const [fileUrls, setFileUrls] = useState<string[]>(images || []);
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentReview, setCurrentReview] = useState("");
   const inputRef: RefObject<HTMLInputElement> = useRef(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +25,7 @@ const UploadMultiple = ({handleUploadRelatedImages, images}: IUploadMultipleProp
       setFiles(e.target.files);
       files.forEach((x) => urls.push(URL.createObjectURL(x)));
       setFileUrls(urls);
-      handleUploadRelatedImages(e.target.files)
+      handleUploadRelatedImages(e.target.files);
     }
   };
 
@@ -31,6 +34,18 @@ const UploadMultiple = ({handleUploadRelatedImages, images}: IUploadMultipleProp
       inputRef.current.click();
     }
   };
+
+  const handleOpen = (url: string) => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    setCurrentReview(url)
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       <div className="border rounded-xl py-8 border-dashed border-blue-600">
@@ -58,15 +73,25 @@ const UploadMultiple = ({handleUploadRelatedImages, images}: IUploadMultipleProp
             Tải lên hình ảnh sản phẩm
           </Button>
         </div>
-       
       </div>
       {fileUrls.length > 0 && (
-          <div className="flex overflow-x-scroll p-3">
-            {fileUrls.map((url) => (
-              <img className="w-20 h-20 ms-2" src={url} alt="" />
-            ))}
-          </div>
-        )}
+        <div className="flex overflow-x-scroll p-3">
+          {fileUrls.map((url) => (
+            <img
+              className="w-20 h-20 ms-2"
+              src={url}
+              alt=""
+              onClick={() => handleOpen(url)}
+            />
+          ))}
+        </div>
+      )}
+
+      {isOpen && (
+        <Modal onClose={handleClose}>
+          <img src={currentReview} alt="" />
+        </Modal>
+      )}
     </>
   );
 };

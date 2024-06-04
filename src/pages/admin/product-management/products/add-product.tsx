@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Button,
   IconButton,
@@ -6,40 +5,43 @@ import {
   Textarea,
   Typography,
 } from "@material-tailwind/react";
-import { AiOutlineArrowLeft } from "react-icons/ai";
+import Modal from "components/modal/modal";
+import SelectBox, { ISelected } from "components/select-box/select-box";
+import UploadMultiple from "components/upload-image/UploadMultiple";
 import UploadImage from "components/upload-image/upload-image";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import { CiTrash } from "react-icons/ci";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useGetAllBrandsQuery } from "redux/api/catalog/brand";
 import { useGetCategoriesByParametersMutation } from "redux/api/catalog/category";
 import { useGetAllCategoryGroupsQuery } from "redux/api/catalog/category-group";
-import { useGetAllBrandsQuery } from "redux/api/catalog/brand";
-import SelectBox, { ISelected } from "components/select-box/select-box";
 import { useAddProductMutation } from "redux/api/catalog/product";
 import {
   IAddProductType,
   IProductAddSpecification,
   IProductSpecifications,
-  IProductType,
-  ISpecification,
 } from "redux/api/types";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import UploadMultiple from "components/upload-image/UploadMultiple";
 import FormAddSpecificationsProduct from "./form/form-add-specifications-product";
-import Modal from "components/modal/modal";
-import { CiTrash } from "react-icons/ci";
 
 const AddProduct = () => {
   const [isOpen, setIsOpen] = useState(false);
+
   const [relatedImages, setRelatedImages] = useState<FileList | null>(null);
+
   const [specifications, setSpecifications] = useState<
     IProductSpecifications[]
   >([]);
+
   const [getCategories, { isSuccess: getCategorySuccess, data: categoryData }] =
     useGetCategoriesByParametersMutation();
+
   const { data: brandsData, isSuccess: getBrandsSuccess } =
     useGetAllBrandsQuery(null);
+
   const [addProduct, result] = useAddProductMutation();
+
   const { data: categoryGroupData, isSuccess: getCategoryGroupSuccess } =
     useGetAllCategoryGroupsQuery(null);
 
@@ -56,9 +58,12 @@ const AddProduct = () => {
     specifications: [],
     relatedImages: new DataTransfer().files,
   });
+
   const [categoryGroupSelected, setCategoryGroupSelected] =
     useState<ISelected>();
+
   const [brandsSelected, setBrandsSelected] = useState<ISelected>();
+
   const [categorySelected, setCategorySelected] = useState<ISelected>();
 
   const handleChange = (
@@ -95,11 +100,11 @@ const AddProduct = () => {
     }
   };
 
-  const handleClose = () => {
+  const handleCloseSpecification = () => {
     setIsOpen(false);
   };
 
-  const handleOpen = () => {
+  const handleOpenSpecification = () => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
     setIsOpen(true);
@@ -290,7 +295,7 @@ const AddProduct = () => {
             <div className="flex-col basis-1/2 items-start mt-4">
               <div className="flex justify-between">
                 <h4 className="text-xl font-semibold">Thông số kỹ thuật</h4>
-                <Button onClick={handleOpen}>Thêm thông số</Button>
+                <Button onClick={handleOpenSpecification}>Thêm thông số</Button>
               </div>
 
               <div className="my-4  overflow-y-scroll max-h-[400px]">
@@ -318,9 +323,9 @@ const AddProduct = () => {
             </div>
             {/* Modal */}
             {isOpen && (
-              <Modal onClose={handleClose}>
+              <Modal onClose={handleCloseSpecification}>
                 <FormAddSpecificationsProduct
-                  onClose={handleClose}
+                  onClose={handleCloseSpecification}
                   productId={""}
                   productSpecifications={specifications}
                   isAdd={true}
