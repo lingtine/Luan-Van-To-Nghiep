@@ -93,13 +93,13 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
     },
     {
       id: Math.random.toString(),
-      label: "a tới z",
+      label: "A đến Z",
       IsOrderDesc: false,
       OrderBy: "Name",
     },
     {
       id: Math.random.toString(),
-      label: "z tới a",
+      label: "Z đến A",
       IsOrderDesc: true,
       OrderBy: "name",
     },
