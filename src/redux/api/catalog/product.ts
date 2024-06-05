@@ -6,6 +6,7 @@ import {
   IProductType,
   IProductReport,
   IAddProductType,
+  IProductAddSpecification,
 } from "../types";
 
 const productApi = createApi({
@@ -141,16 +142,29 @@ const productApi = createApi({
       }: {
         id: string;
         name: string;
-        image?: File;
         description: string;
+        image: File;
         unitPrice: number;
+        relatedImages?: FileList;
+        specifications?: IProductAddSpecification[];
       }) => {
         var bodyFormData = new FormData();
         bodyFormData.append("Name", rest.name);
         bodyFormData.append("Description", rest.description);
         if (rest.image) bodyFormData.append("Image", rest.image);
         bodyFormData.append("UnitPrice", rest.unitPrice.toString());
+        if (rest.relatedImages) {
+          Array.from(rest.relatedImages).forEach((file, index) => {
+            bodyFormData.append(`RelatedImages`, file);
+          });
+        }
 
+        if (rest.specifications) {
+          bodyFormData.append(
+            `SpecificationsJson`,
+            JSON.stringify(rest.specifications)
+          );
+        }
         return {
           url: `/catalogs/products/${id}`,
           method: "PUT",
