@@ -1,8 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { jwtDecode } from "jwt-decode";
-import { changeAuth } from "redux/features/auth/authSlice";
-import { logout } from "redux/features/auth/userSlice";
-import { logout as logoutUser } from "redux/features/auth/userSlice";
+import { changeAuth, logout } from "redux/features/auth/authSlice";
 import customerApi from "./customer-api";
 import employeeApi from "../auth/employeeApi";
 
@@ -72,7 +70,6 @@ const authApi = createApi({
           try {
             await queryFulfilled;
             dispatch(logout());
-            dispatch(logoutUser());
           } catch (error) {}
         },
       }),

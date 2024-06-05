@@ -121,7 +121,14 @@ const router = createBrowserRouter(
           </AuthGuard>
         }
       ></Route>
-      <Route path="/admin/" element={<AdminLayout />}>
+      <Route
+        path="/admin/"
+        element={
+          <AuthGuard>
+            <AdminLayout />
+          </AuthGuard>
+        }
+      >
         <Route index element={<DashboardAdminPage />}></Route>
         <Route path="orders" element={<OrdersAdminPage />}></Route>
         <Route path="orders/:index" element={<OrdersAdminPage />}></Route>

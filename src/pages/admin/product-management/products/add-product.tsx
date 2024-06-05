@@ -139,7 +139,7 @@ const AddProduct = () => {
         ),
       };
     });
-  }, [specifications]);
+  }, [specifications, dataForm]);
 
   useEffect(() => {
     if (relatedImages) {
@@ -147,7 +147,7 @@ const AddProduct = () => {
         return { ...dataForm, relatedImages: relatedImages };
       });
     }
-  }, [relatedImages]);
+  }, [relatedImages, dataForm]);
 
   useEffect(() => {
     if (result.isSuccess) {

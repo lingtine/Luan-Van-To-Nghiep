@@ -1,12 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import customFetchBase from "redux/api/customFetchBase";
 
-import {
-  IProductDetailType,
-  IProductType,
-  IProductReport,
-  IAddProductType,
-} from "../types";
+import { IProductDetailType, IProductReport, IAddProductType } from "../types";
 
 const productApi = createApi({
   reducerPath: "product",
@@ -93,7 +88,7 @@ const productApi = createApi({
         return {
           url: "/catalogs/products",
           method: "POST",
-          body: bodyFormData        
+          body: bodyFormData,
         };
       },
       invalidatesTags: ["add-product"],

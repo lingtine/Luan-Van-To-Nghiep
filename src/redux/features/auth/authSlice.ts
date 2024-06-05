@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { set_cookie, delete_cookie, getCookie } from "utils/cookies/cookies";
+import { logout as logoutUser } from "./userSlice";
 interface IUserState {
   accessToken: string | undefined;
   refreshToken: string | undefined;
@@ -19,6 +20,7 @@ export const authSlice = createSlice({
       state.refreshToken = "";
       delete_cookie("accessToken");
       delete_cookie("refreshToken");
+      logoutUser();
     },
     changeAccessToken: (state, action) => {
       state.accessToken = action.payload;
