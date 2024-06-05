@@ -88,6 +88,24 @@ export interface IBrand {
   imageUrl: string;
 }
 
+export interface IAddProductType{
+  name: string;
+  description: string;
+  unitPrice: number;
+  image: File;
+  categoryId: string;
+  brandId: string;
+  sku: string;
+  relatedImages?: FileList
+  specifications?: IProductAddSpecification[]
+}
+
+export interface IProductAddSpecification{
+  specificationId: string;
+  specificationName: string;
+  specificationValue: string;
+}
+
 export interface IProductType {
   id: string;
   name: string;
@@ -115,7 +133,7 @@ export interface IProductDetailType {
   likeCount: number;
   name: string;
   numberOfStar: number;
-  productImages: [];
+  productImages: string[];
   description: string;
   unitPrice: number;
   imageUrl: string;

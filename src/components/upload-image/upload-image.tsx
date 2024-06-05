@@ -43,7 +43,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ onChange }) => {
 
   if (!file) {
     content = (
-      <div className="border rounded-xl py-8 border-dashed border-blue-600">
+      <div className="border rounded-xl py-8 border-dashed border-blue-600 h-full">
         <div className="my-8 flex justify-center">
           <BsImage className="text-8xl" />
         </div>
@@ -87,10 +87,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ onChange }) => {
   }
 
   return (
-    <div className="flex flex-col  rounded-md   justify-center ">
-      <Typography variant="h4" className="my-4">
-        Thêm Hình ảnh
-      </Typography>
+    <div className="rounded-md">
       {content}
     </div>
   );

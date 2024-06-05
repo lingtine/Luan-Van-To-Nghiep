@@ -1,7 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import customFetchBase from "redux/api/customFetchBase";
 
-import { IProductDetailType, IProductType, IProductReport } from "../types";
+import {
+  IProductDetailType,
+  IProductType,
+  IProductReport,
+  IAddProductType,
+} from "../types";
 
 const productApi = createApi({
   reducerPath: "product",
@@ -63,7 +68,7 @@ const productApi = createApi({
       },
     }),
     addProduct: builder.mutation({
-      query: (data: IProductType) => {
+      query: (data: IAddProductType) => {
         var bodyFormData = new FormData();
         bodyFormData.append("Name", data.name);
         bodyFormData.append("Description", data.description);
@@ -72,10 +77,23 @@ const productApi = createApi({
         bodyFormData.append("CategoryId", data.categoryId);
         bodyFormData.append("Sku", data.sku);
         bodyFormData.append("BrandId", data.brandId);
+        if (data.relatedImages) {
+          Array.from(data.relatedImages).forEach((file, index) => {
+            bodyFormData.append(`RelatedImages`, file);
+          });
+        }
+
+        if (data.specifications) {
+          bodyFormData.append(
+            `SpecificationsJson`,
+            JSON.stringify(data.specifications)
+          );
+        }
+
         return {
           url: "/catalogs/products",
           method: "POST",
-          body: bodyFormData,
+          body: bodyFormData        
         };
       },
       invalidatesTags: ["add-product"],

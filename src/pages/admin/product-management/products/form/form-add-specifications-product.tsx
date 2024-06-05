@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import { ISelected } from "components/select-box/select-box";
 import { useState } from "react";
@@ -10,6 +10,8 @@ interface FormAddSpecificationsProductProps {
   productId: string;
   onClose: Function;
   productSpecifications: IProductSpecifications[];
+  isAdd?: boolean;
+  handleAddSpecifications?: Function;
 }
 
 interface ISpecification {
@@ -20,7 +22,13 @@ interface ISpecification {
 
 const FormAddSpecificationsProduct: React.FC<
   FormAddSpecificationsProductProps
-> = ({ productId, onClose, productSpecifications }) => {
+> = ({
+  productId,
+  onClose,
+  productSpecifications,
+  isAdd = false,
+  handleAddSpecifications,
+}) => {
   const [specificationsData, setSpecificationsData] = useState<
     ISpecification[]
   >(() =>
@@ -28,7 +36,9 @@ const FormAddSpecificationsProduct: React.FC<
       ? productSpecifications
       : [{ specificationId: "", specificationName: "", specificationValue: "" }]
   );
-  const [existingIds, setExistingIds] = useState<string[]>(productSpecifications.map((x) => x.specificationId) || []);
+  const [existingIds, setExistingIds] = useState<string[]>(
+    productSpecifications.map((x) => x.specificationId) || []
+  );
 
   // existingSpecifications ??
   // [{ specificationId: "", specificationName: "", specificationValue: "" }]
@@ -49,7 +59,7 @@ const FormAddSpecificationsProduct: React.FC<
                 return item;
               }
             );
-            
+
             setSpecificationsData(newSpecificationsData);
           } else if (typeof value === "object") {
             const newSpecificationsData = specificationsData.map(
@@ -63,8 +73,8 @@ const FormAddSpecificationsProduct: React.FC<
                 return item;
               }
             );
-            
-            setExistingIds([...existingIds, value.id])
+
+            setExistingIds([...existingIds, value.id]);
             setSpecificationsData(newSpecificationsData);
           }
         }}
@@ -92,20 +102,40 @@ const FormAddSpecificationsProduct: React.FC<
     ]);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmitSpecifications = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (specificationsData) {
-      addSpecification({
-        productId: productId,
-        data: specificationsData,
-      });
+      if (handleAddSpecifications && isAdd) {
+        handleAddSpecifications(
+          specificationsData.map(
+            (x: ISpecification): IProductSpecifications => {
+              return {
+                id: "",
+                productId: "",
+                specificationId: x.specificationId,
+                specificationName: x.specificationName,
+                specificationValue: x.specificationValue,
+              };
+            }
+          )
+        );
+      } else {
+        addSpecification({
+          productId: productId,
+          data: specificationsData,
+        });
+      }
     }
     onClose();
   };
 
   return (
-    <form onSubmit={handleSubmit} action="" className="flex flex-col gap-4 h-full">
+    <form
+      onSubmit={handleSubmitSpecifications}
+      action=""
+      className="flex flex-col gap-4 h-full max-h-[600px]"
+    >
       <div className="border p-4 rounded-md border-blue-500 flex flex-col gap-4 overflow-y-scroll h-full">
         {renderSpecificationData}
       </div>
