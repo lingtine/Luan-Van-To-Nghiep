@@ -1,9 +1,8 @@
-
 import { useParams } from "react-router-dom";
 import { Spinner, Button } from "@material-tailwind/react";
 import Table from "components/table/table";
 import { useGetCategoryGroupsQuery } from "redux/api/catalog/category-group";
-import { ICategoryGroup } from "redux/api/types";
+import { ICategoryGroup } from "share/types/category-group";
 import { IContentConfirm } from "components/confirm-dialog/confirm-dialog";
 interface ICategoryGroupTable extends ICategoryGroup {
   index: number;
@@ -17,7 +16,7 @@ function TableCategoryGroup({
   const { index } = useParams();
 
   const { data, isLoading, isSuccess } = useGetCategoryGroupsQuery({
-    pageIndex: index,
+    PageIndex: index,
   });
   const configData = [
     {

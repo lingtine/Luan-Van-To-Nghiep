@@ -6,7 +6,7 @@ import { useGetProductsQuery } from "redux/api/catalog/product";
 import { useParams } from "react-router-dom";
 
 import PaginationClient from "components/pagination/pagitcation-client";
-import { ICategory } from "redux/api/types";
+import { ICategory } from "share/types/category";
 
 import { Button } from "@material-tailwind/react";
 import SelectBox from "components/select-box/select-box";

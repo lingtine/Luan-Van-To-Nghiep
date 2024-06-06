@@ -1,3 +1,5 @@
+import { ICategory } from "share/types/category";
+
 export interface IUser {
   name: string;
   email: string;
@@ -22,6 +24,18 @@ export interface IDepartment {
   id: string;
   name: string;
   description: string;
+}
+
+export interface IDeliveryInput {
+  name: string;
+  address: {
+    number: string;
+    street: string;
+    ward: string;
+    district: string;
+    city: string;
+  };
+  phoneNumber: string;
 }
 
 export interface IDeliveryInfo {
@@ -61,19 +75,6 @@ export interface IGenericResponse {
   message: string;
 }
 
-export interface ICategoryGroup {
-  id: string;
-  name: string;
-  description: string;
-}
-
-export interface ICategory {
-  id: string;
-  categoryGroupId: string;
-  name: string;
-  description: string;
-  categoryGroup?: ICategoryGroup; // Add category group
-}
 export interface IBrandInput {
   id?: string;
   name: string;
@@ -88,7 +89,7 @@ export interface IBrand {
   imageUrl: string;
 }
 
-export interface IAddProductType{
+export interface IAddProductType {
   name: string;
   description: string;
   unitPrice: number;
@@ -96,11 +97,11 @@ export interface IAddProductType{
   categoryId: string;
   brandId: string;
   sku: string;
-  relatedImages?: FileList
-  specifications?: IProductAddSpecification[]
+  relatedImages?: FileList;
+  specifications?: IProductAddSpecification[];
 }
 
-export interface IProductAddSpecification{
+export interface IProductAddSpecification {
   specificationId: string;
   specificationName: string;
   specificationValue: string;
@@ -384,4 +385,17 @@ export interface IReviewRequest {
   numberOfStar: number;
   comment: string;
   attachments?: FileList;
+}
+
+export interface IDepartmentInput {
+  name: string;
+  description: string;
+  employeeIds: string[];
+}
+
+export interface IProductCart {
+  productId: string;
+  productName: string;
+  quantity: number;
+  unitPrice: number;
 }

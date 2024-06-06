@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { setUser } from "redux/features/auth/userSlice";
 import customFetchBase from "redux/api/customFetchBase";
-import { IUserDetail, ICustomerDetail, IDeliveryInfo } from "../types";
+import { IUserDetail, ICustomerDetail, IDeliveryInput } from "../types";
 
 const customerApi = createApi({
   reducerPath: "customer",
@@ -32,7 +32,7 @@ const customerApi = createApi({
         }) => response,
       }),
 
-      getCustomerDetail: builder.query({
+      getCustomerDetail: builder.query<any, void>({
         query: () => {
           return {
             method: "GET",
@@ -60,19 +60,14 @@ const customerApi = createApi({
         },
       }),
 
-      getCustomer: builder.mutation({
+      getCustomer: builder.mutation<ICustomerDetail, void>({
         query: () => {
           return {
             method: "GET",
             url: "customers/customers/info",
           };
         },
-        transformResponse: (response: {
-          data: ICustomerDetail;
-          pageIndex: number;
-          pageSize: number;
-          totalCount: number;
-        }) => response.data,
+        transformResponse: ({ data }) => ({ ...data }),
 
         async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
           try {
@@ -83,10 +78,10 @@ const customerApi = createApi({
       }),
 
       addDeliveryInfo: builder.mutation({
-        query: ({ id, ...rest }: IDeliveryInfo) => ({
+        query: (data: IDeliveryInput) => ({
           url: "/customers/customers/delivery-infos",
           method: "POST",
-          body: rest,
+          body: data,
         }),
         invalidatesTags: ["add-deliveryInfo"],
       }),

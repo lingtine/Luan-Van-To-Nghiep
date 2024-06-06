@@ -6,6 +6,7 @@ import Modal from "components/modal/modal";
 import { toast } from "react-toastify";
 import { useAddDeliveryInfoMutation } from "redux/api/auth/customer-api";
 import TableDeliveryInfo from "./components/table-deliveryInfo";
+import { IDeliveryInput } from "redux/api/types";
 
 interface AccountDeliveryProps {}
 
@@ -13,13 +14,8 @@ const AccountDelivery: React.FC<AccountDeliveryProps> = () => {
   const [addDelivery, { isSuccess }] = useAddDeliveryInfoMutation();
   const [isOpen, setIsOpen] = useState(false);
 
-  const [delivery, setDelivery] = useState({
-    id: "",
-    city: "",
-    number: "",
-    district: "",
-    street: "",
-    ward: "",
+  const [delivery, setDelivery] = useState<IDeliveryInput>({
+    address: { city: "", number: "", district: "", street: "", ward: "" },
     name: "",
     phoneNumber: "",
   });
@@ -62,39 +58,20 @@ const AccountDelivery: React.FC<AccountDeliveryProps> = () => {
 
   const handleSubmit = () => {
     if (
-      delivery.city.trim().length === 0 ||
-      delivery.district.trim().length === 0 ||
+      delivery.address.city.trim().length === 0 ||
+      delivery.address.district.trim().length === 0 ||
       delivery.name.trim().length === 0 ||
-      delivery.number.trim().length === 0 ||
+      delivery.address.number.trim().length === 0 ||
       delivery.phoneNumber.trim().length === 0 ||
-      delivery.street.trim().length === 0 ||
-      delivery.ward.trim().length === 0
+      delivery.address.street.trim().length === 0 ||
+      delivery.address.ward.trim().length === 0
     ) {
       toast.error("Vui lòng nhập đầy đủ thông tin");
     } else {
-      const { id, city, district, name, number, phoneNumber, street, ward } =
-        delivery;
-
-      addDelivery({
-        id,
-        address: {
-          city,
-          district,
-          number,
-          street,
-          ward,
-        },
-        name,
-        phoneNumber,
-      });
+      addDelivery(delivery);
 
       setDelivery({
-        id: "",
-        city: "",
-        number: "",
-        district: "",
-        street: "",
-        ward: "",
+        address: { city: "", number: "", district: "", street: "", ward: "" },
         name: "",
         phoneNumber: "",
       });
@@ -156,7 +133,7 @@ const AccountDelivery: React.FC<AccountDeliveryProps> = () => {
                     onChange={handleChange}
                     name="number"
                     label="Số nhà"
-                    value={delivery.number}
+                    value={delivery.address.number}
                   />
                 </div>
                 <div className="flex-[0_0_50%] max-w-[50%] p-2">
@@ -165,7 +142,7 @@ const AccountDelivery: React.FC<AccountDeliveryProps> = () => {
                     onChange={handleChange}
                     name="street"
                     label="Đường"
-                    value={delivery.street}
+                    value={delivery.address.street}
                   />
                 </div>
                 <div className="flex-[0_0_50%] max-w-[50%] p-2">
@@ -174,7 +151,7 @@ const AccountDelivery: React.FC<AccountDeliveryProps> = () => {
                     onChange={handleChange}
                     name="ward"
                     label="Phường"
-                    value={delivery.ward}
+                    value={delivery.address.ward}
                   />
                 </div>
                 <div className="flex-[0_0_50%] max-w-[50%] p-2">
@@ -183,7 +160,7 @@ const AccountDelivery: React.FC<AccountDeliveryProps> = () => {
                     onChange={handleChange}
                     name="district"
                     label="Quận"
-                    value={delivery.district}
+                    value={delivery.address.district}
                   />
                 </div>
                 <div className="flex-[0_0_50%] max-w-[50%] p-2">
@@ -192,7 +169,7 @@ const AccountDelivery: React.FC<AccountDeliveryProps> = () => {
                     onChange={handleChange}
                     name="city"
                     label="Thành phố"
-                    value={delivery.city}
+                    value={delivery.address.city}
                   />
                 </div>
               </div>

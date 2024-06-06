@@ -7,8 +7,8 @@ const reviewApi = createApi({
   baseQuery: customFetchBase,
   tagTypes: ["ADD", "UPDATE", "DELETE"],
   endpoints: (builder) => ({
-    addReviewProduct: builder.mutation({
-      query: (data: IReviewRequest) => {
+    addReviewProduct: builder.mutation<any, IReviewRequest>({
+      query: (data) => {
         const bodyFormData = new FormData();
 
         bodyFormData.append("ProductId", data.productId);

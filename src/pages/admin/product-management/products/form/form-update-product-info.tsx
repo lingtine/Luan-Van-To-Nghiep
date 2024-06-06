@@ -52,13 +52,15 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("🚀 ~ handleSubmit ~ FormData:", dataForm)
+    console.log("🚀 ~ handleSubmit ~ FormData:", dataForm);
 
     // if (dataForm.image) {
     //   updateProduct(dataForm);
     // } else {
-    //   const { image, ...updateDataForm } = dataForm;
-    //   updateProduct(updateDataForm);
+    // const { image, ...updateDataForm } = dataForm;
+    if (!isOpen) {
+      updateProduct(dataForm);
+    }
     // }
   };
 
@@ -71,7 +73,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
 
   const handleChangeImage = (image: File) => {
     setDataForm(() => {
-      return { ...dataForm, image };
+      return { ...dataForm, image: image };
     });
   };
 
@@ -136,13 +138,12 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
 
   useEffect(() => {
     if (
-      dataForm.name === product.name &&
-      dataForm.unitPrice === product.unitPrice &&
-      dataForm.description === product.description &&
-      !dataForm.image
+      dataForm.name !== product.name &&
+      dataForm.unitPrice !== product.unitPrice &&
+      dataForm.description !== product.description &&
+      dataForm.image
     ) {
-      setIsUpdate(false);
-    } else {
+      console.log("Form true");
       setIsUpdate(true);
     }
   }, [dataForm, product.name, product.unitPrice, product.description]);
@@ -260,12 +261,12 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
             <div className="my-4 overflow-y-scroll max-h-[400px]">
               {specifications.map((item) => {
                 return (
-                  <div className="flex gap-4 border border-primary-1 justify-between  items-center p-2">
+                  <div className="flex gap-4 border border-primary-1 justify-between items-center p-2">
                     <h5 className="min-w-[200px]  ">
                       {item.specificationName}
                     </h5>
 
-                    <p> {item.specificationValue}</p>
+                    <p>{item.specificationValue}</p>
 
                     <IconButton
                       className="min-w-[40px]"

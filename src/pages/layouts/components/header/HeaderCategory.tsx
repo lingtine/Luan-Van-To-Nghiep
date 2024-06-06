@@ -8,7 +8,7 @@ interface IHeaderCategory {
 }
 
 const HeaderCategory: React.FC<IHeaderCategory> = ({ onClose }) => {
-  const { data, isSuccess } = useGetAllCategoryGroupsQuery(null);
+  const { data, isSuccess } = useGetAllCategoryGroupsQuery();
 
   return (
     <>

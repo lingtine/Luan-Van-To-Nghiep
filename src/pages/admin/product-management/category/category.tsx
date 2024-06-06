@@ -12,8 +12,7 @@ import {
   useDeleteCategoryMutation,
 } from "redux/api/catalog/category";
 import { useParams } from "react-router-dom";
-
-import { ICategory } from "redux/api/types";
+import { ICategory } from "share/types/category";
 import {
   ConfirmDialog,
   IContentConfirm,
@@ -28,7 +27,7 @@ const Category = () => {
   const [categoryRemove, setCategoryRemove] = useState<IContentConfirm>();
 
   const { data, isSuccess, isLoading } = useGetCategoriesQuery({
-    pageIndex: index,
+    PageIndex: index,
   });
   const [removeCategory, { isSuccess: removeSuccess }] =
     useDeleteCategoryMutation();

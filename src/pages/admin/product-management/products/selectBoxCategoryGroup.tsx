@@ -12,7 +12,7 @@ const SelectBoxCategoryGroup: React.FC<SelectBoxCategoryGroupProps> = ({
   selected,
   setSelect,
 }) => {
-  const { data, isSuccess } = useGetAllCategoryGroupsQuery(null);
+  const { data, isSuccess } = useGetAllCategoryGroupsQuery();
 
   if (isSuccess) {
     const updateData = data.map((item) => {

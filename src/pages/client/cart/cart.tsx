@@ -15,13 +15,13 @@ const Cart: React.FC = () => {
   const [formPrice] = useFormatPrice();
 
   const { data: dataUser, isSuccess: isSuccessGetUser } =
-    useGetCustomerDetailQuery(null);
+    useGetCustomerDetailQuery();
 
   const { data: dataCoupon, isSuccess: getCouponSuccess } =
     useGetCouponsQuery(null);
   const [selected, setSelected] = useState<ICouponInput>();
 
-  const { data, isSuccess, refetch } = useGetDetailCartQuery(null);
+  const { data, isSuccess, refetch } = useGetDetailCartQuery();
 
   let content;
   if (getCouponSuccess) {

@@ -1,55 +1,33 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 import customFetchBase from "redux/api/customFetchBase";
-import { ICartDetail } from "../types";
+import { ICartDetail, IProductCart } from "../types";
 
 const cartApi = createApi({
   reducerPath: "cart",
   baseQuery: customFetchBase,
   tagTypes: ["update", "delete", "add"],
   endpoints: (builder) => ({
-    getDetailCart: builder.query({
+    getDetailCart: builder.query<ICartDetail, void>({
       query: () => ({
         url: "/orders/carts/detail",
         method: "GET",
       }),
       providesTags: ["add", "delete", "update"],
-      transformResponse: (response: { data: ICartDetail }) => response.data,
     }),
-    addToCart: builder.mutation({
-      query: ({
-        ...rest
-      }: {
-        productId: string;
-        productName: string;
-        quantity: number;
-        unitPrice: number;
-      }) => {
-        const product = {
-          productId: rest.productId,
-          productName: rest.productName,
-          quantity: rest.quantity,
-          unitPrice: rest.unitPrice,
-        };
-
+    addToCart: builder.mutation<any, IProductCart>({
+      query: (data) => {
         return {
           url: `/orders/carts/add-items`,
           method: "PUT",
-          body: product,
+          body: data,
         };
       },
       invalidatesTags: ["add"],
     }),
 
-    updateProductQuality: builder.mutation({
-      query: (
-        data: {
-          productId: string;
-          productName: string;
-          quantity: number;
-          unitPrice: number;
-        }[]
-      ) => {
+    updateProductQuality: builder.mutation<any, IProductCart[]>({
+      query: (data) => {
         return {
           method: "PUT",
           url: "orders/carts/",
@@ -58,8 +36,8 @@ const cartApi = createApi({
       },
       invalidatesTags: ["update"],
     }),
-    deleteItems: builder.mutation({
-      query: (productId: string) => ({
+    deleteItems: builder.mutation<any, string>({
+      query: (productId) => ({
         url: `/orders/carts/${productId}`,
         method: "DELETE",
       }),

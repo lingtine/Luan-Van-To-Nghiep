@@ -34,14 +34,14 @@ const authApi = createApi({
             };
 
             if (Array.isArray(jwt.role)) {
-              await dispatch(employeeApi.endpoints.getEmployee.initiate(null));
+              await dispatch(employeeApi.endpoints.getEmployee.initiate());
             } else if (jwt.role === "customer") {
               await dispatch(
-                customerApi.endpoints.getCustomerDetail.initiate(null)
+                customerApi.endpoints.getCustomerDetail.initiate()
               );
             } else if (jwt.role === "Employee") {
               await dispatch(
-                employeeApi.endpoints.getEmployeeDetail.initiate(null)
+                employeeApi.endpoints.getEmployeeDetail.initiate()
               );
             }
           } catch (error) {}

@@ -10,23 +10,21 @@ import { ISelected } from "components/select-box/select-box";
 import { useAddCategoryMutation } from "redux/api/catalog/category";
 import { useNavigate } from "react-router-dom";
 
-interface IDataForm {
-  name: string;
-  description: string;
-}
+import { ICategoryInput } from "share/types/category";
 
 interface AddCategoryProps {}
 
 const AddCategory: React.FC<AddCategoryProps> = () => {
   const navigate = useNavigate();
 
-  const { data, isSuccess } = useGetAllCategoryGroupsQuery(null);
+  const { data, isSuccess } = useGetAllCategoryGroupsQuery();
   const [addCategory, { isSuccess: addSuccess }] = useAddCategoryMutation();
 
   const [selected, setSelected] = useState<ISelected>();
-  const [dataForm, setDataForm] = useState<IDataForm>({
+  const [dataForm, setDataForm] = useState<ICategoryInput>({
     name: "",
     description: "",
+    categoryGroupId: "",
   });
 
   useEffect(() => {
@@ -45,7 +43,7 @@ const AddCategory: React.FC<AddCategoryProps> = () => {
     ) {
       toast.error("Thông tin không hơn lệ");
     } else {
-      addCategory({ ...dataForm, categoryGroupId: selected.id, id: "" });
+      addCategory(dataForm);
     }
   };
   const handleChange = (
@@ -57,6 +55,7 @@ const AddCategory: React.FC<AddCategoryProps> = () => {
   };
   const handleSelect = (option: ISelected) => {
     setSelected(option);
+    setDataForm(() => ({ ...dataForm, categoryGroupId: option.id }));
   };
 
   let content;
