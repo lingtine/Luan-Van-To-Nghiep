@@ -8,14 +8,16 @@ const employeeApi = createApi({
   tagTypes: ["User"],
   endpoints(builder) {
     return {
-      getEmployeeDetail: builder.query({
+      getEmployeeDetail: builder.query<IUserDetail[], undefined>({
         query: () => {
           return {
             method: "GET",
             url: "employees/employees/detail",
           };
         },
-        transformResponse: (response: { data: IUserDetail[] }) => response.data,
+        transformResponse: ({ data }) => {
+          return { ...data };
+        },
         async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
           try {
             const { data } = await queryFulfilled;
@@ -24,14 +26,16 @@ const employeeApi = createApi({
           } catch (error) {}
         },
       }),
-      getEmployee: builder.mutation({
+      getEmployee: builder.mutation<IUserDetail[], undefined>({
         query: () => {
           return {
             method: "GET",
             url: "employees/employees/detail",
           };
         },
-        transformResponse: (response: { data: IUserDetail[] }) => response.data,
+        transformResponse: ({ data }) => {
+          return { ...data };
+        },
         async onQueryStarted(__, { dispatch, queryFulfilled, getState }) {
           try {
             const { data } = await queryFulfilled;

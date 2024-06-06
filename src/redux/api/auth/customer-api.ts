@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { setUser } from "redux/features/auth/userSlice";
 import customFetchBase from "redux/api/customFetchBase";
-import { IUserDetail, ICustomerDetail, IDeliveryInfo } from "../types";
+import { IUserDetail, ICustomerDetail, IDeliveryInput } from "../types";
 
 const customerApi = createApi({
   reducerPath: "customer",
@@ -83,10 +83,10 @@ const customerApi = createApi({
       }),
 
       addDeliveryInfo: builder.mutation({
-        query: ({ id, ...rest }: IDeliveryInfo) => ({
+        query: (data: IDeliveryInput) => ({
           url: "/customers/customers/delivery-infos",
           method: "POST",
-          body: rest,
+          body: data,
         }),
         invalidatesTags: ["add-deliveryInfo"],
       }),

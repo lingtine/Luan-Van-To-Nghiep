@@ -38,12 +38,12 @@ const AddProduct = () => {
     useGetCategoriesByParametersMutation();
 
   const { data: brandsData, isSuccess: getBrandsSuccess } =
-    useGetAllBrandsQuery(null);
+    useGetAllBrandsQuery();
 
   const [addProduct, result] = useAddProductMutation();
 
   const { data: categoryGroupData, isSuccess: getCategoryGroupSuccess } =
-    useGetAllCategoryGroupsQuery(null);
+    useGetAllCategoryGroupsQuery();
 
   const navigate = useNavigate();
 

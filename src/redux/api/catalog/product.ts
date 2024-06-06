@@ -21,7 +21,7 @@ const productApi = createApi({
     "remove-specifications",
   ],
   endpoints: (builder) => ({
-    getProductCarousel: builder.query({
+    getProductCarousel: builder.query<IProductDetailType[], void>({
       query: () => ({
         url: "/catalogs/products",
         method: "GET",
@@ -32,23 +32,23 @@ const productApi = createApi({
           IsOrderDesc: true,
         },
       }),
-      transformResponse: (response: { data: IProductDetailType[] }) =>
-        response.data,
+      transformResponse: ({ data }) => ({ ...data }),
     }),
-    getProducts: builder.query({
+    getProducts: builder.query<
+      {
+        data: IProductDetailType[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      },
+      any
+    >({
       query: (params) => ({
         url: "/catalogs/products",
         method: "GET",
         params,
       }),
-      transformResponse: (response: {
-        data: IProductDetailType[];
-        pageIndex: number;
-        pageSize: number;
-        totalCount: number;
-      }) => {
-        return response;
-      },
+
       providesTags: [
         "add-product",
         "remove-product",
@@ -58,18 +58,16 @@ const productApi = createApi({
         "update-specifications",
       ],
     }),
-    getProductsByParams: builder.mutation({
+    getProductsByParams: builder.mutation<IProductDetailType[], any>({
       query: (params) => ({
         url: "/catalogs/products/",
         method: "GET",
         params,
       }),
-      transformResponse: (response: { data: IProductDetailType[] }) => {
-        return response.data;
-      },
+      transformResponse: ({ data }) => ({ ...data }),
     }),
-    addProduct: builder.mutation({
-      query: (data: IAddProductType) => {
+    addProduct: builder.mutation<any, IAddProductType>({
+      query: (data) => {
         var bodyFormData = new FormData();
         bodyFormData.append("Name", data.name);
         bodyFormData.append("Description", data.description);
@@ -94,20 +92,18 @@ const productApi = createApi({
         return {
           url: "/catalogs/products",
           method: "POST",
-          body: bodyFormData        
+          body: bodyFormData,
         };
       },
       invalidatesTags: ["add-product"],
     }),
-    getProductHome: builder.query({
+    getProductHome: builder.query<any, any>({
       query: (params) => ({
         url: "/catalogs/products/home",
         method: "GET",
         params: params,
       }),
-      transformResponse: (response: { data: any }) => {
-        return response.data;
-      },
+      transformResponse: ({ data }) => ({ ...data }),
       providesTags: [
         "add-product",
         "remove-product",
@@ -117,7 +113,7 @@ const productApi = createApi({
         "update-specifications",
       ],
     }),
-    getProductDetail: builder.query({
+    getProductDetail: builder.query<IProductDetailType, string>({
       query: (productId: string) => ({
         url: `/catalogs/products/details/${productId}`,
         method: "GET",
@@ -131,9 +127,7 @@ const productApi = createApi({
         "update-specifications",
       ],
 
-      transformResponse: (response: { data: IProductDetailType }) =>
-        // TODO
-        response.data || response,
+      transformResponse: ({ data }) => ({ ...data }),
     }),
     updateProduct: builder.mutation({
       query: ({
@@ -173,25 +167,25 @@ const productApi = createApi({
       },
       invalidatesTags: ["update-product"],
     }),
-    deleteProduct: builder.mutation({
-      query: (productId: string) => ({
+    deleteProduct: builder.mutation<string, any>({
+      query: (productId) => ({
         url: `/catalogs/products/${productId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["remove-product"],
     }),
-    addSpecificationForProduct: builder.mutation({
-      query: ({
-        productId,
-        data,
-      }: {
+    addSpecificationForProduct: builder.mutation<
+      any,
+      {
         productId: string;
         data: {
           specificationId: string;
           specificationName: string;
           specificationValue: string;
         }[];
-      }) => ({
+      }
+    >({
+      query: ({ productId, data }) => ({
         url: `/catalogs/products/${productId}/add-specifications`,
         body: data,
         method: "POST",
@@ -199,8 +193,11 @@ const productApi = createApi({
 
       invalidatesTags: ["add-specifications"],
     }),
-    removeSpecificationForProduct: builder.mutation({
-      query: ({ productId, data }: { productId: string; data: string[] }) => ({
+    removeSpecificationForProduct: builder.mutation<
+      any,
+      { productId: string; data: string[] }
+    >({
+      query: ({ productId, data }) => ({
         url: `/catalogs/products/${productId}/remove-specifications`,
         body: data,
         method: "POST",
@@ -208,18 +205,18 @@ const productApi = createApi({
 
       invalidatesTags: ["remove-specifications"],
     }),
-    updateSpecificationForProduct: builder.mutation({
-      query: ({
-        productId,
-        data,
-      }: {
+    updateSpecificationForProduct: builder.mutation<
+      any,
+      {
         productId: string;
         data: {
           specificationId: string;
           specificationName: string;
           specificationValue: string;
         }[];
-      }) => ({
+      }
+    >({
+      query: ({ productId, data }) => ({
         url: `/catalogs/products/${productId}/upload-specifications`,
         body: data,
         method: "POST",

@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 const AddBrand = () => {
   const [addBrand, { isSuccess }] = useAddBrandMutation();
   const [dataForm, setDataForm] = useState<IBrandInput>({
-    id: "",
     name: "",
     description: "",
     image: new DataTransfer().files[0],

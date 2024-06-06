@@ -15,34 +15,36 @@ const categoryApi = createApi({
         method: "GET",
       }),
     }),
-    getCategories: builder.query({
+    getCategories: builder.query<
+      {
+        data: ICategory[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      },
+      any
+    >({
       query: (params) => ({
         url: "/catalogs/categories",
         method: "GET",
         params,
       }),
-      transformResponse: (response: {
-        data: ICategory[];
-        pageIndex: number;
-        pageSize: number;
-        totalCount: number;
-      }) => response,
+
       providesTags: ["category"],
     }),
-    getCategoriesByParameters: builder.mutation({
+    getCategoriesByParameters: builder.mutation<ICategory[], any>({
       query: (params) => ({
         url: "/catalogs/categories",
         method: "GET",
         params: params,
       }),
-      transformResponse: (response: { data: ICategory[] }) => response.data,
+      transformResponse: ({ data }) => ({ ...data }),
     }),
     addCategory: builder.mutation({
       query: (data: ICategory) => {
         return {
           url: "/catalogs/categories",
           method: "POST",
-
           body: data,
         };
       },

@@ -2,39 +2,36 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 
 import customFetchBase from "redux/api/customFetchBase";
 
-import { ICategoryGroup } from "../types";
+import { ICategoryGroup, ICategoryGroupInput } from "../types";
 
 const categoryGroupApi = createApi({
   reducerPath: "categoryGroup",
   baseQuery: customFetchBase,
   tagTypes: ["category-group", "remove"],
   endpoints: (builder) => ({
-    getAllCategoryGroups: builder.query({
+    getAllCategoryGroups: builder.query<ICategoryGroup[], void>({
       query: () => ({
         url: "/catalogs/category-groups/all",
         method: "GET",
       }),
       providesTags: ["category-group"],
-      transformResponse: (response: { data: ICategoryGroup[] }, meta, arg) =>
-        response.data,
+      transformResponse: ({ data }) => ({ ...data }),
     }),
-    getCategoryGroups: builder.query({
+    getCategoryGroups: builder.query<
+      {
+        data: ICategoryGroup[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      },
+      any
+    >({
       query: (params) => ({
         url: "/catalogs/category-groups",
         method: "GET",
         params,
       }),
       providesTags: ["category-group"],
-      transformResponse: (
-        response: {
-          data: ICategoryGroup[];
-          pageIndex: number;
-          pageSize: number;
-          totalCount: number;
-        },
-        meta,
-        arg
-      ) => response,
     }),
     getListCategoryGroups: builder.query({
       query: (categoryId) => ({
@@ -42,10 +39,9 @@ const categoryGroupApi = createApi({
         method: "GET",
       }),
       providesTags: ["category-group"],
-      transformResponse: (response: { data: any }, meta, arg) => response.data,
     }),
-    addCategoryGroup: builder.mutation({
-      query: (data: { name: string; description: string }) => {
+    addCategoryGroup: builder.mutation<any, ICategoryGroupInput>({
+      query: (data) => {
         return {
           url: "/catalogs/category-groups",
           method: "POST",
@@ -55,7 +51,7 @@ const categoryGroupApi = createApi({
       invalidatesTags: ["category-group"],
     }),
 
-    deleteCategoryGroup: builder.mutation({
+    deleteCategoryGroup: builder.mutation<any, string>({
       query: (categoryGroupId: string) => ({
         url: `/catalogs/category-groups/${categoryGroupId}`,
         method: "DELETE",

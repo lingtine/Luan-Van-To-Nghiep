@@ -1,3 +1,4 @@
+import { IDepartmentInput } from "./../types";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import customFetchBase from "../customFetchBase";
 
@@ -22,11 +23,7 @@ const departmentApi = createApi({
         },
       }),
       addDepartment: build.mutation({
-        query: (data: {
-          name: string;
-          description: string;
-          employeeIds: string[];
-        }) => {
+        query: (data: IDepartmentInput) => {
           return {
             url: "employees/Department/Create",
             method: "POST",

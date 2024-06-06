@@ -9,12 +9,12 @@ const brandApi = createApi({
   baseQuery: customFetchBase,
   tagTypes: ["brand"],
   endpoints: (builder) => ({
-    getAllBrands: builder.query({
+    getAllBrands: builder.query<IBrand[], void>({
       query: () => ({
         url: "/catalogs/brands/all",
         method: "GET",
       }),
-      transformResponse: (response: { data: IBrand[] }) => response.data,
+      transformResponse: ({ data }) => ({ ...data }),
 
       providesTags: ["brand"],
     }),
@@ -40,8 +40,8 @@ const brandApi = createApi({
       }),
       transformResponse: (response: { data: IBrand[] }) => response.data,
     }),
-    addBrand: builder.mutation({
-      query: (data: IBrandInput) => {
+    addBrand: builder.mutation<any, IBrandInput>({
+      query: (data) => {
         var bodyFormData = new FormData();
         bodyFormData.append("Name", data.name);
         bodyFormData.append("Description", data.description);
@@ -56,14 +56,14 @@ const brandApi = createApi({
       },
       invalidatesTags: ["brand"],
     }),
-    getBrand: builder.query({
-      query: (brandId: string) => ({
+    getBrand: builder.query<any, string>({
+      query: (brandId) => ({
         url: `/catalogs/brands/${brandId}`,
         method: "GET",
       }),
     }),
-    updateBrand: builder.mutation({
-      query: (data: IBrandInput) => {
+    updateBrand: builder.mutation<any, IBrandInput>({
+      query: (data) => {
         var bodyFormData = new FormData();
         bodyFormData.append("Name", data.name);
         bodyFormData.append("Description", data.description);
@@ -81,8 +81,8 @@ const brandApi = createApi({
         };
       },
     }),
-    deleteBrand: builder.mutation({
-      query: (brandId: string) => ({
+    deleteBrand: builder.mutation<any, string>({
+      query: (brandId) => ({
         url: `/catalogs/brands/${brandId}`,
         method: "DELETE",
       }),
