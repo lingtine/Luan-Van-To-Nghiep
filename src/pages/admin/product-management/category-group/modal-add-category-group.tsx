@@ -1,8 +1,9 @@
 import { useEffect, useState, memo } from "react";
+import { Input, Textarea, Button } from "@material-tailwind/react";
+
+import { toast } from "react-toastify";
 import Modal from "components/modal/modal";
 import { useAddCategoryGroupMutation } from "redux/api/catalog/category-group";
-import { toast } from "react-toastify";
-import { Input, Textarea, Button } from "@material-tailwind/react";
 import { ICategoryGroupInput } from "share/types/category-group";
 
 function ModalAddCategoryGroup({ onToggle }: { onToggle: () => void }) {

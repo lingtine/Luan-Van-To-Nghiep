@@ -1,22 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Input, Textarea } from "@material-tailwind/react";
+import { toast } from "react-toastify";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
+
 import { useAddCategoryGroupMutation } from "redux/api/catalog/category-group";
-import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
+import { ICategoryGroupInput } from "share/types/category-group";
 
-interface IDataForm {
-  name: string;
-  description: string;
-}
-
-interface AddCategoryGroupProps {}
-
-const AddCategoryGroup: React.FC<AddCategoryGroupProps> = () => {
+const AddCategoryGroup = () => {
   const navigate = useNavigate();
   const [addCategoryGroup, { isSuccess }] = useAddCategoryGroupMutation();
-  const [dataForm, setDataForm] = useState<IDataForm>({
+  const [dataForm, setDataForm] = useState<ICategoryGroupInput>({
     name: "",
     description: "",
   });

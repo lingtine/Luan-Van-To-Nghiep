@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-
 import { Spinner, IconButton } from "@material-tailwind/react";
-import Table from "components/table/table";
-import { useGetCategoryGroupsQuery } from "redux/api/catalog/category-group";
 import { MdEdit, MdDelete } from "react-icons/md";
-import { IContentConfirm } from "components/confirm-dialog/confirm-dialog";
+
+import { useGetCategoryGroupsQuery } from "redux/api/catalog/category-group";
 import {
   ICategoryGroup,
   ICategoryGroupTable,
 } from "share/types/category-group";
+import Table from "components/table/table";
+import { IContentConfirm } from "components/confirm-dialog/confirm-dialog";
 import ModalUpdateCategoryGroup from "./modal-update-category-group";
 function TableCategoryGroup({
   onRemove,
@@ -76,11 +76,9 @@ function TableCategoryGroup({
   };
   let content: React.ReactNode;
   if (isSuccess) {
-    const { pageIndex, pageSize } = data;
-
     const dataUpdate: ICategoryGroupTable[] = data.data.map((item, index) => ({
       ...item,
-      index: index + 1 + pageIndex * pageSize,
+      index: index + 1,
     }));
     content = <Table config={configData} data={dataUpdate}></Table>;
   } else if (isLoading) {

@@ -7,19 +7,17 @@ import {
   ICategoryGroupPage,
   ICategoryGroupParams,
 } from "../../../share/types/category-group";
-import { ICategoryInput } from "share/types/category";
 
 const categoryGroupApi = createApi({
   reducerPath: "categoryGroup",
   baseQuery: customFetchBase,
-  tagTypes: ["category-group", "remove", "update"],
+  tagTypes: ["remove", "update", "add"],
   endpoints: (builder) => ({
     getAllCategoryGroups: builder.query<ICategoryGroup[], void>({
       query: () => ({
         url: "/catalogs/category-groups/all",
         method: "GET",
       }),
-      providesTags: ["category-group"],
       transformResponse: ({ data }) => ({ ...data }),
     }),
     getCategoryGroups: builder.query<ICategoryGroupPage, ICategoryGroupParams>({
@@ -28,7 +26,7 @@ const categoryGroupApi = createApi({
         method: "GET",
         params,
       }),
-      providesTags: ["remove", "update"],
+      providesTags: ["remove", "update", "add"],
     }),
     getCategoryGroup: builder.query<ICategoryGroup, string>({
       query: (categoryId) => ({
@@ -36,7 +34,6 @@ const categoryGroupApi = createApi({
         method: "GET",
       }),
       transformResponse: ({ data }) => ({ ...data }),
-      providesTags: ["category-group"],
     }),
     addCategoryGroup: builder.mutation<ICategoryGroup, ICategoryGroupInput>({
       query: (data) => {
@@ -47,7 +44,7 @@ const categoryGroupApi = createApi({
         };
       },
       transformResponse: ({ data }) => ({ ...data }),
-      invalidatesTags: ["category-group"],
+      invalidatesTags: ["add"],
     }),
 
     deleteCategoryGroup: builder.mutation<boolean, string>({
