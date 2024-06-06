@@ -14,6 +14,7 @@ const customerApi = createApi({
     "change-deliveryInfo-default",
     "add-wishlist",
     "delete-wishlist",
+    "get-wishlist",
   ],
   endpoints(builder) {
     return {
@@ -133,6 +134,13 @@ const customerApi = createApi({
 
         invalidatesTags: ["delete-wishlist"],
       }),
+
+      getWishlist: builder.query({
+        query: () => ({
+          url: "/customers/customers/wishlist",
+          method: "GET",
+        }),
+      })
     };
   },
 });
@@ -147,5 +155,6 @@ export const {
   useGetTotalCustomerQuery,
   useAddWishlistMutation,
   useDeleteWishlistMutation,
+  useGetWishlistQuery
 } = customerApi;
 export default customerApi;

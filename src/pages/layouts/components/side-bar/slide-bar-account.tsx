@@ -11,6 +11,7 @@ import { IoIosLogOut } from "react-icons/io";
 import { TbTruckDelivery } from "react-icons/tb";
 import { RiBillLine } from "react-icons/ri";
 import { FaRegAddressCard } from "react-icons/fa6";
+import { MdFavoriteBorder  } from "react-icons/md";
 
 interface SlideBarAccountProps {}
 
@@ -36,6 +37,11 @@ const SlideBarAccount: React.FC<SlideBarAccountProps> = () => {
       label: "Đơn hàng",
       href: "/account/orders",
       icon: <RiBillLine />,
+    },
+    {
+      label: "Yêu thích",
+      href: "/account/wishlist",
+      icon: <MdFavoriteBorder />,
     },
   ];
 

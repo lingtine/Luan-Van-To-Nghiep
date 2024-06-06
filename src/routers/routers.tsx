@@ -34,7 +34,7 @@ import {
   ProductsAdminPage,
   RegisterPage,
   SearchPage,
-  WishListPage,
+  // WishListPage,
   ResetPasswordPage,
   AddSpecificationPage,
   SpecificationsPage,
@@ -61,6 +61,7 @@ import {
   AccountPage,
   ProductDetailPage,
   ReportWarehousePage,
+  CustomerWishlistPage
 } from "pages";
 
 const router = createBrowserRouter(
@@ -99,8 +100,9 @@ const router = createBrowserRouter(
           <Route path="" element={<AccountPage />}></Route>
           <Route path="orders" element={<AccountOrderPage />}></Route>
           <Route path="address" element={<AccountAddressPage />}></Route>
+          <Route path="wishlist" element={<CustomerWishlistPage />}></Route>
         </Route>
-        <Route path="wishlist" element={<WishListPage />}></Route>
+        {/* <Route path="wishlist" element={<WishListPage />}></Route> */}
         <Route path="search" element={<SearchPage />}></Route>
 
         <Route path="reset-password" element={<ResetPasswordPage />}></Route>
