@@ -7,11 +7,12 @@ import {
   ICategoryGroupPage,
   ICategoryGroupParams,
 } from "../../../share/types/category-group";
+import { ICategoryInput } from "share/types/category";
 
 const categoryGroupApi = createApi({
   reducerPath: "categoryGroup",
   baseQuery: customFetchBase,
-  tagTypes: ["category-group", "remove"],
+  tagTypes: ["category-group", "remove", "update"],
   endpoints: (builder) => ({
     getAllCategoryGroups: builder.query<ICategoryGroup[], void>({
       query: () => ({
@@ -27,13 +28,14 @@ const categoryGroupApi = createApi({
         method: "GET",
         params,
       }),
-      providesTags: ["category-group"],
+      providesTags: ["remove", "update"],
     }),
-    getListCategoryGroups: builder.query({
+    getCategoryGroup: builder.query<ICategoryGroup, string>({
       query: (categoryId) => ({
         url: `/catalogs/category-groups/${categoryId}`,
         method: "GET",
       }),
+      transformResponse: ({ data }) => ({ ...data }),
       providesTags: ["category-group"],
     }),
     addCategoryGroup: builder.mutation<ICategoryGroup, ICategoryGroupInput>({
@@ -54,7 +56,18 @@ const categoryGroupApi = createApi({
         method: "DELETE",
       }),
       transformResponse: ({ data }) => ({ ...data }),
-      invalidatesTags: ["category-group"],
+      invalidatesTags: ["remove"],
+    }),
+    updateCategoryGroup: builder.mutation<ICategoryGroup, ICategoryGroupInput>({
+      query: (data) => {
+        return {
+          url: `/catalogs/category-groups/${data.id}`,
+          body: data,
+          method: "PUT",
+        };
+      },
+      invalidatesTags: ["update"],
+      transformResponse: ({ data }) => ({ ...data }),
     }),
   }),
 });
@@ -63,7 +76,8 @@ export const {
   useDeleteCategoryGroupMutation,
   useGetAllCategoryGroupsQuery,
   useGetCategoryGroupsQuery,
-  useGetListCategoryGroupsQuery,
+  useGetCategoryGroupQuery,
+  useUpdateCategoryGroupMutation,
 } = categoryGroupApi;
 
 export default categoryGroupApi;

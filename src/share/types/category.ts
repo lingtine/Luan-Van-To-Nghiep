@@ -8,13 +8,18 @@ export interface ICategoryParams {
 }
 
 export interface ICategoryInput {
+  id?: string;
   categoryGroupId: string;
   name: string;
   description: string;
   categoryGroup?: ICategoryGroup; // Add category group
 }
-export interface ICategory extends ICategoryInput {
+export interface ICategory {
   id: string;
+  categoryGroupId: string;
+  name: string;
+  description: string;
+  categoryGroup?: ICategoryGroup;
 }
 
 export interface ICategoryPage {

@@ -1,14 +1,16 @@
 import { ICategory } from "./category";
 
 export interface ICategoryGroupInput {
+  id?: string;
   name: string;
   description: string;
 }
 
-export interface ICategoryGroup extends ICategoryGroupInput {
+export interface ICategoryGroup {
   id: string;
   description: string;
   categories: ICategory[];
+  name: string;
 }
 
 export interface ICategoryGroupPage {
@@ -21,4 +23,8 @@ export interface ICategoryGroupParams {
   Keyword?: string;
   PageIndex?: string;
   PageSize?: number;
+}
+
+export interface ICategoryGroupTable extends ICategoryGroup {
+  index: number;
 }

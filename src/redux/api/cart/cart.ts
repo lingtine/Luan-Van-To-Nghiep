@@ -1,7 +1,9 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 import customFetchBase from "redux/api/customFetchBase";
-import { ICartDetail, IProductCart } from "../types";
+import { ICartDetail } from "../types";
+
+import { IProductAddToCart } from "share/types/product";
 
 const cartApi = createApi({
   reducerPath: "cart",
@@ -15,7 +17,7 @@ const cartApi = createApi({
       }),
       providesTags: ["add", "delete", "update"],
     }),
-    addToCart: builder.mutation<any, IProductCart>({
+    addToCart: builder.mutation<any, IProductAddToCart>({
       query: (data) => {
         return {
           url: `/orders/carts/add-items`,
@@ -26,7 +28,7 @@ const cartApi = createApi({
       invalidatesTags: ["add"],
     }),
 
-    updateProductQuality: builder.mutation<any, IProductCart[]>({
+    updateProductQuality: builder.mutation<any, IProductAddToCart[]>({
       query: (data) => {
         return {
           method: "PUT",

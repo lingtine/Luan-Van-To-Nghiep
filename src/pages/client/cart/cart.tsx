@@ -4,7 +4,8 @@ import { useGetDetailCartQuery } from "redux/api/cart/cart";
 
 import { useGetCouponsQuery } from "redux/api/discount/coupon";
 import SelectBox, { ISelected } from "components/select-box/select-box";
-import { IProductInOrder } from "redux/api/types";
+import { IProductOrder } from "share/types/product";
+
 import { useGetCustomerDetailQuery } from "redux/api/auth/customer-api";
 import CustomerInfo from "./components/customer-info";
 import { useFormatPrice } from "hooks/use-format-price";
@@ -94,7 +95,7 @@ const Cart: React.FC = () => {
                 Không có sản phẩm nào
               </div>
             ) : (
-              data.items.map((item: IProductInOrder) => (
+              data.items.map((item: IProductOrder) => (
                 <>
                   <div key={item.id} className="flex justify-between w-full">
                     <div className="flex gap-8">
@@ -107,7 +108,7 @@ const Cart: React.FC = () => {
                       />
                       <div className="flex flex-col ">
                         <span className="text-black line-clamp-1">
-                          {item.name}
+                          {item.productName}
                         </span>
                         <span className="text-primary-200">
                           Số lượng: {item.quantity}

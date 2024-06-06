@@ -19,10 +19,11 @@ import { useGetCategoriesByParametersMutation } from "redux/api/catalog/category
 import { useGetAllCategoryGroupsQuery } from "redux/api/catalog/category-group";
 import { useAddProductMutation } from "redux/api/catalog/product";
 import {
-  IAddProductType,
-  IProductAddSpecification,
-  IProductSpecifications,
-} from "redux/api/types";
+  IProductInput,
+  IProductSpecificationInput,
+  IProductSpecification,
+} from "share/types/product";
+
 import FormAddSpecificationsProduct from "./form/form-add-specifications-product";
 
 const AddProduct = () => {
@@ -30,9 +31,9 @@ const AddProduct = () => {
 
   const [relatedImages, setRelatedImages] = useState<FileList | null>(null);
 
-  const [specifications, setSpecifications] = useState<
-    IProductSpecifications[]
-  >([]);
+  const [specifications, setSpecifications] = useState<IProductSpecification[]>(
+    []
+  );
 
   const [getCategories, { isSuccess: getCategorySuccess, data: categoryData }] =
     useGetCategoriesByParametersMutation();
@@ -47,7 +48,7 @@ const AddProduct = () => {
 
   const navigate = useNavigate();
 
-  const [dataForm, setDataForm] = useState<IAddProductType>({
+  const [dataForm, setDataForm] = useState<IProductInput>({
     name: "",
     description: "",
     image: new DataTransfer().files[0],
@@ -114,7 +115,7 @@ const AddProduct = () => {
     setRelatedImages(images);
   };
 
-  const handleAddSpecifications = (children: IProductSpecifications[]) => {
+  const handleAddSpecifications = (children: IProductSpecification[]) => {
     setSpecifications(children);
   };
 
@@ -129,7 +130,7 @@ const AddProduct = () => {
       return {
         ...dataForm,
         specifications: specifications.map(
-          (x: IProductSpecifications): IProductAddSpecification => {
+          (x: IProductSpecification): IProductSpecificationInput => {
             return {
               specificationId: x.specificationId,
               specificationName: x.specificationName,

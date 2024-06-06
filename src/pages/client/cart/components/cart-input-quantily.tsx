@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import InputQuantity from "components/input/input-quantity";
-import { IProductInOrder } from "redux/api/types";
+import { IProductOrder } from "share/types/product";
+
 import {
   useUpdateProductQualityMutation,
   useDeleteItemsMutation,
 } from "redux/api/cart/cart";
 import useDebounce from "hooks/use-debounce";
 interface CartInputQuantityProps {
-  data: IProductInOrder;
+  data: IProductOrder;
 }
 
 const CartInputQuantity: React.FC<CartInputQuantityProps> = ({ data }) => {
@@ -25,7 +26,7 @@ const CartInputQuantity: React.FC<CartInputQuantityProps> = ({ data }) => {
         updateQuality([
           {
             productId: data.productId,
-            productName: data.name,
+            productName: data.productName,
             quantity: +debounceValue,
             unitPrice: data.unitPrice,
           },
@@ -36,7 +37,7 @@ const CartInputQuantity: React.FC<CartInputQuantityProps> = ({ data }) => {
     }
   }, [
     debounceValue,
-    data.name,
+    data.productName,
     data.productId,
     data.unitPrice,
     data.quantity,

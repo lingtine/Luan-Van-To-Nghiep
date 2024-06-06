@@ -4,18 +4,20 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useUpdateProductMutation } from "redux/api/catalog/product";
 import { useNavigate } from "react-router-dom";
+
 import {
-  IProductAddSpecification,
-  IProductDetailType,
-  IProductSpecifications,
-} from "redux/api/types";
+  IProductDetail,
+  IProductSpecificationInput,
+  IProductSpecification,
+} from "share/types/product";
+
 import UploadImage from "components/upload-image/upload-image";
 import { CiTrash } from "react-icons/ci";
 import UploadMultiple from "components/upload-image/UploadMultiple";
 import Modal from "components/modal/modal";
 import FormAddSpecificationsProduct from "./form-add-specifications-product";
 interface FormUpdateProductInfoProps {
-  product: IProductDetailType;
+  product: IProductDetail;
 }
 
 const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
@@ -26,9 +28,9 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
   const [image, setImage] = useState<string | undefined>(product.imageUrl);
   const [isOpen, setIsOpen] = useState(false);
   const [relatedImages, setRelatedImages] = useState<FileList | null>(null);
-  const [specifications, setSpecifications] = useState<
-    IProductSpecifications[]
-  >(product.productSpecifications);
+  const [specifications, setSpecifications] = useState<IProductSpecification[]>(
+    product.productSpecifications
+  );
   const [updateProduct, result] = useUpdateProductMutation();
   const [isUpdate, setIsUpdate] = useState(false);
 
@@ -39,7 +41,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
     image: File;
     unitPrice: number;
     relatedImages?: FileList;
-    specifications?: IProductAddSpecification[];
+    specifications?: IProductSpecification[];
   }>({
     id: product.id,
     name: product.name,
@@ -59,7 +61,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
     // } else {
     // const { image, ...updateDataForm } = dataForm;
     if (!isOpen) {
-      updateProduct(dataForm);
+      //updateProduct(dataForm);
     }
     // }
   };
@@ -84,11 +86,11 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
     });
   };
 
-  const handleAddSpecifications = (children: IProductSpecifications[]) => {
-    setSpecifications(children);
-    setDataForm(() => {
-      return { ...dataForm, specifications: children };
-    });
+  const handleAddSpecifications = (children: IProductSpecificationInput[]) => {
+    // setSpecifications(children);
+    // setDataForm(() => {
+    //   return { ...dataForm, specifications: children };
+    // });
   };
 
   const handleRemoveSpecification = (specificationId: string) => {
@@ -110,20 +112,20 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
   useEffect(() => {
     setIsUpdate(true);
 
-    setDataForm(() => {
-      return {
-        ...dataForm,
-        specifications: specifications.map(
-          (x: IProductSpecifications): IProductAddSpecification => {
-            return {
-              specificationId: x.specificationId,
-              specificationName: x.specificationName,
-              specificationValue: x.specificationValue,
-            };
-          }
-        ),
-      };
-    });
+    // setDataForm(() => {
+    //   return {
+    //     ...dataForm,
+    //     specifications: specifications.map(
+    //       (x: IProductSpecification): IProductSpecificationInput => {
+    //         return {
+    //           specificationId: x.specificationId,
+    //           specificationName: x.specificationName,
+    //           specificationValue: x.specificationValue,
+    //         };
+    //       }
+    //     ),
+    //   };
+    // });
   }, [specifications]);
 
   useEffect(() => {

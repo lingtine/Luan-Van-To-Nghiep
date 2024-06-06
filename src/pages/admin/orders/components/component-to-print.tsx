@@ -83,7 +83,7 @@ const ComponentToPrint = forwardRef<HTMLDivElement, MyDivProps>(
                 {cart.items.map((item) => {
                   return (
                     <tr key={item.id}>
-                      <td className="border px-4 py-2">{item.name}</td>
+                      <td className="border px-4 py-2">{item.productName}</td>
                       <td className="border px-4 py-2">{item.quantity}</td>
                       <td className="border px-4 py-2">
                         {formatPrice.format(item.unitPrice)}

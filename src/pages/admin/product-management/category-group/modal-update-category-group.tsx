@@ -1,23 +1,41 @@
 import { useEffect, useState, memo } from "react";
 import Modal from "components/modal/modal";
-import { useAddCategoryGroupMutation } from "redux/api/catalog/category-group";
 import { toast } from "react-toastify";
 import { Input, Textarea, Button } from "@material-tailwind/react";
-import { ICategoryGroupInput } from "share/types/category-group";
-
-function ModalAddCategoryGroup({ onToggle }: { onToggle: () => void }) {
-  const [addCategoryGroup, { isSuccess }] = useAddCategoryGroupMutation();
-
+import {
+  ICategoryGroup,
+  ICategoryGroupInput,
+} from "share/types/category-group";
+import { useUpdateCategoryGroupMutation } from "redux/api/catalog/category-group";
+function ModalUpdateCategoryGroup({
+  onToggle,
+  categoryGroup,
+}: {
+  onToggle: () => void;
+  categoryGroup: ICategoryGroup;
+}) {
+  const [update, result] = useUpdateCategoryGroupMutation();
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [dataForm, setDataForm] = useState<ICategoryGroupInput>({
-    name: "",
-    description: "",
+    id: categoryGroup.id,
+    name: categoryGroup.name,
+    description: categoryGroup.description,
   });
+
   useEffect(() => {
-    if (isSuccess) {
+    if (result.isSuccess) {
       onToggle();
-      toast.success("Thêm thành công");
+      toast.success("Chỉnh sửa thành công");
     }
-  }, [isSuccess]);
+    if (
+      dataForm.description !== categoryGroup.description ||
+      dataForm.name !== categoryGroup.name
+    ) {
+      setIsUpdate(true);
+    } else {
+      setIsUpdate(false);
+    }
+  }, [result.isSuccess, dataForm]);
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -31,13 +49,10 @@ function ModalAddCategoryGroup({ onToggle }: { onToggle: () => void }) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (
-      dataForm.name.trim().length === 0 ||
-      dataForm.description.trim().length === 0
-    ) {
+    if (dataForm.name.trim().length === 0) {
       toast.error("Thông tin không hợp lệ");
     } else {
-      addCategoryGroup(dataForm);
+      update(dataForm);
     }
   };
   return (
@@ -46,7 +61,9 @@ function ModalAddCategoryGroup({ onToggle }: { onToggle: () => void }) {
         onSubmit={handleSubmit}
         className="flex justify-between gap-4 flex-col"
       >
-        <header className="text-xl my-2 font-bold ">Thêm nhóm danh mục</header>
+        <header className="text-xl my-2 font-bold ">
+          Chỉnh sửa nhóm danh mục
+        </header>
         <div className="flex flex-col gap-4 w-full">
           <Input
             name="name"
@@ -63,12 +80,22 @@ function ModalAddCategoryGroup({ onToggle }: { onToggle: () => void }) {
             label="Miêu tả nhóm danh mục"
           />
         </div>
-        <div className="flex justify-end my-4">
-          <Button type="submit">Thêm nhóm danh mục</Button>
+        <div className="flex justify-end my-4 gap-4">
+          <Button
+            color="red"
+            onClick={() => {
+              onToggle();
+            }}
+          >
+            Huỷ
+          </Button>
+          <Button type="submit" disabled={!isUpdate}>
+            Chỉnh sửa
+          </Button>
         </div>
       </form>
     </Modal>
   );
 }
 
-export default memo(ModalAddCategoryGroup);
+export default memo(ModalUpdateCategoryGroup);

@@ -2,14 +2,14 @@ import React from "react";
 import Table from "components/table/table";
 import { useFormatPrice } from "hooks/use-format-price";
 import { Link } from "react-router-dom";
-import { IProductInOrder } from "redux/api/types";
+import { IProductOrder } from "share/types/product";
 import { FaRegTrashCan } from "react-icons/fa6";
 import CartInputQuantity from "./cart-input-quantily";
 import { IconButton } from "@material-tailwind/react";
 
 import { useDeleteItemsMutation } from "redux/api/cart/cart";
 interface TableProductsProps {
-  listProducts: IProductInOrder[];
+  listProducts: IProductOrder[];
 }
 
 const TableProducts: React.FC<TableProductsProps> = ({ listProducts }) => {
@@ -18,32 +18,32 @@ const TableProducts: React.FC<TableProductsProps> = ({ listProducts }) => {
   const configTable = [
     {
       label: "Sản phẩm",
-      render: (data: IProductInOrder) => {
-        return data.name;
+      render: (data: IProductOrder) => {
+        return data.productName;
       },
     },
     {
       label: "Giá",
-      render: (data: IProductInOrder) => {
+      render: (data: IProductOrder) => {
         return formPrice.format(data.unitPrice);
       },
     },
     {
       label: "Số lượng",
-      render: (data: IProductInOrder) => {
+      render: (data: IProductOrder) => {
         return <CartInputQuantity data={data} />;
       },
     },
 
     {
       label: "Số tiền",
-      render: (data: IProductInOrder) => {
+      render: (data: IProductOrder) => {
         return formPrice.format(data.quantity * data.unitPrice);
       },
     },
     {
       label: "",
-      render: (data: IProductInOrder) => {
+      render: (data: IProductOrder) => {
         return (
           <IconButton
             onClick={() => {
