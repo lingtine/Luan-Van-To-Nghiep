@@ -2,12 +2,15 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import customFetchBase from "redux/api/customFetchBase";
 
 import {
-  IProductDetailType,
-  IProductType,
+  IProductDetail,
+  IProductInput,
+  IProductPage,
+  IProductParams,
+  IProductSpecification,
   IProductReport,
-  IAddProductType,
-  IProductAddSpecification,
-} from "../types";
+  IDateReport,
+  IProductSpecificationInput,
+} from "share/types/product";
 
 const productApi = createApi({
   reducerPath: "product",
@@ -21,7 +24,7 @@ const productApi = createApi({
     "remove-specifications",
   ],
   endpoints: (builder) => ({
-    getProductCarousel: builder.query<IProductDetailType[], void>({
+    getProductCarousel: builder.query<IProductDetail[], void>({
       query: () => ({
         url: "/catalogs/products",
         method: "GET",
@@ -34,15 +37,7 @@ const productApi = createApi({
       }),
       transformResponse: ({ data }) => ({ ...data }),
     }),
-    getProducts: builder.query<
-      {
-        data: IProductDetailType[];
-        pageIndex: number;
-        pageSize: number;
-        totalCount: number;
-      },
-      any
-    >({
+    getProducts: builder.query<IProductPage, IProductParams>({
       query: (params) => ({
         url: "/catalogs/products",
         method: "GET",
@@ -58,7 +53,7 @@ const productApi = createApi({
         "update-specifications",
       ],
     }),
-    getProductsByParams: builder.mutation<IProductDetailType[], any>({
+    getProductsByParams: builder.mutation<IProductDetail[], IProductParams>({
       query: (params) => ({
         url: "/catalogs/products/",
         method: "GET",
@@ -66,7 +61,7 @@ const productApi = createApi({
       }),
       transformResponse: ({ data }) => ({ ...data }),
     }),
-    addProduct: builder.mutation<any, IAddProductType>({
+    addProduct: builder.mutation<IProductDetail, IProductInput>({
       query: (data) => {
         var bodyFormData = new FormData();
         bodyFormData.append("Name", data.name);
@@ -95,9 +90,11 @@ const productApi = createApi({
           body: bodyFormData,
         };
       },
+      transformResponse: ({ data }) => ({ ...data }),
+
       invalidatesTags: ["add-product"],
     }),
-    getProductHome: builder.query<any, any>({
+    getProductHome: builder.query<IProductDetail[], IProductParams>({
       query: (params) => ({
         url: "/catalogs/products/home",
         method: "GET",
@@ -113,8 +110,8 @@ const productApi = createApi({
         "update-specifications",
       ],
     }),
-    getProductDetail: builder.query<IProductDetailType, string>({
-      query: (productId: string) => ({
+    getProductDetail: builder.query<IProductDetail, string>({
+      query: (productId) => ({
         url: `/catalogs/products/details/${productId}`,
         method: "GET",
       }),
@@ -129,61 +126,44 @@ const productApi = createApi({
 
       transformResponse: ({ data }) => ({ ...data }),
     }),
-    updateProduct: builder.mutation({
-      query: ({
-        id,
-        ...rest
-      }: {
-        id: string;
-        name: string;
-        description: string;
-        image: File;
-        unitPrice: number;
-        relatedImages?: FileList;
-        specifications?: IProductAddSpecification[];
-      }) => {
+    updateProduct: builder.mutation<IProductDetail, IProductInput>({
+      query: (data) => {
         var bodyFormData = new FormData();
-        bodyFormData.append("Name", rest.name);
-        bodyFormData.append("Description", rest.description);
-        if (rest.image) bodyFormData.append("Image", rest.image);
-        bodyFormData.append("UnitPrice", rest.unitPrice.toString());
-        if (rest.relatedImages) {
-          Array.from(rest.relatedImages).forEach((file, index) => {
+        bodyFormData.append("Name", data.name);
+        bodyFormData.append("Description", data.description);
+        if (data.image) bodyFormData.append("Image", data.image);
+        bodyFormData.append("UnitPrice", data.unitPrice.toString());
+        if (data.relatedImages) {
+          Array.from(data.relatedImages).forEach((file, index) => {
             bodyFormData.append(`RelatedImages`, file);
           });
         }
 
-        if (rest.specifications) {
+        if (data.specifications) {
           bodyFormData.append(
             `SpecificationsJson`,
-            JSON.stringify(rest.specifications)
+            JSON.stringify(data.specifications)
           );
         }
         return {
-          url: `/catalogs/products/${id}`,
+          url: `/catalogs/products/${data.id}`,
           method: "PUT",
           body: bodyFormData,
         };
       },
       invalidatesTags: ["update-product"],
     }),
-    deleteProduct: builder.mutation<string, any>({
+    deleteProduct: builder.mutation<boolean, string>({
       query: (productId) => ({
         url: `/catalogs/products/${productId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["remove-product"],
+      transformResponse: ({ data }) => ({ ...data }),
     }),
     addSpecificationForProduct: builder.mutation<
       any,
-      {
-        productId: string;
-        data: {
-          specificationId: string;
-          specificationName: string;
-          specificationValue: string;
-        }[];
-      }
+      { productId: string; data: IProductSpecificationInput[] }
     >({
       query: ({ productId, data }) => ({
         url: `/catalogs/products/${productId}/add-specifications`,
@@ -206,63 +186,61 @@ const productApi = createApi({
       invalidatesTags: ["remove-specifications"],
     }),
     updateSpecificationForProduct: builder.mutation<
-      any,
-      {
-        productId: string;
-        data: {
-          specificationId: string;
-          specificationName: string;
-          specificationValue: string;
-        }[];
-      }
+      IProductSpecification,
+      IProductSpecification
     >({
-      query: ({ productId, data }) => ({
-        url: `/catalogs/products/${productId}/upload-specifications`,
+      query: (data) => ({
+        url: `/catalogs/products/${data.productId}/upload-specifications`,
         body: data,
         method: "POST",
       }),
       invalidatesTags: ["update-product"],
     }),
-    getProductReport: builder.mutation({
-      query: (data: { start: string; end: string }) => ({
+    getProductReport: builder.mutation<any, IDateReport>({
+      query: (data) => ({
         url: "/catalogs/products/GetProductReport",
         body: data,
         method: "POST",
       }),
     }),
-    productRevenuePeriodicReporting: builder.mutation({
-      query: (data: { date: string; periodic: string }) => ({
+    productRevenuePeriodicReporting: builder.mutation<
+      any,
+      { date: string; periodic: string }
+    >({
+      query: (data) => ({
         url: "/catalogs/products/ProductRevenuePeriodicReporting",
         body: data,
         method: "POST",
       }),
     }),
-    productRevenueByIdReporting: builder.mutation({
-      query: (data: { start: string; end: string; productId: string }) => ({
+    productRevenueByIdReporting: builder.mutation<
+      any,
+      { start: string; end: string; productId: string }
+    >({
+      query: (data) => ({
         url: "/catalogs/products/ProductRevenueByIdReporting",
         body: data,
         method: "POST",
       }),
     }),
-    productRevenueReporting: builder.mutation({
+    productRevenueReporting: builder.mutation<IProductReport[], IDateReport>({
       query: (data: { start: string; end: string }) => ({
         url: "/catalogs/products/ProductRevenueReporting",
         body: data,
         method: "POST",
       }),
 
-      transformResponse: (response: { data: { data: IProductReport[] } }) =>
-        response.data.data,
+      transformResponse: ({ data }) => data.data,
     }),
-    exportProductReportFile: builder.mutation({
-      query: (data: { start: string; end: string }) => ({
+    exportProductReportFile: builder.mutation<any, IDateReport>({
+      query: (data) => ({
         url: "/catalogs/products/ExportProductReportFile",
         body: data,
         method: "POST",
       }),
     }),
-    exportProductReport: builder.mutation({
-      query: (data: { start: string; end: string }) => ({
+    exportProductReport: builder.mutation<any, IDateReport>({
+      query: (data) => ({
         url: "/catalogs/products/ExportProductReport",
         body: data,
         method: "POST",

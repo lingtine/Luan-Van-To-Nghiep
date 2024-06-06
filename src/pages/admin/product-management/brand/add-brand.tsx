@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAddBrandMutation } from "redux/api/catalog/brand";
 import { toast } from "react-toastify";
-import { IBrandInput } from "redux/api/types";
+import { IBrandInput } from "share/types/brand";
 import { useNavigate } from "react-router-dom";
 
 const AddBrand = () => {

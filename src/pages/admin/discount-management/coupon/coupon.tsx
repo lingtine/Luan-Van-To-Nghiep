@@ -12,7 +12,7 @@ import {
   useRemoveCouponMutation,
 } from "redux/api/discount/coupon";
 import { useParams } from "react-router-dom";
-import { ICoupon } from "redux/api/types";
+import { ICoupon } from "share/types/coupon";
 interface ICouponTable extends ICoupon {
   index: number;
 }
@@ -21,7 +21,7 @@ const Coupon = () => {
   const { index } = useParams();
 
   const { data, isSuccess, isLoading } = useGetCouponsQuery({
-    pageIndex: index,
+    PageIndex: index,
   });
   const [removeCoupon, { isSuccess: removeSuccess }] =
     useRemoveCouponMutation();

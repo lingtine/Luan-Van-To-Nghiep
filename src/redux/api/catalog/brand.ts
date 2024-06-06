@@ -2,7 +2,12 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 
 import customFetchBase from "redux/api/customFetchBase";
 
-import { IBrand, IBrandInput } from "../types";
+import {
+  IBrand,
+  IBrandInput,
+  IBrandPage,
+  IBrandParams,
+} from "../../../share/types/brand";
 
 const brandApi = createApi({
   reducerPath: "brand",
@@ -18,29 +23,23 @@ const brandApi = createApi({
 
       providesTags: ["brand"],
     }),
-    getBrands: builder.query({
+    getBrands: builder.query<IBrandPage, IBrandParams>({
       query: (params) => ({
         url: "/catalogs/brands",
         method: "GET",
         params,
       }),
       providesTags: ["brand"],
-      transformResponse: (response: {
-        data: IBrand[];
-        pageIndex: number;
-        pageSize: number;
-        totalCount: number;
-      }) => response,
     }),
-    getBrandsByParameter: builder.mutation({
+    getBrandsByParameter: builder.mutation<IBrand[], IBrandParams>({
       query: (params) => ({
         url: "/catalogs/brands",
         method: "GET",
         params,
       }),
-      transformResponse: (response: { data: IBrand[] }) => response.data,
+      transformResponse: ({ data }) => ({ ...data }),
     }),
-    addBrand: builder.mutation<any, IBrandInput>({
+    addBrand: builder.mutation<IBrand[], IBrandInput>({
       query: (data) => {
         var bodyFormData = new FormData();
         bodyFormData.append("Name", data.name);
@@ -54,15 +53,17 @@ const brandApi = createApi({
           formData: true,
         };
       },
+      transformResponse: ({ data }) => ({ ...data }),
       invalidatesTags: ["brand"],
     }),
-    getBrand: builder.query<any, string>({
+    getBrand: builder.query<IBrand, string>({
       query: (brandId) => ({
         url: `/catalogs/brands/${brandId}`,
         method: "GET",
       }),
+      transformResponse: ({ data }) => ({ ...data }),
     }),
-    updateBrand: builder.mutation<any, IBrandInput>({
+    updateBrand: builder.mutation<IBrand, IBrandInput>({
       query: (data) => {
         var bodyFormData = new FormData();
         bodyFormData.append("Name", data.name);
@@ -80,13 +81,15 @@ const brandApi = createApi({
           formData: true,
         };
       },
+      transformResponse: ({ data }) => ({ ...data }),
     }),
-    deleteBrand: builder.mutation<any, string>({
+    deleteBrand: builder.mutation<boolean, string>({
       query: (brandId) => ({
         url: `/catalogs/brands/${brandId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["brand"],
+      transformResponse: ({ data }) => ({ ...data }),
     }),
   }),
 });

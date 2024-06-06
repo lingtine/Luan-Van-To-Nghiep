@@ -1,5 +1,4 @@
-import { ICategory } from "share/types/category";
-
+import { IProductOrder } from "share/types/product";
 export interface IUser {
   name: string;
   email: string;
@@ -75,80 +74,6 @@ export interface IGenericResponse {
   message: string;
 }
 
-export interface IBrandInput {
-  id?: string;
-  name: string;
-  description: string;
-  image: File;
-}
-
-export interface IBrand {
-  id: string;
-  name: string;
-  description: string;
-  imageUrl: string;
-}
-
-export interface IAddProductType {
-  name: string;
-  description: string;
-  unitPrice: number;
-  image: File;
-  categoryId: string;
-  brandId: string;
-  sku: string;
-  relatedImages?: FileList;
-  specifications?: IProductAddSpecification[];
-}
-
-export interface IProductAddSpecification {
-  specificationId: string;
-  specificationName: string;
-  specificationValue: string;
-}
-
-export interface IProductType {
-  id: string;
-  name: string;
-  description: string;
-  unitPrice: number;
-  image: File;
-  categoryId: string;
-  brandId: string;
-  sku: string;
-}
-export interface IProductSpecifications {
-  id: string;
-  productId: string;
-  specificationId: string;
-  specificationName: string;
-  specificationValue: string;
-}
-
-export interface IProductDetailType {
-  brand: IBrand;
-  category: ICategory;
-  id: string;
-  isActive: boolean;
-  isInStock: boolean;
-  likeCount: number;
-  name: string;
-  numberOfStar: number;
-  productImages: string[];
-  description: string;
-  unitPrice: number;
-  imageUrl: string;
-  productSpecifications: IProductSpecifications[];
-  rateCount: number;
-  viewCount: number;
-  relatedProducts?: IProductDetailType[];
-}
-
-export interface ISpecification {
-  id: string;
-  name: string;
-  description: string;
-}
 export interface IOrder {
   id?: string;
   couponId: string;
@@ -254,14 +179,6 @@ export interface IReport {
   }[];
 }
 
-export interface IProductWarehouse {
-  id: string;
-  name: string;
-  quantity: number;
-  sku: string;
-  status: string;
-}
-
 export interface IGoodsReceipt {
   id: string;
   name: string;
@@ -285,34 +202,11 @@ export interface IGoodsIssue {
   }[];
 }
 
-export interface IDiscountEvent {
-  id: string;
-  name: string;
-  description: string;
-}
-
-export interface ICoupon {
-  id: string;
-  name: string;
-  description: string;
-  reducedPrice: number;
-  quantity: number;
-  discountEventId: string;
-}
-
-export interface IProductInOrder {
-  id: string;
-  productId: string;
-  name: string;
-  unitPrice: number;
-  quantity: number;
-}
-
 export interface ICartDetail {
   id: string;
   customerId: string;
   status: string;
-  items: IProductInOrder[];
+  items: IProductOrder[];
 }
 
 export interface IOrderDetail {
@@ -340,7 +234,7 @@ export interface IOrderDetail {
     id: string;
     customerId: string;
     status: string;
-    items: IProductInOrder[];
+    items: IProductOrder[];
   };
   status: string;
 }
@@ -354,30 +248,10 @@ export interface IOrderReport {
   totalProduct: number;
 }
 
-export interface IProductReport {
-  date: null;
-  productId: string;
-  productName: string;
-  revenue: number;
-}
-
 export interface IReviewUser {
   id: string;
   name: string;
   imageUrl: string;
-}
-
-export interface IProductReview {
-  id: string;
-  productId: string;
-  customerId: string;
-  numberOfStar: number;
-  comment: string;
-  imageUrls: any[];
-  createdAt: Date;
-  lastModifiedAt: Date;
-  reviewUser: IReviewUser;
-  children?: IProductReview[];
 }
 
 export interface IReviewRequest {
@@ -391,11 +265,4 @@ export interface IDepartmentInput {
   name: string;
   description: string;
   employeeIds: string[];
-}
-
-export interface IProductCart {
-  productId: string;
-  productName: string;
-  quantity: number;
-  unitPrice: number;
 }

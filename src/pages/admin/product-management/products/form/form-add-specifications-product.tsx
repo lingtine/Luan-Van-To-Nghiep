@@ -4,20 +4,17 @@ import { ISelected } from "components/select-box/select-box";
 import { useState } from "react";
 import { useAddSpecificationForProductMutation } from "redux/api/catalog/product";
 import InputSpecification from "./input-specification";
-import { IProductSpecifications } from "redux/api/types";
+import {
+  IProductSpecification,
+  IProductSpecificationInput,
+} from "share/types/product";
 
 interface FormAddSpecificationsProductProps {
   productId: string;
   onClose: Function;
-  productSpecifications: IProductSpecifications[];
+  productSpecifications: IProductSpecification[];
   isAdd?: boolean;
   handleAddSpecifications?: Function;
-}
-
-interface ISpecification {
-  specificationId: string;
-  specificationName: string;
-  specificationValue: string;
 }
 
 const FormAddSpecificationsProduct: React.FC<
@@ -30,7 +27,7 @@ const FormAddSpecificationsProduct: React.FC<
   handleAddSpecifications,
 }) => {
   const [specificationsData, setSpecificationsData] = useState<
-    ISpecification[]
+    IProductSpecificationInput[]
   >(() =>
     productSpecifications.length
       ? productSpecifications
@@ -109,7 +106,7 @@ const FormAddSpecificationsProduct: React.FC<
       if (handleAddSpecifications && isAdd) {
         handleAddSpecifications(
           specificationsData.map(
-            (x: ISpecification): IProductSpecifications => {
+            (x: IProductSpecificationInput): IProductSpecification => {
               return {
                 id: "",
                 productId: "",
@@ -122,7 +119,7 @@ const FormAddSpecificationsProduct: React.FC<
         );
       } else {
         addSpecification({
-          productId: productId,
+          productId,
           data: specificationsData,
         });
       }

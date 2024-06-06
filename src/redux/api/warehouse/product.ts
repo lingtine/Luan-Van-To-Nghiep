@@ -2,7 +2,7 @@ import customFetchBase from "../customFetchBase";
 
 import { createApi } from "@reduxjs/toolkit/query/react";
 
-import { IProductWarehouse } from "../types";
+import { IProductWarehouse } from "share/types/product";
 
 const productWarehouseApi = createApi({
   reducerPath: "productWarehouse",
