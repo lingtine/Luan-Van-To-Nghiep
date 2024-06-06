@@ -1,7 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { setUser } from "redux/features/auth/userSlice";
 import customFetchBase from "redux/api/customFetchBase";
-import { IUserDetail, ICustomerDetail, IDeliveryInfo } from "../types";
+import {
+  IUserDetail,
+  ICustomerDetail,
+  IDeliveryInfo,
+  IWishlistItem,
+} from "../types";
 
 const customerApi = createApi({
   reducerPath: "customer",
@@ -140,7 +145,9 @@ const customerApi = createApi({
           url: "/customers/customers/wishlist",
           method: "GET",
         }),
-      })
+        transformResponse: (response: { data: IWishlistItem[] }) =>
+          response.data,
+      }),
     };
   },
 });
@@ -155,6 +162,6 @@ export const {
   useGetTotalCustomerQuery,
   useAddWishlistMutation,
   useDeleteWishlistMutation,
-  useGetWishlistQuery
+  useGetWishlistQuery,
 } = customerApi;
 export default customerApi;

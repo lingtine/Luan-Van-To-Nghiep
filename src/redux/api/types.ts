@@ -46,6 +46,22 @@ export interface ICustomerDetail {
   wishlists: [];
 }
 
+export interface IWishlistProduct {
+  id: string;
+  name: string;
+  unitPrice: number;
+  isActive: boolean;
+  isInStock: boolean;
+  likeCount: number;
+  viewCount: number;
+  numberOfStar: number;
+  imageUrl?: string;
+}
+export interface IWishlistItem {
+  customerId: string;
+  items: IWishlistProduct[];
+}
+
 export interface IUserDetail {
   address: string | null;
   department: IDepartment | null;
@@ -88,7 +104,7 @@ export interface IBrand {
   imageUrl: string;
 }
 
-export interface IAddProductType{
+export interface IAddProductType {
   name: string;
   description: string;
   unitPrice: number;
@@ -96,11 +112,11 @@ export interface IAddProductType{
   categoryId: string;
   brandId: string;
   sku: string;
-  relatedImages?: FileList
-  specifications?: IProductAddSpecification[]
+  relatedImages?: FileList;
+  specifications?: IProductAddSpecification[];
 }
 
-export interface IProductAddSpecification{
+export interface IProductAddSpecification {
   specificationId: string;
   specificationName: string;
   specificationValue: string;
