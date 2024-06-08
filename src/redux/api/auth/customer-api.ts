@@ -3,11 +3,10 @@ import { setUser } from "redux/features/auth/userSlice";
 import customFetchBase from "redux/api/customFetchBase";
 import {
   IUserDetail,
+  IDeliveryInput,
   ICustomerDetail,
-  IDeliveryInfo,
   IWishlistProduct,
 } from "../types";
-
 const customerApi = createApi({
   reducerPath: "customer",
   baseQuery: customFetchBase,

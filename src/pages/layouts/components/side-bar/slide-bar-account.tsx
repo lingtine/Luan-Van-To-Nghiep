@@ -8,13 +8,7 @@ import { useAppSelector } from "redux/store";
 import { useNavigate } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
-
-import { TbTruckDelivery } from "react-icons/tb";
-import { RiBillLine } from "react-icons/ri";
-import { FaRegAddressCard } from "react-icons/fa6";
-import { MdFavoriteBorder } from "react-icons/md";
-
-
+import { navigationAccount } from "share/constant/navigator";
 interface SlideBarAccountProps {}
 
 const SlideBarAccount: React.FC<SlideBarAccountProps> = () => {
@@ -23,31 +17,6 @@ const SlideBarAccount: React.FC<SlideBarAccountProps> = () => {
   const navigate = useNavigate();
   const { refreshToken } = useAppSelector((state) => state.authSlice);
   const { user } = useAppSelector((state) => state.userSlice);
-
-
-  const navigation = [
-    {
-      label: "Thông tin cá nhân",
-      href: "/account",
-      icon: <FaRegAddressCard />,
-    },
-    {
-      label: "Địa chỉ giao hàng",
-      href: "/account/address",
-      icon: <TbTruckDelivery />,
-    },
-    {
-      label: "Đơn hàng",
-      href: "/account/orders",
-      icon: <RiBillLine />,
-    },
-    {
-      label: "Yêu thích",
-      href: "/account/wishlist",
-      icon: <MdFavoriteBorder />,
-    },
-  ];
-
 
   useEffect(() => {
     if (isSuccess) {
@@ -74,7 +43,6 @@ const SlideBarAccount: React.FC<SlideBarAccountProps> = () => {
               <NavLink to={item.href || ""} end>
                 {({ isActive }) => {
                   return (
-
                     <Button
                       className="flex items-center gap-4"
                       variant={!isActive ? "text" : "filled"}

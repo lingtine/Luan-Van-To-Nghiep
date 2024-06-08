@@ -9,6 +9,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { RiBillLine } from "react-icons/ri";
 import { FaRegAddressCard } from "react-icons/fa6";
 import { INavigator } from "share/types/navigator";
+import { MdFavoriteBorder } from "react-icons/md";
 
 const navigation: INavigator[] = [
   {
@@ -127,6 +128,11 @@ const navigationAccount: INavigator[] = [
     label: "Đơn hàng",
     href: "/account/orders",
     icon: <RiBillLine />,
+  },
+  {
+    label: "Yêu thích",
+    href: "/account/wishlist",
+    icon: <MdFavoriteBorder />,
   },
 ];
 
