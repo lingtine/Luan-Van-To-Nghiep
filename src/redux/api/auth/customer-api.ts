@@ -1,7 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { setUser } from "redux/features/auth/userSlice";
 import customFetchBase from "redux/api/customFetchBase";
-import { IUserDetail, ICustomerDetail, IDeliveryInput } from "../types";
+import {
+  IUserDetail,
+  ICustomerDetail,
+  IDeliveryInfo,
+  IWishlistProduct,
+} from "../types";
 
 const customerApi = createApi({
   reducerPath: "customer",
@@ -14,6 +19,7 @@ const customerApi = createApi({
     "change-deliveryInfo-default",
     "add-wishlist",
     "delete-wishlist",
+    "get-wishlist",
   ],
   endpoints(builder) {
     return {
@@ -127,6 +133,26 @@ const customerApi = createApi({
 
         invalidatesTags: ["delete-wishlist"],
       }),
+
+      getWishlist: builder.query({
+        query: () => ({
+          url: "/customers/customers/wishlist",
+          method: "GET",
+        }),
+
+        transformResponse: (response: { data: IWishlistProduct[] }) =>
+          response.data,
+
+        providesTags: [
+          "User",
+          "add-deliveryInfo",
+          "remove-deliveryInfo",
+          "change-deliveryInfo-default",
+          "add-wishlist",
+          "delete-wishlist",
+          "get-wishlist",
+        ],
+      }),
     };
   },
 });
@@ -141,5 +167,6 @@ export const {
   useGetTotalCustomerQuery,
   useAddWishlistMutation,
   useDeleteWishlistMutation,
+  useGetWishlistQuery,
 } = customerApi;
 export default customerApi;

@@ -59,6 +59,22 @@ export interface ICustomerDetail {
   wishlists: [];
 }
 
+export interface IWishlistProduct {
+  id: string;
+  name: string;
+  unitPrice: number;
+  isActive: boolean;
+  isInStock: boolean;
+  likeCount: number;
+  viewCount: number;
+  numberOfStar: number;
+  imageUrl?: string;
+}
+export interface IWishlistItem {
+  customerId: string;
+  items: IWishlistProduct[];
+}
+
 export interface IUserDetail {
   address: string | null;
   department: IDepartment | null;
@@ -73,6 +89,7 @@ export interface IGenericResponse {
   status: string;
   message: string;
 }
+
 
 export interface IOrder {
   id?: string;

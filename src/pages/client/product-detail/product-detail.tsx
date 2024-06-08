@@ -8,6 +8,10 @@ import InputQuantity from "components/input/input-quantity";
 import ProductDetailSkeleton from "components/skeleton/product-detail-skeleton";
 import { useNavigate } from "react-router-dom";
 import {
+  useAddWishlistMutation,
+  useDeleteWishlistMutation,
+} from "redux/api/auth/customer-api";
+import {
   useAddToCartMutation,
   useGetDetailCartQuery,
 } from "redux/api/cart/cart";
@@ -17,17 +21,13 @@ import { formatVND } from "utils/formatVND";
 import ProductReview from "./components/ProductReview";
 import ProductSpecification from "./components/ProductSpecification";
 import RelatedCarousel from "./components/RelatedCarousel";
-import {
-  useAddWishlistMutation,
-  useDeleteWishlistMutation,
-} from "redux/api/auth/customer-api";
 
 function ProductDetailPage() {
-  const [heart, setHeart] = useState(false);
-
   const { productId } = useParams();
   const navigate = useNavigate();
   const { accessToken } = useAppSelector((state) => state.authSlice);
+  const [heart, setHeart] = useState(false);
+
   const { data, isLoading, isSuccess } = useGetProductDetailQuery(
     productId || "",
     {
@@ -35,8 +35,8 @@ function ProductDetailPage() {
     }
   );
 
-  const [addWishlist, addWishlistResult] = useAddWishlistMutation();
-  const [deleteWishlist, deleteWishlistResult] = useDeleteWishlistMutation();
+  const [addWishlist] = useAddWishlistMutation();
+  const [deleteWishlist] = useDeleteWishlistMutation();
 
   const { refetch } = useGetDetailCartQuery();
 

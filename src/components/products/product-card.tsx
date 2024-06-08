@@ -94,7 +94,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
             </Typography>
           </div>
           <div className="flex-col justify-between items-center">
-            <Rating readonly value={data.numberOfStar} />
+            <Rating readonly value={Math.round(data.numberOfStar)} />
             <Typography color="blue-gray" className="font-medium text-right">
               {formatPrice.format(data.unitPrice)}
             </Typography>
