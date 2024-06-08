@@ -48,7 +48,7 @@ const CategoryGroup = () => {
         <div className="flex justify-end my-4">
           <Button className="flex gap-2 items-center" onClick={handleToggleAdd}>
             <AiOutlinePlusCircle />
-            Thêm Nhóm Danh Mục
+            Thêm
           </Button>
         </div>
         <TableCategoryGroup onRemove={handleCategoryGroupRemove} />

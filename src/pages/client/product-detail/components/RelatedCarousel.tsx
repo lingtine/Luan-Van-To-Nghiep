@@ -1,10 +1,9 @@
 import ProductCard from "components/products/product-card";
 import { useState } from "react";
 import { FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
-import { IProductDetailType } from "redux/api/types";
-
+import { IProductDetail } from "share/types/product";
 interface IRelatedCarousel {
-  products: IProductDetailType[];
+  products: IProductDetail[];
   lengthCarousel: number;
 }
 

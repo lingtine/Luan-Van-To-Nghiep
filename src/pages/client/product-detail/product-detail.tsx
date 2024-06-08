@@ -38,7 +38,7 @@ function ProductDetailPage() {
   const [addWishlist] = useAddWishlistMutation();
   const [deleteWishlist] = useDeleteWishlistMutation();
 
-  const { refetch } = useGetDetailCartQuery(null);
+  const { refetch } = useGetDetailCartQuery();
 
   const [quantity, setQuantity] = useState<number>(1);
   const [addToCart] = useAddToCartMutation();

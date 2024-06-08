@@ -1,8 +1,8 @@
 import React from "react";
-import { IProductDetailType } from "redux/api/types";
+import { IProductDetail } from "share/types/product";
 import ProductCard from "components/products/product-card";
 interface CategoryListProps {
-  data: IProductDetailType[];
+  data: IProductDetail[];
 }
 
 const CategoryList: React.FC<CategoryListProps> = ({ data }) => {

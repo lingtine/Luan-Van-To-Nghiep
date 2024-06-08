@@ -1,24 +1,22 @@
+import React, { useState } from "react";
+import { Spinner, IconButton } from "@material-tailwind/react";
+import { MdEdit, MdDelete } from "react-icons/md";
 
-import { useParams } from "react-router-dom";
-import { Spinner, Button } from "@material-tailwind/react";
-import Table from "components/table/table";
 import { useGetCategoryGroupsQuery } from "redux/api/catalog/category-group";
-import { ICategoryGroup } from "redux/api/types";
+import {
+  ICategoryGroup,
+  ICategoryGroupTable,
+} from "share/types/category-group";
+import Table from "components/table/table";
 import { IContentConfirm } from "components/confirm-dialog/confirm-dialog";
-interface ICategoryGroupTable extends ICategoryGroup {
-  index: number;
-}
-
+import ModalUpdateCategoryGroup from "./modal-update-category-group";
 function TableCategoryGroup({
   onRemove,
 }: {
   onRemove: (data: IContentConfirm) => void;
 }) {
-  const { index } = useParams();
-
-  const { data, isLoading, isSuccess } = useGetCategoryGroupsQuery({
-    pageIndex: index,
-  });
+  const { data, isLoading, isSuccess } = useGetCategoryGroupsQuery({});
+  const [categoryGroup, setCategoryGroup] = useState<ICategoryGroup>();
   const configData = [
     {
       label: "STT",
@@ -43,9 +41,11 @@ function TableCategoryGroup({
     {
       label: "Tuỳ chọn",
       render: (data: ICategoryGroupTable) => {
+        const { index, ...rest } = data;
+
         return (
           <div className="flex gap-4 justify-end">
-            <Button
+            <IconButton
               onClick={() => {
                 onRemove({
                   id: data.id,
@@ -56,20 +56,29 @@ function TableCategoryGroup({
               }}
               color="red"
             >
-              Xoá
-            </Button>
+              <MdDelete />
+            </IconButton>
+            <IconButton
+              onClick={() => {
+                handleToggle(rest);
+              }}
+            >
+              <MdEdit />
+            </IconButton>
           </div>
         );
       },
     },
   ];
+
+  const handleToggle = (data?: ICategoryGroup) => {
+    setCategoryGroup(data);
+  };
   let content: React.ReactNode;
   if (isSuccess) {
-    const { pageSize, pageIndex } = data;
-
     const dataUpdate: ICategoryGroupTable[] = data.data.map((item, index) => ({
       ...item,
-      index: index + 1 + pageIndex * pageSize,
+      index: index + 1,
     }));
     content = <Table config={configData} data={dataUpdate}></Table>;
   } else if (isLoading) {
@@ -79,7 +88,17 @@ function TableCategoryGroup({
       </div>
     );
   }
-  return <>{content}</>;
+  return (
+    <>
+      {content}
+      {categoryGroup && (
+        <ModalUpdateCategoryGroup
+          categoryGroup={categoryGroup}
+          onToggle={handleToggle}
+        />
+      )}
+    </>
+  );
 }
 
 export default TableCategoryGroup;

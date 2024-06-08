@@ -2,7 +2,8 @@ import React from "react";
 
 import Table from "components/table/table";
 import { useFormatPrice } from "hooks/use-format-price";
-import { IProductReport } from "redux/api/types";
+import { IProductReport } from "share/types/product";
+
 interface TableProductReportProps {
   listOrder: IProductReport[];
 }

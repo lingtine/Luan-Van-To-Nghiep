@@ -5,8 +5,7 @@ import Pagination from "components/pagination/pagitnation";
 
 import { useGetProductWarehouseQuery } from "redux/api/warehouse/product";
 import { useParams } from "react-router-dom";
-import { IProductWarehouse } from "redux/api/types";
-
+import { IProductWarehouse } from "share/types/product";
 interface IProductWarehouseTable extends IProductWarehouse {
   index: number;
 }

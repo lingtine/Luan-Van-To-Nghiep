@@ -12,7 +12,7 @@ import {
   useRemoveDiscountEventMutation,
 } from "redux/api/discount/discount-event";
 
-import { IDiscountEvent } from "redux/api/types";
+import { IDiscountEvent } from "share/types/discount-event";
 
 interface IDiscountEventTable extends IDiscountEvent {
   index: number;
@@ -21,7 +21,7 @@ interface IDiscountEventTable extends IDiscountEvent {
 const DiscountEvent = () => {
   const { index } = useParams();
   const { data, isSuccess, isLoading } = useGetDiscountEventsQuery({
-    pageIndex: index,
+    PageIndex: index,
   });
   const [removeDiscountEvent, { isSuccess: removeSuccess }] =
     useRemoveDiscountEventMutation();

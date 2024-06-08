@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Table from "components/table/table";
 import { Button, Spinner } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
@@ -12,11 +12,8 @@ import {
   useDeleteSpecificationMutation,
 } from "redux/api/catalog/specification";
 import { useParams } from "react-router-dom";
-import { ISpecification } from "redux/api/types";
-import {
-  ConfirmDialog,
-  IContentConfirm,
-} from "components/confirm-dialog/confirm-dialog";
+
+import { ISpecification } from "share/types/specification";
 
 interface ISpecificationTable extends ISpecification {
   index: number;
@@ -27,8 +24,7 @@ const Specification = () => {
   const { data, isSuccess, isLoading } = useGetSpecificationsQuery({
     pageIndex: index,
   });
-  const [categoryGroupRemove, setCategoryGroupRemove] =
-    useState<IContentConfirm>();
+
   const [removeSpecification, { isSuccess: removeSuccess }] =
     useDeleteSpecificationMutation();
 

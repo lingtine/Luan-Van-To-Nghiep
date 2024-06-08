@@ -11,8 +11,7 @@ import {
   useDeleteBrandMutation,
 } from "redux/api/catalog/brand";
 import { useParams } from "react-router-dom";
-
-import { IBrand } from "redux/api/types";
+import { IBrand } from "share/types/brand";
 import {
   ConfirmDialog,
   IContentConfirm,
@@ -41,7 +40,7 @@ const Brand = () => {
   };
 
   const { data, isSuccess, isLoading } = useGetBrandsQuery({
-    pageIndex: index,
+    PageIndex: index,
   });
   const [removeBrand, { isSuccess: removeSuccess }] = useDeleteBrandMutation();
   const configData = [

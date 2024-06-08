@@ -6,33 +6,30 @@ import { useGetProductsQuery } from "redux/api/catalog/product";
 import { useParams } from "react-router-dom";
 
 import PaginationClient from "components/pagination/pagitcation-client";
-import { ICategory } from "redux/api/types";
+import { ICategory } from "share/types/category";
 
 import { Button } from "@material-tailwind/react";
 import SelectBox from "components/select-box/select-box";
 import { ISelected } from "components/select-box/select-box";
-interface CategoryPageProps {}
 
 interface ISort extends ISelected {
   IsOrderDesc: boolean;
   OrderBy: string;
 }
 
-const CategoryPage: React.FC<CategoryPageProps> = () => {
+const CategoryPage = () => {
   const { categoryId } = useParams();
-  const [sort, setSort] = useState<null | ISort>(null);
+  const [sort, setSort] = useState<ISort>();
   const [pageCurrent, setPageCurrent] = useState<number>(0);
   const [categories, setCategories] = useState<ICategory[] | null>(null);
   const [isInStock, setIsInStock] = useState<{ status: boolean } | null>(null);
 
   const { data, isSuccess } = useGetProductsQuery({
     CategoryGroupId: categoryId,
-    PageIndex: pageCurrent,
+    PageIndex: pageCurrent.toString(),
     PageSize: 24,
 
     IsInStock: isInStock?.status,
-    OrderBy: sort?.OrderBy,
-    IsOrderDesc: sort?.IsOrderDesc,
   });
 
   const handleChangePageIndex = (index: number) => {
@@ -40,7 +37,7 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
   };
   useEffect(() => {
     window.scrollTo(0, 0);
-    setSort(null);
+    setSort(undefined);
     handleCleanFilter();
   }, [categoryId]);
 

@@ -11,14 +11,14 @@ import {
 } from "redux/api/catalog/product";
 import { useParams } from "react-router-dom";
 import { useFormatPrice } from "hooks/use-format-price";
-import { IProductDetailType } from "redux/api/types";
+import { IProductDetail } from "share/types/product";
 
 import {
   ConfirmDialog,
   IContentConfirm,
 } from "components/confirm-dialog/confirm-dialog";
 
-interface IProductTable extends IProductDetailType {
+interface IProductTable extends IProductDetail {
   index: number;
 }
 
@@ -27,8 +27,8 @@ const Products = () => {
   const [formatPrice] = useFormatPrice();
   const [productRemove, setProductRemove] = useState<IContentConfirm>();
   const { data, isSuccess, isLoading } = useGetProductsQuery({
-    pageIndex: index,
-    pageSize: 20,
+    PageIndex: index,
+    PageSize: 20,
   });
   const [removeProduct] = useDeleteProductMutation();
   const handleToggleProduct = (data?: IContentConfirm) => {

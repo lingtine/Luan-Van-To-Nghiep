@@ -14,7 +14,6 @@ import {
   NotFoundPage,
   AddBrandPage,
   AddCategoryGroupPage,
-  AddCategoryPage,
   AddProductPage,
   BrandPage,
   CartPage,
@@ -123,7 +122,14 @@ const router = createBrowserRouter(
           </AuthGuard>
         }
       ></Route>
-      <Route path="/admin/" element={<AdminLayout />}>
+      <Route
+        path="/admin/"
+        element={
+          <AuthGuard>
+            <AdminLayout />
+          </AuthGuard>
+        }
+      >
         <Route index element={<DashboardAdminPage />}></Route>
         <Route path="orders" element={<OrdersAdminPage />}></Route>
         <Route path="orders/:index" element={<OrdersAdminPage />}></Route>
@@ -164,7 +170,6 @@ const router = createBrowserRouter(
         <Route path="category" element={<CategoryAdminPage />} />
         <Route path="category/:index" element={<CategoryAdminPage />} />
 
-        <Route path="category/add-category" element={<AddCategoryPage />} />
         <Route path="category-group" element={<CategoryGroupPage />} />
         <Route path="category-group/:index" element={<CategoryGroupPage />} />
         <Route

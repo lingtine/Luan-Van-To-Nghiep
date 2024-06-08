@@ -1,8 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { jwtDecode } from "jwt-decode";
-import { changeAuth } from "redux/features/auth/authSlice";
-import { logout } from "redux/features/auth/userSlice";
-import { logout as logoutUser } from "redux/features/auth/userSlice";
+import { changeAuth, logout } from "redux/features/auth/authSlice";
 import customerApi from "./customer-api";
 import employeeApi from "../auth/employeeApi";
 
@@ -36,14 +34,14 @@ const authApi = createApi({
             };
 
             if (Array.isArray(jwt.role)) {
-              await dispatch(employeeApi.endpoints.getEmployee.initiate(null));
+              await dispatch(employeeApi.endpoints.getEmployee.initiate());
             } else if (jwt.role === "customer") {
               await dispatch(
-                customerApi.endpoints.getCustomerDetail.initiate(null)
+                customerApi.endpoints.getCustomerDetail.initiate()
               );
             } else if (jwt.role === "Employee") {
               await dispatch(
-                employeeApi.endpoints.getEmployeeDetail.initiate(null)
+                employeeApi.endpoints.getEmployeeDetail.initiate()
               );
             }
           } catch (error) {}
@@ -72,7 +70,6 @@ const authApi = createApi({
           try {
             await queryFulfilled;
             dispatch(logout());
-            dispatch(logoutUser());
           } catch (error) {}
         },
       }),
