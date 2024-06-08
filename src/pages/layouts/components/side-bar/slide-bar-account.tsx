@@ -8,10 +8,7 @@ import { useAppSelector } from "redux/store";
 import { useNavigate } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
-import { TbTruckDelivery } from "react-icons/tb";
-import { RiBillLine } from "react-icons/ri";
-import { FaRegAddressCard } from "react-icons/fa6";
-
+import { navigationAccount } from "share/constant/navigator";
 interface SlideBarAccountProps {}
 
 const SlideBarAccount: React.FC<SlideBarAccountProps> = () => {
@@ -20,24 +17,6 @@ const SlideBarAccount: React.FC<SlideBarAccountProps> = () => {
   const navigate = useNavigate();
   const { refreshToken } = useAppSelector((state) => state.authSlice);
   const { user } = useAppSelector((state) => state.userSlice);
-
-  const navigation = [
-    {
-      label: "Thông tin cá nhân",
-      href: "/account",
-      icon: <FaRegAddressCard />,
-    },
-    {
-      label: "Địa chỉ giao hàng",
-      href: "/account/address",
-      icon: <TbTruckDelivery />,
-    },
-    {
-      label: "Đơn hàng",
-      href: "/account/orders",
-      icon: <RiBillLine />,
-    },
-  ];
 
   useEffect(() => {
     if (isSuccess) {
@@ -57,22 +36,20 @@ const SlideBarAccount: React.FC<SlideBarAccountProps> = () => {
         <FaUserCircle className="text-6xl" />
         <h4 className="font-semibold">{user?.name}</h4>
       </div>
-      <ul className="flex flex-col">
-        {navigation.map((item, index) => {
+      <ul className="flex flex-col w-full">
+        {navigationAccount.map((item, index) => {
           return (
             <li key={index} className="p-4 ">
-              <NavLink to={item.href} end>
+              <NavLink to={item.href || ""} end>
                 {({ isActive }) => {
                   return (
-                    <>
-                      <Button
-                        className="flex items-center gap-4"
-                        variant={!isActive ? "text" : "filled"}
-                      >
-                        {item.icon}
-                        <p>{item.label}</p>
-                      </Button>
-                    </>
+                    <Button
+                      className="flex items-center gap-4"
+                      variant={!isActive ? "text" : "filled"}
+                    >
+                      {item.icon}
+                      <p>{item.label}</p>
+                    </Button>
                   );
                 }}
               </NavLink>
@@ -80,7 +57,12 @@ const SlideBarAccount: React.FC<SlideBarAccountProps> = () => {
           );
         })}
         <li className="p-4 ">
-          <Button onClick={handleLogout} className="flex gap-4 items-center">
+          <Button
+            onClick={handleLogout}
+            className="flex gap-4 items-center "
+            fullWidth
+            variant="text"
+          >
             <IoIosLogOut /> <p>{"Đăng xuất"}</p>
           </Button>
         </li>

@@ -6,11 +6,11 @@ import {
   Card,
   Typography,
 } from "@material-tailwind/react";
-import { IProductDetailType } from "redux/api/types";
+import { IProductDetail } from "share/types/product";
 import { useFormatPrice } from "hooks/use-format-price";
 import { useNavigate } from "react-router-dom";
 interface ProductsSearchProps {
-  data: IProductDetailType[];
+  data: IProductDetail[];
   onClear: Function;
 }
 

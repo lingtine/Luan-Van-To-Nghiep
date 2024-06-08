@@ -1,11 +1,12 @@
 import React from "react";
-import { IProductDetailType } from "redux/api/types";
+import { IProductDetail } from "share/types/product";
 import ProductCard from "components/products/product-card";
 interface CategoryListProps {
-  data: IProductDetailType[];
+  data: IProductDetail[];
 }
 
 const CategoryList: React.FC<CategoryListProps> = ({ data }) => {
+  console.log("🚀 ~ data:", data);
   return (
     <div className="container flex flex-wrap -m-1 md:-m-2">
       {data.map((product) => {

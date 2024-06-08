@@ -12,7 +12,8 @@ import {
   Radio,
   Checkbox,
 } from "@material-tailwind/react";
-import { ICategory } from "redux/api/types";
+import { ICategory } from "share/types/category";
+
 interface SidebarProps {
   categories: ICategory[] | null;
   onChangeCategories: Function;

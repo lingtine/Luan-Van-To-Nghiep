@@ -5,8 +5,11 @@ import { FaWarehouse } from "react-icons/fa6";
 import { BiSolidDiscount } from "react-icons/bi";
 import { BsHouse } from "react-icons/bs";
 import { FaSquarePollVertical } from "react-icons/fa6";
-
+import { TbTruckDelivery } from "react-icons/tb";
+import { RiBillLine } from "react-icons/ri";
+import { FaRegAddressCard } from "react-icons/fa6";
 import { INavigator } from "share/types/navigator";
+import { MdFavoriteBorder } from "react-icons/md";
 
 const navigation: INavigator[] = [
   {
@@ -88,7 +91,6 @@ const navigation: INavigator[] = [
         label: "Mã giảm giá",
         href: "coupons",
       },
-      
     ],
   },
   {
@@ -111,4 +113,27 @@ const navigation: INavigator[] = [
   },
 ];
 
-export { navigation };
+const navigationAccount: INavigator[] = [
+  {
+    label: "Thông tin cá nhân",
+    href: "/account",
+    icon: <FaRegAddressCard />,
+  },
+  {
+    label: "Địa chỉ giao hàng",
+    href: "/account/address",
+    icon: <TbTruckDelivery />,
+  },
+  {
+    label: "Đơn hàng",
+    href: "/account/orders",
+    icon: <RiBillLine />,
+  },
+  {
+    label: "Yêu thích",
+    href: "/account/wishlist",
+    icon: <MdFavoriteBorder />,
+  },
+];
+
+export { navigation, navigationAccount };

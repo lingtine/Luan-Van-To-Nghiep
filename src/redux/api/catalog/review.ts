@@ -1,14 +1,15 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import customFetchBase from "redux/api/customFetchBase";
-import { IProductReview, IReviewRequest } from "../types";
+import { IReviewRequest } from "../types";
+import { IProductReview } from "share/types/product";
 
 const reviewApi = createApi({
   reducerPath: "reviewProduct",
   baseQuery: customFetchBase,
   tagTypes: ["ADD", "UPDATE", "DELETE"],
   endpoints: (builder) => ({
-    addReviewProduct: builder.mutation({
-      query: (data: IReviewRequest) => {
+    addReviewProduct: builder.mutation<any, IReviewRequest>({
+      query: (data) => {
         const bodyFormData = new FormData();
 
         bodyFormData.append("ProductId", data.productId);

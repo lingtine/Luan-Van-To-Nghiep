@@ -1,7 +1,9 @@
 import React from "react";
-import { IProductSpecifications } from "redux/api/types";
+
+import { IProductSpecification } from "share/types/product";
+
 interface TableProductSpecificationsProps {
-  data: IProductSpecifications[];
+  data: IProductSpecification[];
 }
 
 const TableProductSpecifications: React.FC<TableProductSpecificationsProps> = ({

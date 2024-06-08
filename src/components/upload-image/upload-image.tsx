@@ -1,9 +1,4 @@
-import {
-  Input,
-  Button,
-  Typography,
-  IconButton,
-} from "@material-tailwind/react";
+import { Button, IconButton } from "@material-tailwind/react";
 import React, { RefObject } from "react";
 import { useState, useRef } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
@@ -86,11 +81,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ onChange }) => {
     );
   }
 
-  return (
-    <div className="rounded-md">
-      {content}
-    </div>
-  );
+  return <div className="rounded-md">{content}</div>;
 };
 
 export default UploadImage;

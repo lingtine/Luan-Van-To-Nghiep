@@ -3,22 +3,34 @@ import { Input, Textarea, Button } from "@material-tailwind/react";
 
 import { toast } from "react-toastify";
 import Modal from "components/modal/modal";
-import { useAddCategoryGroupMutation } from "redux/api/catalog/category-group";
-import { ICategoryGroupInput } from "share/types/category-group";
+import { useGetAllCategoryGroupsQuery } from "redux/api/catalog/category-group";
+import { useAddCategoryMutation } from "redux/api/catalog/category";
+import { ICategoryInput } from "share/types/category";
+import { ISelected } from "components/select-box/select-box";
+import SelectBox from "components/select-box/select-box";
 
-function ModalAddCategoryGroup({ onToggle }: { onToggle: () => void }) {
-  const [addCategoryGroup, { isSuccess }] = useAddCategoryGroupMutation();
+function ModalAddCategory({ onToggle }: { onToggle: () => void }) {
+  const [addCategory, result] = useAddCategoryMutation();
+  const [selected, setSelected] = useState<ISelected>();
+  const { data, isSuccess } = useGetAllCategoryGroupsQuery();
 
-  const [dataForm, setDataForm] = useState<ICategoryGroupInput>({
-    name: "",
+  const [dataForm, setDataForm] = useState<ICategoryInput>({
+    categoryGroupId: "",
     description: "",
+    name: "",
   });
   useEffect(() => {
-    if (isSuccess) {
+    if (result.isSuccess) {
       onToggle();
       toast.success("Thêm thành công");
     }
-  }, [isSuccess]);
+  }, [result, onToggle]);
+
+  const handleSelect = (option: ISelected) => {
+    setSelected(option);
+    setDataForm(() => ({ ...dataForm, categoryGroupId: option.id }));
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -29,16 +41,31 @@ function ModalAddCategoryGroup({ onToggle }: { onToggle: () => void }) {
       [name]: value,
     }));
   };
+
+  let content;
+  if (isSuccess) {
+    const updateData = data.map((item) => ({ ...item, label: item.name }));
+
+    content = (
+      <SelectBox
+        onChange={handleSelect}
+        options={updateData}
+        selected={selected}
+        label="Chọn Nhóm Danh Mục"
+      />
+    );
+  }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (
       dataForm.name.trim().length === 0 ||
-      dataForm.description.trim().length === 0
+      dataForm.description.trim().length === 0 ||
+      dataForm.categoryGroupId.trim().length === 0
     ) {
       toast.error("Thông tin không hợp lệ");
     } else {
-      addCategoryGroup(dataForm);
+      addCategory(dataForm);
     }
   };
   return (
@@ -64,6 +91,7 @@ function ModalAddCategoryGroup({ onToggle }: { onToggle: () => void }) {
             label="Miêu tả nhóm danh mục"
           />
         </div>
+        {content}
         <div className="flex justify-end my-4">
           <Button type="submit">Thêm nhóm danh mục</Button>
         </div>
@@ -72,4 +100,4 @@ function ModalAddCategoryGroup({ onToggle }: { onToggle: () => void }) {
   );
 }
 
-export default memo(ModalAddCategoryGroup);
+export default memo(ModalAddCategory);

@@ -6,10 +6,12 @@ import { useGetAllCategoryGroupsQuery } from "redux/api/catalog/category-group";
 interface CategoriesProps {}
 
 const Categories: React.FC<CategoriesProps> = () => {
-  const { data, isSuccess } = useGetAllCategoryGroupsQuery(null);
+  const { data, isSuccess } = useGetAllCategoryGroupsQuery();
 
   let content;
   if (isSuccess) {
+    console.log(data);
+
     content = data.map((category: any) => {
       return (
         <li

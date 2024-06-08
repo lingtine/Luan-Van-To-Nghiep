@@ -2,7 +2,6 @@
 export { default as BrandPage } from "./admin/product-management/brand/brand";
 export { default as AddBrandPage } from "./admin/product-management/brand/add-brand";
 export { default as CategoryAdminPage } from "./admin/product-management/category/category";
-export { default as AddCategoryPage } from "./admin/product-management/category/add-category";
 export { default as CategoryGroupPage } from "./admin/product-management/category-group/category-group";
 export { default as AddCategoryGroupPage } from "./admin/product-management/category-group/add-category-group";
 export { default as CustomersPage } from "./admin/customers/customers";
@@ -46,7 +45,7 @@ export { default as LoginPage } from "./client/login/login";
 export { default as RegisterPage } from "./client/register/register";
 export { default as ProductDetailPage } from "./client/product-detail/product-detail";
 
-export { default as WishListPage } from "./client/wish-list/wishlist";
+// export { default as WishListPage } from "./client/wish-list/wishlist";
 export { default as SearchPage } from "./client/search/search";
 export { default as ResetPasswordPage } from "./client/reset-password/reset-password";
 export { default as NotFoundPage } from "./client/not-found/not-found";
@@ -54,6 +53,7 @@ export { default as CartClientPage } from "./client/cart/cart-client";
 export { default as AccountPage } from "./client/account/account";
 export { default as AccountAddressPage } from "./client/account/account-delivery";
 export { default as AccountOrderPage } from "./client/account/account-order";
+export { default as CustomerWishlistPage } from "./client/account/CustomerWishlist";
 
 // layouts page
 export { default as DefaultLayout } from "./layouts/default-layout";

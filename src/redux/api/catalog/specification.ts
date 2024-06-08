@@ -2,45 +2,40 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 
 import customFetchBase from "redux/api/customFetchBase";
 
-import { ISpecification } from "../types";
+import {
+  ISpecification,
+  ISpecificationPage,
+  ISpecificationInput,
+} from "share/types/specification";
 
 const specificationsApi = createApi({
   reducerPath: "specification",
   baseQuery: customFetchBase,
   tagTypes: ["add", "remove"],
   endpoints: (builder) => ({
-    getSpecifications: builder.query({
+    getSpecifications: builder.query<ISpecificationPage, any>({
       query: (params) => ({
         url: "/catalogs/specifications",
         method: "GET",
         params,
       }),
       providesTags: ["add", "remove"],
-      transformResponse: (
-        response: {
-          data: ISpecification[];
-          pageIndex: number;
-          pageSize: number;
-          totalCount: number;
-        },
-        meta,
-        arg
-      ) => response,
     }),
 
-    addSpecification: builder.mutation({
-      query: (data: { name: string; description: string }) => {
+    addSpecification: builder.mutation<ISpecification, ISpecificationInput>({
+      query: (data) => {
         return {
           url: "/catalogs/specifications",
           method: "POST",
           body: data,
         };
       },
+      transformResponse: ({ data }) => data,
       invalidatesTags: ["add"],
     }),
 
-    deleteSpecification: builder.mutation({
-      query: (specificationId: string) => ({
+    deleteSpecification: builder.mutation<boolean, string>({
+      query: (specificationId) => ({
         url: `/catalogs/specifications/${specificationId}`,
         method: "DELETE",
       }),

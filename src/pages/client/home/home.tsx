@@ -9,10 +9,12 @@ import { useGetProductHomeQuery } from "redux/api/catalog/product";
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
-  const { data, isSuccess } = useGetProductHomeQuery(null);
+  const { data, isSuccess } = useGetProductHomeQuery({});
 
   let renderData;
   if (isSuccess) {
+    console.log(data);
+
     renderData = data.map((item: any) => {
       const action = (
         <a href={item.href}>

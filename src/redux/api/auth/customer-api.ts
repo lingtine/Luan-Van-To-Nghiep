@@ -1,8 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { setUser } from "redux/features/auth/userSlice";
 import customFetchBase from "redux/api/customFetchBase";
-import { IUserDetail, ICustomerDetail, IDeliveryInfo } from "../types";
-
+import {
+  IUserDetail,
+  IDeliveryInput,
+  ICustomerDetail,
+  IWishlistProduct,
+} from "../types";
 const customerApi = createApi({
   reducerPath: "customer",
   baseQuery: customFetchBase,
@@ -14,6 +18,7 @@ const customerApi = createApi({
     "change-deliveryInfo-default",
     "add-wishlist",
     "delete-wishlist",
+    "get-wishlist",
   ],
   endpoints(builder) {
     return {
@@ -32,7 +37,7 @@ const customerApi = createApi({
         }) => response,
       }),
 
-      getCustomerDetail: builder.query({
+      getCustomerDetail: builder.query<any, void>({
         query: () => {
           return {
             method: "GET",
@@ -60,20 +65,14 @@ const customerApi = createApi({
         },
       }),
 
-      getCustomer: builder.mutation({
+      getCustomer: builder.mutation<ICustomerDetail, void>({
         query: () => {
           return {
             method: "GET",
             url: "customers/customers/info",
           };
         },
-        transformResponse: (response: {
-          data: ICustomerDetail;
-          pageIndex: number;
-          pageSize: number;
-          totalCount: number;
-        }) => response.data,
-
+        transformResponse: ({ data }) => data,
         async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
           try {
             const { data } = await queryFulfilled;
@@ -83,10 +82,10 @@ const customerApi = createApi({
       }),
 
       addDeliveryInfo: builder.mutation({
-        query: ({ id, ...rest }: IDeliveryInfo) => ({
+        query: (data: IDeliveryInput) => ({
           url: "/customers/customers/delivery-infos",
           method: "POST",
-          body: rest,
+          body: data,
         }),
         invalidatesTags: ["add-deliveryInfo"],
       }),
@@ -133,6 +132,26 @@ const customerApi = createApi({
 
         invalidatesTags: ["delete-wishlist"],
       }),
+
+      getWishlist: builder.query({
+        query: () => ({
+          url: "/customers/customers/wishlist",
+          method: "GET",
+        }),
+
+        transformResponse: (response: { data: IWishlistProduct[] }) =>
+          response.data,
+
+        providesTags: [
+          "User",
+          "add-deliveryInfo",
+          "remove-deliveryInfo",
+          "change-deliveryInfo-default",
+          "add-wishlist",
+          "delete-wishlist",
+          "get-wishlist",
+        ],
+      }),
     };
   },
 });
@@ -147,5 +166,6 @@ export const {
   useGetTotalCustomerQuery,
   useAddWishlistMutation,
   useDeleteWishlistMutation,
+  useGetWishlistQuery,
 } = customerApi;
 export default customerApi;

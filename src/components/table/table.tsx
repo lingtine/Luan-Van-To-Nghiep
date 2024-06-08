@@ -44,15 +44,15 @@ const Table = <T,>({ data, config }: TableProps<T>) => {
       );
     });
     return (
-      <tr key={index} className="even:bg-blue-gray-50/50  ">
+      <tr key={index} className="even:bg-blue-gray-50/50">
         {renderedColumns}
       </tr>
     );
   });
   return (
-    <Card className=" h-full w-full overflow-auto ">
-      <table className="w-full min-w-[800px] table-auto text-left overflow-auto">
-        <thead className="">
+    <Card className=" h-full w-full overflow-x-auto text-sm">
+      <table className="w-full min-w-[800px] table-auto text-left">
+        <thead className="text-sm">
           <tr className="whitespace-nowrap">{renderLabel}</tr>
         </thead>
         <tbody className="w-full">{renderedRow}</tbody>

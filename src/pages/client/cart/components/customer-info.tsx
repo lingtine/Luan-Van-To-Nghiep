@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { ICustomerDetail, IDeliveryInfo, ICoupon } from "redux/api/types";
+import { ICustomerDetail, IDeliveryInfo } from "redux/api/types";
 import { Link } from "react-router-dom";
 import { Button, Input, Radio, Textarea } from "@material-tailwind/react";
 import { useCreateOrderMutation } from "redux/api/order/order";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ICoupon } from "share/types/coupon";
+
 interface CustomerInfoProps {
   user: ICustomerDetail;
   coupon: ICoupon | undefined;

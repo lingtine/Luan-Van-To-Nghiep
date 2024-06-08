@@ -8,27 +8,17 @@ import { toast } from "react-toastify";
 import { useGetDiscountEventsQuery } from "redux/api/discount/discount-event";
 import { ISelected } from "components/select-box/select-box";
 import SelectBox from "components/select-box/select-box";
-
-interface IDataForm {
-  id: string;
-  name: string;
-  description: string;
-  reducedPrice: number;
-  quantity: number;
-  discountEventId: string;
-}
-
+import { ICouponInput } from "share/types/coupon";
 interface AddCouponProps {}
 
 const AddCoupon: React.FC<AddCouponProps> = () => {
   const navigate = useNavigate();
   const [addCoupon, { isSuccess }] = useCreateCouponMutation();
   const { data, isSuccess: getDiscountEventSuccess } =
-    useGetDiscountEventsQuery(null);
+    useGetDiscountEventsQuery({});
   const [selected, setSelected] = useState<ISelected>();
 
-  const [dataForm, setDataForm] = useState<IDataForm>({
-    id: "",
+  const [dataForm, setDataForm] = useState<ICouponInput>({
     name: "",
     description: "",
     discountEventId: "",

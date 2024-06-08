@@ -10,7 +10,7 @@ import {
 import React, { useEffect } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
 
-import { IProductDetailType } from "redux/api/types";
+import { IProductDetail } from "share/types/product";
 import { useFormatPrice } from "hooks/use-format-price";
 import { useAddToCartMutation } from "redux/api/cart/cart";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ import { IconButton } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 import { useAppSelector } from "redux/store";
 interface ProductCardProps {
-  data: IProductDetailType;
+  data: IProductDetail;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
@@ -94,7 +94,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
             </Typography>
           </div>
           <div className="flex-col justify-between items-center">
-            <Rating readonly value={data.numberOfStar} />
+            <Rating readonly value={Math.round(data.numberOfStar)} />
             <Typography color="blue-gray" className="font-medium text-right">
               {formatPrice.format(data.unitPrice)}
             </Typography>

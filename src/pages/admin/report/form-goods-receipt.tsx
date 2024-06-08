@@ -8,10 +8,10 @@ import { IReportInput } from "redux/api/types";
 import SelectBoxDataWarehouse from "./select-box-warehouse";
 import SelectBoxDataSupplier from "./select-box-supplier";
 import GetProducts from "./get-products";
-import { IProductDetailType } from "redux/api/types";
+import { IProductDetail } from "share/types/product";
 
 interface FormGoodsReceiptProps {}
-export interface IListProduct extends IProductDetailType {
+export interface IListProduct extends IProductDetail {
   quality: number;
 }
 const FormGoodsReceipt: React.FC<FormGoodsReceiptProps> = () => {
