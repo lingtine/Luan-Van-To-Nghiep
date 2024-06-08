@@ -22,6 +22,13 @@ import ProductReview from "./components/ProductReview";
 import ProductSpecification from "./components/ProductSpecification";
 import RelatedCarousel from "./components/RelatedCarousel";
 
+import {
+  useAddWishlistMutation,
+  useDeleteWishlistMutation,
+} from "redux/api/auth/customer-api";
+import ProductImage from "./components/ProductImage";
+
+
 function ProductDetailPage() {
   const { productId } = useParams();
   const navigate = useNavigate();
@@ -90,8 +97,7 @@ function ProductDetailPage() {
           <div className="container mx-auto my-20">
             {/* Main */}
             <div
-              className="
-            px-4 sm:px-6 lg:px-8 mt-6 flex flex-col lg:flex-row gap-4"
+              className="px-4 sm:px-6 lg:px-8 mt-6 flex flex-col lg:flex-row gap-4 max-h-[400px] h-[400px]"
             >
               <div className="basis-1/2  py-8 px-4 flex flex-col gap-4 border shadow-md rounded-lg relative">
                 <button
@@ -117,15 +123,17 @@ function ProductDetailPage() {
                   )}
                 </button>
 
-                <img
+                {/* <img
                   className="h-full w-full  max-h-[400px] object-contain "
                   src={
                     data.imageUrl ||
                     "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png"
                   }
                   alt={data.name}
-                />
+                /> */}
+                <ProductImage mainImage={data.imageUrl} relatedImages={data.productImages}/>
               </div>
+
               <div className="basis-1/2  py-8 px-4 flex flex-col gap-4 border shadow-md rounded-lg">
                 {data.isInStock || (
                   <p className="bg-[#ff563029] rounded w-fit text-sm uppercase text-[#B71D18] font-bold p-2">
