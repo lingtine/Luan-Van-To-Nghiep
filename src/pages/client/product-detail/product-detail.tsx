@@ -8,6 +8,10 @@ import InputQuantity from "components/input/input-quantity";
 import ProductDetailSkeleton from "components/skeleton/product-detail-skeleton";
 import { useNavigate } from "react-router-dom";
 import {
+  useAddWishlistMutation,
+  useDeleteWishlistMutation,
+} from "redux/api/auth/customer-api";
+import {
   useAddToCartMutation,
   useGetDetailCartQuery,
 } from "redux/api/cart/cart";
@@ -17,33 +21,19 @@ import { formatVND } from "utils/formatVND";
 import ProductReview from "./components/ProductReview";
 import ProductSpecification from "./components/ProductSpecification";
 import RelatedCarousel from "./components/RelatedCarousel";
-import {
-  useAddWishlistMutation,
-  useDeleteWishlistMutation,
-  useGetWishlistQuery,
-} from "redux/api/auth/customer-api";
 
 function ProductDetailPage() {
   const { productId } = useParams();
   const navigate = useNavigate();
   const { accessToken } = useAppSelector((state) => state.authSlice);
+  const [heart, setHeart] = useState(false);
 
-  const { data: wishlists } = useGetWishlistQuery([]);
   const { data, isLoading, isSuccess } = useGetProductDetailQuery(
     productId || "",
     {
       refetchOnFocus: true,
     }
   );
-
-  const [heart, setHeart] = useState(() => {
-    if (wishlists !== null) {
-      return wishlists?.some((x) => x.id === data?.id);
-    } else {
-      return false;
-    }
-  });
-  console.log("🚀 ~ const[heart,setHeart]=useState ~ heart:", heart);
 
   const [addWishlist] = useAddWishlistMutation();
   const [deleteWishlist] = useDeleteWishlistMutation();

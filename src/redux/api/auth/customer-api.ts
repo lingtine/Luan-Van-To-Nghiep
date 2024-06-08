@@ -19,6 +19,7 @@ const customerApi = createApi({
     "change-deliveryInfo-default",
     "add-wishlist",
     "delete-wishlist",
+    "get-wishlist",
   ],
   endpoints(builder) {
     return {
@@ -144,9 +145,19 @@ const customerApi = createApi({
           url: "/customers/customers/wishlist",
           method: "GET",
         }),
-        
+
         transformResponse: (response: { data: IWishlistProduct[] }) =>
           response.data,
+
+        providesTags: [
+          "User",
+          "add-deliveryInfo",
+          "remove-deliveryInfo",
+          "change-deliveryInfo-default",
+          "add-wishlist",
+          "delete-wishlist",
+          "get-wishlist",
+        ],
       }),
     };
   },

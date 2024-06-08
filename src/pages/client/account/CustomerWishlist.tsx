@@ -1,8 +1,15 @@
 import { useGetWishlistQuery } from "redux/api/auth/customer-api";
 import { formatVND } from "utils/formatVND";
+import { useNavigate } from "react-router-dom";
 
 const CustomerWishlist = () => {
-  const { data, isSuccess } = useGetWishlistQuery(null);
+  const { data, isSuccess } = useGetWishlistQuery({
+    refetchOnFocus: true,
+  });
+  const navigate = useNavigate();
+  const handleClick = (productId: string) => {
+    navigate(`/product-detail/${productId}`);
+  };
   return (
     <div className="max-h-[500px] overflow-y-scroll">
       <table className="table-fixed w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -25,7 +32,11 @@ const CustomerWishlist = () => {
         <tbody className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
           {isSuccess &&
             data.map((item) => (
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <tr
+                key={item.id}
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
+                onClick={() => handleClick(item.id)}
+              >
                 <td className="px-6 py-4">
                   <img src={item.imageUrl} alt="" className="w-10 h-10" />
                 </td>
