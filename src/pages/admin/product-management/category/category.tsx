@@ -1,106 +1,26 @@
-import React, { useState } from "react";
-import Table from "components/table/table";
+import { useState } from "react";
+
 import { Button, Spinner } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import Pagination from "components/pagination/pagitnation";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
-
-import { toast } from "react-toastify";
-import {
-  useGetCategoriesQuery,
-  useDeleteCategoryMutation,
-} from "redux/api/catalog/category";
 import { useParams } from "react-router-dom";
-import { ICategory } from "share/types/category";
-import {
-  ConfirmDialog,
-  IContentConfirm,
-} from "components/confirm-dialog/confirm-dialog";
-
-interface ICategoryTable extends ICategory {
-  index: number;
-}
+import { useGetCategoriesQuery } from "redux/api/catalog/category";
+import { ICategoryTable } from "share/types/category";
+import Pagination from "components/pagination/pagitnation";
+import CategoryTable from "./category-table";
+import ModalAddCategory from "./modal-add-category";
 
 const Category = () => {
   const { index } = useParams();
-  const [categoryRemove, setCategoryRemove] = useState<IContentConfirm>();
+  const [isAddNewCategory, setIsAddNewCategory] = useState(false);
 
   const { data, isSuccess, isLoading } = useGetCategoriesQuery({
     PageIndex: index,
   });
-  const [removeCategory, { isSuccess: removeSuccess }] =
-    useDeleteCategoryMutation();
-  const handleCategoryRemove = (data?: IContentConfirm) => {
-    if (data) {
-      setCategoryRemove(() => {
-        return data;
-      });
-    } else {
-      setCategoryRemove(undefined);
-    }
+
+  const handleToggleAddNew = () => {
+    setIsAddNewCategory(!isAddNewCategory);
   };
-  const configData = [
-    {
-      label: "STT",
-      render: (data: ICategoryTable) => {
-        return data.index;
-      },
-    },
-    {
-      label: "Tên Danh Mục",
-      render: (data: ICategoryTable) => {
-        return data.name;
-      },
-    },
-
-    // Add category group
-    {
-      label: "Nhóm danh Mục",
-      render: (data: ICategoryTable) => {
-        return data.categoryGroup?.name;
-      },
-    },
-
-    {
-      label: "Miêu tả",
-      render: (data: ICategoryTable) => {
-        return data.description;
-      },
-    },
-
-    {
-      label: "Tuỳ chọn",
-      render: (data: ICategoryTable) => {
-        return (
-          <div className="flex gap-4 justify-end">
-            <Button
-              onClick={() => {
-                handleCategoryRemove({
-                  id: data.id,
-                  title: `Bạn có muốn xoá danh mục ${data.name}`,
-                  content:
-                    "Thao tác này sẽ xóa bản ghi. Một khi đã xóa thì không thể khôi phục lại.",
-                });
-              }}
-              color="red"
-            >
-              Xoá
-            </Button>
-          </div>
-        );
-      },
-    },
-  ];
-
-  useEffect(() => {
-    if (removeSuccess) {
-      toast.success("Xoá thành công");
-    }
-  }, [removeSuccess]);
-
-  let content: React.ReactNode;
-
+  let content;
   if (isSuccess) {
     const { pageSize, pageIndex } = data;
 
@@ -110,13 +30,13 @@ const Category = () => {
     }));
     content = (
       <>
-        <Table config={configData} data={updateData}></Table>
+        <CategoryTable data={updateData} />
         <div className="flex justify-center my-8">
           <Pagination
             pageIndex={data.pageIndex}
             pageSize={data.pageSize}
             totalCount={data.totalCount}
-            url="/admin/category"
+            url={"/admin/category"}
           />
         </div>
       </>
@@ -130,26 +50,19 @@ const Category = () => {
   }
 
   return (
-    <div className="px-4 ">
+    <div className="px-4">
       <div className="flex justify-end my-4">
-        <Link to="/admin/category/add-category">
-          <Button className="flex gap-2 items-center">
-            <AiOutlinePlusCircle />
-            Thêm danh mục
-          </Button>
-        </Link>
+        <Button
+          className="flex gap-2 items-center"
+          onClick={handleToggleAddNew}
+        >
+          <AiOutlinePlusCircle />
+          Thêm danh mục
+        </Button>
       </div>
       {content}
-      <ConfirmDialog
-        data={categoryRemove}
-        setData={handleCategoryRemove}
-        handleConfirm={() => {
-          if (categoryRemove) {
-            removeCategory(categoryRemove.id);
-            handleCategoryRemove();
-          }
-        }}
-      />
+
+      {isAddNewCategory && <ModalAddCategory onToggle={handleToggleAddNew} />}
     </div>
   );
 };

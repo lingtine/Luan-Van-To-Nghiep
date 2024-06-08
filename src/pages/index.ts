@@ -2,7 +2,6 @@
 export { default as BrandPage } from "./admin/product-management/brand/brand";
 export { default as AddBrandPage } from "./admin/product-management/brand/add-brand";
 export { default as CategoryAdminPage } from "./admin/product-management/category/category";
-export { default as AddCategoryPage } from "./admin/product-management/category/add-category";
 export { default as CategoryGroupPage } from "./admin/product-management/category-group/category-group";
 export { default as AddCategoryGroupPage } from "./admin/product-management/category-group/add-category-group";
 export { default as CustomersPage } from "./admin/customers/customers";

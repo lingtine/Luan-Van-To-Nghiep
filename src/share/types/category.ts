@@ -28,3 +28,7 @@ export interface ICategoryPage {
   pageSize: number;
   totalCount: number;
 }
+
+export interface ICategoryTable extends ICategory {
+  index: number;
+}

@@ -19,7 +19,7 @@ const brandApi = createApi({
         url: "/catalogs/brands/all",
         method: "GET",
       }),
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
 
       providesTags: ["brand"],
     }),
@@ -37,7 +37,7 @@ const brandApi = createApi({
         method: "GET",
         params,
       }),
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
     addBrand: builder.mutation<IBrand[], IBrandInput>({
       query: (data) => {
@@ -53,7 +53,7 @@ const brandApi = createApi({
           formData: true,
         };
       },
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
       invalidatesTags: ["brand"],
     }),
     getBrand: builder.query<IBrand, string>({
@@ -61,7 +61,7 @@ const brandApi = createApi({
         url: `/catalogs/brands/${brandId}`,
         method: "GET",
       }),
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
     updateBrand: builder.mutation<IBrand, IBrandInput>({
       query: (data) => {
@@ -81,7 +81,7 @@ const brandApi = createApi({
           formData: true,
         };
       },
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
     deleteBrand: builder.mutation<boolean, string>({
       query: (brandId) => ({
@@ -89,7 +89,7 @@ const brandApi = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["brand"],
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
   }),
 });

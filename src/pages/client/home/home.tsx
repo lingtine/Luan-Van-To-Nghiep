@@ -13,6 +13,8 @@ const Home: React.FC<HomeProps> = () => {
 
   let renderData;
   if (isSuccess) {
+    console.log(data);
+
     renderData = data.map((item: any) => {
       const action = (
         <a href={item.href}>

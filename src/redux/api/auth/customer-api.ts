@@ -67,8 +67,7 @@ const customerApi = createApi({
             url: "customers/customers/info",
           };
         },
-        transformResponse: ({ data }) => ({ ...data }),
-
+        transformResponse: ({ data }) => data,
         async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
           try {
             const { data } = await queryFulfilled;

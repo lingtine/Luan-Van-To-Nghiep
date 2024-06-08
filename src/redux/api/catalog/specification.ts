@@ -30,7 +30,7 @@ const specificationsApi = createApi({
           body: data,
         };
       },
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
       invalidatesTags: ["add"],
     }),
 

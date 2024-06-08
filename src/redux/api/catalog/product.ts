@@ -35,7 +35,7 @@ const productApi = createApi({
           IsOrderDesc: true,
         },
       }),
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
     getProducts: builder.query<IProductPage, IProductParams>({
       query: (params) => ({
@@ -59,7 +59,7 @@ const productApi = createApi({
         method: "GET",
         params,
       }),
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
     addProduct: builder.mutation<IProductDetail, IProductInput>({
       query: (data) => {
@@ -90,8 +90,7 @@ const productApi = createApi({
           body: bodyFormData,
         };
       },
-      transformResponse: ({ data }) => ({ ...data }),
-
+      transformResponse: ({ data }) => data,
       invalidatesTags: ["add-product"],
     }),
     getProductHome: builder.query<IProductDetail[], IProductParams>({
@@ -100,7 +99,7 @@ const productApi = createApi({
         method: "GET",
         params: params,
       }),
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
       providesTags: [
         "add-product",
         "remove-product",
@@ -124,7 +123,7 @@ const productApi = createApi({
         "update-specifications",
       ],
 
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
     updateProduct: builder.mutation<IProductDetail, IProductInput>({
       query: (data) => {
@@ -159,7 +158,7 @@ const productApi = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["remove-product"],
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
     addSpecificationForProduct: builder.mutation<
       any,

@@ -12,14 +12,14 @@ import {
 const categoryApi = createApi({
   reducerPath: "category",
   baseQuery: customFetchBase,
-  tagTypes: ["category"],
+  tagTypes: ["ADD", "DELETE", "UPDATE"],
   endpoints: (builder) => ({
     getAllCategories: builder.query<ICategory[], void>({
       query: () => ({
         url: "/catalogs/categories/all",
         method: "GET",
       }),
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
     getCategories: builder.query<ICategoryPage, ICategoryParams>({
       query: (params) => ({
@@ -28,7 +28,7 @@ const categoryApi = createApi({
         params,
       }),
 
-      providesTags: ["category"],
+      providesTags: ["ADD", "UPDATE", "DELETE"],
     }),
     getCategoriesByParameters: builder.mutation<ICategory[], ICategoryParams>({
       query: (params) => ({
@@ -36,7 +36,7 @@ const categoryApi = createApi({
         method: "GET",
         params: params,
       }),
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
     addCategory: builder.mutation<ICategory, ICategoryInput>({
       query: (data) => {
@@ -46,17 +46,17 @@ const categoryApi = createApi({
           body: data,
         };
       },
-      transformResponse: ({ data }) => ({ ...data }),
-      invalidatesTags: ["category"],
+      transformResponse: ({ data }) => data,
+      invalidatesTags: ["ADD"],
     }),
     getCategory: builder.query<ICategory, string>({
       query: (categoryId) => ({
         url: `/catalogs/categories/${categoryId}`,
         method: "GET",
       }),
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
-    updateCategory: builder.mutation<ICategory, ICategory>({
+    updateCategory: builder.mutation<ICategory, ICategoryInput>({
       query: ({ id, ...rest }) => {
         return {
           url: `/catalogs/categories/${id}`,
@@ -64,15 +64,16 @@ const categoryApi = createApi({
           body: rest,
         };
       },
-      transformResponse: ({ data }) => ({ ...data }),
+      invalidatesTags: ["UPDATE"],
+      transformResponse: ({ data }) => data,
     }),
     deleteCategory: builder.mutation<boolean, string>({
       query: (categoryId) => ({
         url: `/catalogs/categories/${categoryId}`,
         method: "DELETE",
       }),
-      transformResponse: ({ data }) => ({ ...data }),
-      invalidatesTags: ["category"],
+      transformResponse: ({ data }) => data,
+      invalidatesTags: ["DELETE"],
     }),
   }),
 });

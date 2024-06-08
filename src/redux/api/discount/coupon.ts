@@ -31,7 +31,7 @@ const couponApi = createApi({
         body: data,
       }),
       invalidatesTags: ["add"],
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
 
     removeCoupon: build.mutation<boolean, string>({
@@ -40,7 +40,7 @@ const couponApi = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["remove"],
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
 
     changeStatusCoupon: build.mutation<ICoupon, string>({
@@ -49,7 +49,7 @@ const couponApi = createApi({
         method: "PUT",
       }),
       invalidatesTags: ["change-status"],
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
   }),
 });

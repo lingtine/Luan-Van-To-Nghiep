@@ -15,7 +15,7 @@ const employeeApi = createApi({
             url: "employees/employees/detail",
           };
         },
-        transformResponse: ({ data }) => ({ ...data }),
+        transformResponse: ({ data }) => data,
         async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
           try {
             const { data } = await queryFulfilled;
@@ -31,7 +31,7 @@ const employeeApi = createApi({
             url: "employees/employees/detail",
           };
         },
-        transformResponse: ({ data }) => ({ ...data }),
+        transformResponse: ({ data }) => data,
         async onQueryStarted(__, { dispatch, queryFulfilled, getState }) {
           try {
             const { data } = await queryFulfilled;

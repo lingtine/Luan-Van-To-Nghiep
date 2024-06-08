@@ -16,6 +16,7 @@ const cartApi = createApi({
         method: "GET",
       }),
       providesTags: ["add", "delete", "update"],
+      transformResponse: ({ data }) => data,
     }),
     addToCart: builder.mutation<any, IProductAddToCart>({
       query: (data) => {

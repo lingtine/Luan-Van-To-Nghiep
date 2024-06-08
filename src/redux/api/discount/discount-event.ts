@@ -31,7 +31,7 @@ const discountEventApi = createApi({
         body: data,
       }),
       invalidatesTags: ["add"],
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
 
     getAllDiscountEvents: build.query<IDiscountEvent[], void>({
@@ -40,7 +40,7 @@ const discountEventApi = createApi({
         method: "GET",
       }),
       providesTags: ["add", "change-status", "remove"],
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
 
     removeDiscountEvent: build.mutation<boolean, string>({
@@ -49,7 +49,7 @@ const discountEventApi = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["remove"],
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
 
     changeStatusDiscountEvent: build.mutation<
@@ -64,7 +64,7 @@ const discountEventApi = createApi({
         method: "PATCH",
       }),
       invalidatesTags: ["change-status"],
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
   }),
 });

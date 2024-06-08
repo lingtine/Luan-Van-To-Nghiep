@@ -91,7 +91,6 @@ function TableCategoryGroup({
   return (
     <>
       {content}
-
       {categoryGroup && (
         <ModalUpdateCategoryGroup
           categoryGroup={categoryGroup}

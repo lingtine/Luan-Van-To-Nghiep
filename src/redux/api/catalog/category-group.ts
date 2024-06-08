@@ -18,7 +18,7 @@ const categoryGroupApi = createApi({
         url: "/catalogs/category-groups/all",
         method: "GET",
       }),
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
     getCategoryGroups: builder.query<ICategoryGroupPage, ICategoryGroupParams>({
       query: (params) => ({
@@ -33,7 +33,7 @@ const categoryGroupApi = createApi({
         url: `/catalogs/category-groups/${categoryId}`,
         method: "GET",
       }),
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
     addCategoryGroup: builder.mutation<ICategoryGroup, ICategoryGroupInput>({
       query: (data) => {
@@ -43,7 +43,7 @@ const categoryGroupApi = createApi({
           body: data,
         };
       },
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
       invalidatesTags: ["add"],
     }),
 
@@ -52,7 +52,7 @@ const categoryGroupApi = createApi({
         url: `/catalogs/category-groups/${categoryGroupId}`,
         method: "DELETE",
       }),
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
       invalidatesTags: ["remove"],
     }),
     updateCategoryGroup: builder.mutation<ICategoryGroup, ICategoryGroupInput>({
@@ -64,7 +64,7 @@ const categoryGroupApi = createApi({
         };
       },
       invalidatesTags: ["update"],
-      transformResponse: ({ data }) => ({ ...data }),
+      transformResponse: ({ data }) => data,
     }),
   }),
 });
