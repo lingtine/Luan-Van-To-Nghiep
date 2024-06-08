@@ -5,7 +5,7 @@ import {
   IUserDetail,
   ICustomerDetail,
   IDeliveryInfo,
-  IWishlistItem,
+  IWishlistProduct,
 } from "../types";
 
 const customerApi = createApi({
@@ -19,7 +19,6 @@ const customerApi = createApi({
     "change-deliveryInfo-default",
     "add-wishlist",
     "delete-wishlist",
-    "get-wishlist",
   ],
   endpoints(builder) {
     return {
@@ -145,7 +144,8 @@ const customerApi = createApi({
           url: "/customers/customers/wishlist",
           method: "GET",
         }),
-        transformResponse: (response: { data: IWishlistItem[] }) =>
+        
+        transformResponse: (response: { data: IWishlistProduct[] }) =>
           response.data,
       }),
     };

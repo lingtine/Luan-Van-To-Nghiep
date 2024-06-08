@@ -20,14 +20,15 @@ import RelatedCarousel from "./components/RelatedCarousel";
 import {
   useAddWishlistMutation,
   useDeleteWishlistMutation,
+  useGetWishlistQuery,
 } from "redux/api/auth/customer-api";
 
 function ProductDetailPage() {
-  const [heart, setHeart] = useState(false);
-
   const { productId } = useParams();
   const navigate = useNavigate();
   const { accessToken } = useAppSelector((state) => state.authSlice);
+
+  const { data: wishlists } = useGetWishlistQuery([]);
   const { data, isLoading, isSuccess } = useGetProductDetailQuery(
     productId || "",
     {
@@ -35,8 +36,17 @@ function ProductDetailPage() {
     }
   );
 
-  const [addWishlist, addWishlistResult] = useAddWishlistMutation();
-  const [deleteWishlist, deleteWishlistResult] = useDeleteWishlistMutation();
+  const [heart, setHeart] = useState(() => {
+    if (wishlists !== null) {
+      return wishlists?.some((x) => x.id === data?.id);
+    } else {
+      return false;
+    }
+  });
+  console.log("🚀 ~ const[heart,setHeart]=useState ~ heart:", heart);
+
+  const [addWishlist] = useAddWishlistMutation();
+  const [deleteWishlist] = useDeleteWishlistMutation();
 
   const { refetch } = useGetDetailCartQuery(null);
 
