@@ -9,8 +9,9 @@ import PaginationClient from "components/pagination/pagitcation-client";
 import { ICategory } from "redux/api/types";
 
 import { Button } from "@material-tailwind/react";
-import SelectBox from "components/select-box/select-box";
-import { ISelected } from "components/select-box/select-box";
+import SelectBox, { ISelected } from "components/select-box/select-box";
+import CategorySidebar from "./components/CategorySidebar";
+
 interface CategoryPageProps {}
 
 interface ISort extends ISelected {
@@ -110,12 +111,13 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
       <h2 className="text-2xl mx-4 lg:mx-0">Sản phẩm</h2>
       <div className="container flex flex-wrap lg:-mx-4   my-8">
         <div className="flex-[0_0_100%] max-w-[100%] lg:flex-[0_0_25%] lg:max-w-[25%] p-4">
-          <Sidebar
+          {/* <Sidebar
             categories={categories}
             onChangeCategories={handleChangeCategories}
             isInStock={isInStock}
             onChangeIsInStock={handleChangeIsInStock}
-          />
+          /> */}
+          <CategorySidebar />
           <Button
             onClick={handleCleanFilter}
             fullWidth
