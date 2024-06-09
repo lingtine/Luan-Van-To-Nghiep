@@ -1,16 +1,12 @@
 import { useState } from "react";
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Button, Rating } from "@material-tailwind/react";
 import InputQuantity from "components/input/input-quantity";
 import ProductDetailSkeleton from "components/skeleton/product-detail-skeleton";
-import { useNavigate } from "react-router-dom";
-import {
-  useAddWishlistMutation,
-  useDeleteWishlistMutation,
-} from "redux/api/auth/customer-api";
+
 import {
   useAddToCartMutation,
   useGetDetailCartQuery,
@@ -27,7 +23,6 @@ import {
   useDeleteWishlistMutation,
 } from "redux/api/auth/customer-api";
 import ProductImage from "./components/ProductImage";
-
 
 function ProductDetailPage() {
   const { productId } = useParams();
@@ -96,9 +91,7 @@ function ProductDetailPage() {
         {data && (
           <div className="container mx-auto my-20">
             {/* Main */}
-            <div
-              className="px-4 sm:px-6 lg:px-8 mt-6 flex flex-col lg:flex-row gap-4 max-h-[400px] h-[400px]"
-            >
+            <div className="px-4 sm:px-6 lg:px-8 mt-6 flex flex-col lg:flex-row gap-4 max-h-[400px] h-[400px]">
               <div className="basis-1/2  py-8 px-4 flex flex-col gap-4 border shadow-md rounded-lg relative">
                 <button
                   className="absolute top-2 left-2 z-20"
@@ -131,7 +124,10 @@ function ProductDetailPage() {
                   }
                   alt={data.name}
                 /> */}
-                <ProductImage mainImage={data.imageUrl} relatedImages={data.productImages}/>
+                <ProductImage
+                  mainImage={data.imageUrl}
+                  relatedImages={data.productImages}
+                />
               </div>
 
               <div className="basis-1/2  py-8 px-4 flex flex-col gap-4 border shadow-md rounded-lg">
