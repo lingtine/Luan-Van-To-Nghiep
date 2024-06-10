@@ -25,6 +25,18 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
   const [categories, setCategories] = useState<ICategory[] | null>(null);
   const [isInStock, setIsInStock] = useState<{ status: boolean } | null>(null);
 
+  const [isClear, setIsClear] = useState(false);
+  console.log("🚀 ~ isClear:", isClear);
+
+  const [parameters, setParameters] = useState<
+    | {
+        brands: IBrand[];
+        categories: ICategory[];
+        filters: IFilter[];
+      }
+    | undefined
+  >(undefined);
+
   const { data, isSuccess } = useGetProductsQuery({
     CategoryGroupId: categoryId,
     PageIndex: pageCurrent,
@@ -38,6 +50,7 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
   const handleChangePageIndex = (index: number) => {
     setPageCurrent(index);
   };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     setSort(null);
@@ -47,6 +60,7 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pageCurrent]);
+
   const handleChangeCategories = (item: ICategory) => {
     setCategories(() => {
       if (categories) {
@@ -63,6 +77,7 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
     });
     setPageCurrent(0);
   };
+
   const handleChangeIsInStock = (status: boolean | null) => {
     if (status === null) {
       setIsInStock(null);
@@ -73,8 +88,8 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
   };
 
   const handleCleanFilter = () => {
-    setCategories(null);
-    setIsInStock(null);
+    console.log("Handle clear");
+    setIsClear((prev) => !prev);
     setPageCurrent(0);
   };
 
@@ -83,8 +98,8 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
     categories: ICategory[];
     filters: IFilter[];
   }) => {
-    console.log("handle filter product", parameters)
-  }
+    setParameters(parameters);
+  };
 
   const options: ISort[] = [
     {
@@ -126,6 +141,7 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
           /> */}
 
           <CategorySidebar
+            isClear={isClear}
             groupId={categoryId ?? ""}
             onFilter={handleFilter}
           />
@@ -134,7 +150,7 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
             className="mt-4"
             onClick={handleCleanFilter}
             fullWidth
-            disabled={categories === null && isInStock === null}
+            // disabled
           >
             Xoá bộ lọc
           </Button>
