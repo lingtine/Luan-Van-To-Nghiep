@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import customFetchBase from "../customFetchBase";
-import { IAddFilter, IFilter } from "../types";
+import { IAddFilter, IFilter, IFilterOfGroup } from "../types";
 
 const filterApi = createApi({
   reducerPath: "filter",
@@ -27,8 +27,7 @@ const filterApi = createApi({
         url: `/catalogs/filters/${groupId}`,
         method: "GET",
       }),
-      transformResponse: (response: { filters: IFilter[] }) =>
-        response.filters || [],
+      transformResponse: (response: { data: IFilterOfGroup }) => response,
       providesTags: ["add-filter", "update-filter"],
     }),
     addFilter: builder.mutation({

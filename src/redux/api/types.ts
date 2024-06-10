@@ -396,9 +396,19 @@ export interface IFilter {
   values: string[];
 }
 
+export interface IFilterOfGroup {
+  categoryGroupId: string;
+  filterModels: IFilter[]
+}
+
 export interface IAddFilter {
   filterName: string;
   specificationId: string;
   categoryGroupId: string;
   values: string[];
+}
+
+export interface IFilterProduct{
+  specificationId: string,
+  value: string
 }

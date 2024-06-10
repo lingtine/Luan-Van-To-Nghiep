@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "./components/sidebar";
 import CategoryList from "./components/category-list";
 
-import { useGetProductsQuery } from "redux/api/catalog/product";
 import { useParams } from "react-router-dom";
+import { useGetProductsQuery } from "redux/api/catalog/product";
 
 import PaginationClient from "components/pagination/pagitcation-client";
-import { ICategory } from "redux/api/types";
+import { IBrand, ICategory, IFilter } from "redux/api/types";
 
 import { Button } from "@material-tailwind/react";
 import SelectBox, { ISelected } from "components/select-box/select-box";
@@ -79,6 +78,14 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
     setPageCurrent(0);
   };
 
+  const handleFilter = (parameters: {
+    brands: IBrand[];
+    categories: ICategory[];
+    filters: IFilter[];
+  }) => {
+    console.log("handle filter product", parameters)
+  }
+
   const options: ISort[] = [
     {
       id: Math.random.toString(),
@@ -117,8 +124,14 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
             isInStock={isInStock}
             onChangeIsInStock={handleChangeIsInStock}
           /> */}
-          <CategorySidebar />
+
+          <CategorySidebar
+            groupId={categoryId ?? ""}
+            onFilter={handleFilter}
+          />
+
           <Button
+            className="mt-4"
             onClick={handleCleanFilter}
             fullWidth
             disabled={categories === null && isInStock === null}
