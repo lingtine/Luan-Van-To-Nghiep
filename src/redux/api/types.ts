@@ -90,7 +90,6 @@ export interface IGenericResponse {
   message: string;
 }
 
-
 export interface IOrder {
   id?: string;
   couponId: string;
@@ -154,14 +153,6 @@ export interface IWarehouse {
   type: string;
 }
 
-export interface ISupplier {
-  id: string;
-  name: string;
-  description: string;
-  address: string;
-  phoneNumber: string;
-  email: string;
-}
 export interface IStock {
   id: string;
   productId: string;

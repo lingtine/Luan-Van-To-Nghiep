@@ -2,41 +2,61 @@ import customFetchBase from "../customFetchBase";
 
 import { createApi } from "@reduxjs/toolkit/query/react";
 
-import { ISupplier } from "../types";
+import { ISupplier, ISupplierInput, ISupplierPage } from "share/types/supplier";
 
 const supplierApi = createApi({
   reducerPath: "supplier",
   baseQuery: customFetchBase,
-  tagTypes: ["add", "remove"],
+  tagTypes: ["add", "remove", "update"],
   endpoints: (build) => ({
-    getSuppliers: build.query({
-      query: (params) => ({
+    getSuppliers: build.query<ISupplierPage, void>({
+      query: () => ({
         url: "/warehouses/suppliers",
         method: "GET",
-        params,
       }),
-      providesTags: ["add", "remove"],
-      transformResponse: (response: {
-        data: ISupplier[];
-        pageIndex: number;
-        pageSize: number;
-        totalCount: number;
-      }) => response,
+      providesTags: ["add", "remove", "update"],
     }),
-    createSupplier: build.mutation({
-      query: ({ id, ...ref }: ISupplier) => ({
+    getSupplierDetail: build.query<ISupplier, string>({
+      query: (supplierId) => ({
+        url: `/warehouses/suppliers/${supplierId}`,
+        method: "GET",
+      }),
+      transformResponse: ({ data }) => data,
+      providesTags: ["add", "remove", "update"],
+    }),
+    createSupplier: build.mutation<ISupplier, ISupplierInput>({
+      query: (data) => ({
         url: "/warehouses/suppliers",
         method: "POST",
-        body: ref,
+        body: data,
       }),
+      transformResponse: ({ data }) => data,
       invalidatesTags: ["add"],
     }),
-    removeSupplier: build.mutation({
-      query: (supplierId: string) => ({
+    removeSupplier: build.mutation<boolean, string>({
+      query: (supplierId) => ({
         url: `/warehouses/suppliers/${supplierId}`,
         method: "DELETE",
       }),
+      transformResponse: ({ data }) => data,
       invalidatesTags: ["remove"],
+    }),
+    updateSupplier: build.mutation<ISupplier, ISupplierInput>({
+      query: (data) => ({
+        url: `/warehouses/suppliers/${data.id}`,
+        method: "PUT",
+        body: data,
+      }),
+      transformResponse: ({ data }) => data,
+      invalidatesTags: ["update"],
+    }),
+    restoreSupplier: build.mutation<ISupplier, string>({
+      query: (supplierId) => ({
+        url: `/warehouses/suppliers/restore/${supplierId}`,
+        method: "PUT",
+      }),
+      transformResponse: ({ data }) => data,
+      invalidatesTags: ["update"],
     }),
   }),
 });
@@ -45,5 +65,7 @@ export const {
   useGetSuppliersQuery,
   useCreateSupplierMutation,
   useRemoveSupplierMutation,
+  useRestoreSupplierMutation,
+  useUpdateSupplierMutation,
 } = supplierApi;
 export default supplierApi;

@@ -14,18 +14,12 @@ import {
 
 import { useParams } from "react-router-dom";
 
-import { ISupplier } from "redux/api/types";
-
-interface ISupplierTable extends ISupplier {
-  index: number;
-}
+import { ISupplierTable, ISupplier } from "share/types/supplier";
 
 const Supplier = () => {
   const { index } = useParams();
 
-  const { data, isSuccess, isLoading } = useGetSuppliersQuery({
-    pageIndex: index,
-  });
+  const { data, isSuccess, isLoading } = useGetSuppliersQuery();
   const [removeSupplier, { isSuccess: removeSuccess }] =
     useRemoveSupplierMutation();
 

@@ -5,7 +5,7 @@ import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsImage } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 interface UploadImageProps {
-  onChange: Function;
+  onChange: (file: File) => void;
 }
 
 const UploadImage: React.FC<UploadImageProps> = ({ onChange }) => {

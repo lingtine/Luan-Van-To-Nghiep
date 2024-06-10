@@ -1,4 +1,5 @@
 export interface ISpecificationInput {
+  id?: string;
   name: string;
   description: string;
 }
@@ -11,4 +12,14 @@ export interface ISpecificationPage {
   pageIndex: number;
   pageSize: number;
   totalCount: number;
+}
+
+export interface ISpecificationParams {
+  Keyword?: string;
+  PageIndex?: string;
+  PageSize?: number;
+}
+
+export interface ISpecificationTable extends ISpecification {
+  index: number;
 }

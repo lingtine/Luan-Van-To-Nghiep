@@ -22,7 +22,7 @@ interface ISpecificationTable extends ISpecification {
 const Specification = () => {
   const { index } = useParams();
   const { data, isSuccess, isLoading } = useGetSpecificationsQuery({
-    pageIndex: index,
+    PageIndex: index,
   });
 
   const [removeSpecification, { isSuccess: removeSuccess }] =

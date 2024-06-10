@@ -23,3 +23,7 @@ export interface IBrandParams {
   PageIndex?: string;
   PageSize?: number;
 }
+
+export interface IBrandTable extends IBrand {
+  index: number;
+}
