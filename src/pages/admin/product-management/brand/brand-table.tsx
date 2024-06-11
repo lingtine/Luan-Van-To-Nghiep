@@ -62,7 +62,7 @@ const BrandTable: React.FC<ITable> = ({ data }) => {
               onClick={() => {
                 handleBrandRemove({
                   id: data.id,
-                  title: `Bạn có muốn xoá nhóm thương hiệu ${data.name}`,
+                  title: `Bạn có muốn xoá thương hiệu ${data.name}`,
                   content:
                     "Thao tác này sẽ xóa bản ghi. Một khi đã xóa thì không thể khôi phục lại.",
                 });
@@ -88,11 +88,7 @@ const BrandTable: React.FC<ITable> = ({ data }) => {
     setBrandUpdate(data);
   };
   const handleBrandRemove = (data?: IContentConfirm) => {
-    if (data) {
-      setBrandRemove(data);
-    } else {
-      setBrandRemove(undefined);
-    }
+    setBrandRemove(data);
   };
   return (
     <>

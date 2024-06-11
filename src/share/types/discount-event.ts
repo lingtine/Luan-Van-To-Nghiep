@@ -1,11 +1,17 @@
 export interface IDiscountEventInput {
+  id?: string;
+  name: string;
+  description: string;
+}
+
+export interface IDiscountEvent {
   id: string;
   name: string;
   description: string;
 }
 
-export interface IDiscountEvent extends IDiscountEventInput {
-  id: string;
+export interface IDiscountEventTable extends IDiscountEvent {
+  index: number;
 }
 
 export interface IDiscountEventPage {
@@ -20,6 +26,11 @@ export interface IDiscountEventParams {
   PageIndex?: string;
   PageSize?: number;
   Status?: DiscountEventStatus;
+}
+
+export interface IDiscountEventChangeStatus {
+  id: string;
+  status: DiscountEventStatus;
 }
 
 export type DiscountEventStatus = "Created" | "Effecting" | "Expired";

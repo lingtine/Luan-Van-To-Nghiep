@@ -65,7 +65,7 @@ const brandApi = createApi({
     }),
     updateBrand: builder.mutation<IBrand, IBrandInput>({
       query: (data) => {
-        var bodyFormData = new FormData();
+        const bodyFormData = new FormData();
         bodyFormData.append("Name", data.name);
         bodyFormData.append("Description", data.description);
         bodyFormData.append("Image", data.image);

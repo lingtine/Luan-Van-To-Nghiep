@@ -1,4 +1,5 @@
 export interface ICouponInput {
+  id?: string;
   name: string;
   description: string;
   reducedPrice: number;
@@ -6,8 +7,17 @@ export interface ICouponInput {
   discountEventId: string;
 }
 
-export interface ICoupon extends ICouponInput {
+export interface ICoupon {
   id: string;
+  name: string;
+  description: string;
+  reducedPrice: number;
+  quantity: number;
+  discountEventId: string;
+}
+
+export interface ICouponTable extends ICoupon {
+  index: number;
 }
 
 export interface ICouponPage {
@@ -21,5 +31,7 @@ export interface ICouponParams {
   Keyword?: string;
   PageIndex?: string;
   PageSize?: number;
-  CouponStatus?: "Created" | "Effecting" | "Expired";
+  CouponStatus?: CouponStatus;
 }
+
+export type CouponStatus = "Created" | "Effecting" | "Expired";

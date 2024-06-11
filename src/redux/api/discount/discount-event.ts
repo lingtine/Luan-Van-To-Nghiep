@@ -7,7 +7,7 @@ import {
   IDiscountEventInput,
   IDiscountEventPage,
   IDiscountEventParams,
-  DiscountEventStatus,
+  IDiscountEventChangeStatus,
 } from "share/types/discount-event";
 
 const discountEventApi = createApi({
@@ -51,13 +51,27 @@ const discountEventApi = createApi({
       invalidatesTags: ["remove"],
       transformResponse: ({ data }) => data,
     }),
+    getDiscountEventDetail: build.query<IDiscountEvent, string>({
+      query: (id) => ({
+        url: `/discounts/discounts/${id}`,
+        method: "GET",
+      }),
+      transformResponse: ({ data }) => data,
+    }),
+    updateDiscountEvent: build.mutation<IDiscountEvent, IDiscountEventInput>({
+      query: ({ id, ...rest }) => {
+        return {
+          url: `/discounts/discounts/${id}`,
+          method: "PUT",
+          body: rest,
+        };
+      },
 
+      transformResponse: ({ data }) => data,
+    }),
     changeStatusDiscountEvent: build.mutation<
       IDiscountEvent,
-      {
-        id: string;
-        status: DiscountEventStatus;
-      }
+      IDiscountEventChangeStatus
     >({
       query: ({ id, status }) => ({
         url: `/discounts/discounts/${id}/${status}`,
@@ -75,6 +89,8 @@ export const {
   useGetAllDiscountEventsQuery,
   useGetDiscountEventsQuery,
   useRemoveDiscountEventMutation,
+  useGetDiscountEventDetailQuery,
+  useUpdateDiscountEventMutation,
 } = discountEventApi;
 
 export default discountEventApi;

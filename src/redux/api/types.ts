@@ -76,13 +76,13 @@ export interface IWishlistItem {
 }
 
 export interface IUserDetail {
-  address: string | null;
-  department: IDepartment | null;
+  address?: string;
+  department?: IDepartment;
   email: string;
   id: string;
-  imageUrl: string | null;
+  imageUrl?: string;
   name: string;
-  phone: string | null;
+  phone?: string;
 }
 
 export interface IGenericResponse {
@@ -131,83 +131,6 @@ export interface IOrderAdmin {
     | "Delivered"
     | "Returned"
     | "Canceled";
-}
-
-export interface IWarehouseInput {
-  name: string;
-  description: string;
-  email: string;
-  address: string;
-  fax: string;
-  hotLine: string;
-  warehouseType: string;
-}
-export interface IWarehouse {
-  id: string;
-  name: string;
-  description: string;
-  email: string;
-  address: string;
-  fax: string;
-  hotLine: string;
-  type: string;
-}
-
-export interface IStock {
-  id: string;
-  productId: string;
-  warehouseId: string;
-  quantity: number;
-  isReceipt: boolean;
-}
-
-export interface IReportInput {
-  from?: string;
-  to?: string;
-  reportType: string;
-  description: string;
-  supplierId?: string;
-  reportProducts: {
-    productId: string;
-    quantity: number;
-  }[];
-}
-export interface IReport {
-  id: string;
-  from?: string;
-  to?: string;
-  reportType: string;
-  description: string;
-  supplierId?: string;
-  reportStatus: "Creative" | "Approved" | "Inspected" | "Cancelled";
-  createAt: string;
-  reportProducts: {
-    productId: string;
-    quantity: number;
-  }[];
-}
-
-export interface IGoodsReceipt {
-  id: string;
-  name: string;
-  description: string;
-  supplierId: string;
-  warehouseId: string;
-  items: {
-    productId: string;
-    quantity: number;
-  }[];
-}
-export interface IGoodsIssue {
-  id: string;
-  name: string;
-  description: string;
-  supplierId: string;
-  warehouseId: string;
-  items: {
-    productId: string;
-    quantity: number;
-  }[];
 }
 
 export interface ICartDetail {
@@ -267,10 +190,4 @@ export interface IReviewRequest {
   numberOfStar: number;
   comment: string;
   attachments?: FileList;
-}
-
-export interface IDepartmentInput {
-  name: string;
-  description: string;
-  employeeIds: string[];
 }

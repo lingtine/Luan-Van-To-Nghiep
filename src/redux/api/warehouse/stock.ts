@@ -2,26 +2,26 @@ import customFetchBase from "../customFetchBase";
 
 import { createApi } from "@reduxjs/toolkit/query/react";
 
-import { IStock } from "../types";
+import { IStock, IStockInput } from "share/types/stock";
 
 const stockApi = createApi({
   reducerPath: "productStock",
   baseQuery: customFetchBase,
-  tagTypes: ["add", "remove"],
+  tagTypes: ["add", "remove", "update"],
   endpoints: (build) => ({
-    getProductStocks: build.query({
+    getProductInStocks: build.query<IStock[], void>({
       query: () => ({
         url: "/warehouses/product-instock",
         method: "GET",
       }),
-      providesTags: ["add", "remove"],
-      transformResponse: (response: { data: IStock[] }) => response.data,
+      providesTags: ["add", "remove", "update"],
+      transformResponse: ({ data }) => data,
     }),
-    createProductStock: build.mutation({
-      query: ({ id, ...ref }: IStock) => ({
+    createProductInStock: build.mutation<IStock, IStockInput>({
+      query: (data) => ({
         url: "/warehouses/product-instock",
         method: "POST",
-        body: ref,
+        body: data,
       }),
       invalidatesTags: ["add"],
     }),
@@ -36,8 +36,8 @@ const stockApi = createApi({
 });
 
 export const {
-  useCreateProductStockMutation,
-  useGetProductStocksQuery,
+  useCreateProductInStockMutation,
+  useGetProductInStocksQuery,
   useRemoveProductStockMutation,
 } = stockApi;
 export default stockApi;

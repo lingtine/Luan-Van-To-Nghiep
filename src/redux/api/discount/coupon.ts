@@ -51,6 +51,42 @@ const couponApi = createApi({
       invalidatesTags: ["change-status"],
       transformResponse: ({ data }) => data,
     }),
+
+    getCouponUsed: build.mutation<ICoupon, string>({
+      query: (id) => {
+        return {
+          url: `/coupons/${id}/used`,
+          method: "GET",
+        };
+      },
+      transformResponse: ({ data }) => data,
+    }),
+
+    getMultiCoupon: build.mutation<ICoupon[], string[]>({
+      query: (data) => {
+        return {
+          url: "/discounts/coupons/GetByIds",
+          method: "POST",
+          body: data,
+        };
+      },
+      transformResponse: ({ data }) => data,
+    }),
+    getCouponDetail: build.query<ICoupon, string>({
+      query: (id) => ({
+        url: `/discounts/coupons/${id}`,
+        method: "GET",
+      }),
+      transformResponse: ({ data }) => data,
+    }),
+    updateCoupon: build.mutation<ICoupon, ICouponInput>({
+      query: ({ id, ...rest }) => ({
+        url: `/discounts/coupons/${id}`,
+        method: "PUT",
+        body: rest,
+      }),
+      transformResponse: ({ data }) => data,
+    }),
   }),
 });
 
@@ -59,6 +95,10 @@ export const {
   useCreateCouponMutation,
   useGetCouponsQuery,
   useRemoveCouponMutation,
+  useGetCouponDetailQuery,
+  useUpdateCouponMutation,
+  useGetCouponUsedMutation,
+  useGetMultiCouponMutation,
 } = couponApi;
 
 export default couponApi;
