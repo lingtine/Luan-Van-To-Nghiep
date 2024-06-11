@@ -7,6 +7,8 @@ import {
   IProductReport,
   IAddProductType,
   IProductAddSpecification,
+  IFilterProduct,
+  IFilterProductParameter,
 } from "../types";
 
 const productApi = createApi({
@@ -19,6 +21,7 @@ const productApi = createApi({
     "add-specifications",
     "update-specifications",
     "remove-specifications",
+    "filter-products"
   ],
   endpoints: (builder) => ({
     getProductCarousel: builder.query({
@@ -94,7 +97,7 @@ const productApi = createApi({
         return {
           url: "/catalogs/products",
           method: "POST",
-          body: bodyFormData        
+          body: bodyFormData,
         };
       },
       invalidatesTags: ["add-product"],
@@ -271,6 +274,16 @@ const productApi = createApi({
         method: "POST",
       }),
     }),
+
+    filterProductByParameter: builder.mutation({
+      query: (parameters: IFilterProductParameter) => ({
+        url: "http://localhost:5001/api/products/GetProductByParams",
+        body: parameters,
+        method: "POST",
+      }),
+      // transformResponse: (response) => response,
+      invalidatesTags: ["filter-products"]
+    }),
   }),
 });
 export const {
@@ -291,6 +304,7 @@ export const {
   useProductRevenueByIdReportingMutation,
   useProductRevenuePeriodicReportingMutation,
   useProductRevenueReportingMutation,
+  useFilterProductByParameterMutation,
 } = productApi;
 
 export default productApi;

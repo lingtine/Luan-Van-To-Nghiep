@@ -32,7 +32,6 @@ const CategorySidebar = ({
   const { data: brandData } = useGetAllBrandsQuery([]);
 
   useEffect(() => {
-    console.log("Clear state");
     setFilters([]);
     setBrands([]);
     setCategories([]);
@@ -75,9 +74,9 @@ const CategorySidebar = ({
 
   const handleFilter = () => {
     onFilter({
-      brands: brands,
-      categories: categories,
-      filters: filters,
+      brandIds: brands.map((x) => x.id),
+      categoryIds: categories.map((x) => x.id),
+      filterValues: filters,
     });
   };
 

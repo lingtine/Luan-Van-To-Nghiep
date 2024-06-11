@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import CategoryList from "./components/category-list";
 
 import { useParams } from "react-router-dom";
-import { useGetProductsQuery } from "redux/api/catalog/product";
+import {
+  useFilterProductByParameterMutation,
+  useGetProductsQuery,
+} from "redux/api/catalog/product";
 
 import PaginationClient from "components/pagination/pagitcation-client";
-import { IBrand, ICategory, IFilter } from "redux/api/types";
+import { IBrand, ICategory, IFilter, IFilterProduct } from "redux/api/types";
 
 import { Button } from "@material-tailwind/react";
 import SelectBox, { ISelected } from "components/select-box/select-box";
@@ -26,16 +29,18 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
   const [isInStock, setIsInStock] = useState<{ status: boolean } | null>(null);
 
   const [isClear, setIsClear] = useState(false);
-  console.log("🚀 ~ isClear:", isClear);
 
   const [parameters, setParameters] = useState<
     | {
-        brands: IBrand[];
-        categories: ICategory[];
-        filters: IFilter[];
+        brandIds: string[];
+        categoryIds: string[];
+        filterValues: IFilterProduct[];
       }
     | undefined
   >(undefined);
+
+  const [filterProductByParameter, result] =
+    useFilterProductByParameterMutation();
 
   const { data, isSuccess } = useGetProductsQuery({
     CategoryGroupId: categoryId,
@@ -52,6 +57,11 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
   };
 
   useEffect(() => {
+    console.log("🚀 ~ data:", data)
+    console.log("🚀 ~ result.data:", result.data);
+  }, [result.data]);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
     setSort(null);
     handleCleanFilter();
@@ -61,31 +71,31 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
     window.scrollTo(0, 0);
   }, [pageCurrent]);
 
-  const handleChangeCategories = (item: ICategory) => {
-    setCategories(() => {
-      if (categories) {
-        const category = categories.find((category) => category.id === item.id);
+  // const handleChangeCategories = (item: ICategory) => {
+  //   setCategories(() => {
+  //     if (categories) {
+  //       const category = categories.find((category) => category.id === item.id);
 
-        return category
-          ? categories.filter(function (category) {
-              return category.id !== item.id;
-            })
-          : [...categories, item];
-      } else {
-        return [item];
-      }
-    });
-    setPageCurrent(0);
-  };
+  //       return category
+  //         ? categories.filter(function (category) {
+  //             return category.id !== item.id;
+  //           })
+  //         : [...categories, item];
+  //     } else {
+  //       return [item];
+  //     }
+  //   });
+  //   setPageCurrent(0);
+  // };
 
-  const handleChangeIsInStock = (status: boolean | null) => {
-    if (status === null) {
-      setIsInStock(null);
-    } else {
-      setIsInStock({ status });
-    }
-    setPageCurrent(0);
-  };
+  // const handleChangeIsInStock = (status: boolean | null) => {
+  //   if (status === null) {
+  //     setIsInStock(null);
+  //   } else {
+  //     setIsInStock({ status });
+  //   }
+  //   setPageCurrent(0);
+  // };
 
   const handleCleanFilter = () => {
     console.log("Handle clear");
@@ -94,11 +104,15 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
   };
 
   const handleFilter = (parameters: {
-    brands: IBrand[];
-    categories: ICategory[];
-    filters: IFilter[];
+    brandIds: string[];
+    categoryIds: string[];
+    filterValues: IFilterProduct[];
   }) => {
-    setParameters(parameters);
+    filterProductByParameter({
+      categoryIds: parameters.categoryIds,
+      brandIds: parameters.brandIds,
+      filterValues: parameters.filterValues,
+    });
   };
 
   const options: ISort[] = [

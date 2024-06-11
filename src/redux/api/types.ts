@@ -398,7 +398,7 @@ export interface IFilter {
 
 export interface IFilterOfGroup {
   categoryGroupId: string;
-  filterModels: IFilter[]
+  filterModels: IFilter[];
 }
 
 export interface IAddFilter {
@@ -408,7 +408,12 @@ export interface IAddFilter {
   values: string[];
 }
 
-export interface IFilterProduct{
-  specificationId: string,
-  value: string
+export interface IFilterProduct {
+  specificationId: string;
+  value: string;
+}
+export interface IFilterProductParameter {
+  brandIds: string[];
+  categoryIds: string[];
+  filterValues: IFilterProduct[];
 }
