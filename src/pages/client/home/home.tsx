@@ -1,38 +1,27 @@
 import Banner from "./Banner";
 import Categories from "./Categories";
-import BoxTemplate from "components/box-template/box-template";
-import { Button } from "@material-tailwind/react";
 import CoreValue from "./Corevalue";
-import ProductsCarousel from "components/products/product-carousel";
 
 import { useGetProductHomeQuery } from "redux/api/catalog/product";
+import { useAppSelector } from "redux/store";
+import HomeProductBox from "./HomeProductBox";
+import WishlistCarousel from "./WishlistCarousel";
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
   const { data, isSuccess } = useGetProductHomeQuery({});
-
+  const { user } = useAppSelector((state) => state.userSlice);
   let renderData;
   if (isSuccess) {
     console.log(data);
 
-    renderData = data.map((item: any) => {
-      const action = (
-        <a href={item.href}>
-          <Button size="sm">Xem Tất Cả</Button>
-        </a>
-      );
-
-      return (
-        <BoxTemplate
-          title={item.groupName}
-          heading={item.groupName}
-          key={item.id}
-          action={action}
-        >
-          <ProductsCarousel lengthCarousel={4} products={item.products} />
-        </BoxTemplate>
-      );
-    });
+    renderData = data.map((item: any) => (
+      <HomeProductBox
+        heading={item.groupName}
+        title={item.groupName}
+        products={item.products}
+      />
+    ));
   }
 
   return (
@@ -40,6 +29,7 @@ const Home: React.FC<HomeProps> = () => {
       <Banner />
       <Categories />
       {renderData}
+      {user && <WishlistCarousel />}
       <CoreValue />
     </div>
   );
