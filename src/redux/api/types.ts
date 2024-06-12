@@ -413,6 +413,8 @@ export interface IFilterProduct {
   value: string;
 }
 export interface IFilterProductParameter {
+  pageSize?: number;
+  pageIndex?: number;
   brandIds: string[];
   categoryIds: string[];
   filterValues: IFilterProduct[];

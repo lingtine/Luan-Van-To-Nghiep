@@ -8,11 +8,18 @@ import {
 } from "redux/api/catalog/product";
 
 import PaginationClient from "components/pagination/pagitcation-client";
-import { IBrand, ICategory, IFilter, IFilterProduct } from "redux/api/types";
+import {
+  IBrand,
+  ICategory,
+  IFilter,
+  IFilterProduct,
+  IProductDetailType,
+} from "redux/api/types";
 
 import { Button } from "@material-tailwind/react";
 import SelectBox, { ISelected } from "components/select-box/select-box";
 import CategorySidebar from "./components/CategorySidebar";
+import { da } from "date-fns/locale";
 
 interface CategoryPageProps {}
 
@@ -25,19 +32,22 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
   const { categoryId } = useParams();
   const [sort, setSort] = useState<null | ISort>(null);
   const [pageCurrent, setPageCurrent] = useState<number>(0);
-  const [categories, setCategories] = useState<ICategory[] | null>(null);
   const [isInStock, setIsInStock] = useState<{ status: boolean } | null>(null);
-
+  const [products, setProducts] = useState<IProductDetailType[]>([]);
   const [isClear, setIsClear] = useState(false);
-
-  const [parameters, setParameters] = useState<
-    | {
-        brandIds: string[];
-        categoryIds: string[];
-        filterValues: IFilterProduct[];
-      }
-    | undefined
-  >(undefined);
+  
+  const [productData, setProductData] = useState<{
+    products: IProductDetailType[],
+    pageIndex: number;
+    pageSize: number;
+    totalCount: number;
+  }>({
+    products: [],
+    pageIndex: pageCurrent,
+    pageSize: 24,
+    totalCount: 1,
+  });
+  console.log("🚀 ~ productData:", productData)
 
   const [filterProductByParameter, result] =
     useFilterProductByParameterMutation();
@@ -57,8 +67,25 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
   };
 
   useEffect(() => {
-    console.log("🚀 ~ data:", data)
-    console.log("🚀 ~ result.data:", result.data);
+    setProducts(data?.data ?? []);
+    
+    setProductData({
+      products: data?.data ?? [],
+      pageIndex: data?.pageIndex ?? 0,
+      pageSize: data?.pageSize ?? 24,
+      totalCount: data?.totalCount ?? 24,
+    });
+
+  }, [data?.data]);
+
+  useEffect(() => {
+    setProducts(result.data?.data ?? []);
+    setProductData({
+      products: result.data?.data ?? [],
+      pageIndex: result.data?.pageIndex ?? 0,
+      pageSize: result.data?.pageSize ?? 24,
+      totalCount: result.data?.totalCount ?? 24,
+    });
   }, [result.data]);
 
   useEffect(() => {
@@ -98,9 +125,9 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
   // };
 
   const handleCleanFilter = () => {
-    console.log("Handle clear");
     setIsClear((prev) => !prev);
     setPageCurrent(0);
+    setProducts(data?.data ?? []);
   };
 
   const handleFilter = (parameters: {
@@ -108,7 +135,10 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
     categoryIds: string[];
     filterValues: IFilterProduct[];
   }) => {
+    
     filterProductByParameter({
+      pageSize: 24,
+      pageIndex: pageCurrent,
       categoryIds: parameters.categoryIds,
       brandIds: parameters.brandIds,
       filterValues: parameters.filterValues,
@@ -183,13 +213,13 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
 
           {isSuccess && (
             <>
-              <CategoryList data={data.data} />
+              <CategoryList data={productData.products} />
               <div className="flex justify-center my-8">
                 <PaginationClient
                   onChange={handleChangePageIndex}
                   pageIndex={pageCurrent}
-                  pageSize={data.pageSize}
-                  totalNumber={data.totalCount}
+                  pageSize={productData.pageSize}
+                  totalNumber={productData.totalCount}
                 />
               </div>
             </>

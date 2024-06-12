@@ -277,11 +277,18 @@ const productApi = createApi({
 
     filterProductByParameter: builder.mutation({
       query: (parameters: IFilterProductParameter) => ({
-        url: "http://localhost:5001/api/products/GetProductByParams",
+        url: "/catalogs/products/GetProductByParams",
         body: parameters,
         method: "POST",
       }),
-      // transformResponse: (response) => response,
+      transformResponse: (response: {
+        data: IProductDetailType[];
+        pageIndex: number;
+        pageSize: number;
+        totalCount: number;
+      }) => {
+        return response;
+      },
       invalidatesTags: ["filter-products"]
     }),
   }),

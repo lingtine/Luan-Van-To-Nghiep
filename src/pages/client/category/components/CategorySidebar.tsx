@@ -21,7 +21,7 @@ const CategorySidebar = ({
   const [brands, setBrands] = useState<IBrand[]>([]);
 
   const [isEnable, setIsEnable] = useState(true);
-
+  
   const { data: categoryData } = useGetCategoriesQuery({
     GroupId: groupId,
     PageSize: 1000,
@@ -63,11 +63,12 @@ const CategorySidebar = ({
     event: React.ChangeEvent<HTMLInputElement>,
     filter: IFilterProduct
   ) => {
+    console.log("🚀 ~ filter:", filter)
     if (event.target.checked) {
       setFilters((prev) => [...prev, filter]);
     } else {
-      setCategories((prev) =>
-        prev.filter((x) => x.id !== filter.specificationId)
+      setFilters((prev) =>
+        prev.filter((x) => x.specificationId !== filter.specificationId)
       );
     }
   };
