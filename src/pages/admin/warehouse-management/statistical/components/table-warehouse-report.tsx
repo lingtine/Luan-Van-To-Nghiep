@@ -1,7 +1,9 @@
 import React from "react";
 import Table from "components/table/table";
+import { ITransportReport, IProductReport } from "share/types/report";
+
 interface TableWarehouseReportProps {
-  data: [];
+  data: ITransportReport[] | IProductReport[];
   type: boolean;
 }
 

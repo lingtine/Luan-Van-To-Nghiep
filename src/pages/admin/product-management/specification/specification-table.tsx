@@ -51,8 +51,6 @@ const SpecificationTable: React.FC<ITable> = ({ data }) => {
     {
       label: "Tuỳ chọn",
       render: (data: ISpecificationTable) => {
-        const { index, ...rest } = data;
-
         return (
           <div className="flex gap-4 justify-end">
             <IconButton

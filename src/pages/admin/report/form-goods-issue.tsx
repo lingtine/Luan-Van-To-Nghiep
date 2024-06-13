@@ -4,9 +4,8 @@ import { useCreateReportMutation } from "redux/api/warehouse/report";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { IReportInput } from "redux/api/types";
 import SelectBoxDataWarehouse from "./select-box-warehouse";
-
+import { IReportInput } from "share/types/report";
 import GetProducts from "./get-products";
 import { IProductDetail } from "share/types/product";
 

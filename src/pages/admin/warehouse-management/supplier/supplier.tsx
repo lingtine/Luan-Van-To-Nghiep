@@ -1,35 +1,20 @@
-import React from "react";
-import Table from "components/table/table";
+import React, { useState } from "react";
 import { Button, Spinner } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import Pagination from "components/pagination/pagitnation";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useGetSuppliersQuery } from "redux/api/warehouse/supplier";
 
-import { toast } from "react-toastify";
-import {
-  useGetSuppliersQuery,
-  useRemoveSupplierMutation,
-} from "redux/api/warehouse/supplier";
-
-import { useParams } from "react-router-dom";
-
-import { ISupplierTable, ISupplier } from "share/types/supplier";
+import SupplierTable from "./supplier-table";
+import { ISupplierTable } from "share/types/supplier";
+import ModalAddSupplier from "./modal-add-supplier";
 
 const Supplier = () => {
-  const { index } = useParams();
-
   const { data, isSuccess, isLoading } = useGetSuppliersQuery();
-  const [removeSupplier, { isSuccess: removeSuccess }] =
-    useRemoveSupplierMutation();
-
-  useEffect(() => {
-    if (removeSuccess) {
-      toast.success("Xoá thành công");
-    }
-  }, [removeSuccess]);
-
+  const [isAdd, setIsAdd] = useState(false);
   let content: React.ReactNode;
+
+  const handleToggleAdd = () => {
+    setIsAdd(!isAdd);
+  };
 
   if (isSuccess) {
     const updateData: ISupplierTable[] = data.data.map((item, index) => ({
@@ -38,14 +23,15 @@ const Supplier = () => {
     }));
     content = (
       <>
-        <div className="flex justify-center my-8">
+        <SupplierTable data={updateData} />
+        {/* <div className="flex justify-center my-8">
           <Pagination
-            pageIndex={data.pageIndex}
-            pageSize={data.pageSize}
-            totalCount={data.totalCount}
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            totalCount={totalCount}
             url="/admin/suppliers"
           />
-        </div>
+        </div> */}
       </>
     );
   } else if (isLoading) {
@@ -59,14 +45,13 @@ const Supplier = () => {
   return (
     <div className="px-4 ">
       <div className="flex justify-end my-4">
-        <Link to="/admin/suppliers/add-supplier">
-          <Button className="flex gap-2 items-center">
-            <AiOutlinePlusCircle />
-            Thêm nhà cung cấp
-          </Button>
-        </Link>
+        <Button className="flex gap-2 items-center">
+          <AiOutlinePlusCircle />
+          Thêm nhà cung cấp
+        </Button>
       </div>
       {content}
+      {isAdd && <ModalAddSupplier onToggle={handleToggleAdd} />}
     </div>
   );
 };

@@ -12,17 +12,13 @@ import {
   useInspectReportMutation,
 } from "redux/api/warehouse/report";
 import { useParams } from "react-router-dom";
-import { IReport } from "redux/api/types";
-
-interface IReportTable extends IReport {
-  index: number;
-}
+import { IReportTable } from "share/types/report";
 
 const Report = () => {
   const { index } = useParams();
 
   const { data, isSuccess, isLoading } = useGetReportsQuery({
-    pageIndex: index,
+    PageIndex: index,
   });
   const [approveReport] = useApproveReportMutation();
   const [cancelReport] = useCancelReportMutation();

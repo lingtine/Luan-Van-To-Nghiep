@@ -5,15 +5,14 @@ import SelectBox from "components/select-box/select-box";
 
 interface SelectBoxDataWarehouseProps {
   getSelected: Function;
-  label: string
+  label: string;
 }
 
 const SelectBoxDataWarehouse: React.FC<SelectBoxDataWarehouseProps> = ({
   getSelected,
-  label
-
+  label,
 }) => {
-  const { data, isSuccess } = useGetWarehousesQuery(null);
+  const { data, isSuccess } = useGetWarehousesQuery({});
 
   const [selected, setSelected] = useState<ISelected>();
   const handleSelect = (option: ISelected) => {

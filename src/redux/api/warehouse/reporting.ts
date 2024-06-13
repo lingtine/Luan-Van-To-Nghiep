@@ -8,14 +8,14 @@ const reportingApi = createApi({
   baseQuery: customFetchBase,
   tagTypes: ["add", "remove", "change-status"],
   endpoints: (build) => ({
-    getProductReportByWarehouse: build.mutation<IProductReport, string>({
+    getProductReportByWarehouse: build.mutation<IProductReport[], string>({
       query: (warehouseId: string) => ({
         url: `/warehouses/Reporting/GetProductReport/${warehouseId}`,
         method: "GET",
       }),
       transformResponse: ({ data }) => data,
     }),
-    getTransportReportByWarehouse: build.mutation<ITransportReport, string>({
+    getTransportReportByWarehouse: build.mutation<ITransportReport[], string>({
       query: (warehouseId: string) => ({
         url: `/warehouses/Reporting/GetTransportReport/${warehouseId}`,
         method: "GET",

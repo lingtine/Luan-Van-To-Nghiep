@@ -6,7 +6,7 @@ export interface IWarehouseInput {
   address: string;
   fax: string;
   hotLine: string;
-  warehouseType: "Distribution" | "Retail";
+  warehouseType: WarehouseType;
 }
 export interface IWarehouse {
   id: string;
@@ -16,7 +16,11 @@ export interface IWarehouse {
   address: string;
   fax: string;
   hotLine: string;
-  type: string;
+  type: WarehouseType;
+}
+
+export interface IWarehouseTable extends IWarehouse {
+  index: number;
 }
 
 export interface IWarehousePage {
@@ -27,11 +31,13 @@ export interface IWarehousePage {
 }
 
 export interface IWarehouseParam {
-  WarehouseType?: "Distribution" | "Retail";
+  WarehouseType?: WarehouseType;
   Address?: string;
   Fax?: string;
   HotLine?: string;
   Keyword?: string;
-  PageIndex?: number;
+  PageIndex?: string;
   PageSize?: number;
 }
+
+export type WarehouseType = "Distribution" | "Retail";

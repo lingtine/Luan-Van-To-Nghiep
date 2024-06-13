@@ -47,9 +47,9 @@ const ReportWarehouse: React.FC<ReportWarehouseProps> = () => {
       }
     } else {
       if (typeReport === 1) {
-        getProductReport({});
+        getProductReport();
       } else if (typeReport === 2) {
-        getTransportReport({});
+        getTransportReport();
       }
     }
   };
@@ -75,10 +75,7 @@ const ReportWarehouse: React.FC<ReportWarehouseProps> = () => {
       !isTypeWarehouse
     ) {
       content = (
-        <TableWarehouseReport
-          type={true}
-          data={resultGetProductReport.data.data}
-        />
+        <TableWarehouseReport type={true} data={resultGetProductReport.data} />
       );
     } else if (resultGetProductReport.data.length === 0) {
       content = <p>Không có dữ liệu</p>;
@@ -93,7 +90,7 @@ const ReportWarehouse: React.FC<ReportWarehouseProps> = () => {
       content = (
         <TableWarehouseReport
           type={true}
-          data={resultGetProductReportByWarehouse.data.data}
+          data={resultGetProductReportByWarehouse.data}
         />
       );
     } else if (resultGetProductReportByWarehouse.data.length === 0) {
@@ -109,7 +106,7 @@ const ReportWarehouse: React.FC<ReportWarehouseProps> = () => {
       content = (
         <TableWarehouseReport
           type={false}
-          data={resultGetTransportReport.data.data}
+          data={resultGetTransportReport.data}
         />
       );
     } else if (resultGetTransportReport.data.length === 0) {
@@ -125,10 +122,10 @@ const ReportWarehouse: React.FC<ReportWarehouseProps> = () => {
       content = (
         <TableWarehouseReport
           type={false}
-          data={resultGetTransportReportByWarehouse.data.data}
+          data={resultGetTransportReportByWarehouse.data}
         />
       );
-    } else if (resultGetTransportReportByWarehouse.data.length === 0) {
+    } else if (!resultGetTransportReportByWarehouse.data.length) {
       content = <p>Không có dữ liệu</p>;
     }
   }

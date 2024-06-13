@@ -43,6 +43,10 @@ export interface IReport {
   }[];
 }
 
+export interface IReportTable extends IReport {
+  index: number;
+}
+
 export interface IReportPage {
   data: IReport[];
   pageIndex: number;
