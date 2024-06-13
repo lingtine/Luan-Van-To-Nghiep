@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CategoryList from "./components/category-list";
 
 import { useParams } from "react-router-dom";
@@ -9,25 +9,13 @@ import {
 
 import PaginationClient from "components/pagination/pagitcation-client";
 
-import {
-  IBrand,
-  ICategory,
-  IFilter,
-  IFilterProduct,
-  IProductDetailType,
-} from "redux/api/types";
+import { IFilterProduct } from "redux/api/types";
+
+import { IProductDetail } from "share/types/product";
 
 import CategorySidebar from "./components/CategorySidebar";
-import { da } from "date-fns/locale";
-
-interface CategoryPageProps {}
-
-import { ICategory } from "share/types/category";
-
 import { Button } from "@material-tailwind/react";
-import SelectBox from "components/select-box/select-box";
-import { ISelected } from "components/select-box/select-box";
-
+import SelectBox, { ISelected } from "components/select-box/select-box";
 
 interface ISort extends ISelected {
   IsOrderDesc: boolean;
@@ -39,11 +27,11 @@ const CategoryPage = () => {
   const [sort, setSort] = useState<ISort>();
   const [pageCurrent, setPageCurrent] = useState<number>(0);
   const [isInStock, setIsInStock] = useState<{ status: boolean } | null>(null);
-  const [products, setProducts] = useState<IProductDetailType[]>([]);
+  const [products, setProducts] = useState<IProductDetail[]>([]);
   const [isClear, setIsClear] = useState(false);
-  
+
   const [productData, setProductData] = useState<{
-    products: IProductDetailType[],
+    products: IProductDetail[];
     pageIndex: number;
     pageSize: number;
     totalCount: number;
@@ -53,7 +41,7 @@ const CategoryPage = () => {
     pageSize: 24,
     totalCount: 1,
   });
-  console.log("🚀 ~ productData:", productData)
+  console.log("🚀 ~ productData:", productData);
 
   const [filterProductByParameter, result] =
     useFilterProductByParameterMutation();
@@ -72,14 +60,13 @@ const CategoryPage = () => {
 
   useEffect(() => {
     setProducts(data?.data ?? []);
-    
+
     setProductData({
       products: data?.data ?? [],
       pageIndex: data?.pageIndex ?? 0,
       pageSize: data?.pageSize ?? 24,
       totalCount: data?.totalCount ?? 24,
     });
-
   }, [data?.data]);
 
   useEffect(() => {
@@ -139,7 +126,6 @@ const CategoryPage = () => {
     categoryIds: string[];
     filterValues: IFilterProduct[];
   }) => {
-    
     filterProductByParameter({
       pageSize: 24,
       pageIndex: pageCurrent,

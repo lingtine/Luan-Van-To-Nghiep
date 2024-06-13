@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { useGetAllBrandsQuery } from "redux/api/catalog/brand";
 import { useGetCategoriesQuery } from "redux/api/catalog/category";
 import { useGetFilterByGroupIdQuery } from "redux/api/catalog/filter";
-import { IBrand, ICategory, IFilterProduct } from "redux/api/types";
+import { IFilterProduct } from "redux/api/types";
+import { ICategory } from "share/types/category";
+import { IBrand } from "share/types/brand";
 
 interface ICategorySidebarProps {
   groupId: string;
@@ -21,7 +23,7 @@ const CategorySidebar = ({
   const [brands, setBrands] = useState<IBrand[]>([]);
 
   const [isEnable, setIsEnable] = useState(true);
-  
+
   const { data: categoryData } = useGetCategoriesQuery({
     GroupId: groupId,
     PageSize: 1000,
@@ -29,7 +31,7 @@ const CategorySidebar = ({
 
   const { data: filterData } = useGetFilterByGroupIdQuery(groupId);
 
-  const { data: brandData } = useGetAllBrandsQuery([]);
+  const { data: brandData } = useGetAllBrandsQuery();
 
   useEffect(() => {
     setFilters([]);
@@ -63,7 +65,7 @@ const CategorySidebar = ({
     event: React.ChangeEvent<HTMLInputElement>,
     filter: IFilterProduct
   ) => {
-    console.log("🚀 ~ filter:", filter)
+    console.log("🚀 ~ filter:", filter);
     if (event.target.checked) {
       setFilters((prev) => [...prev, filter]);
     } else {

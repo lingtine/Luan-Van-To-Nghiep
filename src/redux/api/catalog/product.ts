@@ -8,17 +8,10 @@ import {
   IProductParams,
   IProductSpecification,
   IProductReport,
-
-  IAddProductType,
-  IProductAddSpecification,
-  IFilterProduct,
-  IFilterProductParameter,
-} from "../types";
-import {
-  IDateReport,
-  IProductSpecificationInput,
 } from "share/types/product";
 
+import { IFilterProductParameter } from "../types";
+import { IDateReport, IProductSpecificationInput } from "share/types/product";
 
 const productApi = createApi({
   reducerPath: "product",
@@ -30,7 +23,7 @@ const productApi = createApi({
     "add-specifications",
     "update-specifications",
     "remove-specifications",
-    "filter-products"
+    "filter-products",
   ],
   endpoints: (builder) => ({
     getProductCarousel: builder.query<IProductDetail[], void>({
@@ -262,14 +255,14 @@ const productApi = createApi({
         method: "POST",
       }),
       transformResponse: (response: {
-        data: IProductDetailType[];
+        data: IProductDetail[];
         pageIndex: number;
         pageSize: number;
         totalCount: number;
       }) => {
         return response;
       },
-      invalidatesTags: ["filter-products"]
+      invalidatesTags: ["filter-products"],
     }),
   }),
 });

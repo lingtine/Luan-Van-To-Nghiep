@@ -48,11 +48,11 @@ const FilterForm = ({
   const [updateFilter] = useUpdateFilterMutation();
 
   const { data: specificationData } = useGetSpecificationsQuery({
-    pageSize: 9999,
+    PageSize: 9999,
   });
 
   const { data: categoryGroupData } = useGetCategoryGroupsQuery({
-    pageSize: 9999,
+    PageSize: 9999,
   });
 
   const groupsOptions =
@@ -105,7 +105,7 @@ const FilterForm = ({
       specificationId: specification?.id ?? "",
       values: values,
     };
-    
+
     if (isUpdate) {
       updateFilter(filter);
     } else {

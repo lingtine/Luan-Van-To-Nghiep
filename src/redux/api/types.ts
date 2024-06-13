@@ -62,9 +62,14 @@ export interface ICustomerDetail {
 export interface IWishlistProduct {
   id: string;
   name: string;
-
   description: string;
   imageUrl: string;
+  isActive: boolean;
+  isInStock: boolean;
+  likeCount: number;
+  numberOfStar: number;
+  unitPrice: number;
+  viewCount: number;
 }
 
 export interface IAddProductType {
@@ -88,9 +93,8 @@ export interface IProductAddSpecification {
 export interface IProductType {
   id: string;
   name: string;
-  description: string;
 
-  description?: string,
+  description?: string;
 
   unitPrice: number;
   isActive: boolean;
