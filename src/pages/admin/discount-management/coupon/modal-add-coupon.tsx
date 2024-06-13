@@ -42,6 +42,10 @@ function ModalAddCoupon({ onToggle }: { onToggle: () => void }) {
 
   const handleSelect = (option: ISelected) => {
     setSelected(option);
+    setDataForm(() => ({
+      ...dataForm,
+      discountEventId: option.id,
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -49,7 +53,10 @@ function ModalAddCoupon({ onToggle }: { onToggle: () => void }) {
 
     if (
       dataForm.name.trim().length === 0 ||
-      dataForm.description.trim().length === 0
+      dataForm.description.trim().length === 0 ||
+      dataForm.quantity !== 0 ||
+      dataForm.reducedPrice === 0 ||
+      dataForm.discountEventId.trim().length === 0
     ) {
       toast.error("Thông tin không hợp lệ");
     } else {
@@ -57,13 +64,13 @@ function ModalAddCoupon({ onToggle }: { onToggle: () => void }) {
     }
   };
 
-  let content;
+  let selectBoxDiscountEvent;
   if (getDiscountEventSuccess) {
     const updateData = data.data.map((item) => ({
       ...item,
       label: item.name,
     }));
-    content = (
+    selectBoxDiscountEvent = (
       <SelectBox
         onChange={handleSelect}
         options={updateData}
@@ -107,7 +114,7 @@ function ModalAddCoupon({ onToggle }: { onToggle: () => void }) {
             type="number"
             label="Số tiền được giảm"
           />
-          {content}
+          {selectBoxDiscountEvent}
           <Textarea
             name="description"
             onChange={handleChange}

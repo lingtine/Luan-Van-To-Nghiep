@@ -38,7 +38,7 @@ const BrandTable: React.FC<ITable> = ({ data }) => {
         return (
           <div className="flex gap-4">
             <img className="w-8" src={data.imageUrl} alt={data.name} />
-            <p>{data.name}</p>
+            {/* <p>{data.name}</p> */}
           </div>
         );
       },

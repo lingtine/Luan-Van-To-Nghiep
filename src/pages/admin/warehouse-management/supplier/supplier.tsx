@@ -23,57 +23,6 @@ const Supplier = () => {
   const [removeSupplier, { isSuccess: removeSuccess }] =
     useRemoveSupplierMutation();
 
-  const configData = [
-    {
-      label: "STT",
-      render: (data: ISupplierTable) => {
-        return data.index;
-      },
-    },
-    {
-      label: "Tên nhà cung cấp",
-      render: (data: ISupplierTable) => {
-        return <div className="min-w-[160px]">{data.name}</div>;
-      },
-    },
-
-    {
-      label: "Email",
-      render: (data: ISupplierTable) => {
-        return data.email;
-      },
-    },
-    {
-      label: "Số điện thoại",
-      render: (data: ISupplierTable) => {
-        return <div className="min-w-[140px]">{data.phoneNumber}</div>;
-      },
-    },
-    {
-      label: "Địa chỉ",
-      render: (data: ISupplierTable) => {
-        return data.address;
-      },
-    },
-    {
-      label: "Tuỳ chọn",
-      render: (data: ISupplierTable) => {
-        return (
-          <div className="flex gap-4 justify-end">
-            <Button
-              onClick={() => {
-                removeSupplier(data.id);
-              }}
-              color="red"
-            >
-              Xoá
-            </Button>
-          </div>
-        );
-      },
-    },
-  ];
-
   useEffect(() => {
     if (removeSuccess) {
       toast.success("Xoá thành công");
@@ -89,7 +38,6 @@ const Supplier = () => {
     }));
     content = (
       <>
-        <Table config={configData} data={updateData}></Table>
         <div className="flex justify-center my-8">
           <Pagination
             pageIndex={data.pageIndex}

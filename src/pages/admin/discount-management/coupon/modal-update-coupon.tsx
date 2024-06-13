@@ -1,10 +1,11 @@
 import { useEffect, useState, memo } from "react";
-import Modal from "components/modal/modal";
-import { toast } from "react-toastify";
 import { Input, Textarea, Button } from "@material-tailwind/react";
-import { ICoupon, ICouponInput } from "share/types/coupon";
+import { toast } from "react-toastify";
+
 import { useUpdateCouponMutation } from "redux/api/discount/coupon";
 import { useGetDiscountEventsQuery } from "redux/api/discount/discount-event";
+import Modal from "components/modal/modal";
+import { ICoupon, ICouponInput } from "share/types/coupon";
 import SelectBox, { ISelected } from "components/select-box/select-box";
 function ModalUpdateCoupon({
   onToggle,
@@ -17,7 +18,6 @@ function ModalUpdateCoupon({
   const { data: discountData, isSuccess: getDiscountEventSuccess } =
     useGetDiscountEventsQuery({});
   const [selected, setSelected] = useState<ISelected>();
-
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [dataForm, setDataForm] = useState<ICouponInput>({
     ...data,
@@ -30,7 +30,10 @@ function ModalUpdateCoupon({
     }
     if (
       dataForm.description !== data.description ||
-      dataForm.name !== data.name
+      dataForm.name !== data.name ||
+      dataForm.discountEventId !== data.discountEventId ||
+      dataForm.quantity !== data.quantity ||
+      dataForm.reducedPrice !== data.reducedPrice
     ) {
       setIsUpdate(true);
     } else {
@@ -50,15 +53,19 @@ function ModalUpdateCoupon({
 
   const handleSelect = (option: ISelected) => {
     setSelected(option);
+    setDataForm(() => ({
+      ...dataForm,
+      discountEventId: option.id,
+    }));
   };
 
-  let content;
+  let selectBoxDiscountEvent;
   if (getDiscountEventSuccess) {
     const updateData = discountData.data.map((item) => ({
       ...item,
       label: item.name,
     }));
-    content = (
+    selectBoxDiscountEvent = (
       <SelectBox
         onChange={handleSelect}
         options={updateData}
@@ -71,7 +78,13 @@ function ModalUpdateCoupon({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (dataForm.name.trim().length === 0) {
+    if (
+      dataForm.name.trim().length === 0 ||
+      dataForm.description.trim().length === 0 ||
+      dataForm.quantity !== 0 ||
+      dataForm.reducedPrice === 0 ||
+      dataForm.discountEventId.trim().length === 0
+    ) {
       toast.error("Thông tin không hợp lệ");
     } else {
       update(dataForm);
@@ -113,7 +126,7 @@ function ModalUpdateCoupon({
             type="number"
             label="Số tiền được giảm"
           />
-          {content}
+          {selectBoxDiscountEvent}
           <Textarea
             name="description"
             onChange={handleChange}

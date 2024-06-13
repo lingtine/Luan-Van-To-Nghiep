@@ -8,17 +8,13 @@ import {
   ConfirmDialog,
 } from "components/confirm-dialog/confirm-dialog";
 import Table from "components/table/table";
-import {
-  ISpecification,
-  ISpecificationInput,
-  ISpecificationTable,
-} from "share/types/specification";
+import { ISpecification, ISpecificationTable } from "share/types/specification";
 import { toast } from "react-toastify";
 import ModalUpdateSpecification from "./modal-update-specification";
 interface ITable {
   data: ISpecificationTable[];
 }
-const BrandTable: React.FC<ITable> = ({ data }) => {
+const SpecificationTable: React.FC<ITable> = ({ data }) => {
   const [remove, resultRemove] = useDeleteSpecificationMutation();
   const [specificationRemove, setSpecificationRemove] =
     useState<IContentConfirm>();
@@ -122,4 +118,4 @@ const BrandTable: React.FC<ITable> = ({ data }) => {
   );
 };
 
-export default BrandTable;
+export default SpecificationTable;

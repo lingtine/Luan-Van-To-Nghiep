@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
+import { MdDelete, MdEdit } from "react-icons/md";
+import { toast } from "react-toastify";
+import { IconButton } from "@material-tailwind/react";
 
 import Table from "components/table/table";
 import { useRemoveCouponMutation } from "redux/api/discount/coupon";
-import { IconButton } from "@material-tailwind/react";
-import { MdDelete, MdEdit } from "react-icons/md";
 import {
   IContentConfirm,
   ConfirmDialog,
 } from "components/confirm-dialog/confirm-dialog";
-import { toast } from "react-toastify";
 import ModalUpdateDiscountEvent from "./modal-update-discount-event";
 import {
   IDiscountEvent,
@@ -31,14 +31,14 @@ function DiscountEventTable({ data }: ITable) {
       },
     },
     {
-      label: "Tên phiếu giảm giá",
+      label: "Tên sự kiện ",
       render: (data: IDiscountEventTable) => {
         return data.name;
       },
     },
 
     {
-      label: "Miêu tả phiếu giảm giá",
+      label: "Miêu tả sự kiện",
       render: (data: IDiscountEventTable) => {
         return data.description;
       },
@@ -52,7 +52,7 @@ function DiscountEventTable({ data }: ITable) {
               onClick={() => {
                 handleCouponRemove({
                   id: data.id,
-                  title: `Bạn có muốn xoá mã giảm giá ${data.name}`,
+                  title: `Bạn có muốn xoá sự kiện ${data.name}`,
                   content:
                     "Thao tác này sẽ xóa bản ghi. Một khi đã xóa thì không thể khôi phục lại.",
                 });

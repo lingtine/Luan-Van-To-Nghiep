@@ -1,20 +1,25 @@
-import React from "react";
-
+import React, { useState } from "react";
 import { Button, Spinner } from "@material-tailwind/react";
+import { useParams } from "react-router-dom";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import Pagination from "components/pagination/pagitnation";
 
 import { useGetCouponsQuery } from "redux/api/discount/coupon";
-import { useParams } from "react-router-dom";
+import Pagination from "components/pagination/pagitnation";
 import { ICouponTable } from "share/types/coupon";
 import CouponTable from "./coupon-table";
+import ModalAddCoupon from "./modal-add-coupon";
 
 const Coupon = () => {
   const { index } = useParams();
+  const [isAddNew, setIsAddNew] = useState(false);
 
   const { data, isSuccess, isLoading } = useGetCouponsQuery({
     PageIndex: index,
   });
+
+  const handleToggleAddNew = () => {
+    setIsAddNew(!isAddNew);
+  };
 
   let content: React.ReactNode;
 
@@ -55,6 +60,7 @@ const Coupon = () => {
         </Button>
       </div>
       {content}
+      {isAddNew && <ModalAddCoupon onToggle={handleToggleAddNew} />}
     </div>
   );
 };

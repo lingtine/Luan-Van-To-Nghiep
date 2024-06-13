@@ -1,7 +1,8 @@
-import { useEffect, useState, memo } from "react";
+import React, { useEffect, useState, memo } from "react";
 import Modal from "components/modal/modal";
 import { toast } from "react-toastify";
 import { Input, Textarea, Button } from "@material-tailwind/react";
+
 import { useUpdateDiscountEventMutation } from "redux/api/discount/discount-event";
 import {
   IDiscountEvent,

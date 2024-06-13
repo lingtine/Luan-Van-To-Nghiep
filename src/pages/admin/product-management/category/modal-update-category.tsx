@@ -28,7 +28,7 @@ function ModalUpdateCategory({
     } else {
       setIsUpdate(false);
     }
-  }, [result.isSuccess, dataForm]);
+  }, [result.isSuccess, dataForm, data, onToggle]);
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {

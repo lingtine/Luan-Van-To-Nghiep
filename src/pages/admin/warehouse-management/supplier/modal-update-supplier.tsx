@@ -2,21 +2,19 @@ import React, { useEffect, useState, memo } from "react";
 import Modal from "components/modal/modal";
 import { toast } from "react-toastify";
 import { Input, Textarea, Button } from "@material-tailwind/react";
-import { IBrand, IBrandInput } from "share/types/brand";
-import { useUpdateBrandMutation } from "redux/api/catalog/brand";
-
-function ModalUpdateBrand({
+import { ISupplier, ISupplierInput } from "share/types/supplier";
+import { useUpdateSupplierMutation } from "redux/api/warehouse/supplier";
+function ModalUpdateSupplier({
   onToggle,
   data,
 }: {
   onToggle: () => void;
-  data: IBrand;
+  data: ISupplier;
 }) {
-  const [update, result] = useUpdateBrandMutation();
+  const [update, result] = useUpdateSupplierMutation();
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
-  const [dataForm, setDataForm] = useState<IBrandInput>({
+  const [dataForm, setDataForm] = useState<ISupplierInput>({
     ...data,
-    image: new DataTransfer().files[0],
   });
 
   useEffect(() => {
@@ -25,8 +23,11 @@ function ModalUpdateBrand({
       toast.success("Chỉnh sửa thành công");
     }
     if (
+      dataForm.name !== data.name ||
+      dataForm.address !== data.address ||
       dataForm.description !== data.description ||
-      dataForm.name !== data.name
+      dataForm.email !== data.email ||
+      dataForm.phoneNumber !== data.phoneNumber
     ) {
       setIsUpdate(true);
     } else {
@@ -46,7 +47,13 @@ function ModalUpdateBrand({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (dataForm.name.trim().length === 0) {
+    if (
+      dataForm.name.trim().length === 0 ||
+      dataForm.address.trim().length === 0 ||
+      dataForm.description.trim().length === 0 ||
+      dataForm.email.trim().length === 0 ||
+      dataForm.phoneNumber.trim().length === 0
+    ) {
       toast.error("Thông tin không hợp lệ");
     } else {
       update(dataForm);
@@ -59,7 +66,7 @@ function ModalUpdateBrand({
         className="flex justify-between gap-4 flex-col"
       >
         <header className="text-xl my-2 font-bold ">
-          Chỉnh sửa thương hiệu
+          Chỉnh sửa nhà cung cấp
         </header>
         <div className="flex flex-col gap-4 w-full">
           <Input
@@ -68,13 +75,38 @@ function ModalUpdateBrand({
             value={dataForm.name}
             crossOrigin={"use-credentials"}
             variant="outlined"
-            label="Tên thương hiệu"
+            label="Tên nhà cung cấp"
           />
+          <Input
+            name="address"
+            onChange={handleChange}
+            value={dataForm.address}
+            crossOrigin={"use-credentials"}
+            variant="outlined"
+            label="Tên địa chỉ"
+          />
+          <Input
+            name="email"
+            onChange={handleChange}
+            value={dataForm.email}
+            crossOrigin={"use-credentials"}
+            variant="outlined"
+            label="Email"
+          />
+          <Input
+            name="phoneNumber"
+            onChange={handleChange}
+            value={dataForm.phoneNumber}
+            crossOrigin={"use-credentials"}
+            variant="outlined"
+            label="Số điện thoại"
+          />
+
           <Textarea
             name="description"
             onChange={handleChange}
             value={dataForm.description}
-            label="Miêu tả thương hiệu"
+            label="Miêu tả "
           />
         </div>
         <div className="flex justify-end my-4 gap-4">
@@ -95,4 +127,4 @@ function ModalUpdateBrand({
   );
 }
 
-export default memo(ModalUpdateBrand);
+export default memo(ModalUpdateSupplier);

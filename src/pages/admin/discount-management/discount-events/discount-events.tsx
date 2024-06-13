@@ -1,76 +1,24 @@
-import React from "react";
-import Table from "components/table/table";
-import { Button, Spinner } from "@material-tailwind/react";
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import Pagination from "components/pagination/pagitnation";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import {
-  useGetDiscountEventsQuery,
-  useRemoveDiscountEventMutation,
-} from "redux/api/discount/discount-event";
+import { AiOutlinePlusCircle } from "react-icons/ai";
+import { Button, Spinner } from "@material-tailwind/react";
 
-import { IDiscountEvent } from "share/types/discount-event";
-
-interface IDiscountEventTable extends IDiscountEvent {
-  index: number;
-}
+import { useGetDiscountEventsQuery } from "redux/api/discount/discount-event";
+import Pagination from "components/pagination/pagitnation";
+import { IDiscountEventTable } from "share/types/discount-event";
+import DiscountEventTable from "./discount-event-table";
+import ModalAddDiscountEvent from "./modal-add-discount-event";
 
 const DiscountEvent = () => {
   const { index } = useParams();
   const { data, isSuccess, isLoading } = useGetDiscountEventsQuery({
     PageIndex: index,
   });
-  const [removeDiscountEvent, { isSuccess: removeSuccess }] =
-    useRemoveDiscountEventMutation();
+  const [isVisibleModalAdd, setIsVisibleModalAdd] = useState(false);
 
-  const configData = [
-    {
-      label: "STT",
-      render: (data: IDiscountEventTable) => {
-        return data.index;
-      },
-    },
-    {
-      label: "Tên sự kiện",
-      render: (data: IDiscountEventTable) => {
-        return data.name;
-      },
-    },
-
-    {
-      label: "Miêu tả sự kiện",
-      render: (data: IDiscountEventTable) => {
-        return data.description;
-      },
-    },
-
-    {
-      label: "Tuỳ chọn",
-      render: (data: IDiscountEventTable) => {
-        return (
-          <div className="flex gap-4 justify-end">
-            <Button
-              onClick={() => {
-                removeDiscountEvent(data.id);
-              }}
-              color="red"
-            >
-              Xoá
-            </Button>
-          </div>
-        );
-      },
-    },
-  ];
-
-  useEffect(() => {
-    if (removeSuccess) {
-      toast.success("Xoá thành công");
-    }
-  }, [removeSuccess]);
+  const handleToggleAddNew = () => {
+    setIsVisibleModalAdd(!isVisibleModalAdd);
+  };
 
   let content: React.ReactNode;
 
@@ -83,7 +31,7 @@ const DiscountEvent = () => {
     }));
     content = (
       <>
-        <Table config={configData} data={updateData}></Table>
+        <DiscountEventTable data={updateData}></DiscountEventTable>
         <div className="flex justify-center my-8">
           <Pagination
             pageIndex={0}
@@ -105,14 +53,15 @@ const DiscountEvent = () => {
   return (
     <div className="px-4 ">
       <div className="flex justify-end my-4">
-        <Link to="/admin/discountEvents/add-discountEvent">
-          <Button className="flex gap-2 items-center">
-            <AiOutlinePlusCircle />
-            Thêm Sự Kiện
-          </Button>
-        </Link>
+        <Button className="flex gap-2 items-center">
+          <AiOutlinePlusCircle />
+          Thêm Sự Kiện
+        </Button>
       </div>
       {content}
+      {isVisibleModalAdd && (
+        <ModalAddDiscountEvent onToggle={handleToggleAddNew} />
+      )}
     </div>
   );
 };

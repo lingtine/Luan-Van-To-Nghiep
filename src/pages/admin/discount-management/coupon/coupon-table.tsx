@@ -47,7 +47,7 @@ function CouponTable({ data }: ITable) {
       },
     },
     {
-      label: "Miêu tả phiếu giảm giá",
+      label: "Miêu tả ",
       render: (data: ICouponTable) => {
         return data.description;
       },
@@ -61,7 +61,7 @@ function CouponTable({ data }: ITable) {
               onClick={() => {
                 handleCouponRemove({
                   id: data.id,
-                  title: `Bạn có muốn xoá mã giảm giá ${data.name}`,
+                  title: `Bạn có muốn xoá phiếu giảm giá ${data.name}`,
                   content:
                     "Thao tác này sẽ xóa bản ghi. Một khi đã xóa thì không thể khôi phục lại.",
                 });

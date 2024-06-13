@@ -1,9 +1,11 @@
-import { useEffect, useState, memo } from "react";
-import Modal from "components/modal/modal";
+import React, { useEffect, useState, memo } from "react";
 import { toast } from "react-toastify";
 import { Input, Textarea, Button } from "@material-tailwind/react";
+
+import Modal from "components/modal/modal";
 import { ISpecification, ISpecificationInput } from "share/types/specification";
 import { useUpdateSpecificationMutation } from "redux/api/catalog/specification";
+
 function ModalUpdateSpecification({
   onToggle,
   data,
@@ -70,7 +72,7 @@ function ModalUpdateSpecification({
             name="description"
             onChange={handleChange}
             value={dataForm.description}
-            label="Miêu tả đặt tả"
+            label="Miêu tả "
           />
         </div>
         <div className="flex justify-end my-4 gap-4">
