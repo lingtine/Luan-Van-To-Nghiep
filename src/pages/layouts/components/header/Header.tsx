@@ -14,7 +14,7 @@ interface HeaderProps {}
 const Header: React.FC<HeaderProps> = () => {
   const { accessToken } = useAppSelector((state) => state.authSlice);
   const [isOpen, setIsOpen] = useState(false);
-  const { data, isSuccess } = useGetDetailCartQuery(null);
+  const { data, isSuccess } = useGetDetailCartQuery();
 
   const handleOpen = () => {
     setIsOpen(true);

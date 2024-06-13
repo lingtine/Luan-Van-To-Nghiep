@@ -22,12 +22,6 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
     return <Navigate to={"/login-admin"} />;
   }
 
-  const jwtValue = jwtDecode(accessToken) as { role: [] | string };
-  if (jwtValue.role === "Customer") {
-    toast.warning("Bạn không có quyền truy cập");
-    return <Navigate to={"/"} />;
-  }
-
   const readerHeader = (
     <header className="w-full bg-secondary flex justify-between items-center  p-4 mb-8 shadow-lg">
       <button

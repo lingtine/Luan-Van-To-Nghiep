@@ -1,12 +1,16 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import customFetchBase from "../customFetchBase";
-
+import {
+  IDepartmentInput,
+  IAddEmployeeInput,
+  IDepartment,
+} from "share/types/department";
 const departmentApi = createApi({
   reducerPath: "department",
   baseQuery: customFetchBase,
   endpoints(build) {
     return {
-      getAllDepartment: build.query({
+      getAllDepartment: build.query<IDepartment[], void>({
         query: () => {
           return {
             url: "/employees/Department/Get",
@@ -14,42 +18,42 @@ const departmentApi = createApi({
           };
         },
       }),
-      getDepartmentDetail: build.query({
-        query: (departmentId: string) => {
+      getDepartmentDetail: build.query<IDepartment, string>({
+        query: (departmentId) => {
           return {
             url: `/employees/Department/Get/${departmentId}`,
+            method: "GET",
           };
         },
       }),
-      addDepartment: build.mutation({
-        query: (data: {
-          name: string;
-          description: string;
-          employeeIds: string[];
-        }) => {
+      addDepartment: build.mutation<IDepartment, IDepartmentInput>({
+        query: (data) => {
           return {
             url: "employees/Department/Create",
             method: "POST",
             body: data,
           };
         },
+        transformResponse: ({ data }) => data,
       }),
-      removeDepartment: build.mutation({
-        query: (departmentId: string) => {
+      removeDepartment: build.mutation<boolean, string>({
+        query: (departmentId) => {
           return {
             url: `/employees/Department/Delete/${departmentId}`,
-            method: "POST",
+            method: "DELETE",
           };
         },
+        transformResponse: ({ data }) => data,
       }),
-      addEmployees: build.mutation({
-        query: (data: { departmentId: string; employeeIds: string[] }) => {
+      addEmployees: build.mutation<IDepartment, IAddEmployeeInput>({
+        query: (data) => {
           return {
             url: "employees/Department/AddEmployees",
             method: "POST",
             body: data,
           };
         },
+        transformResponse: ({ data }) => data,
       }),
     };
   },

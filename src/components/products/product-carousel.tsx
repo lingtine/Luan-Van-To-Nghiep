@@ -1,10 +1,9 @@
 import ProductCard from "./product-card";
 import { FiArrowRightCircle, FiArrowLeftCircle } from "react-icons/fi";
 import { useState } from "react";
-import { IProductDetailType } from "redux/api/types";
-import classNames from "classnames";
+import { IProductDetail } from "share/types/product";
 interface ProductsCarouselProps {
-  products: IProductDetailType[];
+  products: IProductDetail[];
   lengthCarousel: number;
 }
 
@@ -25,9 +24,8 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
     return (
       <div
         key={product.id}
-        className={classNames(
-          "lg:max-w-[25%] lg:flex-[0_0_25%] md:max-w-[50%] md:flex-[0_0_50%] flex-[0_0_100%] md:px-4 max-w-full  flex-shrink-0   duration-700 ease-in-out h-fit"
-        )}
+        className="lg:max-w-[25%] lg:flex-[0_0_25%] md:max-w-[50%] md:flex-[0_0_50%] flex-[0_0_100%]
+        md:px-4 max-w-full  flex-shrink-0   duration-700 ease-in-out h-fit"
         style={{
           transform: `translateX(calc(-${100 * carouselIndex}% ) )`,
         }}
@@ -38,27 +36,26 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
   });
 
   return (
-    <div className="w-full h-full px-8 relative">
+    <div className="relative flex items-center justify-between w-full h-full gap-4 px-4">
       <button
         title="prev"
         onClick={onPrev}
-        className="cursor-auto absolute top-[50%] z-20 text-2xl"
+        className="z-20 text-2xl cursor-auto"
         disabled={carouselIndex === 0}
       >
         <FiArrowLeftCircle />
       </button>
+      <div className="flex overflow-hidden cursor-auto lg:-mx-4 scroll-smooth">
+        {renderProducts}
+      </div>
       <button
         title="next"
         onClick={onNext}
-        className="cursor-auto absolute top-[50%] right-0 z-20 text-2xl"
+        className="z-20 text-2xl cursor-auto disabled:opacity-2"
         disabled={carouselIndex === products.length - lengthCarousel - 1}
       >
         <FiArrowRightCircle />
       </button>
-
-      <div className={`flex lg:-mx-4 overflow-hidden cursor-auto `}>
-        {renderProducts}
-      </div>
     </div>
   );
 };

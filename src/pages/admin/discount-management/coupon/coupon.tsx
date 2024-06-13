@@ -1,87 +1,25 @@
-import React from "react";
-import Table from "components/table/table";
+import React, { useState } from "react";
 import { Button, Spinner } from "@material-tailwind/react";
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import Pagination from "components/pagination/pagitnation";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
-
-import { toast } from "react-toastify";
-import {
-  useGetCouponsQuery,
-  useRemoveCouponMutation,
-} from "redux/api/discount/coupon";
 import { useParams } from "react-router-dom";
-import { ICoupon } from "redux/api/types";
-interface ICouponTable extends ICoupon {
-  index: number;
-}
+import { AiOutlinePlusCircle } from "react-icons/ai";
+
+import { useGetCouponsQuery } from "redux/api/discount/coupon";
+import Pagination from "components/pagination/pagitnation";
+import { ICouponTable } from "share/types/coupon";
+import CouponTable from "./coupon-table";
+import ModalAddCoupon from "./modal-add-coupon";
 
 const Coupon = () => {
   const { index } = useParams();
+  const [isAddNew, setIsAddNew] = useState(false);
 
   const { data, isSuccess, isLoading } = useGetCouponsQuery({
-    pageIndex: index,
+    PageIndex: index,
   });
-  const [removeCoupon, { isSuccess: removeSuccess }] =
-    useRemoveCouponMutation();
 
-  const configData = [
-    {
-      label: "STT",
-      render: (data: ICouponTable) => {
-        return data.index;
-      },
-    },
-    {
-      label: "Tên phiếu giảm giá",
-      render: (data: ICouponTable) => {
-        return data.name;
-      },
-    },
-
-    {
-      label: "Số lượng",
-      render: (data: ICouponTable) => {
-        return data.quantity;
-      },
-    },
-    {
-      label: "Giá được giảm",
-      render: (data: ICouponTable) => {
-        return data.reducedPrice;
-      },
-    },
-    {
-      label: "Miêu tả phiếu giảm giá",
-      render: (data: ICouponTable) => {
-        return data.description;
-      },
-    },
-    {
-      label: "Tuỳ chọn",
-      render: (data: ICouponTable) => {
-        return (
-          <div className="flex gap-4 justify-end">
-            <Button
-              onClick={() => {
-                removeCoupon(data.id);
-              }}
-              color="red"
-            >
-              Xoá
-            </Button>
-          </div>
-        );
-      },
-    },
-  ];
-
-  useEffect(() => {
-    if (removeSuccess) {
-      toast.success("Xoá thành công");
-    }
-  }, [removeSuccess]);
+  const handleToggleAddNew = () => {
+    setIsAddNew(!isAddNew);
+  };
 
   let content: React.ReactNode;
 
@@ -94,7 +32,7 @@ const Coupon = () => {
     }));
     content = (
       <>
-        <Table config={configData} data={updateData}></Table>
+        <CouponTable data={updateData} />
         <div className="flex justify-center my-8">
           <Pagination
             pageIndex={data.pageIndex}
@@ -116,14 +54,13 @@ const Coupon = () => {
   return (
     <div className="px-4 ">
       <div className="flex justify-end my-4">
-        <Link to="/admin/coupons/add-coupon">
-          <Button className="flex gap-2 items-center">
-            <AiOutlinePlusCircle />
-            Thêm phiểu giảm giá
-          </Button>
-        </Link>
+        <Button className="flex gap-2 items-center">
+          <AiOutlinePlusCircle />
+          Thêm phiểu giảm giá
+        </Button>
       </div>
       {content}
+      {isAddNew && <ModalAddCoupon onToggle={handleToggleAddNew} />}
     </div>
   );
 };

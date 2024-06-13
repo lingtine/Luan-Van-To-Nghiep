@@ -10,7 +10,7 @@ interface SelectBoxDataSupplierProps {
 const SelectBoxDataSupplier: React.FC<SelectBoxDataSupplierProps> = ({
   getSelected,
 }) => {
-  const { data, isSuccess } = useGetSuppliersQuery(null);
+  const { data, isSuccess } = useGetSuppliersQuery();
 
   const [selected, setSelected] = useState<ISelected>();
   const handleSelect = (option: ISelected) => {

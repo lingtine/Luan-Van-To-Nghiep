@@ -2,62 +2,65 @@ import customFetchBase from "../customFetchBase";
 
 import { createApi } from "@reduxjs/toolkit/query/react";
 
-import { IReport, IReportInput } from "../types";
+import {
+  IReport,
+  IReportInput,
+  IReportPage,
+  IReportParam,
+} from "share/types/report";
 
 const reportApi = createApi({
   reducerPath: "report",
   baseQuery: customFetchBase,
   tagTypes: ["add", "remove", "change-status"],
   endpoints: (build) => ({
-    getReports: build.query({
+    getReports: build.query<IReportPage, IReportParam>({
       query: (params) => ({
         url: "/warehouses/reports",
         method: "GET",
         params,
       }),
       providesTags: ["add", "remove", "change-status"],
-      transformResponse: (response: {
-        data: IReport[];
-        pageIndex: number;
-        pageSize: number;
-        totalCount: number;
-      }) => response,
     }),
-    createReport: build.mutation({
-      query: (data: IReportInput) => ({
+    createReport: build.mutation<IReport, IReportInput>({
+      query: (data) => ({
         url: "/warehouses/reports",
         method: "POST",
         body: data,
       }),
+      transformResponse: ({ data }) => data,
       invalidatesTags: ["add"],
     }),
-    getReport: build.query({
-      query: (reportId: string) => ({
+    getReport: build.query<IReport, string>({
+      query: (reportId) => ({
         url: `/warehouses/reports/${reportId}`,
         method: "GET",
       }),
-      providesTags: ["add", "remove", "change-status"],
-      transformResponse: (response: { data: IReport }) => response.data,
+      transformResponse: ({ data }) => data,
     }),
-    approveReport: build.mutation({
+    approveReport: build.mutation<IReport, string>({
       query: (reportId: string) => ({
         url: `/warehouses/reports/approve/${reportId}`,
         method: "POST",
       }),
+      transformResponse: ({ data }) => data,
       invalidatesTags: ["change-status"],
     }),
-    inspectReport: build.mutation({
-      query: (reportId: string) => ({
+    inspectReport: build.mutation<IReport, string>({
+      query: (reportId) => ({
         url: `/warehouses/reports/inspect/${reportId}`,
         method: "POST",
       }),
+      transformResponse: ({ data }) => data,
+
       invalidatesTags: ["change-status"],
     }),
-    cancelReport: build.mutation({
-      query: (reportId: string) => ({
+    cancelReport: build.mutation<IReport, string>({
+      query: (reportId) => ({
         url: `/warehouses/reports/cancel/${reportId}`,
         method: "POST",
       }),
+      transformResponse: ({ data }) => data,
       invalidatesTags: ["change-status"],
     }),
   }),

@@ -13,7 +13,7 @@ const SelectBoxWarehouse: React.FC<SelectBoxWarehouseProps> = ({
   onChange,
   selected,
 }) => {
-  const { data, isSuccess } = useGetWarehousesQuery(null);
+  const { data, isSuccess } = useGetWarehousesQuery({});
   if (isSuccess) {
     const configData = data.data.map((item) => {
       return { ...item, label: item.name };

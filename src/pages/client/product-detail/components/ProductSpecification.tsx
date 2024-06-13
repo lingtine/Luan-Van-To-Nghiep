@@ -1,7 +1,7 @@
 import React from "react";
-import { IProductSpecifications } from "redux/api/types";
+import { IProductSpecification } from "share/types/product";
 interface ProductSpecificationProps {
-  data: IProductSpecifications[];
+  data: IProductSpecification[];
 }
 
 const ProductSpecification: React.FC<ProductSpecificationProps> = ({
@@ -15,15 +15,13 @@ const ProductSpecification: React.FC<ProductSpecificationProps> = ({
           return (
             <li
               className={`flex text-sm px-4 py-2 items-center gap-4 justify-between h-16
-              ${
-                index === 0 ? 'rounded-t-lg' : ''
-              } ${index === data.length - 1 ? 'rounded-b-lg' : ''}
+              ${index === 0 ? "rounded-t-lg" : ""} ${
+                index === data.length - 1 ? "rounded-b-lg" : ""
+              }
               `}
               key={item.id}
             >
-              <span 
-              className="py-4 flex[0_0_50%] h-full"
-              >
+              <span className="py-4 flex[0_0_50%] h-full">
                 {item.specificationName}
               </span>
               <span>{item.specificationValue}</span>

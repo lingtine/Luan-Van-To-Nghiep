@@ -54,17 +54,17 @@ const OrderDetail: React.FC<OrderDetailProps> = () => {
     <div className="container px-8">
       <div className="flex-[0_0_100%] max-w-[100%]">
         <div className="hidden">
-          <ComponentToPrint ref={componentRef} />
+          <ComponentToPrint data={data} ref={componentRef} />
         </div>
         <div className="flex justify-between items-center px-8">
           <h3 className="text-3xl font-bold my-8">Đơn hàng chi tiết</h3>
           <div className="flex gap-4">
             <Button onClick={handlePrint}>In Hoá Đơn</Button>
-            {renderButtonOrderProcessing}{" "}
+            {renderButtonOrderProcessing}
           </div>
         </div>
       </div>
-      <div className="flex-[0_0_100%] max-w-[100%] flex">
+      <div className="flex-[0_0_100%] max-w-[100%] flex gap-4">
         <div className="flex-[0_0_66.66666%] max-w-[66.66666%] flex flex-col ">
           {isSuccess && (
             <>

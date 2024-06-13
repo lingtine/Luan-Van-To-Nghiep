@@ -12,7 +12,7 @@ const UploadMultiple = ({
   handleUploadRelatedImages,
   images,
 }: IUploadMultipleProps) => {
-  const [files, setFiles] = useState<FileList | undefined>(undefined);
+  const [files, setFiles] = useState<FileList | undefined>();
   const [fileUrls, setFileUrls] = useState<string[]>(images || []);
   const [isOpen, setIsOpen] = useState(false);
   const [currentReview, setCurrentReview] = useState("");
@@ -38,7 +38,7 @@ const UploadMultiple = ({
   const handleOpen = (url: string) => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
-    setCurrentReview(url)
+    setCurrentReview(url);
     setIsOpen(true);
   };
 

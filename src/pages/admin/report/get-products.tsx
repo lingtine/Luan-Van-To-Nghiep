@@ -32,7 +32,7 @@ const GetProducts: React.FC<GetProductsProps> = ({
   const [handleSearch, { isSuccess, data }] = useGetProductsByParamsMutation();
   useEffect(() => {
     if (debounceSearch && debounceSearch !== "") {
-      handleSearch({ Keyword: debounceSearch });
+      handleSearch({ Keyword: debounceSearch.toString() });
     }
   }, [debounceSearch, handleSearch]);
 

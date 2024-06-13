@@ -1,66 +1,70 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 import customFetchBase from "redux/api/customFetchBase";
-
-import { ICategoryGroup } from "../types";
+import {
+  ICategoryGroup,
+  ICategoryGroupInput,
+  ICategoryGroupPage,
+  ICategoryGroupParams,
+} from "../../../share/types/category-group";
 
 const categoryGroupApi = createApi({
   reducerPath: "categoryGroup",
   baseQuery: customFetchBase,
-  tagTypes: ["category-group", "remove"],
+  tagTypes: ["remove", "update", "add"],
   endpoints: (builder) => ({
-    getAllCategoryGroups: builder.query({
+    getAllCategoryGroups: builder.query<ICategoryGroup[], void>({
       query: () => ({
         url: "/catalogs/category-groups/all",
         method: "GET",
       }),
-      providesTags: ["category-group"],
-      transformResponse: (response: { data: ICategoryGroup[] }, meta, arg) =>
-        response.data,
+      transformResponse: ({ data }) => data,
     }),
-    getCategoryGroups: builder.query({
+    getCategoryGroups: builder.query<ICategoryGroupPage, ICategoryGroupParams>({
       query: (params) => ({
         url: "/catalogs/category-groups",
         method: "GET",
         params,
       }),
-      providesTags: ["category-group"],
-      transformResponse: (
-        response: {
-          data: ICategoryGroup[];
-          pageIndex: number;
-          pageSize: number;
-          totalCount: number;
-        },
-        meta,
-        arg
-      ) => response,
+      providesTags: ["remove", "update", "add"],
     }),
-    getListCategoryGroups: builder.query({
+    getCategoryGroup: builder.query<ICategoryGroup, string>({
       query: (categoryId) => ({
         url: `/catalogs/category-groups/${categoryId}`,
         method: "GET",
       }),
-      providesTags: ["category-group"],
-      transformResponse: (response: { data: any }, meta, arg) => response.data,
+      transformResponse: ({ data }) => data,
     }),
-    addCategoryGroup: builder.mutation({
-      query: (data: { name: string; description: string }) => {
+    addCategoryGroup: builder.mutation<ICategoryGroup, ICategoryGroupInput>({
+      query: (data) => {
         return {
           url: "/catalogs/category-groups",
           method: "POST",
           body: data,
         };
       },
-      invalidatesTags: ["category-group"],
+      transformResponse: ({ data }) => data,
+      invalidatesTags: ["add"],
     }),
 
-    deleteCategoryGroup: builder.mutation({
-      query: (categoryGroupId: string) => ({
+    deleteCategoryGroup: builder.mutation<boolean, string>({
+      query: (categoryGroupId) => ({
         url: `/catalogs/category-groups/${categoryGroupId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["category-group"],
+      transformResponse: ({ data }) => data,
+      invalidatesTags: ["remove"],
+    }),
+    updateCategoryGroup: builder.mutation<ICategoryGroup, ICategoryGroupInput>({
+      query: (data) => {
+        return {
+          url: `/catalogs/category-groups/${data.id}`,
+          body: data,
+          method: "PUT",
+        };
+      },
+      invalidatesTags: ["update"],
+      transformResponse: ({ data }) => data,
     }),
   }),
 });
@@ -69,7 +73,8 @@ export const {
   useDeleteCategoryGroupMutation,
   useGetAllCategoryGroupsQuery,
   useGetCategoryGroupsQuery,
-  useGetListCategoryGroupsQuery,
+  useGetCategoryGroupQuery,
+  useUpdateCategoryGroupMutation,
 } = categoryGroupApi;
 
 export default categoryGroupApi;

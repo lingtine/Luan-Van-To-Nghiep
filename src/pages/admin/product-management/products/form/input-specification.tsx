@@ -22,14 +22,13 @@ const InputSpecification: React.FC<InputSpecificationProps> = ({
   onRemove,
   productSpecificationIds,
 }) => {
-  
   const [selected, setSelected] = useState<ISelected>();
 
   const { data, isSuccess } = useGetSpecificationsQuery({
-    pageSize: 9999,
+    PageSize: 9999,
   });
   let content;
-  if (isSuccess) {    
+  if (isSuccess) {
     const updateData = data.data
       .filter((x) => !productSpecificationIds.includes(x.id))
       .map((item) => ({

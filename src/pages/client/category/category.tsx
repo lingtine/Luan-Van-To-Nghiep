@@ -8,6 +8,7 @@ import {
 } from "redux/api/catalog/product";
 
 import PaginationClient from "components/pagination/pagitcation-client";
+
 import {
   IBrand,
   ICategory,
@@ -16,21 +17,26 @@ import {
   IProductDetailType,
 } from "redux/api/types";
 
-import { Button } from "@material-tailwind/react";
-import SelectBox, { ISelected } from "components/select-box/select-box";
 import CategorySidebar from "./components/CategorySidebar";
 import { da } from "date-fns/locale";
 
 interface CategoryPageProps {}
+
+import { ICategory } from "share/types/category";
+
+import { Button } from "@material-tailwind/react";
+import SelectBox from "components/select-box/select-box";
+import { ISelected } from "components/select-box/select-box";
+
 
 interface ISort extends ISelected {
   IsOrderDesc: boolean;
   OrderBy: string;
 }
 
-const CategoryPage: React.FC<CategoryPageProps> = () => {
+const CategoryPage = () => {
   const { categoryId } = useParams();
-  const [sort, setSort] = useState<null | ISort>(null);
+  const [sort, setSort] = useState<ISort>();
   const [pageCurrent, setPageCurrent] = useState<number>(0);
   const [isInStock, setIsInStock] = useState<{ status: boolean } | null>(null);
   const [products, setProducts] = useState<IProductDetailType[]>([]);
@@ -54,12 +60,10 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
 
   const { data, isSuccess } = useGetProductsQuery({
     CategoryGroupId: categoryId,
-    PageIndex: pageCurrent,
+    PageIndex: pageCurrent.toString(),
     PageSize: 24,
 
     IsInStock: isInStock?.status,
-    OrderBy: sort?.OrderBy,
-    IsOrderDesc: sort?.IsOrderDesc,
   });
 
   const handleChangePageIndex = (index: number) => {
@@ -90,7 +94,7 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setSort(null);
+    setSort(undefined);
     handleCleanFilter();
   }, [categoryId]);
 
@@ -160,13 +164,13 @@ const CategoryPage: React.FC<CategoryPageProps> = () => {
     },
     {
       id: Math.random.toString(),
-      label: "a tới z",
+      label: "A đến Z",
       IsOrderDesc: false,
       OrderBy: "Name",
     },
     {
       id: Math.random.toString(),
-      label: "z tới a",
+      label: "Z đến A",
       IsOrderDesc: true,
       OrderBy: "name",
     },

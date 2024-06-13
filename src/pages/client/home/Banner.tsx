@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 interface BannerProps {}
 
 const Banner: React.FC<BannerProps> = () => {
-  const { data, isSuccess } = useGetProductCarouselQuery(null);
+  const { data, isSuccess } = useGetProductCarouselQuery();
 
   if (isSuccess) {
     const content = data.map((product) => {

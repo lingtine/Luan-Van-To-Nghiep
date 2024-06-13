@@ -1,109 +1,26 @@
-import React from "react";
-import Table from "components/table/table";
+import React, { useState } from "react";
 import { Button, Spinner } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import Pagination from "components/pagination/pagitnation";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
-
-import { toast } from "react-toastify";
-import {
-  useGetWarehousesQuery,
-  useRemoveWarehouseMutation,
-} from "redux/api/warehouse/warehouse";
 import { useParams } from "react-router-dom";
-import { IWarehouse } from "redux/api/types";
+import { Link } from "react-router-dom";
 
-interface IWarehouseTable extends IWarehouse {
-  index: number;
-}
+import Pagination from "components/pagination/pagitnation";
+import { useGetWarehousesQuery } from "redux/api/warehouse/warehouse";
+import { IWarehouseTable } from "share/types/warehouse";
+import WarehouseTable from "./warehouse-table";
+import ModalAddWarehouse from "./modal-add-warehouse";
 
 const Warehouse = () => {
   const { index } = useParams();
   const { data, isSuccess, isLoading } = useGetWarehousesQuery({
-    pageIndex: index,
-    pageSize: 20,
+    PageIndex: index,
+    PageSize: 20,
   });
-  const [removeWarehouse, { isSuccess: removeSuccess }] =
-    useRemoveWarehouseMutation();
+  const [isAdd, setIsAdd] = useState(false);
 
-  const configData = [
-    {
-      label: "STT",
-      render: (data: IWarehouseTable) => {
-        return data.index;
-      },
-    },
-    {
-      label: "Tên Kho",
-      render: (data: IWarehouseTable) => {
-        return <div className="min-w-[100px]">{data.name}</div>;
-      },
-    },
-    {
-      label: "Địa chỉ",
-      render: (data: IWarehouseTable) => {
-        return data.address;
-      },
-    },
-    {
-      label: "Email",
-      render: (data: IWarehouseTable) => {
-        return data.email;
-      },
-    },
-    {
-      label: "Hotline",
-      render: (data: IWarehouseTable) => {
-        return data.hotLine;
-      },
-    },
-
-    {
-      label: "Fax",
-      render: (data: IWarehouseTable) => {
-        return data.fax;
-      },
-    },
-
-    // {
-    //   label: "Miêu tả",
-    //   render: (data: IWarehouseTable) => {
-    //     return data.description;
-    //   },
-    // },
-
-    {
-      label: "Loại kho",
-      render: (data: IWarehouseTable) => {
-        return data.type;
-      },
-    },
-
-    {
-      label: "Tuỳ chọn",
-      render: (data: IWarehouseTable) => {
-        return (
-          <div className="flex gap-4 justify-end">
-            <Button
-              onClick={() => {
-                removeWarehouse(data.id);
-              }}
-              color="red"
-            >
-              Xoá
-            </Button>
-          </div>
-        );
-      },
-    },
-  ];
-
-  useEffect(() => {
-    if (removeSuccess) {
-      toast.success("Xoá thành công");
-    }
-  }, [removeSuccess]);
+  const handleToggleAdd = () => {
+    setIsAdd(!isAdd);
+  };
 
   let content: React.ReactNode;
 
@@ -114,7 +31,7 @@ const Warehouse = () => {
     }));
     content = (
       <>
-        <Table config={configData} data={updateData}></Table>
+        <WarehouseTable data={updateData}></WarehouseTable>
         <div className="flex justify-center my-8">
           <Pagination
             pageIndex={data.pageIndex}
@@ -144,6 +61,7 @@ const Warehouse = () => {
         </Link>
       </div>
       {content}
+      {isAdd && <ModalAddWarehouse onToggle={handleToggleAdd} />}
     </div>
   );
 };

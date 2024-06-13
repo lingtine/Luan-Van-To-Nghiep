@@ -6,7 +6,7 @@ import CartEmpty from "./components/cart-empty";
 interface CartClientProps {}
 
 const CartClient: React.FC<CartClientProps> = () => {
-  const { data, isSuccess } = useGetDetailCartQuery(null);
+  const { data, isSuccess } = useGetDetailCartQuery();
 
   if (isSuccess) {
     const total = data.items.reduce((prevValue, curValue) => {

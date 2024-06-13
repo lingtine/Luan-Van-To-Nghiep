@@ -2,73 +2,78 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 
 import customFetchBase from "redux/api/customFetchBase";
 
-import { ICategory } from "../types";
+import {
+  ICategory,
+  ICategoryInput,
+  ICategoryPage,
+  ICategoryParams,
+} from "share/types/category";
 
 const categoryApi = createApi({
   reducerPath: "category",
   baseQuery: customFetchBase,
-  tagTypes: ["category"],
+  tagTypes: ["ADD", "DELETE", "UPDATE"],
   endpoints: (builder) => ({
-    getAllCategories: builder.query({
+    getAllCategories: builder.query<ICategory[], void>({
       query: () => ({
         url: "/catalogs/categories/all",
         method: "GET",
       }),
+      transformResponse: ({ data }) => data,
     }),
-    getCategories: builder.query({
+    getCategories: builder.query<ICategoryPage, ICategoryParams>({
       query: (params) => ({
         url: "/catalogs/categories",
         method: "GET",
         params,
       }),
-      transformResponse: (response: {
-        data: ICategory[];
-        pageIndex: number;
-        pageSize: number;
-        totalCount: number;
-      }) => response,
-      providesTags: ["category"],
+
+      providesTags: ["ADD", "UPDATE", "DELETE"],
     }),
-    getCategoriesByParameters: builder.mutation({
+    getCategoriesByParameters: builder.mutation<ICategory[], ICategoryParams>({
       query: (params) => ({
         url: "/catalogs/categories",
         method: "GET",
         params: params,
       }),
-      transformResponse: (response: { data: ICategory[] }) => response.data,
+      transformResponse: ({ data }) => data,
     }),
-    addCategory: builder.mutation({
-      query: (data: ICategory) => {
+    addCategory: builder.mutation<ICategory, ICategoryInput>({
+      query: (data) => {
         return {
           url: "/catalogs/categories",
           method: "POST",
-
           body: data,
         };
       },
-      invalidatesTags: ["category"],
+      transformResponse: ({ data }) => data,
+      invalidatesTags: ["ADD"],
     }),
-    getCategory: builder.query({
-      query: (categoryId: string) => ({
+    getCategory: builder.query<ICategory, string>({
+      query: (categoryId) => ({
         url: `/catalogs/categories/${categoryId}`,
         method: "GET",
       }),
+      transformResponse: ({ data }) => data,
     }),
-    updateCategory: builder.mutation({
-      query: ({ id, ...rest }: ICategory) => {
+    updateCategory: builder.mutation<ICategory, ICategoryInput>({
+      query: ({ id, ...rest }) => {
         return {
           url: `/catalogs/categories/${id}`,
           method: "PUT",
           body: rest,
         };
       },
+      invalidatesTags: ["UPDATE"],
+      transformResponse: ({ data }) => data,
     }),
-    deleteCategory: builder.mutation({
-      query: (categoryId: string) => ({
+    deleteCategory: builder.mutation<boolean, string>({
+      query: (categoryId) => ({
         url: `/catalogs/categories/${categoryId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["category"],
+      transformResponse: ({ data }) => data,
+      invalidatesTags: ["DELETE"],
     }),
   }),
 });

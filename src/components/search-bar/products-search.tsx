@@ -6,11 +6,11 @@ import {
   Card,
   Typography,
 } from "@material-tailwind/react";
-import { IProductDetailType } from "redux/api/types";
+import { IProductDetail } from "share/types/product";
 import { useFormatPrice } from "hooks/use-format-price";
 import { useNavigate } from "react-router-dom";
 interface ProductsSearchProps {
-  data: IProductDetailType[];
+  data: IProductDetail[];
   onClear: Function;
 }
 
@@ -18,7 +18,7 @@ const ProductsSearch: React.FC<ProductsSearchProps> = ({ data, onClear }) => {
   const [formatPrice] = useFormatPrice();
   const navigate = useNavigate();
   return (
-    <Card className="w-full max-h-[320px] overflow-hidden overflow-y-scroll">
+    <Card className="w-full  max-h-[320px] overflow-hidden overflow-y-scroll">
       <List>
         {data.map((product) => {
           return (

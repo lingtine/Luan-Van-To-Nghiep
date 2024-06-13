@@ -21,9 +21,9 @@ const App: React.FC = () => {
     if (accessToken) {
       const data: { role: string } = jwtDecode(accessToken);
       if (data.role === "Customer") {
-        getCustomer({});
+        getCustomer();
       } else {
-        getEmployee({});
+        getEmployee();
       }
     }
   }, []);

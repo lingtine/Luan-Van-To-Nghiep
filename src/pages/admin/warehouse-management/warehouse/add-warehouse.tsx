@@ -5,8 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCreateWarehouseMutation } from "redux/api/warehouse/warehouse";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { IWarehouseInput } from "redux/api/types";
-
+import { IWarehouseInput } from "share/types/warehouse";
 const AddWarehouse = () => {
   const navigate = useNavigate();
   const [addWarehouse, { isSuccess }] = useCreateWarehouseMutation();

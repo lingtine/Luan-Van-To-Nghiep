@@ -6,10 +6,12 @@ import { useGetAllCategoryGroupsQuery } from "redux/api/catalog/category-group";
 interface CategoriesProps {}
 
 const Categories: React.FC<CategoriesProps> = () => {
-  const { data, isSuccess } = useGetAllCategoryGroupsQuery(null);
+  const { data, isSuccess } = useGetAllCategoryGroupsQuery();
 
   let content;
   if (isSuccess) {
+    console.log(data);
+
     content = data.map((category: any) => {
       return (
         <li
@@ -30,7 +32,7 @@ const Categories: React.FC<CategoriesProps> = () => {
           heading="Thể loại"
           data={data}
         >
-          <div className="py-16 px-8 flex justify-between flex-wrap gap-4">
+          <div className="py-10 px-8 flex justify-between flex-wrap gap-4">
             {content}
           </div>
         </BoxTemplate>
