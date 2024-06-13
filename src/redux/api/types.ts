@@ -62,6 +62,7 @@ export interface ICustomerDetail {
 export interface IWishlistProduct {
   id: string;
   name: string;
+  description?: string,
   unitPrice: number;
   isActive: boolean;
   isInStock: boolean;
