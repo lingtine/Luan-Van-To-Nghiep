@@ -1,16 +1,33 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "./components/sidebar";
 import CategoryList from "./components/category-list";
 
-import { useGetProductsQuery } from "redux/api/catalog/product";
 import { useParams } from "react-router-dom";
+import {
+  useFilterProductByParameterMutation,
+  useGetProductsQuery,
+} from "redux/api/catalog/product";
 
 import PaginationClient from "components/pagination/pagitcation-client";
+
+import {
+  IBrand,
+  ICategory,
+  IFilter,
+  IFilterProduct,
+  IProductDetailType,
+} from "redux/api/types";
+
+import CategorySidebar from "./components/CategorySidebar";
+import { da } from "date-fns/locale";
+
+interface CategoryPageProps {}
+
 import { ICategory } from "share/types/category";
 
 import { Button } from "@material-tailwind/react";
 import SelectBox from "components/select-box/select-box";
 import { ISelected } from "components/select-box/select-box";
+
 
 interface ISort extends ISelected {
   IsOrderDesc: boolean;
@@ -21,8 +38,25 @@ const CategoryPage = () => {
   const { categoryId } = useParams();
   const [sort, setSort] = useState<ISort>();
   const [pageCurrent, setPageCurrent] = useState<number>(0);
-  const [categories, setCategories] = useState<ICategory[] | null>(null);
   const [isInStock, setIsInStock] = useState<{ status: boolean } | null>(null);
+  const [products, setProducts] = useState<IProductDetailType[]>([]);
+  const [isClear, setIsClear] = useState(false);
+  
+  const [productData, setProductData] = useState<{
+    products: IProductDetailType[],
+    pageIndex: number;
+    pageSize: number;
+    totalCount: number;
+  }>({
+    products: [],
+    pageIndex: pageCurrent,
+    pageSize: 24,
+    totalCount: 1,
+  });
+  console.log("🚀 ~ productData:", productData)
+
+  const [filterProductByParameter, result] =
+    useFilterProductByParameterMutation();
 
   const { data, isSuccess } = useGetProductsQuery({
     CategoryGroupId: categoryId,
@@ -35,6 +69,29 @@ const CategoryPage = () => {
   const handleChangePageIndex = (index: number) => {
     setPageCurrent(index);
   };
+
+  useEffect(() => {
+    setProducts(data?.data ?? []);
+    
+    setProductData({
+      products: data?.data ?? [],
+      pageIndex: data?.pageIndex ?? 0,
+      pageSize: data?.pageSize ?? 24,
+      totalCount: data?.totalCount ?? 24,
+    });
+
+  }, [data?.data]);
+
+  useEffect(() => {
+    setProducts(result.data?.data ?? []);
+    setProductData({
+      products: result.data?.data ?? [],
+      pageIndex: result.data?.pageIndex ?? 0,
+      pageSize: result.data?.pageSize ?? 24,
+      totalCount: result.data?.totalCount ?? 24,
+    });
+  }, [result.data]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     setSort(undefined);
@@ -44,35 +101,52 @@ const CategoryPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pageCurrent]);
-  const handleChangeCategories = (item: ICategory) => {
-    setCategories(() => {
-      if (categories) {
-        const category = categories.find((category) => category.id === item.id);
 
-        return category
-          ? categories.filter(function (category) {
-              return category.id !== item.id;
-            })
-          : [...categories, item];
-      } else {
-        return [item];
-      }
-    });
-    setPageCurrent(0);
-  };
-  const handleChangeIsInStock = (status: boolean | null) => {
-    if (status === null) {
-      setIsInStock(null);
-    } else {
-      setIsInStock({ status });
-    }
-    setPageCurrent(0);
-  };
+  // const handleChangeCategories = (item: ICategory) => {
+  //   setCategories(() => {
+  //     if (categories) {
+  //       const category = categories.find((category) => category.id === item.id);
+
+  //       return category
+  //         ? categories.filter(function (category) {
+  //             return category.id !== item.id;
+  //           })
+  //         : [...categories, item];
+  //     } else {
+  //       return [item];
+  //     }
+  //   });
+  //   setPageCurrent(0);
+  // };
+
+  // const handleChangeIsInStock = (status: boolean | null) => {
+  //   if (status === null) {
+  //     setIsInStock(null);
+  //   } else {
+  //     setIsInStock({ status });
+  //   }
+  //   setPageCurrent(0);
+  // };
 
   const handleCleanFilter = () => {
-    setCategories(null);
-    setIsInStock(null);
+    setIsClear((prev) => !prev);
     setPageCurrent(0);
+    setProducts(data?.data ?? []);
+  };
+
+  const handleFilter = (parameters: {
+    brandIds: string[];
+    categoryIds: string[];
+    filterValues: IFilterProduct[];
+  }) => {
+    
+    filterProductByParameter({
+      pageSize: 24,
+      pageIndex: pageCurrent,
+      categoryIds: parameters.categoryIds,
+      brandIds: parameters.brandIds,
+      filterValues: parameters.filterValues,
+    });
   };
 
   const options: ISort[] = [
@@ -107,16 +181,24 @@ const CategoryPage = () => {
       <h2 className="text-2xl mx-4 lg:mx-0">Sản phẩm</h2>
       <div className="container flex flex-wrap lg:-mx-4   my-8">
         <div className="flex-[0_0_100%] max-w-[100%] lg:flex-[0_0_25%] lg:max-w-[25%] p-4">
-          <Sidebar
+          {/* <Sidebar
             categories={categories}
             onChangeCategories={handleChangeCategories}
             isInStock={isInStock}
             onChangeIsInStock={handleChangeIsInStock}
+          /> */}
+
+          <CategorySidebar
+            isClear={isClear}
+            groupId={categoryId ?? ""}
+            onFilter={handleFilter}
           />
+
           <Button
+            className="mt-4"
             onClick={handleCleanFilter}
             fullWidth
-            disabled={categories === null && isInStock === null}
+            // disabled
           >
             Xoá bộ lọc
           </Button>
@@ -135,13 +217,13 @@ const CategoryPage = () => {
 
           {isSuccess && (
             <>
-              <CategoryList data={data.data} />
+              <CategoryList data={productData.products} />
               <div className="flex justify-center my-8">
                 <PaginationClient
                   onChange={handleChangePageIndex}
                   pageIndex={pageCurrent}
-                  pageSize={data.pageSize}
-                  totalNumber={data.totalCount}
+                  pageSize={productData.pageSize}
+                  totalNumber={productData.totalCount}
                 />
               </div>
             </>

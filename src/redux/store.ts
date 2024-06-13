@@ -13,6 +13,7 @@ import employeeApi from "./api/auth/employeeApi";
 import specificationsApi from "./api/catalog/specification";
 import orderApi from "./api/order/order";
 import reviewApi from "./api/catalog/review";
+import filterApi from "./api/catalog/filter";
 
 import departmentApi from "./api/auth/department-api";
 import goodsIssueApi from "./api/warehouse/goodsIssue";
@@ -55,8 +56,9 @@ export const store = configureStore({
     [stockApi.reducerPath]: stockApi.reducer,
     [warehouseApi.reducerPath]: warehouseApi.reducer,
     [supplierApi.reducerPath]: supplierApi.reducer,
-    
+
     [reviewApi.reducerPath]: reviewApi.reducer,
+    [filterApi.reducerPath]: filterApi.reducer,
   },
   devTools: process.env.NODE_ENV === "development",
   middleware: (getDefaultMiddleware) =>
@@ -83,7 +85,8 @@ export const store = configureStore({
       .concat(productApi.middleware)
       .concat(customerApi.middleware)
       .concat(specificationsApi.middleware)
-      .concat(reviewApi.middleware),
+      .concat(reviewApi.middleware)
+      .concat(filterApi.middleware),
 });
 setupListeners(store.dispatch);
 export type RootState = ReturnType<typeof store.getState>;

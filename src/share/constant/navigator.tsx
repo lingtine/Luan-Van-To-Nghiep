@@ -54,6 +54,10 @@ const navigation: INavigator[] = [
         label: "Đặt tả",
         href: "specifications",
       },
+      {
+        label: "Bộ lọc",
+        href: "filters",
+      },
     ],
   },
   {

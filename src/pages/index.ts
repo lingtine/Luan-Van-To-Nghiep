@@ -33,6 +33,7 @@ export { default as StatisticalPage } from "./admin/warehouse-management/statist
 export { default as ReportOrderPage } from "./admin/warehouse-management/statistical/report-product";
 export { default as ReportWarehousePage } from "./admin/warehouse-management/statistical/report-warehouse";
 
+export { default as FilterAdminPage } from "./admin/product-management/filter/Filter";
 // clients page
 export { default as AboutPage } from "./client/about/about";
 export { default as CartPage } from "./client/cart/cart";

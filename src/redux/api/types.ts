@@ -62,7 +62,36 @@ export interface ICustomerDetail {
 export interface IWishlistProduct {
   id: string;
   name: string;
+
+  description: string;
+  imageUrl: string;
+}
+
+export interface IAddProductType {
+  name: string;
+  description: string;
+  unitPrice: number;
+  image: File;
+  categoryId: string;
+  brandId: string;
+  sku: string;
+  relatedImages?: FileList;
+  specifications?: IProductAddSpecification[];
+}
+
+export interface IProductAddSpecification {
+  specificationId: string;
+  specificationName: string;
+  specificationValue: string;
+}
+
+export interface IProductType {
+  id: string;
+  name: string;
+  description: string;
+
   description?: string,
+
   unitPrice: number;
   isActive: boolean;
   isInStock: boolean;
@@ -191,4 +220,38 @@ export interface IReviewRequest {
   numberOfStar: number;
   comment: string;
   attachments?: FileList;
+}
+
+export interface IFilter {
+  id: string;
+  filterName: string;
+  specificationId: string;
+  specificationName: string;
+  categoryGroupId: string;
+  categoryGroupName: string;
+  values: string[];
+}
+
+export interface IFilterOfGroup {
+  categoryGroupId: string;
+  filterModels: IFilter[];
+}
+
+export interface IAddFilter {
+  filterName: string;
+  specificationId: string;
+  categoryGroupId: string;
+  values: string[];
+}
+
+export interface IFilterProduct {
+  specificationId: string;
+  value: string;
+}
+export interface IFilterProductParameter {
+  pageSize?: number;
+  pageIndex?: number;
+  brandIds: string[];
+  categoryIds: string[];
+  filterValues: IFilterProduct[];
 }
