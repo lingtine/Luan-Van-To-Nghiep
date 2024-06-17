@@ -5,18 +5,12 @@ import Pagination from "components/pagination/pagitnation";
 import { Button, Spinner } from "@material-tailwind/react";
 import Table from "components/table/table";
 import { useParams } from "react-router-dom";
-
-import { IOrderAdmin } from "redux/api/types";
-
-interface IOrderTable extends IOrderAdmin {
-  index: number;
-}
-
+import { IOrderTable } from "share/types/order";
 const Orders = () => {
   const { index } = useParams();
 
   const { data, isSuccess, isLoading } = useGetOrdersQuery({
-    pageIndex: index,
+    PageIndex: index,
   });
   const configData = [
     {

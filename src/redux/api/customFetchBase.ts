@@ -22,7 +22,6 @@ const baseQuery = fetchBaseQuery({
     const token = (getState() as RootState).authSlice.accessToken;
     if (token) {
       headers.set("authorization", `Bearer ${token}`);
-
       return headers;
     }
   },
@@ -33,15 +32,14 @@ const customFetchBase: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
-  // wait until the mutex is available without locking it
   await mutex.waitForUnlock();
   let result = await baseQuery(args, api, extraOptions);
   if (result.error && result.error.status === 401) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
-
+      const { getState } = api;
       try {
-        const refreshToken = getCookie("refreshToken");
+        const refreshToken = (getState() as RootState).authSlice.refreshToken;
         const refreshResult = await baseQuery(
           {
             url: "auths/auth/refresh-token",
@@ -51,17 +49,14 @@ const customFetchBase: BaseQueryFn<
           api,
           extraOptions
         );
-
         if (refreshResult.data) {
-          // Retry the initial query\
           const data = refreshResult.data as { data: {} };
-
           await api.dispatch(changeAuth(data.data));
-
           result = await baseQuery(args, api, extraOptions);
         } else {
           api.dispatch(logout());
         }
+      } catch {
       } finally {
         release();
       }

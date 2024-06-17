@@ -25,8 +25,8 @@ const stockApi = createApi({
       }),
       invalidatesTags: ["add"],
     }),
-    removeProductStock: build.mutation({
-      query: (stockId: string) => ({
+    removeProductStock: build.mutation<boolean, string>({
+      query: (stockId) => ({
         url: `/warehouses/product-instock/${stockId}`,
         method: "DELETE",
       }),

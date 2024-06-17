@@ -22,7 +22,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ className, label, area }) => {
     if (debounceSearch !== "") {
       getProducts({ Keyword: debounceSearch, PageSize: 10 });
     }
-  }, [debounceSearch]);
+  }, [debounceSearch, getProducts]);
   const handleClear = () => {
     setSearchValue("");
   };

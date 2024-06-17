@@ -1,5 +1,4 @@
 import customFetchBase from "../customFetchBase";
-
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 import {
@@ -39,7 +38,7 @@ const reportApi = createApi({
       transformResponse: ({ data }) => data,
     }),
     approveReport: build.mutation<IReport, string>({
-      query: (reportId: string) => ({
+      query: (reportId) => ({
         url: `/warehouses/reports/approve/${reportId}`,
         method: "POST",
       }),

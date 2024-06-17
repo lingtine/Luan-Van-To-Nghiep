@@ -13,11 +13,21 @@ const AccountPage: React.FC<AccountPageProps> = () => {
         <h3 className="text-xl font-semibold mb-8">Thông tin khách hàng</h3>
         <div className="flex gap-4">
           <div className="flex-[0_0_50%] max-w-[50%]">
-            <Input crossOrigin={""} label="Họ và tên" value={user.name}></Input>
+            <Input
+              crossOrigin={""}
+              readOnly
+              label="Họ và tên"
+              value={user.name}
+            ></Input>
           </div>
 
           <div className="flex-[0_0_50%] max-w-[50%]">
-            <Input crossOrigin={""} label="Email" value={user.email}></Input>
+            <Input
+              crossOrigin={""}
+              readOnly
+              label="Email"
+              value={user.email}
+            ></Input>
           </div>
         </div>
       </div>

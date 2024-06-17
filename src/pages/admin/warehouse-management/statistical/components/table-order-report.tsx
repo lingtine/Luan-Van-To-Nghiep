@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@material-tailwind/react";
 import Table from "components/table/table";
 import { useFormatPrice } from "hooks/use-format-price";
-import { IOrderReport } from "redux/api/types";
+import { IOrderReport } from "share/types/order";
 interface TableOrderReportProps {
   listOrder: IOrderReport[];
 }

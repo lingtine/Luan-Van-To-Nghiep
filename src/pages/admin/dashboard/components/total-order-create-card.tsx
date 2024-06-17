@@ -5,7 +5,7 @@ import { useGetTotalOrderCreateQuery } from "redux/api/order/order";
 interface TotalOrderCreateCardProps {}
 
 const TotalOrderCreateCard: React.FC<TotalOrderCreateCardProps> = () => {
-  const { data, isSuccess } = useGetTotalOrderCreateQuery(null);
+  const { data, isSuccess } = useGetTotalOrderCreateQuery();
 
   if (isSuccess) {
     return (

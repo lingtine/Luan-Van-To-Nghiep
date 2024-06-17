@@ -4,7 +4,7 @@ import { useGetTotalCustomerQuery } from "redux/api/auth/customer-api";
 interface TotalCustomerCartProps {}
 
 const TotalCustomerCart: React.FC<TotalCustomerCartProps> = () => {
-  const { data, isSuccess } = useGetTotalCustomerQuery(null);
+  const { data, isSuccess } = useGetTotalCustomerQuery();
 
   if (isSuccess) {
     return (

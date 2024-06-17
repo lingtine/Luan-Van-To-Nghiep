@@ -17,7 +17,7 @@ const ChartContent: React.FC<ChartContentProps> = () => {
       end: dateEnd,
       start: newDate.toISOString(),
     });
-  }, []);
+  }, [getReport]);
 
   if (result.isSuccess) {
     const options = result.data.data.data.map(

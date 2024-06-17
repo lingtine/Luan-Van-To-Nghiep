@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode";
 import { useGetEmployeeMutation } from "redux/api/auth/employeeApi";
 import { useGetCustomerMutation } from "redux/api/auth/customer-api";
 import { useEffect } from "react";
+import { IAccessToken } from "redux/api/types";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,19 +15,19 @@ import "./App.css";
 const App: React.FC = () => {
   const accessToken = getCookie("accessToken");
 
-  const [getEmployee, {}] = useGetEmployeeMutation();
-  const [getCustomer, {}] = useGetCustomerMutation();
+  const [getEmployee] = useGetEmployeeMutation();
+  const [getCustomer] = useGetCustomerMutation();
 
   useEffect(() => {
     if (accessToken) {
-      const data: { role: string } = jwtDecode(accessToken);
+      const data: IAccessToken = jwtDecode(accessToken);
       if (data.role === "Customer") {
         getCustomer();
       } else {
         getEmployee();
       }
     }
-  }, []);
+  }, [getEmployee, getCustomer, accessToken]);
 
   return (
     <>

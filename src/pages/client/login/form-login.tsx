@@ -52,7 +52,7 @@ const FormLogin: React.FC<FormLoginProps> = () => {
         <div className="min-w-[370px] flex flex-col gap-4">
           <h4 className="text-4xl font-medium ">Đăng nhập</h4>
           <span className="text-sm">
-            Bạn mới biết đến Techwave?{" "}
+            Bạn mới biết đến Techwave?
             <Link className="text-primary" to={"/register"}>
               Đăng kí
             </Link>

@@ -12,8 +12,6 @@ import {
   DefaultLayout,
   AboutPage,
   NotFoundPage,
-  AddBrandPage,
-  AddCategoryGroupPage,
   AddProductPage,
   BrandPage,
   CartPage,
@@ -33,18 +31,12 @@ import {
   ProductsAdminPage,
   RegisterPage,
   SearchPage,
-  // WishListPage,
   ResetPasswordPage,
-  AddSpecificationPage,
   SpecificationsPage,
   InventoryPage,
   ReportPage,
-  AddSupplierPage,
-  AddWarehousePage,
   SuppliersPage,
   WarehousesPage,
-  AddCouponPage,
-  AddDiscountEventPage,
   CouponsPage,
   DiscountEventsPage,
   AddGoodsReceiptPage,
@@ -60,10 +52,8 @@ import {
   AccountPage,
   ProductDetailPage,
   ReportWarehousePage,
-
   FilterAdminPage,
-
-  CustomerWishlistPage
+  CustomerWishlistPage,
 } from "pages";
 
 const router = createBrowserRouter(
@@ -99,12 +89,12 @@ const router = createBrowserRouter(
             </AuthClientGuard>
           }
         >
-          <Route path="" element={<AccountPage />}></Route>
+          <Route index element={<AccountPage />}></Route>
           <Route path="orders" element={<AccountOrderPage />}></Route>
           <Route path="address" element={<AccountAddressPage />}></Route>
           <Route path="wishlist" element={<CustomerWishlistPage />}></Route>
         </Route>
-        {/* <Route path="wishlist" element={<WishListPage />}></Route> */}
+
         <Route path="search" element={<SearchPage />}></Route>
 
         <Route path="reset-password" element={<ResetPasswordPage />}></Route>
@@ -175,40 +165,25 @@ const router = createBrowserRouter(
 
         <Route path="category-group" element={<CategoryGroupPage />} />
         <Route path="category-group/:index" element={<CategoryGroupPage />} />
-        <Route
-          path="category-group/add-category-group"
-          element={<AddCategoryGroupPage />}
-        />
+
         <Route path="brand" element={<BrandPage />} />
         <Route path="brand/:index" element={<BrandPage />} />
 
-        <Route path="brand/add-brand" element={<AddBrandPage />} />
         <Route path="specifications" element={<SpecificationsPage />} />
         <Route path="specifications/:index" element={<SpecificationsPage />} />
-        <Route
-          path="specifications/add-specification"
-          element={<AddSpecificationPage />}
-        />
 
         <Route path="suppliers" element={<SuppliersPage />} />
         <Route path="suppliers/:index" element={<SuppliersPage />} />
-        <Route path="suppliers/add-supplier" element={<AddSupplierPage />} />
 
         <Route path="warehouses" element={<WarehousesPage />} />
         <Route path="warehouses/:index" element={<WarehousesPage />} />
-        <Route path="warehouses/add-warehouse" element={<AddWarehousePage />} />
         <Route path="statistical" element={<StatisticalPage />} />
 
         <Route path="discountEvents" element={<DiscountEventsPage />} />
         <Route path="discountEvents/:index" element={<DiscountEventsPage />} />
-        <Route
-          path="discountEvents/add-discountEvent"
-          element={<AddDiscountEventPage />}
-        />
 
         <Route path="coupons" element={<CouponsPage />} />
         <Route path="coupons/:index" element={<CouponsPage />} />
-        <Route path="coupons/add-coupon" element={<AddCouponPage />} />
         <Route path="report-order" element={<StatisticalPage />} />
         <Route path="report-product" element={<ReportOrderPage />} />
         <Route path="report-warehouse" element={<ReportWarehousePage />} />
