@@ -107,14 +107,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/cart/check-out" element={<CheckOutPage />}></Route>
 
-      <Route
-        path="/login-admin"
-        element={
-          <AuthGuard>
-            <LoginAdminPage />
-          </AuthGuard>
-        }
-      ></Route>
+      <Route path="/login-admin" element={<LoginAdminPage />}></Route>
       <Route
         path="/admin/"
         element={
