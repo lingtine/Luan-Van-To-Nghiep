@@ -1,6 +1,6 @@
 import React from "react";
 import Table from "components/table/table";
-import { IOrder } from "redux/api/types";
+import { IOrder } from "share/types/order";
 import { Button } from "@material-tailwind/react";
 interface TableOrderProps {
   data: IOrder[];

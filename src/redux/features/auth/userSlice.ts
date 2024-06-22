@@ -1,10 +1,10 @@
-import { IUserDetail, ICustomerDetail, IEmployee } from "./../../api/types";
+import { IUserDetail, ICustomerDetail } from "./../../api/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: null,
 } as {
-  user: null | IUserDetail | ICustomerDetail | IEmployee;
+  user: null | IUserDetail | ICustomerDetail;
 };
 
 export const userSlide = createSlice({

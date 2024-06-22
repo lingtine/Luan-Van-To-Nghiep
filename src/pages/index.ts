@@ -14,7 +14,6 @@ export { default as AddProductPage } from "./admin/product-management/products/a
 export { default as ProductDetailAdminPage } from "./admin/product-management/products/product-detail";
 export { default as ProductsAdminPage } from "./admin/product-management/products/products";
 export { default as SpecificationsPage } from "./admin/product-management/specification/specification";
-export { default as AddSpecificationPage } from "./admin/product-management/specification/add-specification";
 export { default as ReportPage } from "./admin/report/report";
 export { default as InventoryPage } from "./admin/warehouse-management/inventory/inventory";
 export { default as WarehousesPage } from "./admin/warehouse-management/warehouse/warehouse";

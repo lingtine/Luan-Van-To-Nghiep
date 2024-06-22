@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import SideBar from "./components/side-bar/side-bar";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAppSelector } from "redux/store";
-import { jwtDecode } from "jwt-decode";
-import { toast } from "react-toastify";
+
 import { IoMenu } from "react-icons/io5";
 import SlideBarAdmin from "./components/side-bar/side-bar-mobile";
 

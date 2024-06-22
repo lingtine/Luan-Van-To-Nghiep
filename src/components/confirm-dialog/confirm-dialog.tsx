@@ -27,8 +27,12 @@ export const ConfirmDialog: React.FC<IConfirmDialog> = ({
   return (
     <>
       <Dialog open={!!data} handler={setData}>
-        {data && <DialogHeader>{data.title}</DialogHeader>}
-        {data && <DialogBody>{data.content}</DialogBody>}
+        {data && (
+          <>
+            <DialogHeader>{data.title}</DialogHeader>
+            <DialogBody>{data.content}</DialogBody>
+          </>
+        )}
         <DialogFooter>
           <Button
             variant="text"

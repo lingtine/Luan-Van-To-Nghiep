@@ -11,9 +11,7 @@ interface IDataForm {
   name: string;
 }
 
-interface FormRegisterProps {}
-
-const FormRegister: React.FC<FormRegisterProps> = () => {
+const FormRegister = () => {
   const [register, result] = useRegisterMutation();
   const navigate = useNavigate();
   const [dataForm, setDataForm] = useState<IDataForm>({

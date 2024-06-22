@@ -109,7 +109,7 @@ const customerApi = createApi({
         invalidatesTags: ["remove-deliveryInfo"],
       }),
 
-      getTotalCustomer: builder.query({
+      getTotalCustomer: builder.query<any, void>({
         query: () => ({
           url: "/customers/customers/CountCustomer",
           method: "GET",

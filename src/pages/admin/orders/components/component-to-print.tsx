@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { IOrderDetail } from "redux/api/types";
+import { IOrderDetail } from "share/types/order";
 import React from "react";
 import { useFormatPrice } from "hooks/use-format-price";
 

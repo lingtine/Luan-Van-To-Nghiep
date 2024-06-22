@@ -1,22 +1,29 @@
 import { IProductOrder } from "share/types/product";
-export interface IUser {
+
+export interface IAccessToken {
   name: string;
   email: string;
-  role: string;
-  _id: string;
+  role: string | string[];
   createdAt: Date;
   updatedAt: Date;
-  __v: number;
+}
+export interface IUserDetail {
+  id: string;
+  name: string;
+  email: string;
+  address?: string;
+  department?: IDepartment;
+  imageUrl?: string;
+  phone?: string;
 }
 
-export interface IEmployee {
-  address?: string;
-  department?: string;
-  email: string;
+export interface ICustomerDetail {
   id: string;
-  imageUrl?: null;
   name: string;
-  phone?: string;
+  email: string;
+  deliveryInfos: IDeliveryInfo[];
+  purchases: [];
+  wishlists: [];
 }
 
 export interface IDepartment {
@@ -25,38 +32,25 @@ export interface IDepartment {
   description: string;
 }
 
-export interface IDeliveryInput {
-  name: string;
-  address: {
-    number: string;
-    street: string;
-    ward: string;
-    district: string;
-    city: string;
-  };
-  phoneNumber: string;
+interface IAddress {
+  number: string;
+  street: string;
+  ward: string;
+  district: string;
+  city: string;
 }
 
 export interface IDeliveryInfo {
   id: string;
   name: string;
-  address: {
-    number: string;
-    street: string;
-    ward: string;
-    district: string;
-    city: string;
-  };
+  address: IAddress;
   phoneNumber: string;
 }
 
-export interface ICustomerDetail {
-  deliveryInfos: IDeliveryInfo[];
-  email: string;
-  id: string;
-  purchases: [];
+export interface IDeliveryInput {
   name: string;
-  wishlists: [];
+  address: IAddress;
+  phoneNumber: string;
 }
 
 export interface IWishlistProduct {
@@ -81,10 +75,10 @@ export interface IAddProductType {
   brandId: string;
   sku: string;
   relatedImages?: FileList;
-  specifications?: IProductAddSpecification[];
+  specifications?: IProductSpecification[];
 }
 
-export interface IProductAddSpecification {
+export interface IProductSpecification {
   specificationId: string;
   specificationName: string;
   specificationValue: string;
@@ -93,9 +87,7 @@ export interface IProductAddSpecification {
 export interface IProductType {
   id: string;
   name: string;
-
   description?: string;
-
   unitPrice: number;
   isActive: boolean;
   isInStock: boolean;
@@ -109,62 +101,9 @@ export interface IWishlistItem {
   items: IWishlistProduct[];
 }
 
-export interface IUserDetail {
-  address?: string;
-  department?: IDepartment;
-  email: string;
-  id: string;
-  imageUrl?: string;
-  name: string;
-  phone?: string;
-}
-
 export interface IGenericResponse {
   status: string;
   message: string;
-}
-
-export interface IOrder {
-  id?: string;
-  couponId: string;
-  deliveryInfo: {
-    fullName: string;
-    phoneNumber: string;
-    email: string;
-    address: {
-      city: string;
-      district: string;
-      ward: string;
-      street: string;
-      streetNumber: string;
-    };
-    note: string;
-  };
-}
-
-export interface IOrderAdmin {
-  id?: string;
-  couponId: string;
-  deliveryInfo: {
-    fullName: string;
-    phoneNumber: string;
-    email: string;
-    address: {
-      city: string;
-      district: string;
-      ward: string;
-      street: string;
-      streetNumber: string;
-    };
-    note: string;
-  };
-  status:
-    | "Created"
-    | "Processing"
-    | "Delivering"
-    | "Delivered"
-    | "Returned"
-    | "Canceled";
 }
 
 export interface ICartDetail {
@@ -172,45 +111,6 @@ export interface ICartDetail {
   customerId: string;
   status: string;
   items: IProductOrder[];
-}
-
-export interface IOrderDetail {
-  id: string;
-  cartId: string;
-  deliveryInfo: {
-    fullName: string;
-    phoneNumber: string;
-    email: string;
-    address: {
-      city: string;
-      district: string;
-      ward: string;
-      street: string;
-      streetNumber: string;
-    };
-    note: string;
-  };
-  totalItems: number;
-  amount: number;
-  cost: number;
-  couponId: string;
-  createAt: string;
-  cart: {
-    id: string;
-    customerId: string;
-    status: string;
-    items: IProductOrder[];
-  };
-  status: string;
-}
-
-export interface IOrderReport {
-  revenue: number;
-  status: string;
-  totalAmount: number;
-  totalDiscount: number;
-  totalOrder: number;
-  totalProduct: number;
 }
 
 export interface IReviewUser {

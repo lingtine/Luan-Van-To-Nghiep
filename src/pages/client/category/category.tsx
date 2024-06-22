@@ -41,7 +41,6 @@ const CategoryPage = () => {
     pageSize: 24,
     totalCount: 1,
   });
-  console.log("🚀 ~ productData:", productData);
 
   const [filterProductByParameter, result] =
     useFilterProductByParameterMutation();

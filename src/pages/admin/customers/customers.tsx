@@ -1,10 +1,10 @@
 import React from "react";
-import Table from "components/table/table";
 import Pagination from "components/pagination/pagitnation";
 import { Spinner } from "@material-tailwind/react";
 import { useGetCustomersQuery } from "redux/api/auth/customer-api";
 import { useParams } from "react-router-dom";
 import { IUserDetail } from "redux/api/types";
+import CustomerTable from "./customer-table";
 
 interface ICustomerTable extends IUserDetail {
   index: number;
@@ -16,27 +16,6 @@ const Customers = () => {
     pageIndex: index,
   });
 
-  const configData = [
-    {
-      label: "STT",
-      render: (data: ICustomerTable) => {
-        return data.index;
-      },
-    },
-    {
-      label: "Tên Khách hàng",
-      render: (data: ICustomerTable) => {
-        return data.name;
-      },
-    },
-    {
-      label: "Tên Email",
-      render: (data: ICustomerTable) => {
-        return data.name;
-      },
-    },
-  ];
-
   let content: React.ReactNode;
 
   if (isSuccess) {
@@ -47,7 +26,7 @@ const Customers = () => {
     }));
     content = (
       <div>
-        <Table config={configData} data={updateData}></Table>
+        <CustomerTable data={updateData}></CustomerTable>
         <div className="flex justify-center my-8">
           <Pagination
             pageIndex={data.pageIndex}

@@ -5,7 +5,7 @@ import TableOrder from "./components/table-orders";
 interface AccountOrderProps {}
 
 const AccountOrder: React.FC<AccountOrderProps> = () => {
-  const { data, isSuccess } = useGetOrdersByCustomerQuery(null);
+  const { data, isSuccess } = useGetOrdersByCustomerQuery();
 
   if (isSuccess) {
     return (

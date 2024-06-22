@@ -116,6 +116,111 @@ const navigation: INavigator[] = [
     ],
   },
 ];
+const navigationDeparment: INavigator[] = [
+  {
+    label: "Dashboard",
+    href: "/admin",
+
+    icon: <BsHouse />,
+  },
+  {
+    label: "Quản lý đơn hàng",
+    href: "/admin/orders",
+
+    icon: <BsCart />,
+  },
+  {
+    label: "Quản lý khách hàng",
+    href: "/admin/customers",
+
+    icon: <BiUserCircle />,
+  },
+  {
+    label: "Quản lý sản phẩm",
+    icon: <BsMinecartLoaded />,
+    children: [
+      {
+        label: "Sản phẩm",
+        href: "products",
+      },
+      {
+        label: "Nhóm danh mục",
+        href: "category-group",
+      },
+      {
+        label: "Danh mục",
+        href: "category",
+      },
+      {
+        label: "Thương hiệu",
+        href: "brand",
+      },
+      {
+        label: "Đặt tả",
+        href: "specifications",
+      },
+      {
+        label: "Bộ lọc",
+        href: "filters",
+      },
+    ],
+  },
+  {
+    label: "Quản lý kho",
+    icon: <FaWarehouse />,
+    children: [
+      {
+        label: "Kho",
+        href: "warehouses",
+      },
+      {
+        label: "Tồn kho",
+        href: "inventory",
+      },
+      {
+        label: "Xuất, Nhập kho",
+        href: "report",
+      },
+
+      {
+        label: "Nhà cung cấp",
+        href: "suppliers",
+      },
+    ],
+  },
+  {
+    label: "Quản lý mã giảm giá",
+    icon: <BiSolidDiscount />,
+    children: [
+      {
+        label: "Sự kiện giảm giá",
+        href: "discountEvents",
+      },
+      {
+        label: "Mã giảm giá",
+        href: "coupons",
+      },
+    ],
+  },
+  {
+    label: "Thống kê",
+    icon: <FaSquarePollVertical />,
+    children: [
+      {
+        label: "Thống kê đơn hàng",
+        href: "report-order",
+      },
+      {
+        label: "Thống kê sản phẩm",
+        href: "report-product",
+      },
+      {
+        label: "Thống kê kho",
+        href: "report-warehouse",
+      },
+    ],
+  },
+];
 
 const navigationAccount: INavigator[] = [
   {

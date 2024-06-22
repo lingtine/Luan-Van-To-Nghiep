@@ -1,14 +1,22 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 import customFetchBase from "redux/api/customFetchBase";
-import { IOrder, IOrderDetail, IOrderAdmin } from "../types";
-import { IOrderReport } from "../types";
+import {
+  IOrder,
+  IOrderDetail,
+  IOrderAdmin,
+  IOrderInfo,
+  IOrderReport,
+  IOrderParams,
+  IOrderPage,
+} from "share/types/order";
+
 const orderApi = createApi({
   reducerPath: "order",
   baseQuery: customFetchBase,
   tagTypes: ["processing-Order", "create-order", "change-process"],
   endpoints: (builder) => ({
-    getOrders: builder.query({
+    getOrders: builder.query<IOrderPage, IOrderParams>({
       query: (params) => ({
         url: "/orders/orders",
         method: "GET",
@@ -16,45 +24,40 @@ const orderApi = createApi({
       }),
 
       providesTags: ["processing-Order"],
-      transformResponse: (response: {
-        data: IOrderAdmin[];
+    }),
+    getOrdersCustomer: builder.query<
+      {
+        data: IOrder[];
         pageIndex: number;
         pageSize: number;
         totalCount: number;
-      }) => response,
-    }),
-    getOrdersCustomer: builder.query({
+      },
+      IOrderParams
+    >({
       query: (params) => ({
         url: "/orders/orders/customer",
         method: "GET",
         params,
       }),
-
-      transformResponse: (response: {
-        data: IOrder[];
-        pageIndex: number;
-        pageSize: number;
-        totalCount: number;
-      }) => response,
     }),
-    createOrder: builder.mutation({
+    createOrder: builder.mutation<any, IOrderInfo>({
       query: (data) => ({
         url: "/orders/orders",
         method: "POST",
         body: data,
       }),
     }),
-    getOrder: builder.query({
+    getOrder: builder.query<IOrderDetail, string>({
       query: (orderId: string) => ({
         url: `/orders/orders/GetOrderDetail/${orderId}`,
         method: "GET",
       }),
-      transformResponse: (response: { data: IOrderDetail }) => response.data,
+      transformResponse: ({ data }) => data,
       providesTags: (result, error, arg) => {
         return [{ type: "change-process", id: arg }];
       },
     }),
-    orderProcessing: builder.mutation({
+    orderProcessing: builder.mutation<any, string>({
       query: (orderId: string) => ({
         url: `orders/orders/process/${orderId}`,
         method: "POST",
@@ -109,20 +112,20 @@ const orderApi = createApi({
         body: data,
       }),
     }),
-    getOrdersByCustomer: builder.query({
+    getOrdersByCustomer: builder.query<IOrder[], void>({
       query: () => ({
         url: "/orders/orders/customer",
         method: "GET",
       }),
-      transformResponse: (response: { data: IOrder[] }) => response.data,
+      transformResponse: ({ data }) => data,
     }),
-    getTotalRevenue: builder.query({
+    getTotalRevenue: builder.query<any, void>({
       query: () => ({
         url: "/orders/orders/GetTotalRevenue",
         method: "GET",
       }),
     }),
-    getTotalOrderCreate: builder.query({
+    getTotalOrderCreate: builder.query<any, void>({
       query: () => ({
         url: "/orders/orders/GetTotalOrderCreated",
         method: "GET",

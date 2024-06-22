@@ -5,7 +5,7 @@ import { useGetTotalRevenueQuery } from "redux/api/order/order";
 interface TotalRevenueCardProps {}
 
 const TotalRevenueCard: React.FC<TotalRevenueCardProps> = () => {
-  const { data, isSuccess } = useGetTotalRevenueQuery(null);
+  const { data, isSuccess } = useGetTotalRevenueQuery();
   const [format] = useFormatPrice();
 
   if (isSuccess) {

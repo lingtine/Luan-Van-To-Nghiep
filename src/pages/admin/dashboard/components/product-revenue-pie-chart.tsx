@@ -17,7 +17,7 @@ const ProductRevenuePieChart: React.FC<ProductRevenuePieChartProps> = () => {
       start: dateStart,
       end: dateEnd,
     });
-  }, []);
+  }, [getOrderReport]);
   let content;
 
   if (isLoading) {
