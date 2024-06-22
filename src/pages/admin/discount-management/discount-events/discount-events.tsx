@@ -23,7 +23,7 @@ const DiscountEvent = () => {
   let content: React.ReactNode;
 
   if (isSuccess) {
-    const { pageSize, pageIndex } = data;
+    const { pageSize, pageIndex, totalCount } = data;
 
     const updateData: IDiscountEventTable[] = data.data.map((item, index) => ({
       ...item,
@@ -34,9 +34,9 @@ const DiscountEvent = () => {
         <DiscountEventTable data={updateData}></DiscountEventTable>
         <div className="flex justify-center my-8">
           <Pagination
-            pageIndex={0}
-            pageSize={20}
-            totalCount={80}
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            totalCount={totalCount}
             url="/admin/discountEvents"
           />
         </div>

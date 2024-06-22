@@ -1,5 +1,4 @@
-import { Fragment } from "react";
-import { IFilter } from "redux/api/types";
+import { IFilter } from "share/types/filter";
 
 export interface IFilterProps {
   filters: IFilter[];
@@ -13,7 +12,9 @@ const FilterSidebar = ({ filters }: IFilterProps) => {
           <h1>{item.filterName}</h1>
           <ul className="ml-4  border-4 grid grid-cols-2 gap-2">
             {item.values.map((value) => (
-              <li className="w-full overflow-hidden" key={value}>{value}</li>
+              <li className="w-full overflow-hidden" key={value}>
+                {value}
+              </li>
             ))}
           </ul>
         </div>

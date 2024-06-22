@@ -9,7 +9,7 @@ import {
   useUpdateFilterMutation,
 } from "redux/api/catalog/filter";
 import { useGetSpecificationsQuery } from "redux/api/catalog/specification";
-import { IAddFilter, IFilter } from "redux/api/types";
+import { IAddFilter, IFilter } from "share/types/filter";
 
 interface IFilterFormProps {
   onClose: Function;
@@ -22,7 +22,7 @@ const FilterForm = ({
     filterName: "",
     id: "",
     specificationId: "",
-    values: [""],
+    values: [],
     specificationName: "",
     categoryGroupName: "",
   },

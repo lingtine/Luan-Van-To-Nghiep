@@ -226,28 +226,6 @@ export interface IReviewRequest {
   attachments?: FileList;
 }
 
-export interface IFilter {
-  id: string;
-  filterName: string;
-  specificationId: string;
-  specificationName: string;
-  categoryGroupId: string;
-  categoryGroupName: string;
-  values: string[];
-}
-
-export interface IFilterOfGroup {
-  categoryGroupId: string;
-  filterModels: IFilter[];
-}
-
-export interface IAddFilter {
-  filterName: string;
-  specificationId: string;
-  categoryGroupId: string;
-  values: string[];
-}
-
 export interface IFilterProduct {
   specificationId: string;
   value: string;

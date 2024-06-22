@@ -33,7 +33,7 @@ const CategoryTable: React.FC<ITable> = ({ data }) => {
       },
     },
     {
-      label: "Tên Nhóm Danh Mục",
+      label: "Tên Danh Mục",
       render: (data: ICategoryTable) => {
         return data.name;
       },
@@ -57,7 +57,7 @@ const CategoryTable: React.FC<ITable> = ({ data }) => {
               onClick={() => {
                 handleCategoryGroupRemove({
                   id: data.id,
-                  title: `Bạn có muốn xoá nhóm danh mục ${data.name}`,
+                  title: `Bạn có muốn xoá danh mục ${data.name}`,
                   content:
                     "Thao tác này sẽ xóa bản ghi. Một khi đã xóa thì không thể khôi phục lại.",
                 });

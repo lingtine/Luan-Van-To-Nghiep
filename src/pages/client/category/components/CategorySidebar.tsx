@@ -126,7 +126,7 @@ const CategorySidebar = ({
       <div>
         <h1 className="font-bold">Thông số kỹ thuật</h1>
         <div className=" divide-y-2">
-          {filterData?.data.filterModels.map((filter) => (
+          {filterData?.filterModels.map((filter) => (
             <div
               key={filter.id}
               className="px-2 py-3 font-medium text-gray-900"

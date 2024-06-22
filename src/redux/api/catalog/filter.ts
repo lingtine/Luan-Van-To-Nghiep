@@ -1,45 +1,43 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import customFetchBase from "../customFetchBase";
-import { IAddFilter, IFilter, IFilterOfGroup } from "../types";
+import {
+  IAddFilter,
+  IFilter,
+  IFilterOfGroup,
+  IFilterPage,
+  IParamsFilter,
+} from "share/types/filter";
 
 const filterApi = createApi({
   reducerPath: "filter",
   baseQuery: customFetchBase,
   tagTypes: ["add-filter", "update-filter"],
   endpoints: (builder) => ({
-    getFilters: builder.query({
+    getFilters: builder.query<IFilterPage, IParamsFilter>({
       query: (params) => ({
         url: `/catalogs/filters`,
         method: "GET",
         params,
       }),
-      transformResponse: (response: {
-        data: IFilter[];
-        pageIndex: number;
-        pageSize: number;
-        totalCount: number;
-      }) => {
-        return response;
-      },
     }),
-    getFilterByGroupId: builder.query({
-      query: (groupId: string) => ({
+    getFilterByGroupId: builder.query<IFilterOfGroup, string>({
+      query: (groupId) => ({
         url: `/catalogs/filters/${groupId}`,
         method: "GET",
       }),
-      transformResponse: (response: { data: IFilterOfGroup }) => response,
+      transformResponse: ({ data }) => data,
       providesTags: ["add-filter", "update-filter"],
     }),
-    addFilter: builder.mutation({
-      query: (filter: IAddFilter) => ({
+    addFilter: builder.mutation<IFilter, IAddFilter>({
+      query: (filter) => ({
         url: `/catalogs/filters`,
         method: "POST",
         body: filter,
       }),
       invalidatesTags: ["add-filter"],
     }),
-    updateFilter: builder.mutation({
-      query: (filter: IAddFilter) => ({
+    updateFilter: builder.mutation<IFilter, IAddFilter>({
+      query: (filter) => ({
         url: `/catalogs/filters`,
         method: "PUT",
         body: filter,

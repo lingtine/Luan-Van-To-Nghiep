@@ -55,37 +55,44 @@ function ModalAddBrand({ onToggle }: { onToggle: () => void }) {
 
   return (
     <Modal onClose={onToggle}>
-      <section>
-        <UploadImage onChange={handleAddImage} />
-      </section>
-      <section>
-        <form
-          onSubmit={handleSubmit}
-          className="flex justify-between gap-4 flex-col"
-        >
-          <header className="text-xl my-2 font-bold ">Thêm thương hiệu</header>
-          <div className="flex flex-col gap-4 w-full">
-            <Input
-              name="name"
-              onChange={handleChange}
-              value={dataForm.name}
-              crossOrigin={"use-credentials"}
-              variant="outlined"
-              label="Tên thương hiệu"
-            />
-            <Textarea
-              name="description"
-              onChange={handleChange}
-              value={dataForm.description}
-              label="Miêu tả thương hiệu"
-            />
-          </div>
+      <div className="flex gap-4">
+        <section className="w-96">
+          <header className="text-xl my-2 font-bold ">
+            Hình Ảnh Thương Hiệu
+          </header>
+          <UploadImage onChange={handleAddImage} />
+        </section>
+        <section className="w-96">
+          <form
+            onSubmit={handleSubmit}
+            className="flex justify-between gap-4 flex-col"
+          >
+            <header className="text-xl my-2 font-bold ">
+              Thêm thương hiệu
+            </header>
+            <div className="flex flex-col gap-4 w-full">
+              <Input
+                name="name"
+                onChange={handleChange}
+                value={dataForm.name}
+                crossOrigin={"use-credentials"}
+                variant="outlined"
+                label="Tên thương hiệu"
+              />
+              <Textarea
+                name="description"
+                onChange={handleChange}
+                value={dataForm.description}
+                label="Miêu tả thương hiệu"
+              />
+            </div>
 
-          <div className="flex justify-end my-4">
-            <Button type="submit">Thêm thương hiệu</Button>
-          </div>
-        </form>
-      </section>
+            <div className="flex justify-end my-4">
+              <Button type="submit">Thêm thương hiệu</Button>
+            </div>
+          </form>
+        </section>
+      </div>
     </Modal>
   );
 }

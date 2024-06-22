@@ -23,7 +23,19 @@ module.exports = withMT({
         primary: "#EA4335",
         "primary-1": "#363738",
         "primary-2": "#0A0A0A",
-        "primary-3": {"50":"#eff6ff","100":"#dbeafe","200":"#bfdbfe","300":"#93c5fd","400":"#60a5fa","500":"#3b82f6","600":"#2563eb","700":"#1d4ed8","800":"#1e40af","900":"#1e3a8a","950":"#172554"},
+        "primary-3": {
+          50: "#eff6ff",
+          100: "#dbeafe",
+          200: "#bfdbfe",
+          300: "#93c5fd",
+          400: "#60a5fa",
+          500: "#3b82f6",
+          600: "#2563eb",
+          700: "#1d4ed8",
+          800: "#1e40af",
+          900: "#1e3a8a",
+          950: "#172554",
+        },
         secondary: "#F5F5F5",
         "secondary-2": "#FEFAF1",
         "secondary-3": "#DB4444",
@@ -47,7 +59,4 @@ module.exports = withMT({
       },
     },
   },
-  plugins: [
-    require('tailwind-scrollbar-hide')
-  ],
 });

@@ -36,9 +36,8 @@ const BrandTable: React.FC<ITable> = ({ data }) => {
       label: "Tên thương hiệu",
       render: (data: IBrandTable) => {
         return (
-          <div className="flex gap-4">
-            <img className="w-8" src={data.imageUrl} alt={data.name} />
-            {/* <p>{data.name}</p> */}
+          <div className="flex gap-4 items-center">
+            <img className="w-16" src={data.imageUrl} alt={data.name} />
           </div>
         );
       },

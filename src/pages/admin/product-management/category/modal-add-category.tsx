@@ -51,7 +51,7 @@ function ModalAddCategory({ onToggle }: { onToggle: () => void }) {
         onChange={handleSelect}
         options={updateData}
         selected={selected}
-        label="Chọn Nhóm Danh Mục"
+        label="Chọn nhóm danh mục"
       />
     );
   }
@@ -82,13 +82,13 @@ function ModalAddCategory({ onToggle }: { onToggle: () => void }) {
             value={dataForm.name}
             crossOrigin={"use-credentials"}
             variant="outlined"
-            label="Tên nhóm danh mục"
+            label="Tên danh mục"
           />
           <Textarea
             name="description"
             onChange={handleChange}
             value={dataForm.description}
-            label="Miêu tả nhóm danh mục"
+            label="Miêu tả"
           />
         </div>
         {content}

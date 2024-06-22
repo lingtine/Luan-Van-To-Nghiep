@@ -88,7 +88,7 @@ function DiscountEventTable({ data }: ITable) {
 
   return (
     <>
-      <Table config={configData} data={data}></Table>;
+      <Table config={configData} data={data}></Table>
       <ConfirmDialog
         data={couponRemove}
         setData={handleCouponRemove}

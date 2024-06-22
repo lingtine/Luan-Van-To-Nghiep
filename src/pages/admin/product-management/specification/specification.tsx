@@ -53,7 +53,7 @@ const Specification = () => {
   return (
     <div className="px-4 ">
       <div className="flex justify-end my-4">
-        <Button className="flex gap-2 items-center">
+        <Button onClick={handleToggle} className="flex gap-2 items-center">
           <AiOutlinePlusCircle />
           Thêm đặc tả
         </Button>

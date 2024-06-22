@@ -62,13 +62,13 @@ function ModalUpdateCategory({
             value={dataForm.name}
             crossOrigin={"use-credentials"}
             variant="outlined"
-            label="Tên nhóm danh mục"
+            label="Tên danh mục"
           />
           <Textarea
             name="description"
             onChange={handleChange}
             value={dataForm.description}
-            label="Miêu tả nhóm danh mục"
+            label="Miêu tả"
           />
         </div>
         <div className="flex justify-end my-4 gap-4">
