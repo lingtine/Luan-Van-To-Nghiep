@@ -24,7 +24,7 @@ const Cart: React.FC = () => {
   const [selected, setSelected] = useState<ICouponInput>();
 
   const { data, isSuccess, refetch } = useGetDetailCartQuery();
-  
+
   let content;
   if (getCouponSuccess) {
     const options = dataCoupon.data.map((item) => ({
@@ -101,7 +101,9 @@ const Cart: React.FC = () => {
                     <th scope="col" className="px-6 py-3">
                       Sản phẩm
                     </th>
-                    <th scope="col" className="px-6 py-3"></th>
+                    <th scope="col" className="px-6 py-3">
+                      Tên sản phẩm
+                    </th>
                     <th scope="col" className="px-6 py-3">
                       Số lượng
                     </th>
@@ -113,7 +115,7 @@ const Cart: React.FC = () => {
                 <tbody className="text-xs text-gray-700">
                   {data.items.map((item: IProductOrder) => (
                     <tr>
-                      <th>
+                      <th className="px-6 py-3">
                         <img
                           src={
                             item.imageUrl ??
@@ -123,9 +125,9 @@ const Cart: React.FC = () => {
                           className="h-[64px] w-[64px] object-cover"
                         />
                       </th>
-                      <th>{item.name}</th>
-                      <th>{item.quantity}</th>
-                      <th>
+                      <th className="px-6 py-3">{item.name}</th>
+                      <th className="px-6 py-3">{item.quantity}</th>
+                      <th className="px-6 py-3">
                         {formPrice.format(item.unitPrice * item.quantity)}
                       </th>
                     </tr>
