@@ -24,7 +24,7 @@ const Cart: React.FC = () => {
   const [selected, setSelected] = useState<ICouponInput>();
 
   const { data, isSuccess, refetch } = useGetDetailCartQuery();
-
+  
   let content;
   if (getCouponSuccess) {
     const options = dataCoupon.data.map((item) => ({
@@ -95,32 +95,43 @@ const Cart: React.FC = () => {
                 Không có sản phẩm nào
               </div>
             ) : (
-              data.items.map((item: IProductOrder) => (
-                <>
-                  <div key={item.id} className="flex justify-between w-full">
-                    <div className="flex gap-8">
-                      <img
-                        src={
-                          "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png"
-                        }
-                        alt={"ảnh"}
-                        className="h-[64px] w-[64px] object-cover"
-                      />
-                      <div className="flex flex-col ">
-                        <span className="text-black line-clamp-1">
-                          {item.productName}
-                        </span>
-                        <span className="text-primary-200">
-                          Số lượng: {item.quantity}
-                        </span>
-                      </div>
-                    </div>
-                    <span>
-                      {formPrice.format(item.unitPrice * item.quantity)}
-                    </span>
-                  </div>
-                </>
-              ))
+              <table>
+                <thead className="text-xs text-gray-700 uppercase">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      Sản phẩm
+                    </th>
+                    <th scope="col" className="px-6 py-3"></th>
+                    <th scope="col" className="px-6 py-3">
+                      Số lượng
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Giá
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="text-xs text-gray-700">
+                  {data.items.map((item: IProductOrder) => (
+                    <tr>
+                      <th>
+                        <img
+                          src={
+                            item.imageUrl ??
+                            "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png"
+                          }
+                          alt={"Hình ảnh sản phẩm"}
+                          className="h-[64px] w-[64px] object-cover"
+                        />
+                      </th>
+                      <th>{item.name}</th>
+                      <th>{item.quantity}</th>
+                      <th>
+                        {formPrice.format(item.unitPrice * item.quantity)}
+                      </th>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             ))}
 
           <div className="flex flex-col gap-2">
