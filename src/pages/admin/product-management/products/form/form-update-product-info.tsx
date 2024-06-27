@@ -54,8 +54,6 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("🚀 ~ handleSubmit ~ FormData:", dataForm);
-
     // if (dataForm.image) {
     //   updateProduct(dataForm);
     // } else {
@@ -145,7 +143,6 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
       dataForm.description !== product.description &&
       dataForm.image
     ) {
-      console.log("Form true");
       setIsUpdate(true);
     }
   }, [dataForm, product.name, product.unitPrice, product.description]);

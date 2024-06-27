@@ -13,7 +13,6 @@ const Home: React.FC<HomeProps> = () => {
   const { user } = useAppSelector((state) => state.userSlice);
   let renderData;
   if (isSuccess) {
-    console.log(data);
 
     renderData = data.map((item: any) => (
       <HomeProductBox
