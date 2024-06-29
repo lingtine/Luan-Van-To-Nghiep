@@ -53,7 +53,6 @@ function ModalAddCoupon({ onToggle }: { onToggle: () => void }) {
 
     if (
       dataForm.name.trim().length === 0 ||
-      dataForm.description.trim().length === 0 ||
       dataForm.quantity !== 0 ||
       dataForm.reducedPrice === 0 ||
       dataForm.discountEventId.trim().length === 0

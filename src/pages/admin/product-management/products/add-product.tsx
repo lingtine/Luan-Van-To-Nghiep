@@ -88,13 +88,13 @@ const AddProduct = () => {
       if (
         dataForm.brandId.trim().toString().length === 0 ||
         dataForm.categoryId.trim().toString().length === 0 ||
-        dataForm.description.trim().toString().length === 0 ||
+        // dataForm.description.trim().toString().length === 0 ||
         dataForm.sku.trim().toString().length === 0 ||
-        !dataForm.image ||
+        // !dataForm.image ||
         dataForm.name.trim().toString().length === 0 ||
         dataForm.unitPrice <= 0
       ) {
-        toast.error("Thông tin không hợp lệ aaaaa");
+        toast.error("Thông tin không hợp lệ");
       } else {
         addProduct(dataForm);
       }
@@ -140,7 +140,7 @@ const AddProduct = () => {
         ),
       };
     });
-  }, [specifications, dataForm]);
+  }, [specifications]);
 
   useEffect(() => {
     if (relatedImages) {
@@ -148,7 +148,7 @@ const AddProduct = () => {
         return { ...dataForm, relatedImages: relatedImages };
       });
     }
-  }, [relatedImages, dataForm]);
+  }, [relatedImages]);
 
   useEffect(() => {
     if (result.isSuccess) {

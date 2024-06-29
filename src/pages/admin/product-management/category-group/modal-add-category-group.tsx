@@ -33,8 +33,7 @@ function ModalAddCategoryGroup({ onToggle }: { onToggle: () => void }) {
     e.preventDefault();
 
     if (
-      dataForm.name.trim().length === 0 ||
-      dataForm.description.trim().length === 0
+      dataForm.name.trim().length === 0
     ) {
       toast.error("Thông tin không hợp lệ");
     } else {
