@@ -164,7 +164,7 @@ const CategoryPage = () => {
   return (
     <div className="container my-8">
       <h2 className="text-2xl mx-4 lg:mx-0">Sản phẩm</h2>
-      <div className="container flex flex-wrap lg:-mx-4   my-8">
+      <div className="container flex flex-wrap lg:-mx-4 my-8">
         <div className="flex-[0_0_100%] max-w-[100%] lg:flex-[0_0_25%] lg:max-w-[25%] p-4">
           {/* <Sidebar
             categories={categories}

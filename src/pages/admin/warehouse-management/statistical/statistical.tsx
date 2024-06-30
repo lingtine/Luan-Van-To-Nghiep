@@ -12,7 +12,11 @@ interface StatisticalProps {}
 const Statistical: React.FC<StatisticalProps> = () => {
   const [dateEnd, setDateEnd] = useState<Date>();
   const [dateStart, setDateStart] = useState<Date>();
-
+  console.log(
+    "🚀 ~ OrderReport ~ dateStart ~ dateEnd :",
+    dateStart?.toString(),
+    dateEnd?.toLocaleString()
+  );
   const [getOrderReport, { isSuccess, isLoading, data }] =
     useGetOrderReportByStatusMutation();
 
@@ -22,8 +26,8 @@ const Statistical: React.FC<StatisticalProps> = () => {
         toast.error("Ngày bắt đầu phải sớm hơn");
       } else {
         getOrderReport({
-          start: dateStart.toISOString(),
-          end: dateEnd.toISOString(),
+          start: dateStart,
+          end: dateEnd,
         });
       }
     } else {
@@ -59,7 +63,7 @@ const Statistical: React.FC<StatisticalProps> = () => {
 
         <Button onClick={handleClick}>In ra báo cáo</Button>
       </div>
-
+      
       <div className="my-4 px-8">{content}</div>
     </div>
   );

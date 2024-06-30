@@ -54,7 +54,10 @@ const Coupon = () => {
   return (
     <div className="px-4 ">
       <div className="flex justify-end my-4">
-        <Button className="flex gap-2 items-center">
+        <Button
+          onClick={() => setIsAddNew(true)}
+          className="flex gap-2 items-center"
+        >
           <AiOutlinePlusCircle />
           Thêm phiểu giảm giá
         </Button>
