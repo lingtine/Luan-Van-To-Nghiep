@@ -37,15 +37,19 @@ const OrderReport = () => {
   const [getOrderReportInRange, { data }] = useGetOrderReportInRangeMutation();
 
   useEffect(() => {
+    const selectedDate = new Date();
+    selectedDate.setDate(selectedDate.getDate() + 1);
     getOrderReportInRange({
-      date: (new Date()),
+      date: selectedDate,
       type: "Day",
     });
   }, []);
 
   const handleClick = () => {
+    const selectedDate = date ?? new Date();
+    selectedDate.setDate(selectedDate.getDate() + 1);
     getOrderReportInRange({
-      date: date ?? new Date(),
+      date: selectedDate,
       type: selected.id as OrderReportType,
     });
   };
@@ -55,8 +59,6 @@ const OrderReport = () => {
       setReportData(data?.data);
     }
   }, [data]);
-
-
 
   const chartConfig: {
     options: ApexOptions;
@@ -110,16 +112,15 @@ const OrderReport = () => {
           },
         },
         title: {
-            text: "Thời gian", // Set the y-axis title here
-            style: {
-              color: "black",
-              fontSize: "14px",
-              fontFamily: "inherit",
-              fontWeight: 500,
-            },
+          text: "Thời gian", // Set the y-axis title here
+          style: {
+            color: "black",
+            fontSize: "14px",
+            fontFamily: "inherit",
+            fontWeight: 500,
           },
+        },
         categories: reportData.map((x) => x.target),
-        
       },
       yaxis: {
         labels: {
@@ -134,20 +135,20 @@ const OrderReport = () => {
           },
         },
         title: {
-            text: "Doanh thu (VND)", // Set the y-axis title here
-            style: {
-              color: "black",
-              fontSize: "14px",
-              fontFamily: "Times New Roman",
-              fontWeight: 500,
-            },
+          text: "Doanh thu (VND)", // Set the y-axis title here
+          style: {
+            color: "black",
+            fontSize: "14px",
+            fontFamily: "Times New Roman",
+            fontWeight: 500,
           },
+        },
       },
       title: {
         text: `Thống kê doanh thu ${selected.label}`,
-        style:{
-            fontSize:"30px",
-            fontFamily:"Times New Roman"
+        style: {
+          fontSize: "30px",
+          fontFamily: "Times New Roman",
         },
         align: "center",
       },

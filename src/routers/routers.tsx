@@ -54,7 +54,8 @@ import {
   ReportWarehousePage,
   FilterAdminPage,
   CustomerWishlistPage,
-  OrderReportPage
+  OrderReportPage,
+  FavoriteProductReportPage,
 } from "pages";
 
 const router = createBrowserRouter(
@@ -172,7 +173,6 @@ const router = createBrowserRouter(
         <Route path="warehouses" element={<WarehousesPage />} />
         <Route path="warehouses/:index" element={<WarehousesPage />} />
         <Route path="statistical" element={<StatisticalPage />} />
-      
 
         <Route path="discountEvents" element={<DiscountEventsPage />} />
         <Route path="discountEvents/:index" element={<DiscountEventsPage />} />
@@ -181,6 +181,7 @@ const router = createBrowserRouter(
         <Route path="coupons/:index" element={<CouponsPage />} />
         <Route path="report-order" element={<StatisticalPage />} />
         <Route path="report-product" element={<ReportOrderPage />} />
+        <Route path="favorite-report" element={<FavoriteProductReportPage />} />
         <Route path="report-warehouse" element={<ReportWarehousePage />} />
         <Route path="order-report" element={<OrderReportPage />} />
 

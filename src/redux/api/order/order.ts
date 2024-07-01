@@ -68,7 +68,7 @@ const orderApi = createApi({
       },
     }),
     getOrderReportByStatus: builder.mutation({
-      query: (data: { start: string; end: string }) => ({
+      query: (data: { start: Date; end: Date }) => ({
         url: "/orders/orders/GetOrderReportByStatus",
         method: "POST",
         body: data,
@@ -79,7 +79,7 @@ const orderApi = createApi({
       invalidatesTags: ["processing-Order"],
     }),
     exportOrderReportByStatus: builder.mutation({
-      query: (data: { start: string; end: string }) => ({
+      query: (data: { start: Date; end: Date }) => ({
         url: "/orders/orders/ExportOrderReportByStatus",
         method: "POST",
         body: data,
@@ -93,7 +93,7 @@ const orderApi = createApi({
       }),
     }),
     getOrderReport: builder.mutation({
-      query: (data: { start: string; end: string; reporterId: string }) => ({
+      query: (data: { start: Date; end: Date; reporterId: string }) => ({
         url: "/orders/orders/GetOrderReport",
         method: "POST",
         body: data,
@@ -107,7 +107,7 @@ const orderApi = createApi({
       }),
     }),
     exportOrderReportFile: builder.mutation({
-      query: (data: { start: string; end: string; reporterId: string }) => ({
+      query: (data: { start: Date; end: Date; reporterId: string }) => ({
         url: "/orders/orders/ExportOrderReportFile",
         method: "POST",
         body: data,

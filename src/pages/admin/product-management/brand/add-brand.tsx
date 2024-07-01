@@ -31,7 +31,6 @@ const AddBrand = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (
-      dataForm.description.trim().length === 0 ||
       dataForm.name.trim().length === 0 ||
       !dataForm.image
     ) {

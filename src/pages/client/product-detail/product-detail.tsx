@@ -180,12 +180,14 @@ function ProductDetailPage() {
                   <ProductsCarousel products={[data]} lengthCarousel={10} />
                 </div> */}
 
-                {data.relatedProducts && (
-                  <RelatedCarousel
-                    products={data.relatedProducts}
-                    lengthCarousel={2}
-                  />
-                )}
+                {/* <div className="w-full min-h-fit h-fit shadow-md rounded-lg border border-gray-300 mb-4 p-4">
+                  {data.relatedProducts && (
+                    <RelatedCarousel
+                      products={data.relatedProducts}
+                      lengthCarousel={2}
+                    />
+                  )}
+                </div> */}
 
                 {/* Description */}
                 <div className="w-full min-h-fit h-fit shadow-md rounded-lg border border-gray-300 mb-4 p-4">
@@ -202,25 +204,8 @@ function ProductDetailPage() {
                 </div>
               </div>
 
-              <div
-                className="flex flex-col basis-1/3 shadow-md p-4 h-fit
-                border border-gray-300 rounded-lg overflow-hidden
-                "
-              >
+              <div className="flex flex-col basis-1/3 shadow-md p-4 h-fit border border-gray-300 rounded-lg overflow-hidden">
                 <ProductSpecification data={data.productSpecifications} />
-                {/* <div>
-                  <button
-                    className="
-                  bg-white border border-gray-300 text-gray-900
-                    cursor-pointer flex justify-center items-center
-                    w-full h-9 mt-4 px-4 py-3 text-center whitespace-nowrap duration-500 
-                    rounded-lg shadow-sm text-sm gap-1.5 transition-colors
-                    hover:shadow-lg 
-                    "
-                  >
-                    Xem cấu hình chi tiết
-                  </button>
-                </div> */}
               </div>
             </div>
           </div>

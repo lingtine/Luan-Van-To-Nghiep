@@ -15,7 +15,7 @@
     "@types/react-dom": "^18.2.13",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-transition-group": "^4.4.10",
-    "apexcharts": "^3.45.0",
+    "apexcharts": "^3.49.2",
     "async-mutex": "^0.4.0",
     "chart.js": "^4.4.3",
     "classnames": "^2.3.2",

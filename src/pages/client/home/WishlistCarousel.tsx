@@ -31,6 +31,7 @@ const WishlistCarousel = () => {
               rateCount: x.numberOfStar,
               viewCount: x.viewCount,
               relatedProducts: [],
+              sku: "",
             };
           })}
         />

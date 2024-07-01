@@ -9,6 +9,7 @@ interface ProductRevenuePieChartProps {}
 const ProductRevenuePieChart: React.FC<ProductRevenuePieChartProps> = () => {
   const [getOrderReport, { isSuccess, isLoading, data }] =
     useProductRevenueReportingMutation();
+  console.log("🚀 ~ isSuccess, isLoading, data:", isSuccess, isLoading, data);
 
   useEffect(() => {
     const dateStart = new Date().toISOString();
