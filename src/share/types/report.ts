@@ -68,5 +68,17 @@ export interface IReportParam {
   PageIndex?: string;
   PageSize?: number;
 }
+
+export interface IOrderReportResponse{
+  date: Date;
+  data: IOrderReportData[]
+}
+
+export interface IOrderReportData{
+  target: string,
+  total: number
+}
+
 export type OrderBy = "Status" | "CreateAt" | "ApproveAt" | "CreateAt";
 export type ReportStatus = "Creative" | "Approved" | "Inspected" | "Cancelled";
+export type OrderReportType = "Day" | "Week" | "Month" | "Year" 

@@ -10,11 +10,12 @@ import {
   IOrderParams,
   IOrderPage,
 } from "share/types/order";
+import { IOrderReportResponse, OrderReportType } from "share/types/report";
 
 const orderApi = createApi({
   reducerPath: "order",
   baseQuery: customFetchBase,
-  tagTypes: ["processing-Order", "create-order", "change-process"],
+  tagTypes: ["processing-Order", "create-order", "change-process", "report"],
   endpoints: (builder) => ({
     getOrders: builder.query<IOrderPage, IOrderParams>({
       query: (params) => ({
@@ -131,6 +132,19 @@ const orderApi = createApi({
         method: "GET",
       }),
     }),
+    getOrderReportInRange: builder.mutation<
+      IOrderReportResponse,
+      { date: Date; type: OrderReportType }
+    >({
+      query: (body: { date: Date; type: OrderReportType }) => ({
+        url: "/orders/orders/GetOrderReportInRange",
+        method: "POST",
+        body: body,
+      }),
+      transformResponse: (response: IOrderReportResponse) => {
+        return response;
+      },
+    }),
   }),
 });
 export const {
@@ -148,6 +162,7 @@ export const {
   useGetOrderQuery,
   useGetTotalOrderCreateQuery,
   useGetTotalRevenueQuery,
+  useGetOrderReportInRangeMutation,
 } = orderApi;
 
 export default orderApi;

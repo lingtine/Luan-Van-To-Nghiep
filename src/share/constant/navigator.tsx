@@ -103,7 +103,7 @@ const navigation: INavigator[] = [
     children: [
       {
         label: "Thống kê đơn hàng",
-        href: "report-order",
+        href: "order-report",
       },
       {
         label: "Thống kê sản phẩm",
