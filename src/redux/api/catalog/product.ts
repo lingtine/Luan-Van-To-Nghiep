@@ -222,7 +222,11 @@ const productApi = createApi({
         method: "POST",
       }),
 
-      transformResponse: ({ data }) => data.data,
+      transformResponse: ({ data }) => {
+        console.log("🚀 ~ data:", data);
+
+        return data.data;
+      },
     }),
     exportProductReportFile: builder.mutation<any, IDateReport>({
       query: (data) => ({
