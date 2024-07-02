@@ -102,7 +102,7 @@ const SpecificationTable: React.FC<ITable> = ({ data }) => {
         handleConfirm={() => {
           if (specificationRemove) {
             remove(specificationRemove.id);
-            handleSpecificationRemove();
+            handleSpecificationRemove(undefined);
           }
         }}
       />

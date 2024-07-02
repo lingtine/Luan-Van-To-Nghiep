@@ -4,19 +4,21 @@ import TotalOrderCreateCard from "./components/total-order-create-card";
 import TotalRevenueCard from "./components/total-revenue-card";
 import ProductRevenuePieChart from "./components/product-revenue-pie-chart";
 import ChartContent from "./components/chart-content";
+import TableNewOrder from "./table-new-order";
 interface DashboardAdminProps {}
 
 const DashboardAdmin: React.FC<DashboardAdminProps> = () => {
   return (
-    <div className="container mx-auto">
-      <div className="flex justify-around">
+    <div className="px-4">
+      <div className="flex justify-around gap-4 mt-5">
         <TotalCustomerCart />
         <TotalOrderCreateCard />
         <TotalRevenueCard />
       </div>
-      <div className="my-8 px-8">
+      <div className="my-8">
         <ProductRevenuePieChart />
         <ChartContent />
+        <TableNewOrder />
       </div>
     </div>
   );

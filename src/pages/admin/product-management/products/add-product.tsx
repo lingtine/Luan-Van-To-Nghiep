@@ -115,10 +115,6 @@ const AddProduct = () => {
     setRelatedImages(images);
   };
 
-  const handleAddSpecifications = (children: IProductSpecification[]) => {
-    setSpecifications(children);
-  };
-
   const handleRemoveSpecification = (specificationId: string) => {
     setSpecifications((prev) =>
       prev.filter((x) => x.specificationId !== specificationId)
@@ -330,7 +326,6 @@ const AddProduct = () => {
                   productId={""}
                   productSpecifications={specifications}
                   isAdd={true}
-                  handleAddSpecifications={handleAddSpecifications}
                 />
               </Modal>
             )}

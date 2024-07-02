@@ -48,7 +48,18 @@ export interface IOrderDetail {
     id: string;
     customerId: string;
     status: string;
-    items: IProductOrder[];
+    items: {
+      id: string;
+      isActive: false;
+      isInStock: false;
+      likeCount: number;
+      name: string;
+      numberOfStar: number;
+      productId: string;
+      quantity: number;
+      unitPrice: number;
+      viewCount: number;
+    }[];
   };
   status: string;
 }

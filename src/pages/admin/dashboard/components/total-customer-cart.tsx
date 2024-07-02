@@ -1,22 +1,26 @@
 import React from "react";
-import { FaRegUser } from "react-icons/fa";
 import { useGetTotalCustomerQuery } from "redux/api/auth/customer-api";
+import SimpleCard from "./simple-card";
+import { HiUsers } from "react-icons/hi2";
 interface TotalCustomerCartProps {}
 
 const TotalCustomerCart: React.FC<TotalCustomerCartProps> = () => {
-  const { data, isSuccess } = useGetTotalCustomerQuery();
+  const { data, isSuccess, isLoading } = useGetTotalCustomerQuery();
 
   if (isSuccess) {
     return (
-      <div className="flex-[0_0_20%] border-primary-1 border px-8 py-4 rounded-xl items-center gap-4 flex justify-center">
-        <div className="text-4xl">
-          <FaRegUser />
-        </div>
-        <div>
-          <h4 className="text-lg font-semibold">{data.data}</h4>
-          <p className="text-sm font-medium">Người dùng </p>
-        </div>
-      </div>
+      <SimpleCard
+        icon={<HiUsers className="text-xl" />}
+        subTitle="Số lượng truy cập"
+        content={data.data}
+        comparisonTime="last month"
+        isGrowing={true}
+        percent={3}
+      />
+    );
+  } else if (isLoading) {
+    return (
+      <div className="w-full min-h-[116px] animate-pulse place-items-center rounded-lg bg-gray-300"></div>
     );
   }
 

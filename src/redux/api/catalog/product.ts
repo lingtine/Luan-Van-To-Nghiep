@@ -17,6 +17,7 @@ const productApi = createApi({
   reducerPath: "product",
   baseQuery: customFetchBase,
   tagTypes: [
+    "product",
     "add-product",
     "remove-product",
     "update-product",
@@ -46,14 +47,17 @@ const productApi = createApi({
         params,
       }),
 
-      providesTags: [
-        "add-product",
-        "remove-product",
-        "update-product",
-        "add-specifications",
-        "remove-specifications",
-        "update-specifications",
-      ],
+      providesTags: (result) =>
+        result
+          ? result.data.map(({ id }) => ({ type: "product", id }))
+          : [
+              "add-product",
+              "remove-product",
+              "update-product",
+              "add-specifications",
+              "remove-specifications",
+              "update-specifications",
+            ],
     }),
     getProductsByParams: builder.mutation<IProductDetail[], IProductParams>({
       query: (params) => ({
@@ -102,29 +106,14 @@ const productApi = createApi({
         params: params,
       }),
       transformResponse: ({ data }) => data,
-      providesTags: [
-        "add-product",
-        "remove-product",
-        "update-product",
-        "add-specifications",
-        "remove-specifications",
-        "update-specifications",
-      ],
+      providesTags: ["add-product", "remove-product", "update-product"],
     }),
     getProductDetail: builder.query<IProductDetail, string>({
       query: (productId) => ({
         url: `/catalogs/products/details/${productId}`,
         method: "GET",
       }),
-      providesTags: [
-        "add-product",
-        "remove-product",
-        "update-product",
-        "add-specifications",
-        "remove-specifications",
-        "update-specifications",
-      ],
-
+      providesTags: (result, error, id) => [{ type: "product", id }],
       transformResponse: ({ data }) => data,
     }),
     updateProduct: builder.mutation<IProductDetail, IProductInput>({
@@ -172,7 +161,9 @@ const productApi = createApi({
         method: "POST",
       }),
 
-      invalidatesTags: ["add-specifications"],
+      invalidatesTags: (result, error, arg) => [
+        { type: "product", id: arg.productId },
+      ],
     }),
     removeSpecificationForProduct: builder.mutation<
       any,

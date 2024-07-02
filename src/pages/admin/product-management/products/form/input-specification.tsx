@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useGetSpecificationsQuery } from "redux/api/catalog/specification";
 import { CiTrash } from "react-icons/ci";
 import SelectBox from "components/select-box/select-box";
 import { IconButton, Input } from "@material-tailwind/react";
@@ -13,41 +12,16 @@ interface InputSpecificationProps {
   };
   onChange: Function;
   onRemove: Function;
-  productSpecificationIds: string[];
+  specifications: ISelected[];
 }
 
 const InputSpecification: React.FC<InputSpecificationProps> = ({
   specificationData,
   onChange,
   onRemove,
-  productSpecificationIds,
+  specifications,
 }) => {
   const [selected, setSelected] = useState<ISelected>();
-
-  const { data, isSuccess } = useGetSpecificationsQuery({
-    PageSize: 9999,
-  });
-  let content;
-  if (isSuccess) {
-    const updateData = data.data
-      .filter((x) => !productSpecificationIds.includes(x.id))
-      .map((item) => ({
-        ...item,
-        label: item.name,
-      }));
-
-    content = (
-      <SelectBox
-        label="Chọn Thông Số"
-        onChange={(option: ISelected) => {
-          onChange("option", option);
-          setSelected(option);
-        }}
-        options={updateData}
-        selected={selected}
-      />
-    );
-  }
 
   useEffect(() => {
     if (specificationData) {
@@ -61,7 +35,15 @@ const InputSpecification: React.FC<InputSpecificationProps> = ({
 
   return (
     <div className="flex gap-4">
-      {content}
+      <SelectBox
+        label="Chọn Thông Số"
+        onChange={(option: ISelected) => {
+          onChange("option", option);
+          setSelected(option);
+        }}
+        options={specifications}
+        selected={selected}
+      />
       <div>
         <Input
           crossOrigin={""}
