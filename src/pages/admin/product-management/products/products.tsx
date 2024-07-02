@@ -78,7 +78,7 @@ const Products = () => {
       label: "Tuỳ chọn",
       render: (data: IProductTable) => {
         return (
-          <div className="flex gap-4 min-w-[200px]">
+          <div className="flex gap-4 justify-end">
             <Link to={`/admin/products/product-detail/${data.id}`}>
               <Button color="blue">Chi tiết</Button>
             </Link>

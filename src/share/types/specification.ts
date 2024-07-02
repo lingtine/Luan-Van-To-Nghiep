@@ -4,8 +4,10 @@ export interface ISpecificationInput {
   description: string;
 }
 
-export interface ISpecification extends ISpecificationInput {
+export interface ISpecification {
   id: string;
+  name: string;
+  description: string;
 }
 export interface ISpecificationPage {
   data: ISpecification[];

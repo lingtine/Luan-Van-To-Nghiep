@@ -11,6 +11,7 @@ const ComponentToPrint = forwardRef<HTMLDivElement, MyDivProps>(
   (props: { data?: IOrderDetail }, ref) => {
     const [formatPrice] = useFormatPrice();
     if (props.data) {
+      console.log(props.data);
       const { deliveryInfo, cart } = props.data;
       return (
         <div ref={ref}>
