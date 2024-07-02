@@ -60,7 +60,6 @@ function ModalAddCategory({ onToggle }: { onToggle: () => void }) {
 
     if (
       dataForm.name.trim().length === 0 ||
-      dataForm.description.trim().length === 0 ||
       dataForm.categoryGroupId.trim().length === 0
     ) {
       toast.error("Thông tin không hợp lệ");

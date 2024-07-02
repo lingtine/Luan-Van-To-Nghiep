@@ -48,8 +48,7 @@ const AddCoupon: React.FC<AddCouponProps> = () => {
       dataForm.name.trim().length === 0 ||
       !selected ||
       dataForm.reducedPrice === 0 ||
-      dataForm.quantity === 0 ||
-      dataForm.description.trim().length === 0
+      dataForm.quantity === 0
     ) {
       toast.error("Thông tin không hợp lệ");
     } else {

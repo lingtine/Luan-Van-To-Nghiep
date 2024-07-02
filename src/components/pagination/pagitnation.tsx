@@ -15,7 +15,15 @@ const Pagination: React.FC<PaginationProps> = ({
   totalCount,
   url,
 }) => {
+  console.log(
+    "🚀 ~ pageIndex,  pageSize,  totalCount,  url:",
+    pageIndex,
+    pageSize,
+    totalCount,
+    url
+  );
   const maxSizePage = Math.ceil(totalCount / pageSize);
+  console.log("🚀 ~ maxSizePage:", maxSizePage);
   const getPagination = () => {
     const pages = [];
     if (maxSizePage === 1) {
@@ -23,7 +31,9 @@ const Pagination: React.FC<PaginationProps> = ({
       return pages;
     }
     const startPage = Math.max(1, pageIndex - 2);
+    console.log("🚀 ~ getPagination ~ startPage:", startPage);
     const endPage = Math.min(maxSizePage - 1, pageIndex + 2);
+    console.log("🚀 ~ getPagination ~ endPage:", endPage);
 
     pages.push(0); // Always show the first page
 
@@ -85,31 +95,33 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <ul className="flex items-center gap-2 bg-white py-1 px-2 rounded-md">
-      <li>
-        <Button
-          onClick={handleBack}
-          disabled={pageIndex === 0}
-          className="flex gap-2 items-center"
-        >
-          <IoIosArrowBack />
-          Previous
-        </Button>
-      </li>
+    <div hidden={totalCount === 0}>
+      <ul className="flex items-center gap-2 bg-white py-1 px-2 rounded-md">
+        <li>
+          <Button
+            onClick={handleBack}
+            disabled={pageIndex === 0}
+            className="flex gap-2 items-center"
+          >
+            <IoIosArrowBack />
+            Previous
+          </Button>
+        </li>
 
-      {renderItemPage}
+        {renderItemPage}
 
-      <li>
-        <Button
-          className="flex gap-2 items-center"
-          onClick={handleForward}
-          disabled={maxSizePage === 1 || pageIndex + 1 === maxSizePage}
-        >
-          next
-          <IoIosArrowForward />
-        </Button>
-      </li>
-    </ul>
+        <li>
+          <Button
+            className="flex gap-2 items-center"
+            onClick={handleForward}
+            disabled={maxSizePage === 1 || pageIndex + 1 === maxSizePage}
+          >
+            next
+            <IoIosArrowForward />
+          </Button>
+        </li>
+      </ul>
+    </div>
   );
 };
 

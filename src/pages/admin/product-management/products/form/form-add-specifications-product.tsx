@@ -98,6 +98,10 @@ const FormAddSpecificationsProduct: React.FC<
 
   const handleSubmitSpecifications = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(
+      "🚀 ~ handleSubmitSpecifications ~ specificationsData:",
+      specificationsData
+    );
 
     if (specificationsData) {
       addSpecification({
@@ -111,7 +115,8 @@ const FormAddSpecificationsProduct: React.FC<
   return (
     <form
       onSubmit={handleSubmitSpecifications}
-      className="flex flex-col gap-4 "
+
+      className="flex flex-col gap-4 h-[600px] max-h-[600px]"
     >
       <div className="border p-4 rounded-md border-blue-500 flex flex-col gap-4 h-full max-h-[600px] min-h-[320px] overflow-y-scroll">
         {renderSpecificationData}
