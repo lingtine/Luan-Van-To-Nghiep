@@ -65,7 +65,6 @@ const CategorySidebar = ({
     event: React.ChangeEvent<HTMLInputElement>,
     filter: IFilterProduct
   ) => {
-    console.log("🚀 ~ filter:", filter);
     if (event.target.checked) {
       setFilters((prev) => [...prev, filter]);
     } else {

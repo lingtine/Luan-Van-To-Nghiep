@@ -7,8 +7,6 @@ import { ICategory } from "share/types/category";
 
 const WishlistCarousel = () => {
   const { data, isSuccess } = useGetWishlistQuery([]);
-  console.log("🚀 ~ WishlistCarousel ~ data:", data);
-
   return (
     <>
       {isSuccess && (

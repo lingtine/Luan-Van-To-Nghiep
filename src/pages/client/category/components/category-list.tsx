@@ -6,7 +6,6 @@ interface CategoryListProps {
 }
 
 const CategoryList: React.FC<CategoryListProps> = ({ data }) => {
-  console.log("🚀 ~ data:", data);
   return (
     <div className="container flex flex-wrap -m-1 md:-m-2">
       {data.map((product) => {

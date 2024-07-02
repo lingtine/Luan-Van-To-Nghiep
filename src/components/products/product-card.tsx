@@ -36,7 +36,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const handleAddToCart = () => {
     if (!accessToken) {
       toast.warning("Bạn cần phẩm đăng nhập trước");
-      navigate("/login");
+      navigate("/login");   
     } else {
       addProduct({
         productId: data.id,

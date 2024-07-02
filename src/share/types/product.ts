@@ -66,6 +66,8 @@ export interface IProductAddToCart {
 }
 export interface IProductOrder extends IProductAddToCart {
   id: string;
+  name?: string;
+  imageUrl?:string;
 }
 export interface IProductReview {
   id: string;

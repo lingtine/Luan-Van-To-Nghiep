@@ -168,7 +168,6 @@ const FilterForm = ({
             <IconButton
               color="red"
               onClick={() => {
-                console.log("Remove ", value);
                 handleRemoveValue(index);
               }}
             >

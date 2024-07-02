@@ -130,6 +130,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ user, fn, coupon }) => {
           {dataForm.deliveryInfos.map((item) => {
             return (
               <div
+                key={item.id}
                 onClick={() => {
                   setAddress(item);
                 }}
@@ -251,9 +252,9 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ user, fn, coupon }) => {
       </div>
       <div className="flex gap-3 justify-between items-center mt-8">
         <Link to="/">
-          <Button variant="text">Tiếp tục mua hàng</Button>
+          <Button color="blue" >Tiếp tục mua hàng</Button>
         </Link>
-        <Button type="submit">Đặt hàng</Button>
+        <Button color="green" type="submit">Đặt hàng</Button>
       </div>
     </form>
   );
