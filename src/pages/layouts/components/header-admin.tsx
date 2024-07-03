@@ -5,9 +5,7 @@ interface HeaderAdminProps {}
 
 const HeaderAdmin: React.FC<HeaderAdminProps> = () => {
   const location = useLocation();
-  const pageName =
-    location.pathname.split("/")[2].charAt(0).toUpperCase() +
-      location.pathname.split("/")[2].slice(1) || "Dashboard";
+  const pageName = location.pathname.split("/")[2] || "Dashboard";
   return (
     <header>
       <Typography variant="h3" className="px-4">
