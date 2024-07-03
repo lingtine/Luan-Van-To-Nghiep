@@ -10,6 +10,7 @@ import { useGetCustomerDetailQuery } from "redux/api/auth/customer-api";
 import CustomerInfo from "./components/customer-info";
 import { useFormatPrice } from "hooks/use-format-price";
 import { ICoupon } from "share/types/coupon";
+import { Card } from "@material-tailwind/react";
 
 interface ICouponInput extends ICoupon, ISelected {}
 
@@ -95,45 +96,47 @@ const Cart: React.FC = () => {
                 Không có sản phẩm nào
               </div>
             ) : (
-              <table>
-                <thead className="text-xs text-gray-700 uppercase">
-                  <tr>
-                    <th scope="col" className="px-6 py-3">
-                      Sản phẩm
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Tên sản phẩm
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Số lượng
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Giá
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="text-xs text-gray-700">
-                  {data.items.map((item: IProductOrder) => (
+              <Card>
+                <table className="table">
+                  <thead className="text-xs text-gray-700 uppercase border-b">
                     <tr>
-                      <th className="px-6 py-3">
-                        <img
-                          src={
-                            item.imageUrl ??
-                            "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png"
-                          }
-                          alt={"Hình ảnh sản phẩm"}
-                          className="h-[64px] w-[64px] object-cover"
-                        />
+                      <th scope="col" className="px-6 py-3 whitespace-nowrap ">
+                        Sản phẩm
                       </th>
-                      <th className="px-6 py-3">{item.name}</th>
-                      <th className="px-6 py-3">{item.quantity}</th>
-                      <th className="px-6 py-3">
-                        {formPrice.format(item.unitPrice * item.quantity)}
+                      <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                        Tên sản phẩm
+                      </th>
+                      <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                        Số lượng
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Giá
                       </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="text-xs text-gray-700">
+                    {data.items.map((item: IProductOrder) => (
+                      <tr>
+                        <th className="px-6 py-3">
+                          <img
+                            src={
+                              item.imageUrl ??
+                              "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png"
+                            }
+                            alt={"Hình ảnh sản phẩm"}
+                            className="h-[64px] w-[64px] object-cover"
+                          />
+                        </th>
+                        <th className="px-6 py-3">{item.name}</th>
+                        <th className="px-6 py-3">{item.quantity}</th>
+                        <th className="px-6 py-3">
+                          {formPrice.format(item.unitPrice * item.quantity)}
+                        </th>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </Card>
             ))}
 
           <div className="flex flex-col gap-2">

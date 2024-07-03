@@ -14,14 +14,10 @@ import { IFilterProduct } from "redux/api/types";
 import { IProductDetail } from "share/types/product";
 
 import CategorySidebar from "./components/CategorySidebar";
-import { Button } from "@material-tailwind/react";
-import SelectBox, { ISelected } from "components/select-box/select-box";
-
-interface ISort extends ISelected {
-  IsOrderDesc: boolean;
-  OrderBy: string;
-}
-
+import { Button, Card } from "@material-tailwind/react";
+import SelectBox from "components/select-box/select-box";
+import { sortOption } from "share/constant/sort";
+import { ISort } from "share/types";
 const CategoryPage = () => {
   const { categoryId } = useParams();
   const [sort, setSort] = useState<ISort>();
@@ -134,33 +130,6 @@ const CategoryPage = () => {
     });
   };
 
-  const options: ISort[] = [
-    {
-      id: Math.random.toString(),
-      label: "Giá từ thấp tới cao",
-      IsOrderDesc: false,
-      OrderBy: "Price",
-    },
-    {
-      id: Math.random.toString(),
-      label: "Giá từ cao tới thấp",
-      IsOrderDesc: true,
-      OrderBy: "Price",
-    },
-    {
-      id: Math.random.toString(),
-      label: "A đến Z",
-      IsOrderDesc: false,
-      OrderBy: "Name",
-    },
-    {
-      id: Math.random.toString(),
-      label: "Z đến A",
-      IsOrderDesc: true,
-      OrderBy: "name",
-    },
-  ];
-
   return (
     <div className="container my-8">
       <h2 className="text-2xl mx-4 lg:mx-0">Sản phẩm</h2>
@@ -189,16 +158,18 @@ const CategoryPage = () => {
           </Button>
         </div>
         <div className=" flex-[0_0_100%] max-w-[100%] lg:flex-[0_0_75%] lg:max-w-[75%] p-4">
-          <div className="flex justify-end w-full mb-8">
-            <SelectBox
-              label="Sắp xếp"
-              onChange={(option: ISort) => {
-                setSort(option);
-              }}
-              selected={sort}
-              options={options}
-            />
-          </div>
+          <Card className="flex justify-end w-full mb-8 p-4 bg-blue-gray-50 shadow-none">
+            <div className="bg-white w-fit">
+              <SelectBox
+                label="Sắp xếp"
+                onChange={(option: ISort) => {
+                  setSort(option);
+                }}
+                selected={sort}
+                options={sortOption}
+              />
+            </div>
+          </Card>
 
           {isSuccess && (
             <>

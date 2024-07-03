@@ -15,7 +15,7 @@ const DashboardAdmin: React.FC<DashboardAdminProps> = () => {
         <TotalOrderCreateCard />
         <TotalRevenueCard />
       </div>
-      <div className="my-8">
+      <div className="my-8 flex flex-col gap-4">
         <ProductRevenuePieChart />
         <ChartContent />
         <TableNewOrder />

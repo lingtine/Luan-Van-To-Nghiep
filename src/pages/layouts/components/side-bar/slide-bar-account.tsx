@@ -44,7 +44,7 @@ const SlideBarAccount: React.FC<SlideBarAccountProps> = () => {
                 {({ isActive }) => {
                   return (
                     <Button
-                      className="flex items-center gap-4"
+                      className="flex items-center gap-4 w-full"
                       variant={!isActive ? "text" : "filled"}
                     >
                       {item.icon}
