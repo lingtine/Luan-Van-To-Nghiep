@@ -36,7 +36,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const handleAddToCart = () => {
     if (!accessToken) {
       toast.warning("Bạn cần phẩm đăng nhập trước");
-      navigate("/login");   
+      navigate("/login");
     } else {
       addProduct({
         productId: data.id,
@@ -86,18 +86,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
             </Typography>
           </div> */}
           <div className="line-clamp-2">
-            <Typography
-              color="blue-gray"
-              className="font-medium text-sm overflow-hidden"
-            >
+            <Typography color="blue-gray" variant="h6">
               {data.name}
             </Typography>
           </div>
-          <div className="flex-col justify-between items-center">
+          <div className="flex justify-between items-center">
             <Rating readonly value={Math.round(data.numberOfStar)} />
-            <Typography color="blue-gray" className="font-medium text-right">
-              {formatPrice.format(data.unitPrice)}
-            </Typography>
+            <div>
+              <Typography color="blue-gray" className="font-medium text-right">
+                {formatPrice.format(data.unitPrice)}
+              </Typography>
+            </div>
           </div>
 
           <Typography

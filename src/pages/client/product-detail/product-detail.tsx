@@ -16,7 +16,6 @@ import { useAppSelector } from "redux/store";
 import { formatVND } from "utils/formatVND";
 import ProductReview from "./components/ProductReview";
 import ProductSpecification from "./components/ProductSpecification";
-import RelatedCarousel from "./components/RelatedCarousel";
 
 import {
   useAddWishlistMutation,
