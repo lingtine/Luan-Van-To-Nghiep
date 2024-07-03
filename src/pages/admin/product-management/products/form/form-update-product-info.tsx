@@ -1,7 +1,7 @@
 import React from "react";
 import { Input, Button, Textarea, IconButton } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
-import { useRemoveSpecificationForProductMutation } from "redux/api/catalog/product";
+import { useRemoveSpecificationForProductMutation, useUpdateProductMutation } from "redux/api/catalog/product";
 
 
 import {
@@ -33,7 +33,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
   );
 
   const [removeSpecification] = useRemoveSpecificationForProductMutation();
-  //const [updateProduct, result] = useUpdateProductMutation();
+  const [updateProduct, result] = useUpdateProductMutation();
   const [isUpdate, setIsUpdate] = useState(false);
 
   const [dataForm, setDataForm] = useState<IProductInput>({
@@ -82,22 +82,22 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
   };
 
 
-  const handleAddSpecifications = (children: IProductSpecificationInput[]) => {
-    setSpecifications(
-      children.map((x): IProductSpecification => {
-        return {
-          id: "",
-          productId: "",
-          specificationId: x.specificationId,
-          specificationName: x.specificationName,
-          specificationValue: x.specificationValue,
-        };
-      })
-    );
-    // setDataForm((prev) => {
-    //   return { ...prev, specifications: children };
-    // });
-  };
+  // const handleAddSpecifications = (children: IProductSpecificationInput[]) => {
+  //   setSpecifications(
+  //     children.map((x): IProductSpecification => {
+  //       return {
+  //         id: "",
+  //         productId: "",
+  //         specificationId: x.specificationId,
+  //         specificationName: x.specificationName,
+  //         specificationValue: x.specificationValue,
+  //       };
+  //     })
+  //   );
+  //   // setDataForm((prev) => {
+  //   //   return { ...prev, specifications: children };
+  //   // });
+  // };
 
 
   const handleRemoveSpecification = (specificationId: string) => {
