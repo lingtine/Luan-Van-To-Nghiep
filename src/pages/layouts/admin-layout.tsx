@@ -17,10 +17,6 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  if (!accessToken) {
-    return <Navigate to={"/login-admin"} />;
-  }
-
   const readerHeader = (
     <header className="w-full bg-secondary flex justify-between items-center  p-4 mb-8 shadow-lg">
       <button

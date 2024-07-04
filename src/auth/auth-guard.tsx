@@ -16,7 +16,7 @@ const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
     if (jwtValue.role === "Customer") {
       toast.warning("Bạn không có quyền truy cập");
       logout();
-      return <Navigate to={"/"} />;
+      return <Navigate to={"/"} replace />;
     } else {
       return <>{children}</>;
     }

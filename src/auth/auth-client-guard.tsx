@@ -1,19 +1,17 @@
 import React from "react";
 import { useAppSelector } from "redux/store";
 import { Navigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+interface AuthClientGuardProps {}
 
-interface AuthClientGuardProps {
-  children: React.ReactNode;
-}
-
-const AuthClientGuard: React.FC<AuthClientGuardProps> = ({ children }) => {
+const AuthClientGuard: React.FC<AuthClientGuardProps> = () => {
   const { accessToken } = useAppSelector((state) => state.authSlice);
 
   if (!accessToken) {
     return <Navigate to={"/login"} />;
   }
 
-  return <>{children}</>;
+  return <Outlet />;
 };
 
 export default AuthClientGuard;

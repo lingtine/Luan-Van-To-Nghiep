@@ -18,7 +18,6 @@ import {
   CategoryAdminPage,
   CategoryGroupPage,
   CategoryPage,
-  CheckOutPage,
   ContactPage,
   CustomersPage,
   DashboardAdminPage,
@@ -61,18 +60,8 @@ const router = createBrowserRouter(
     <Route>
       <Route path="/" element={<DefaultLayout />}>
         <Route index element={<HomePage />}></Route>
-        <Route path="cart" element={<CartPage />}></Route>
-        <Route
-          path="cart-client"
-          element={
-            <AuthClientGuard>
-              <CartClientPage />
-            </AuthClientGuard>
-          }
-        ></Route>
         <Route path="about" element={<AboutPage />}></Route>
         <Route path="contact-us" element={<ContactPage />}></Route>
-
         <Route path="category/:categoryId" element={<CategoryPage />}></Route>
         <Route
           path="category/:categoryId/:index"
@@ -81,31 +70,26 @@ const router = createBrowserRouter(
         <Route path="login" element={<LoginPage />}></Route>
         <Route path="register" element={<RegisterPage />}></Route>
         <Route path="forget-password" element={<ForgetPasswordPage />}></Route>
-        <Route
-          path="account"
-          element={
-            <AuthClientGuard>
-              <AccountLayout />
-            </AuthClientGuard>
-          }
-        >
-          <Route index element={<AccountPage />}></Route>
-          <Route path="orders" element={<AccountOrderPage />}></Route>
-          <Route path="address" element={<AccountAddressPage />}></Route>
-          <Route path="wishlist" element={<CustomerWishlistPage />}></Route>
-        </Route>
-
         <Route path="search" element={<SearchPage />}></Route>
-
         <Route path="reset-password" element={<ResetPasswordPage />}></Route>
-
         <Route
           path="product-detail/:productId"
           element={<ProductDetailPage />}
         ></Route>
-        <Route path="*" element={<NotFoundPage />}></Route>
+
+        <Route element={<AuthClientGuard />}>
+          <Route path="account" element={<AccountLayout />}>
+            <Route index element={<AccountPage />}></Route>
+            <Route path="orders" element={<AccountOrderPage />}></Route>
+            <Route path="address" element={<AccountAddressPage />}></Route>
+            <Route path="wishlist" element={<CustomerWishlistPage />}></Route>
+          </Route>
+
+          <Route path="cart" element={<CartPage />}></Route>
+
+          <Route path="cart-client" element={<CartClientPage />}></Route>
+        </Route>
       </Route>
-      <Route path="/cart/check-out" element={<CheckOutPage />}></Route>
 
       <Route path="/login-admin" element={<LoginAdminPage />}></Route>
       <Route
@@ -183,6 +167,7 @@ const router = createBrowserRouter(
 
         <Route path="filters" element={<FilterAdminPage />} />
       </Route>
+      <Route path="*" element={<NotFoundPage />}></Route>
     </Route>
   )
 );
