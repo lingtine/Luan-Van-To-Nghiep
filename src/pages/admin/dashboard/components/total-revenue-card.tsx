@@ -2,23 +2,28 @@ import React from "react";
 import { TbCoins } from "react-icons/tb";
 import { useFormatPrice } from "hooks/use-format-price";
 import { useGetTotalRevenueQuery } from "redux/api/order/order";
+import SimpleCard from "./simple-card";
+
 interface TotalRevenueCardProps {}
 
 const TotalRevenueCard: React.FC<TotalRevenueCardProps> = () => {
-  const { data, isSuccess } = useGetTotalRevenueQuery();
+  const { data, isSuccess, isLoading } = useGetTotalRevenueQuery();
   const [format] = useFormatPrice();
 
   if (isSuccess) {
     return (
-      <div className="flex-[0_0_20%] border-primary-1 border px-8 py-4 rounded-xl items-center gap-4 flex justify-center">
-        <div className="text-4xl">
-          <TbCoins />
-        </div>
-        <div>
-          <h4 className="text-lg font-semibold">{format.format(data.data)}</h4>
-          <p className="text-sm font-medium">Doanh thu ngày</p>
-        </div>
-      </div>
+      <SimpleCard
+        icon={<TbCoins className="text-xl" />}
+        subTitle="Doanh thu ngày"
+        content={format.format(data.data)}
+        comparisonTime="last month"
+        isGrowing={true}
+        percent={0}
+      />
+    );
+  } else if (isLoading) {
+    return (
+      <div className="w-full min-h-[116px] animate-pulse place-items-center rounded-lg bg-gray-300"></div>
     );
   }
 

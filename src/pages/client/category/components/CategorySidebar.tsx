@@ -6,6 +6,7 @@ import { useGetFilterByGroupIdQuery } from "redux/api/catalog/filter";
 import { IFilterProduct } from "redux/api/types";
 import { ICategory } from "share/types/category";
 import { IBrand } from "share/types/brand";
+import { Card } from "@material-tailwind/react";
 
 interface ICategorySidebarProps {
   groupId: string;
@@ -65,7 +66,6 @@ const CategorySidebar = ({
     event: React.ChangeEvent<HTMLInputElement>,
     filter: IFilterProduct
   ) => {
-    console.log("🚀 ~ filter:", filter);
     if (event.target.checked) {
       setFilters((prev) => [...prev, filter]);
     } else {
@@ -84,22 +84,26 @@ const CategorySidebar = ({
   };
 
   return (
-    <div className="flex-col gap-4 w-full">
+    <Card className="flex-col gap-4 w-full p-4 shadow-lg">
       <div>
         <h1 className="font-bold">Loại sản phẩm</h1>
         <ul className="px-2 py-3 font-medium text-gray-900 space-y-4">
           {categoryData?.data.map((category) => (
-            <div className="flex items-center" key={category.id}>
+            <li className="flex items-center" key={category.id}>
               <input
                 type="checkbox"
+                id={category.id}
                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                 onChange={(event) => handleChangeCategory(event, category)}
                 checked={categories.some((x) => x.id === category.id)}
               />
-              <label className="ml-3 min-w-0 flex-1 text-gray-500 overflow-hidden">
+              <label
+                htmlFor={category.id}
+                className="ml-3 min-w-0 flex-1 text-gray-500 overflow-hidden"
+              >
                 {category.name}
               </label>
-            </div>
+            </li>
           ))}
         </ul>
       </div>
@@ -108,17 +112,21 @@ const CategorySidebar = ({
         <h1 className="font-bold">Thương hiệu</h1>
         <ul className="px-2 py-3 font-medium text-gray-900 space-y-4">
           {brandData?.map((brand) => (
-            <div className="flex items-center" key={brand.id}>
+            <li className="flex items-center" key={brand.id}>
               <input
+                id={brand.id}
                 type="checkbox"
                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                 onChange={(event) => handleChangeBrand(event, brand)}
                 checked={brands.some((x) => x.id === brand.id)}
               />
-              <label className="ml-3 min-w-0 flex-1 text-gray-500 overflow-hidden">
+              <label
+                htmlFor={brand.id}
+                className="ml-3 min-w-0 flex-1 text-gray-500 overflow-hidden"
+              >
                 {brand.name}
               </label>
-            </div>
+            </li>
           ))}
         </ul>
       </div>
@@ -168,7 +176,7 @@ const CategorySidebar = ({
           Tim kiếm
         </Button>
       )}
-    </div>
+    </Card>
   );
 };
 

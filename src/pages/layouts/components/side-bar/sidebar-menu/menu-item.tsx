@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 
-import { BsChevronDown } from "react-icons/bs";
+import { HiChevronLeft } from "react-icons/hi";
+
 import {
   List,
   ListItem,
@@ -28,8 +29,17 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, open, index, onOpen }) => {
   if (item.children) {
     const renderChildren = item.children.map((item, index) => {
       return (
-        <NavLink key={index} to={item.href || ""}>
-          <ListItem className="text-secondary" key={item.label}>
+        <NavLink
+          key={index}
+          to={item.href || ""}
+          className={({ isActive }) =>
+            isActive ? "bg-gray-800 text-white rounded-lg" : ""
+          }
+        >
+          <ListItem
+            className="focus:bg-gray-800 focus:text-white"
+            key={item.label}
+          >
             {item.label}
           </ListItem>
         </NavLink>
@@ -39,19 +49,17 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, open, index, onOpen }) => {
     return (
       <Accordion
         open={open === index}
-        className="text-secondary"
         icon={
-          <BsChevronDown
+          <HiChevronLeft
             strokeWidth={2.5}
-            className={`mx-auto h-4 w-4 transition-transform `}
+            className={`mx-auto h-4 w-4 transition-transform ${
+              open === index ? "-rotate-90" : ""
+            }`}
           />
         }
       >
-        <ListItem className="p-0 text-secondary">
-          <AccordionHeader
-            onClick={handleOpen}
-            className="border-b-0 p-3 text-secondary"
-          >
+        <ListItem className="p-0">
+          <AccordionHeader onClick={handleOpen} className="border-b-0 p-3 ">
             <ListItemPrefix>{item.icon}</ListItemPrefix>
             <Typography className="mr-auto font-normal">
               {item.label}
@@ -59,14 +67,20 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, open, index, onOpen }) => {
           </AccordionHeader>
         </ListItem>
         <AccordionBody className="py-1">
-          <List className="p-0">{renderChildren}</List>
+          <List>{renderChildren}</List>
         </AccordionBody>
       </Accordion>
     );
   }
   return (
-    <NavLink to={item.href || ""}>
-      <ListItem className="text-secondary">
+    <NavLink
+      to={item.href || ""}
+      className={({ isActive }) =>
+        isActive ? "bg-gray-800 text-white rounded-lg" : ""
+      }
+      end
+    >
+      <ListItem className="focus:bg-gray-800 focus:text-white">
         <ListItemPrefix>{item.icon}</ListItemPrefix>
         {item.label}
       </ListItem>

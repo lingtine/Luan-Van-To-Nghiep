@@ -17,9 +17,15 @@ const TableProducts: React.FC<TableProductsProps> = ({ listProducts }) => {
   const [deleteProduct] = useDeleteItemsMutation();
   const configTable = [
     {
+      label: "Hình ảnh",
+      render: (data: IProductOrder) => {
+        return <img src={data.imageUrl} alt="" width={100} height={100} />;
+      },
+    },
+    {
       label: "Sản phẩm",
       render: (data: IProductOrder) => {
-        return data.productName;
+        return data.name;
       },
     },
     {
@@ -46,6 +52,7 @@ const TableProducts: React.FC<TableProductsProps> = ({ listProducts }) => {
       render: (data: IProductOrder) => {
         return (
           <IconButton
+            color="red"
             onClick={() => {
               deleteProduct(data.productId);
             }}

@@ -2,25 +2,29 @@ import React from "react";
 
 import { HiOutlineDocumentReport } from "react-icons/hi";
 import { useGetTotalOrderCreateQuery } from "redux/api/order/order";
+import SimpleCard from "./simple-card";
+
 interface TotalOrderCreateCardProps {}
 
 const TotalOrderCreateCard: React.FC<TotalOrderCreateCardProps> = () => {
-  const { data, isSuccess } = useGetTotalOrderCreateQuery();
+  const { data, isSuccess, isLoading } = useGetTotalOrderCreateQuery();
 
   if (isSuccess) {
     return (
-      <div className="flex-[0_0_20%] border-primary-1 border px-8 py-4 rounded-xl items-center gap-4 flex justify-center">
-        <div className="text-4xl">
-          <HiOutlineDocumentReport />
-        </div>
-        <div>
-          <h4 className="text-lg font-semibold">{data.data}</h4>
-          <p className="text-sm font-medium">Đơn hàng mới</p>
-        </div>
-      </div>
+      <SimpleCard
+        icon={<HiOutlineDocumentReport className="text-xl" />}
+        subTitle="Đơn hàng mới"
+        content={data.data}
+        comparisonTime="last month"
+        isGrowing={true}
+        percent={0}
+      />
+    );
+  } else if (isLoading) {
+    return (
+      <div className="w-full min-h-[116px] animate-pulse place-items-center rounded-lg bg-gray-300"></div>
     );
   }
-
   return <></>;
 };
 

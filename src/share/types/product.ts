@@ -19,6 +19,7 @@ export interface IProductDetail {
   rateCount: number;
   viewCount: number;
   relatedProducts?: IProductDetail[];
+  sku: string;
 }
 export interface IProductPage {
   data: IProductDetail[];
@@ -66,6 +67,8 @@ export interface IProductAddToCart {
 }
 export interface IProductOrder extends IProductAddToCart {
   id: string;
+  name?: string;
+  imageUrl?: string;
 }
 export interface IProductReview {
   id: string;

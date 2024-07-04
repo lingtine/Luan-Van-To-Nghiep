@@ -119,12 +119,7 @@ const Orders = () => {
       </div>
     );
   }
-  return (
-    <div className="px-4 ">
-      <div className="flex justify-end my-4"></div>
-      {content}
-    </div>
-  );
+  return <div className="px-4 ">{content}</div>;
 };
 
 export default Orders;

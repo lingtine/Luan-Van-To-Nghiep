@@ -10,11 +10,12 @@ import {
   IOrderParams,
   IOrderPage,
 } from "share/types/order";
+import { IOrderReportResponse, OrderReportType } from "share/types/report";
 
 const orderApi = createApi({
   reducerPath: "order",
   baseQuery: customFetchBase,
-  tagTypes: ["processing-Order", "create-order", "change-process"],
+  tagTypes: ["processing-Order", "create-order", "change-process", "report"],
   endpoints: (builder) => ({
     getOrders: builder.query<IOrderPage, IOrderParams>({
       query: (params) => ({
@@ -67,7 +68,7 @@ const orderApi = createApi({
       },
     }),
     getOrderReportByStatus: builder.mutation({
-      query: (data: { start: string; end: string }) => ({
+      query: (data: { start: Date; end: Date }) => ({
         url: "/orders/orders/GetOrderReportByStatus",
         method: "POST",
         body: data,
@@ -78,7 +79,7 @@ const orderApi = createApi({
       invalidatesTags: ["processing-Order"],
     }),
     exportOrderReportByStatus: builder.mutation({
-      query: (data: { start: string; end: string }) => ({
+      query: (data: { start: Date; end: Date }) => ({
         url: "/orders/orders/ExportOrderReportByStatus",
         method: "POST",
         body: data,
@@ -92,7 +93,7 @@ const orderApi = createApi({
       }),
     }),
     getOrderReport: builder.mutation({
-      query: (data: { start: string; end: string; reporterId: string }) => ({
+      query: (data: { start: Date; end: Date; reporterId: string }) => ({
         url: "/orders/orders/GetOrderReport",
         method: "POST",
         body: data,
@@ -106,7 +107,7 @@ const orderApi = createApi({
       }),
     }),
     exportOrderReportFile: builder.mutation({
-      query: (data: { start: string; end: string; reporterId: string }) => ({
+      query: (data: { start: Date; end: Date; reporterId: string }) => ({
         url: "/orders/orders/ExportOrderReportFile",
         method: "POST",
         body: data,
@@ -131,6 +132,19 @@ const orderApi = createApi({
         method: "GET",
       }),
     }),
+    getOrderReportInRange: builder.mutation<
+      IOrderReportResponse,
+      { date: Date; type: OrderReportType }
+    >({
+      query: (body: { date: Date; type: OrderReportType }) => ({
+        url: "/orders/orders/GetOrderReportInRange",
+        method: "POST",
+        body: body,
+      }),
+      transformResponse: (response: IOrderReportResponse) => {
+        return response;
+      },
+    }),
   }),
 });
 export const {
@@ -148,6 +162,7 @@ export const {
   useGetOrderQuery,
   useGetTotalOrderCreateQuery,
   useGetTotalRevenueQuery,
+  useGetOrderReportInRangeMutation,
 } = orderApi;
 
 export default orderApi;

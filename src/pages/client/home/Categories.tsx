@@ -10,7 +10,6 @@ const Categories: React.FC<CategoriesProps> = () => {
 
   let content;
   if (isSuccess) {
-    console.log(data);
 
     content = data.map((category: any) => {
       return (

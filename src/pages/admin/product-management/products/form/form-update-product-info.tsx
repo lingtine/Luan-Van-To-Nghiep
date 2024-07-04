@@ -1,17 +1,18 @@
 import React from "react";
 import { Input, Button, Textarea, IconButton } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
-import { useUpdateProductMutation } from "redux/api/catalog/product";
-import { useNavigate } from "react-router-dom";
+import { useRemoveSpecificationForProductMutation, useUpdateProductMutation } from "redux/api/catalog/product";
+
 
 import {
   IProductDetail,
   IProductSpecificationInput,
   IProductSpecification,
+  IProductInput,
 } from "share/types/product";
 
 import UploadImage from "components/upload-image/upload-image";
+
 import { CiTrash } from "react-icons/ci";
 import UploadMultiple from "components/upload-image/UploadMultiple";
 import Modal from "components/modal/modal";
@@ -23,26 +24,19 @@ interface FormUpdateProductInfoProps {
 const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
   product,
 }) => {
-  const navigate = useNavigate();
   const [isUpload, setIsUpload] = useState(false);
-  const [image, setImage] = useState<string | undefined>(product.imageUrl);
+  const [image] = useState<string | undefined>(product.imageUrl);
   const [isOpen, setIsOpen] = useState(false);
   const [relatedImages, setRelatedImages] = useState<FileList | null>(null);
-  const [specifications, setSpecifications] = useState<IProductSpecification[]>(
+  const [specifications] = useState<IProductSpecification[]>(
     product.productSpecifications
   );
+
+  const [removeSpecification] = useRemoveSpecificationForProductMutation();
   const [updateProduct, result] = useUpdateProductMutation();
   const [isUpdate, setIsUpdate] = useState(false);
 
-  const [dataForm, setDataForm] = useState<{
-    id: string;
-    name: string;
-    description: string;
-    image: File;
-    unitPrice: number;
-    relatedImages?: FileList;
-    specifications?: IProductSpecification[];
-  }>({
+  const [dataForm, setDataForm] = useState<IProductInput>({
     id: product.id,
     name: product.name,
     description: product.description,
@@ -50,20 +44,21 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
     unitPrice: product.unitPrice,
     relatedImages: new DataTransfer().files,
     specifications: product.productSpecifications,
+    sku: product.sku,
+    brandId: product.brand.id,
+    categoryId: product.category.id,
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("🚀 ~ handleSubmit ~ FormData:", dataForm);
-
-    // if (dataForm.image) {
-    //   updateProduct(dataForm);
-    // } else {
-    // const { image, ...updateDataForm } = dataForm;
-    if (!isOpen) {
-      //updateProduct(dataForm);
+    if (dataForm.image) {
+      updateProduct(dataForm);
+    } else {
+      const { image, ...updateDataForm } = dataForm;
+      if (!isOpen) {
+        updateProduct(dataForm);
+      }
     }
-    // }
   };
 
   const handleChangeData = (
@@ -86,17 +81,27 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
     });
   };
 
-  const handleAddSpecifications = (children: IProductSpecificationInput[]) => {
-    // setSpecifications(children);
-    // setDataForm(() => {
-    //   return { ...dataForm, specifications: children };
-    // });
-  };
+
+  // const handleAddSpecifications = (children: IProductSpecificationInput[]) => {
+  //   setSpecifications(
+  //     children.map((x): IProductSpecification => {
+  //       return {
+  //         id: "",
+  //         productId: "",
+  //         specificationId: x.specificationId,
+  //         specificationName: x.specificationName,
+  //         specificationValue: x.specificationValue,
+  //       };
+  //     })
+  //   );
+  //   // setDataForm((prev) => {
+  //   //   return { ...prev, specifications: children };
+  //   // });
+  // };
+
 
   const handleRemoveSpecification = (specificationId: string) => {
-    setSpecifications((prev) =>
-      prev.filter((x) => x.specificationId !== specificationId)
-    );
+    removeSpecification({ productId: product.id, data: [specificationId] });
   };
 
   const handleOpen = () => {
@@ -112,20 +117,25 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
   useEffect(() => {
     setIsUpdate(true);
 
-    // setDataForm(() => {
-    //   return {
-    //     ...dataForm,
-    //     specifications: specifications.map(
-    //       (x: IProductSpecification): IProductSpecificationInput => {
-    //         return {
-    //           specificationId: x.specificationId,
-    //           specificationName: x.specificationName,
-    //           specificationValue: x.specificationValue,
-    //         };
-    //       }
-    //     ),
-    //   };
-    // });
+    console.log("🚀 ~ setDataForm ~ specifications:", specifications);
+
+    setDataForm((prev) => {
+      return {
+        ...prev,
+        specifications: specifications.map(
+          (x: IProductSpecification): IProductSpecification => {
+            return {
+              id: x.id,
+              productId: x.productId,
+              specificationId: x.specificationId,
+              specificationName: x.specificationName,
+              specificationValue: x.specificationValue,
+            };
+          }
+        ),
+      };
+    });
+
   }, [specifications]);
 
   useEffect(() => {
@@ -136,7 +146,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
         return { ...dataForm, relatedImages: relatedImages };
       });
     }
-  }, [relatedImages]);
+  }, [relatedImages, dataForm]);
 
   useEffect(() => {
     if (
@@ -145,17 +155,9 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
       dataForm.description !== product.description &&
       dataForm.image
     ) {
-      console.log("Form true");
       setIsUpdate(true);
     }
   }, [dataForm, product.name, product.unitPrice, product.description]);
-
-  useEffect(() => {
-    if (result.isSuccess) {
-      navigate(-1);
-      toast.success("Chỉnh sửa sản phẩm thành công");
-    }
-  }, [result, navigate]);
 
   return (
     <form
@@ -288,10 +290,9 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
             <Modal onClose={handleClose}>
               <FormAddSpecificationsProduct
                 onClose={handleClose}
-                productId={""}
+                productId={product.id}
                 productSpecifications={specifications}
                 isAdd={true}
-                handleAddSpecifications={handleAddSpecifications}
               />
             </Modal>
           )}

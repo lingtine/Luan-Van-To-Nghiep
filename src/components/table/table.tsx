@@ -50,7 +50,7 @@ const Table = <T,>({ data, config }: TableProps<T>) => {
     );
   });
   return (
-    <Card className="h-full w-full overflow-x-auto text-sm rounded-none">
+    <Card className="h-full w-full overflow-x-auto text-sm ">
       <table className="w-full min-w-[800px] table-auto text-left">
         <thead className="text-sm">
           <tr className="whitespace-nowrap">{renderLabel}</tr>

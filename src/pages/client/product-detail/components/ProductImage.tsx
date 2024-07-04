@@ -25,11 +25,7 @@ const ProductImage = ({ mainImage, relatedImages }: IProductImageProps) => {
     <>
       <div className="flex-col h-full w-full gap-4">
         <div className="w-full h-[70%] flex items-center justify-center">
-          <img
-            className="content-center"
-            src={preview}
-            alt=""
-          />
+          <img className="content-center max-h-60" src={preview} alt="" />
         </div>
         <div className="basis-1/4 flex overflow-x-scroll mt-4 p-3 scrollbar-hide">
           {images?.map((image, index) => (
