@@ -58,4 +58,8 @@ export interface IStockReportItem {
   outwardStock: number;
   closingStock: number;
 }
+
+export interface IStockReportTable extends IStockReportItem{
+  index : number
+}
 export type WarehouseType = "Distribution" | "Retail";

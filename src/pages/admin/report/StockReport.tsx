@@ -3,14 +3,13 @@ import { InputDate } from "components";
 import { useEffect, useState } from "react";
 import { useStockReportMutation } from "redux/api/warehouse/warehouse";
 import StockReportTable from "./components/StockReportTable";
+import { IStockReportItem, IStockReportTable } from "share/types/warehouse";
 
 const StockReport = () => {
   const [dateEnd, setDateEnd] = useState<Date>();
   const [dateStart, setDateStart] = useState<Date>();
-  const [getStockReport, { data }] = useStockReportMutation();
-  useEffect(() => {
-    console.log("Data :>> ", data);
-  }, [data]);
+  const [getStockReport, { data, isSuccess }] = useStockReportMutation();
+
 
   const handleClick = () => {
     const start = dateStart!;
@@ -25,6 +24,7 @@ const StockReport = () => {
       End: end,
     });
   };
+
   return (
     <div>
       <div className="flex gap-2 h-full justify-center">
@@ -37,7 +37,7 @@ const StockReport = () => {
 
         <Button onClick={handleClick}>Thống kê</Button>
       </div>
-      <StockReportTable />
+      <StockReportTable data={data?.data ?? []}  />
     </div>
   );
 };
