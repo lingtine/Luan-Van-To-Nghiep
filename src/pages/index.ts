@@ -25,6 +25,7 @@ export { default as AddSupplierPage } from "./admin/warehouse-management/supplie
 export { default as AddGoodsReceiptPage } from "./admin/report/add-goods-receipt";
 export { default as AddGoodsIssuePage } from "./admin/report/add-goods-issue";
 export { default as ReportDetail } from "./admin/report/report-detail";
+export { default as StockReportPage } from "./admin/report/StockReport";
 
 export { default as DiscountEventsPage } from "./admin/discount-management/discount-events/discount-events";
 export { default as AddDiscountEventPage } from "./admin/discount-management/discount-events/add-discount-event";

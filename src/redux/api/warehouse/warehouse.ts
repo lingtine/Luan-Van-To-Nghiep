@@ -3,6 +3,8 @@ import customFetchBase from "../customFetchBase";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 import {
+  IStockReportRequest,
+  IStockReportResponse,
   IWarehouse,
   IWarehouseInput,
   IWarehousePage,
@@ -62,6 +64,14 @@ const warehouseApi = createApi({
       transformResponse: ({ data }) => data,
       invalidatesTags: ["restore"],
     }),
+    stockReport: build.mutation<IStockReportResponse, IStockReportRequest>({
+      query: (data) => ({
+        url: `/warehouses/Reporting/GetStockReport`,
+        method: "POST",
+        body: data,
+      }),
+      transformResponse: ({ data }) => data,
+    })
   }),
 });
 
@@ -72,5 +82,6 @@ export const {
   useGetWarehouseDetailQuery,
   useUpdateWarehouseMutation,
   useRestoreWarehouseMutation,
+  useStockReportMutation,
 } = warehouseApi;
 export default warehouseApi;

@@ -81,6 +81,10 @@ const navigation: INavigator[] = [
         label: "Nhà cung cấp",
         href: "suppliers",
       },
+      {
+        label: "Nhập, Xuất, Tồn",
+        href: "stock-report",
+      },
     ],
   },
   {
