@@ -12,11 +12,6 @@ interface StatisticalProps {}
 const Statistical: React.FC<StatisticalProps> = () => {
   const [dateEnd, setDateEnd] = useState<Date>();
   const [dateStart, setDateStart] = useState<Date>();
-  console.log(
-    "🚀 ~ OrderReport ~ dateStart ~ dateEnd :",
-    dateStart?.toString(),
-    dateEnd?.toLocaleString()
-  );
   const [getOrderReport, { isSuccess, isLoading, data }] =
     useGetOrderReportByStatusMutation();
 

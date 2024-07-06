@@ -116,9 +116,6 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
 
   useEffect(() => {
     setIsUpdate(true);
-
-    console.log("🚀 ~ setDataForm ~ specifications:", specifications);
-
     setDataForm((prev) => {
       return {
         ...prev,

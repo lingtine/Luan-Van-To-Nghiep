@@ -7,7 +7,6 @@ interface CartClientProps {}
 
 const CartClient: React.FC<CartClientProps> = () => {
   const { data, isSuccess } = useGetDetailCartQuery();
-  console.log("🚀 ~ data:", data);
 
   if (isSuccess) {
     const total = data.items.reduce((prevValue, curValue) => {

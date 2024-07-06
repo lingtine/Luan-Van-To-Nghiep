@@ -1,19 +1,25 @@
 import Button from "@material-tailwind/react/components/Button";
 import { InputDate } from "components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useStockReportMutation } from "redux/api/warehouse/warehouse";
+import { IStockReportItem } from "share/types/warehouse";
 import StockReportTable from "./components/StockReportTable";
-import { IStockReportItem, IStockReportTable } from "share/types/warehouse";
 
 const StockReport = () => {
   const [dateEnd, setDateEnd] = useState<Date>();
   const [dateStart, setDateStart] = useState<Date>();
-  const [getStockReport, { data, isSuccess }] = useStockReportMutation();
-
+  const [getStockReport, { data }] = useStockReportMutation();
+  const [pageIndex, setPageIndex] = useState(0);
+  const [tableData, setTableData] = useState<IStockReportItem[]>(
+    data?.data.slice(0, 20) || []
+  );
+  const pageSize = 20;
 
   const handleClick = () => {
+    if (!dateStart || !dateEnd) {
+      return;
+    }
     const start = dateStart!;
-
     const end = dateEnd!;
 
     start.setDate(start.getDate() + 1);
@@ -37,7 +43,11 @@ const StockReport = () => {
 
         <Button onClick={handleClick}>Thống kê</Button>
       </div>
-      <StockReportTable data={data?.data ?? []}  />
+      {data && (
+        <div className="m-4 p-4">
+          <StockReportTable data={data?.data ?? []} />
+        </div>
+      )}
     </div>
   );
 };

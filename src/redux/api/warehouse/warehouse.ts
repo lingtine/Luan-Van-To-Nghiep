@@ -70,7 +70,7 @@ const warehouseApi = createApi({
         method: "POST",
         body: data,
       }),
-      transformResponse: ({ data }) => data,
+      // transformResponse: ({ data }) => data,
     })
   }),
 });

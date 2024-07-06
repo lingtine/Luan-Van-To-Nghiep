@@ -223,7 +223,6 @@ const productApi = createApi({
       }),
 
       transformResponse: ({ data }) => {
-        console.log("🚀 ~ data:", data);
 
         return data.data;
       },

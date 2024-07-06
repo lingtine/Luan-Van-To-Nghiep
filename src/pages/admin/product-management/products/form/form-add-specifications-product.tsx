@@ -98,11 +98,6 @@ const FormAddSpecificationsProduct: React.FC<
 
   const handleSubmitSpecifications = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(
-      "🚀 ~ handleSubmitSpecifications ~ specificationsData:",
-      specificationsData
-    );
-
     if (specificationsData) {
       addSpecification({
         productId,
