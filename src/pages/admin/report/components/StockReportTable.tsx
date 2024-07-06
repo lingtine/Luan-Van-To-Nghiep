@@ -7,7 +7,7 @@ interface ITable {
 
 const StockReportTable = ({ data }: ITable) => {
   const tableData: IStockReportTable[] = data.map((item, index) => {
-    return { ...item, index: index };
+    return { ...item, index: index + 1};
   });
   const configData = [
     {

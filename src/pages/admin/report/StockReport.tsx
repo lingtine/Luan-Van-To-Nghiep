@@ -1,30 +1,49 @@
 import Button from "@material-tailwind/react/components/Button";
 import { InputDate } from "components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useStockReportMutation } from "redux/api/warehouse/warehouse";
 import { IStockReportItem } from "share/types/warehouse";
 import StockReportTable from "./components/StockReportTable";
+import StockReportPagination from "./components/StockReportPagination";
 
 const StockReport = () => {
   const [dateEnd, setDateEnd] = useState<Date>();
+  console.log("🚀 ~ StockReport ~ dateEnd:", dateEnd)
   const [dateStart, setDateStart] = useState<Date>();
   const [getStockReport, { data }] = useStockReportMutation();
-  const [pageIndex, setPageIndex] = useState(0);
+  const [pageIndex, setPageIndex] = useState(1);
+  console.log("🚀 ~ StockReport ~ pageIndex:", pageIndex);
   const [tableData, setTableData] = useState<IStockReportItem[]>(
     data?.data.slice(0, 20) || []
   );
   const pageSize = 20;
+
+  useEffect(() => {
+    const startIndex = (pageIndex - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const paginatedData = data?.data.slice(startIndex, endIndex);
+    console.log("🚀 ~ useEffect ~ paginatedData:", paginatedData);
+    setTableData(paginatedData || []);
+  }, [data, pageIndex]);
+
+  // useEffect(() => {
+  //   const startIndex = (pageIndex - 1) * pageSize;
+  //   const endIndex = startIndex + pageSize;
+  //   const paginatedData = data?.data.slice(startIndex, endIndex);
+  //   setTableData(paginatedData || []);
+  // }, [data]);
 
   const handleClick = () => {
     if (!dateStart || !dateEnd) {
       return;
     }
     const start = dateStart!;
-    const end = dateEnd!;
+    let end = {...dateEnd!};
+     end = new Date();
+    // start.setDate(start.getDate() + 1);
+    // end.setDate(end.getDate() + 1);
 
-    start.setDate(start.getDate() + 1);
-    end.setDate(end.getDate() + 1);
-
+    
     getStockReport({
       Start: start,
       End: end,
@@ -45,7 +64,17 @@ const StockReport = () => {
       </div>
       {data && (
         <div className="m-4 p-4">
-          <StockReportTable data={data?.data ?? []} />
+          <div>
+            <StockReportTable data={tableData ?? []} />
+          </div>
+          <div className="mt-4">
+            <StockReportPagination
+              pageIndex={pageIndex}
+              pageSize={pageSize}
+              total={data?.data.length}
+              onChangePage={setPageIndex}
+            />
+          </div>
         </div>
       )}
     </div>
