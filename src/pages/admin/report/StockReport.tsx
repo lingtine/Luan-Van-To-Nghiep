@@ -8,7 +8,7 @@ import StockReportPagination from "./components/StockReportPagination";
 
 const StockReport = () => {
   const [dateEnd, setDateEnd] = useState<Date>();
-  console.log("🚀 ~ StockReport ~ dateEnd:", dateEnd)
+  console.log("🚀 ~ StockReport ~ dateEnd:", dateEnd);
   const [dateStart, setDateStart] = useState<Date>();
   const [getStockReport, { data }] = useStockReportMutation();
   const [pageIndex, setPageIndex] = useState(1);
@@ -37,13 +37,13 @@ const StockReport = () => {
     if (!dateStart || !dateEnd) {
       return;
     }
-    const start = dateStart!;
-    let end = {...dateEnd!};
-     end = new Date();
-    // start.setDate(start.getDate() + 1);
-    // end.setDate(end.getDate() + 1);
+    let start = dateStart!;
+    start = new Date(start);
+    let end = { ...dateEnd! };
+    end = new Date(dateEnd);
+    start.setDate(start.getDate() + 1);
+    end.setDate(end.getDate() + 1);
 
-    
     getStockReport({
       Start: start,
       End: end,
