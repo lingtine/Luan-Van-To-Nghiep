@@ -8,11 +8,9 @@ import StockReportPagination from "./components/StockReportPagination";
 
 const StockReport = () => {
   const [dateEnd, setDateEnd] = useState<Date>();
-  console.log("🚀 ~ StockReport ~ dateEnd:", dateEnd);
   const [dateStart, setDateStart] = useState<Date>();
   const [getStockReport, { data }] = useStockReportMutation();
   const [pageIndex, setPageIndex] = useState(1);
-  console.log("🚀 ~ StockReport ~ pageIndex:", pageIndex);
   const [tableData, setTableData] = useState<IStockReportItem[]>(
     data?.data.slice(0, 20) || []
   );
@@ -22,16 +20,8 @@ const StockReport = () => {
     const startIndex = (pageIndex - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     const paginatedData = data?.data.slice(startIndex, endIndex);
-    console.log("🚀 ~ useEffect ~ paginatedData:", paginatedData);
     setTableData(paginatedData || []);
   }, [data, pageIndex]);
-
-  // useEffect(() => {
-  //   const startIndex = (pageIndex - 1) * pageSize;
-  //   const endIndex = startIndex + pageSize;
-  //   const paginatedData = data?.data.slice(startIndex, endIndex);
-  //   setTableData(paginatedData || []);
-  // }, [data]);
 
   const handleClick = () => {
     if (!dateStart || !dateEnd) {
