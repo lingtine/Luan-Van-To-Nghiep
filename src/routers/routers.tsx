@@ -57,7 +57,6 @@ import {
   FavoriteProductReportPage,
   StockReportPage,
 } from "pages";
-import StockReport from "pages/admin/report/StockReport";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
