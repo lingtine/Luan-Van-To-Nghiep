@@ -15,19 +15,34 @@ interface FormAddSpecificationsProductProps {
   onClose: Function;
   productSpecifications: IProductSpecification[];
   isAdd?: boolean;
+  handleAddSpecifications?: Function;
 }
 
 const FormAddSpecificationsProduct: React.FC<
   FormAddSpecificationsProductProps
-> = ({ productId, onClose, productSpecifications, isAdd = false }) => {
+> = ({
+  productId,
+  onClose,
+  productSpecifications,
+  isAdd = false,
+  handleAddSpecifications,
+}) => {
   const [specificationsData, setSpecificationsData] = useState<
     IProductSpecificationInput[]
-  >([{ specificationId: "", specificationName: "", specificationValue: "" }]);
+  >(() =>
+    productSpecifications.length
+      ? productSpecifications
+      : [{ specificationId: "", specificationName: "", specificationValue: "" }]
+  );
 
   const [addSpecification] = useAddSpecificationForProductMutation();
   const { data, isSuccess } = useGetSpecificationsQuery({
     PageSize: 9999,
   });
+
+  const [existingIds, setExistingIds] = useState<string[]>(
+    productSpecifications.map((x) => x.specificationId) || []
+  );
 
   let renderSpecificationData;
   if (isSuccess) {
@@ -44,6 +59,7 @@ const FormAddSpecificationsProduct: React.FC<
 
       return (
         <InputSpecification
+          key={item.specificationId}
           specifications={updateData}
           onChange={(title: string, value: string | ISelected) => {
             if (title === "value" && typeof value === "string") {
@@ -68,7 +84,7 @@ const FormAddSpecificationsProduct: React.FC<
                   return item;
                 }
               );
-
+              setExistingIds([...existingIds, value.id]);
               setSpecificationsData(newSpecificationsData);
             }
           }}
@@ -80,6 +96,7 @@ const FormAddSpecificationsProduct: React.FC<
             );
             setSpecificationsData(filterArray);
           }}
+          productSpecificationIds={existingIds}
         />
       );
     });
@@ -98,11 +115,28 @@ const FormAddSpecificationsProduct: React.FC<
 
   const handleSubmitSpecifications = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (specificationsData) {
-      addSpecification({
-        productId,
-        data: specificationsData,
-      });
+      if (handleAddSpecifications && isAdd) {
+        handleAddSpecifications(
+          specificationsData.map(
+            (x: IProductSpecificationInput): IProductSpecification => {
+              return {
+                id: "",
+                productId: "",
+                specificationId: x.specificationId,
+                specificationName: x.specificationName,
+                specificationValue: x.specificationValue,
+              };
+            }
+          )
+        );
+      } else {
+        addSpecification({
+          productId,
+          data: specificationsData,
+        });
+      }
     }
     onClose();
   };
@@ -110,7 +144,6 @@ const FormAddSpecificationsProduct: React.FC<
   return (
     <form
       onSubmit={handleSubmitSpecifications}
-
       className="flex flex-col gap-4 h-[600px] max-h-[600px]"
     >
       <div className="border p-4 rounded-md border-blue-500 flex flex-col gap-4 h-full max-h-[600px] min-h-[320px] overflow-y-scroll">

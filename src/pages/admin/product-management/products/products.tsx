@@ -49,22 +49,21 @@ const Products = () => {
       },
     },
     {
+      label: "Hình ảnh",
+      render: (data: IProductTable) => {
+        return <img className="w-8" src={data.imageUrl} alt={data.name} />;
+      },
+    },
+    {
       label: "Sản phẩm",
       render: (data: IProductTable) => {
         return (
           <div className="flex items-center gap-4  min-w-[300px] max-h-[100px] overflow-y-hidden">
-            <img className="w-8" src={data.imageUrl} alt={data.name} />
+            {/* <img className="w-8" src={data.imageUrl} alt={data.name} /> */}
 
             <p>{data.name}</p>
           </div>
         );
-      },
-    },
-
-    {
-      label: "Miêu tả",
-      render: (data: IProductTable) => {
-        return <div className="line-clamp-3">{data.description}</div>;
       },
     },
     {

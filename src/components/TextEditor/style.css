@@ -1,0 +1,19 @@
+/* styles.css */
+.ql-size-extra-small {
+  font-size: 10px;
+}
+.ql-size-small {
+  font-size: 12px;
+}
+.ql-size-medium {
+  font-size: 14px;
+}
+.ql-size-large {
+  font-size: 18px;
+}
+.ql-size-extra-large {
+  font-size: 24px;
+}
+.ql-size-huge {
+  font-size: 32px;
+}

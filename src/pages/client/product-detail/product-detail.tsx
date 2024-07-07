@@ -22,6 +22,7 @@ import {
   useDeleteWishlistMutation,
 } from "redux/api/auth/customer-api";
 import ProductImage from "./components/ProductImage";
+import HtmlRenderer from "components/TextEditor/HtmlRender";
 
 function ProductDetailPage() {
   const { productId } = useParams();
@@ -174,11 +175,9 @@ function ProductDetailPage() {
                 {/* {isSuccess && data && data.relatedProducts && (
                   
                 )} */}
-
                 {/* <div>
                   <ProductsCarousel products={[data]} lengthCarousel={10} />
                 </div> */}
-
                 {/* <div className="w-full min-h-fit h-fit shadow-md rounded-lg border border-gray-300 mb-4 p-4">
                   {data.relatedProducts && (
                     <RelatedCarousel
@@ -187,11 +186,15 @@ function ProductDetailPage() {
                     />
                   )}
                 </div> */}
-
                 {/* Description */}
-                <div className="w-full min-h-fit h-fit shadow-md rounded-lg border border-gray-300 mb-4 p-4">
-                  {data.description}
-                </div>
+                {/* <div className="w-full min-h-fit h-fit shadow-md rounded-lg border border-gray-300 mb-4 p-4">
+                  
+                </div> */}
+                {data.description && (
+                  <div className="w-full min-h-fit h-fit shadow-md rounded-lg border border-gray-300 mb-4 p-4">
+                    <HtmlRenderer htmlContent={data.description} />
+                  </div>
+                )}
 
                 {/* Review */}
                 <div

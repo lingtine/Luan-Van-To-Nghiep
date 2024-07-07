@@ -24,6 +24,7 @@ export interface ICustomerDetail {
   deliveryInfos: IDeliveryInfo[];
   purchases: [];
   wishlists: [];
+  imageUrl?: string;
 }
 
 export interface IDepartment {
