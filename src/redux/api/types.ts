@@ -15,6 +15,7 @@ export interface IUserDetail {
   department?: IDepartment;
   imageUrl?: string;
   phone?: string;
+  avatar?: string;
 }
 
 export interface ICustomerDetail {
@@ -25,6 +26,11 @@ export interface ICustomerDetail {
   purchases: [];
   wishlists: [];
   imageUrl?: string;
+  avatar?: string;
+}
+
+export interface IUpdateCustomer extends ICustomerDetail {
+  image: File;
 }
 
 export interface IDepartment {

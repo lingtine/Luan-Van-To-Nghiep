@@ -7,6 +7,7 @@ import {
   IDeliveryInput,
   ICustomerDetail,
   IWishlistProduct,
+  IUpdateCustomer,
 } from "../types";
 const customerApi = createApi({
   reducerPath: "customer",
@@ -153,6 +154,21 @@ const customerApi = createApi({
           "get-wishlist",
         ],
       }),
+      updateProfile: builder.mutation<ICustomerDetail, IUpdateCustomer>({
+        query: (data) => {
+          let bodyFormData = new FormData();
+          bodyFormData.append("Name", data.name);
+          bodyFormData.append("Email", data.email);
+          if (data.image) {
+            bodyFormData.append("Image", data.image);
+          }
+          return {
+            url: `/customers/customers/UpdateProfile/${data.id}`,
+            method: "PUT",
+            body: bodyFormData,
+          };
+        },
+      }),
     };
   },
 });
@@ -168,5 +184,6 @@ export const {
   useAddWishlistMutation,
   useDeleteWishlistMutation,
   useGetWishlistQuery,
+  useUpdateProfileMutation,
 } = customerApi;
 export default customerApi;
