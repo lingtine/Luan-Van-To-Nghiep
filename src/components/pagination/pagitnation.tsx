@@ -15,15 +15,8 @@ const Pagination: React.FC<PaginationProps> = ({
   totalCount,
   url,
 }) => {
-  console.log(
-    "🚀 ~ pageIndex,  pageSize,  totalCount,  url:",
-    pageIndex,
-    pageSize,
-    totalCount,
-    url
-  );
   const maxSizePage = Math.ceil(totalCount / pageSize);
-
+  console.log("🚀 ~ maxSizePage:", maxSizePage);
   const getPagination = () => {
     const pages = [];
     if (maxSizePage === 1) {
@@ -31,9 +24,7 @@ const Pagination: React.FC<PaginationProps> = ({
       return pages;
     }
     const startPage = Math.max(1, pageIndex - 2);
-    console.log("🚀 ~ getPagination ~ startPage:", startPage);
     const endPage = Math.min(maxSizePage - 1, pageIndex + 2);
-    console.log("🚀 ~ getPagination ~ endPage:", endPage);
 
     pages.push(0); // Always show the first page
 

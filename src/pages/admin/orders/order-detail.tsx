@@ -19,7 +19,6 @@ const OrderDetail: React.FC<OrderDetailProps> = () => {
   const { orderId } = useParams();
   const [changeOrderProcess] = useOrderProcessingMutation();
   const { data, isSuccess } = useGetOrderQuery(orderId || "");
-  console.log("🚀 ~ data:", data);
 
   let renderButtonOrderProcessing: React.ReactNode;
 

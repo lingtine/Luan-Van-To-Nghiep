@@ -7,6 +7,7 @@ import {
   IDeliveryInput,
   ICustomerDetail,
   IWishlistProduct,
+  IUpdateCustomer,
 } from "../types";
 const customerApi = createApi({
   reducerPath: "customer",
@@ -153,6 +154,30 @@ const customerApi = createApi({
           "get-wishlist",
         ],
       }),
+      updateProfile: builder.mutation<ICustomerDetail, IUpdateCustomer>({
+        query: (data) => {
+          const moment = require("moment");
+
+          const bodyFormData = new FormData();
+          bodyFormData.append("Name", data.name);
+          data.gender && bodyFormData.append("Gender", data.gender);
+          data.birthDay &&
+            bodyFormData.append(
+              "BirthDay",
+              moment(data.birthDay).format("DD/MM/YYYY")
+            );
+          data.phone && bodyFormData.append("Phone", data.phone);
+          if (data.image) {
+            bodyFormData.append("Image", data.image);
+          }
+
+          return {
+            url: `/customers/customers/UpdateProfile/${data.id}`,
+            method: "PUT",
+            body: bodyFormData,
+          };
+        },
+      }),
     };
   },
 });
@@ -168,5 +193,6 @@ export const {
   useAddWishlistMutation,
   useDeleteWishlistMutation,
   useGetWishlistQuery,
+  useUpdateProfileMutation,
 } = customerApi;
 export default customerApi;

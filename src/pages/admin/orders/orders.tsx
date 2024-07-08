@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetOrdersQuery } from "redux/api/order/order";
 import Pagination from "components/pagination/pagitnation";
 import { Button, Spinner } from "@material-tailwind/react";
 import Table from "components/table/table";
 import { useParams } from "react-router-dom";
-import { IOrderTable } from "share/types/order";
+import { IOrderTable, OrderStatus } from "share/types/order";
+import Select from "@material-tailwind/react/components/Select";
+import SelectBox, { ISelected } from "components/select-box/select-box";
 const Orders = () => {
   const { index } = useParams();
-
+  const [selected, setSelected] = useState<ISelected>();
+  const status = [
+    { id: "Created", label: "Mới" },
+    { id: "Delivered", label: "Đã giao" },
+    { id: "Returned", label: "Đã trả lại" },
+    { id: "Canceled", label: "Đã hủy" },
+  ];
+  const handleSelect = (option: ISelected) => {
+    setSelected(option);
+  };
   const { data, isSuccess, isLoading } = useGetOrdersQuery({
     PageIndex: index,
+    OrderStatus: selected?.id as OrderStatus,
   });
   const configData = [
     {
@@ -38,31 +50,36 @@ const Orders = () => {
         let content;
         if (data.status === "Created") {
           content = (
-            <Button color="indigo" size="sm" ripple={false}>
+            <Button
+              className="w-[90px]"
+              color="indigo"
+              size="sm"
+              ripple={false}
+            >
               Mới
             </Button>
           );
         } else if (data.status === "Processing") {
           content = (
-            <Button color="green" size="sm" ripple={false}>
-              Đã Giao
+            <Button className="w-[90px]" color="green" size="sm" ripple={false}>
+              Đang xử lý
             </Button>
           );
         } else if (data.status === "Delivered") {
           content = (
-            <Button color="green" size="sm" ripple={false}>
+            <Button className="w-[90px]" color="green" size="sm" ripple={false}>
               Đã Giao
             </Button>
           );
         } else if (data.status === "Returned") {
           content = (
-            <Button color="gray" size="sm" ripple={false}>
+            <Button className="w-[90px]" color="gray" size="sm" ripple={false}>
               Đã Trả Hàng{" "}
             </Button>
           );
         } else if (data.status === "Canceled") {
           content = (
-            <Button color="red" size="sm" ripple={false}>
+            <Button className="w-[90px]" color="red" size="sm" ripple={false}>
               Hủy
             </Button>
           );
@@ -83,7 +100,7 @@ const Orders = () => {
         return (
           <div className="flex gap-4 justify-end">
             <Link to={`order-detail/${data.id}`}>
-              <Button color="yellow">Detail</Button>
+              <Button color="yellow">Chi tiết</Button>
             </Link>
           </div>
         );
@@ -119,7 +136,19 @@ const Orders = () => {
       </div>
     );
   }
-  return <div className="px-4 ">{content}</div>;
+  return (
+    <div className="p-4 flex-col">
+      <div className="mb-4 flex justify-end">
+        <SelectBox
+          onChange={handleSelect}
+          options={status}
+          selected={selected}
+          label="Chọn nhóm danh mục"
+        />
+      </div>
+      {content}
+    </div>
+  );
 };
 
 export default Orders;

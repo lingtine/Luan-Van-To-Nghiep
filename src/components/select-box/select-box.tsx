@@ -57,7 +57,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
   
   let content = selected?.label || placeholder;
 
-  content = (content === undefined || content.length === 0) ? "Select..." : content;
+  content = (content === undefined || content.length === 0) ? "Chọn..." : content;
 
   
   return (

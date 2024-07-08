@@ -7,6 +7,7 @@ import employeeApi from "../auth/employeeApi";
 import customFetchBase from "redux/api/customFetchBase";
 
 import { ILogin, ILogout, IRegister, ILoginRes } from "share/types/auth";
+import { ChangePasswordRequest } from "../types";
 
 const authApi = createApi({
   reducerPath: "auth",
@@ -73,10 +74,23 @@ const authApi = createApi({
           } catch (error) {}
         },
       }),
+      changePassword: builder.mutation<any, ChangePasswordRequest>({
+        query: (data) => {
+          return {
+            url: "/auths/auth/change-password",
+            method: "POST",
+            body: data,
+          };
+        },
+      })
     };
   },
 });
 
 export default authApi;
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation } =
-  authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useLogoutMutation,
+  useChangePasswordMutation,
+} = authApi;

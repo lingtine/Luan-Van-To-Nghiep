@@ -25,6 +25,7 @@ import {
 } from "share/types/product";
 
 import FormAddSpecificationsProduct from "./form/form-add-specifications-product";
+import TextEditor from "components/TextEditor/TextEditor";
 
 const AddProduct = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -120,7 +121,9 @@ const AddProduct = () => {
       prev.filter((x) => x.specificationId !== specificationId)
     );
   };
-
+  const handleAddSpecifications = (children: IProductSpecification[]) => {
+    setSpecifications(children);
+  };
   useEffect(() => {
     setDataForm(() => {
       return {
@@ -152,6 +155,12 @@ const AddProduct = () => {
       navigate("/admin/products");
     }
   }, [result, navigate]);
+
+  const handleChangeDescription = (content: string) => {
+    setDataForm(() => {
+      return { ...dataForm, description: content };
+    });
+  };
 
   let content, contentCategory, contentBrands: React.ReactNode;
   if (getCategoryGroupSuccess) {
@@ -268,14 +277,11 @@ const AddProduct = () => {
               {content}
 
               {contentCategory}
-              <Textarea
-                onChange={handleChange}
-                name="description"
-                value={dataForm?.description}
-                label="Miêu tả sản phẩm"
-              />
             </div>
           </section>
+        </div>
+        <div>
+          <TextEditor setContent={handleChangeDescription} />
         </div>
 
         <section>
@@ -298,7 +304,10 @@ const AddProduct = () => {
               <div className="my-4  overflow-y-scroll max-h-[400px]">
                 {specifications.map((item) => {
                   return (
-                    <div className="flex gap-4 border border-primary-1 justify-between  items-center p-2">
+                    <div
+                      key={item.id}
+                      className="flex gap-4 border border-primary-1 justify-between  items-center p-2"
+                    >
                       <h5 className="min-w-[200px]  ">
                         {item.specificationName}
                       </h5>
@@ -326,6 +335,7 @@ const AddProduct = () => {
                   productId={""}
                   productSpecifications={specifications}
                   isAdd={true}
+                  handleAddSpecifications={handleAddSpecifications}
                 />
               </Modal>
             )}

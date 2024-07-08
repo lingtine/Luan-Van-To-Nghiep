@@ -8,9 +8,6 @@ import { useGetOrderReportInRangeMutation } from "redux/api/order/order";
 import { IOrderReportData, OrderReportType } from "share/types/report";
 import { formatVND } from "utils/formatVND";
 
-interface BarChartProps {
-  data: { target: string; total: number }[];
-}
 const OrderReportTypes: ISelected[] = [
   {
     id: "Day",

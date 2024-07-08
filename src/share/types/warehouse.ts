@@ -40,4 +40,26 @@ export interface IWarehouseParam {
   PageSize?: number;
 }
 
+export interface IStockReportRequest {
+  Start: Date;
+  End: Date;
+}
+
+export interface IStockReportResponse {
+  data: IStockReportItem[];
+}
+
+export interface IStockReportItem {
+  productId: string;
+  name: string;
+  sku: string;
+  openingStock: number;
+  inwardStock: number;
+  outwardStock: number;
+  closingStock: number;
+}
+
+export interface IStockReportTable extends IStockReportItem{
+  index : number
+}
 export type WarehouseType = "Distribution" | "Retail";

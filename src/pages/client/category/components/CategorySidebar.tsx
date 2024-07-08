@@ -23,7 +23,7 @@ const CategorySidebar = ({
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [brands, setBrands] = useState<IBrand[]>([]);
 
-  const [isEnable, setIsEnable] = useState(true);
+  const [isEnable, setIsEnable] = useState(false);
 
   const { data: categoryData } = useGetCategoriesQuery({
     GroupId: groupId,
@@ -39,6 +39,15 @@ const CategorySidebar = ({
     setBrands([]);
     setCategories([]);
   }, [isClear]);
+
+  useEffect(()=>{
+    // eslint-disable-next-line eqeqeq
+    if (filters.length == 0 && brands.length == 0 && categories.length == 0) {
+      setIsEnable(false)
+    }else{
+      setIsEnable(true)
+    }
+  },[filters, brands, categories]);
 
   const handleChangeCategory = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -171,11 +180,9 @@ const CategorySidebar = ({
         </div>
       </div>
 
-      {isEnable && (
-        <Button onClick={handleFilter} fullWidth>
+      <Button onClick={handleFilter} disabled={!isEnable} fullWidth>
           Tim kiếm
         </Button>
-      )}
     </Card>
   );
 };

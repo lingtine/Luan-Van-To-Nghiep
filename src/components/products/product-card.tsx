@@ -98,14 +98,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
               </Typography>
             </div>
           </div>
-
-          <Typography
-            variant="small"
-            color="gray"
-            className="font-normal opacity-75 line-clamp-2 max-h-[42px] overflow-hidden"
-          >
-            {data.description}
-          </Typography>
         </CardBody>
         <CardFooter className="pt-0">
           <Button
@@ -119,7 +111,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
         </CardFooter>
       </Card>
     )
-  );
+  ); 
 };
 
 export default ProductCard;

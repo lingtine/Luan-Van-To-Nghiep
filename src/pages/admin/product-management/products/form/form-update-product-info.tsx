@@ -1,8 +1,10 @@
 import React from "react";
 import { Input, Button, Textarea, IconButton } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
-import { useRemoveSpecificationForProductMutation, useUpdateProductMutation } from "redux/api/catalog/product";
-
+import {
+  useRemoveSpecificationForProductMutation,
+  useUpdateProductMutation,
+} from "redux/api/catalog/product";
 
 import {
   IProductDetail,
@@ -17,6 +19,7 @@ import { CiTrash } from "react-icons/ci";
 import UploadMultiple from "components/upload-image/UploadMultiple";
 import Modal from "components/modal/modal";
 import FormAddSpecificationsProduct from "./form-add-specifications-product";
+import TextEditor from "components/TextEditor/TextEditor";
 interface FormUpdateProductInfoProps {
   product: IProductDetail;
 }
@@ -28,7 +31,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
   const [image] = useState<string | undefined>(product.imageUrl);
   const [isOpen, setIsOpen] = useState(false);
   const [relatedImages, setRelatedImages] = useState<FileList | null>(null);
-  const [specifications] = useState<IProductSpecification[]>(
+  const [specifications, setSpecifications] = useState<IProductSpecification[]>(
     product.productSpecifications
   );
 
@@ -81,6 +84,11 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
     });
   };
 
+  const handleChangeDescription = (content: string) => {
+    setDataForm(() => {
+      return { ...dataForm, description: content };
+    });
+  };
 
   // const handleAddSpecifications = (children: IProductSpecificationInput[]) => {
   //   setSpecifications(
@@ -99,7 +107,6 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
   //   // });
   // };
 
-
   const handleRemoveSpecification = (specificationId: string) => {
     removeSpecification({ productId: product.id, data: [specificationId] });
   };
@@ -116,9 +123,6 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
 
   useEffect(() => {
     setIsUpdate(true);
-
-    console.log("🚀 ~ setDataForm ~ specifications:", specifications);
-
     setDataForm((prev) => {
       return {
         ...prev,
@@ -135,7 +139,6 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
         ),
       };
     });
-
   }, [specifications]);
 
   useEffect(() => {
@@ -158,7 +161,9 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
       setIsUpdate(true);
     }
   }, [dataForm, product.name, product.unitPrice, product.description]);
-
+  const handleAddSpecifications = (children: IProductSpecification[]) => {
+    setSpecifications(children);
+  };
   return (
     <form
       onSubmit={handleSubmit}
@@ -178,6 +183,15 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
             />
           </div>
           <div>
+            <label className="text-sm font-semibold">SKU</label>
+            <Input
+              crossOrigin={""}
+              value={dataForm.sku}
+              name="name"
+              onChange={handleChangeData}
+            />
+          </div>
+          <div>
             <label className="text-sm font-semibold">Giá sản phẩm</label>
             <Input
               value={dataForm.unitPrice || ""}
@@ -187,14 +201,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
               crossOrigin={""}
             />
           </div>
-          <div>
-            <label className="text-sm font-semibold">Miêu tả sản phẩm</label>
-            <Textarea
-              value={dataForm.description}
-              name="description"
-              onChange={handleChangeData}
-            />
-          </div>
+
           <div>
             <label className="text-sm font-semibold">Danh mục sản phẩm</label>
             <Input
@@ -242,7 +249,12 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
           </div>
         </div>
       </div>
-
+      <div className="py-4">
+        <TextEditor
+          content={product.description}
+          setContent={handleChangeDescription}
+        />
+      </div>
       {/* Related images + Specifications */}
       <div className="mt-4">
         <div className="flex w-full justify-between gap-4">
@@ -265,7 +277,10 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
             <div className="my-4 overflow-y-scroll max-h-[400px]">
               {specifications.map((item) => {
                 return (
-                  <div className="flex gap-4 border border-primary-1 justify-between items-center p-2">
+                  <div
+                    key={item.id}
+                    className="flex gap-4 border border-primary-1 justify-between items-center p-2"
+                  >
                     <h5 className="min-w-[200px]  ">
                       {item.specificationName}
                     </h5>
@@ -293,6 +308,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
                 productId={product.id}
                 productSpecifications={specifications}
                 isAdd={true}
+                handleAddSpecifications={handleAddSpecifications}
               />
             </Modal>
           )}
