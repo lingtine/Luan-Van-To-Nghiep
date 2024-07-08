@@ -17,7 +17,6 @@ const SlideBarAccount: React.FC<SlideBarAccountProps> = () => {
   const navigate = useNavigate();
   const { refreshToken } = useAppSelector((state) => state.authSlice);
   const { user } = useAppSelector((state) => state.userSlice);
-  console.log("🚀 ~ user:", user);
 
   useEffect(() => {
     if (isSuccess) {

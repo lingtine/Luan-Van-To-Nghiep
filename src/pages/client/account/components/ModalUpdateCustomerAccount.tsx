@@ -1,11 +1,14 @@
 import Button from "@material-tailwind/react/components/Button";
 import Input from "@material-tailwind/react/components/Input";
+import Modal from "components/modal/modal";
 import UploadImage from "components/upload-image/upload-image";
 import React, { useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useUpdateProfileMutation } from "redux/api/auth/customer-api";
 import { ICustomerDetail, IUpdateCustomer, IUserDetail } from "redux/api/types";
+import moment from "moment";
+import SelectBox, { ISelected } from "components/select-box/select-box";
 
 interface IModalUpdateCustomerAccountProps {
   customer: IUserDetail | ICustomerDetail;
@@ -16,11 +19,23 @@ const ModalUpdateCustomerAccount = ({
   customer,
   onToggle,
 }: IModalUpdateCustomerAccountProps) => {
-  console.log("🚀 ~ customer:", customer)
+  const moment = require("moment");
+  const genderOptions: ISelected[] = [
+    { id: "Male", label: "Nam" },
+    { id: "Female", label: "Nữ" },
+    { id: "Other", label: "Khác" },
+  ];
+  const defaultGender = genderOptions.find((x:ISelected) => x.id === customer.gender);
+  const [gender, setGender] = useState<ISelected | undefined>(defaultGender);
+  const [birthday, setBirthday] = useState(customer.birthDay)
+  
   const [formData, setFormData] = useState<IUpdateCustomer>({
     id: customer.id,
     name: customer.name,
     email: customer.email,
+    birthDay: customer.birthDay,
+    gender: customer.gender,
+    phone: customer.phone,
     image: new DataTransfer().files[0],
   } as IUpdateCustomer);
 
@@ -29,71 +44,96 @@ const ModalUpdateCustomerAccount = ({
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     updateCustomerInfo(formData);
-    console.log("Submitted Customer: ", formData);
   };
-
   return (
-    <div className="px-8">
-      <div className="flex gap-4 border-y py-3  items-center">
-        <Link to={"/account"}>
-          <Button variant="text" className="text-lg" onClick={onToggle}>
-            <AiOutlineArrowLeft />
-          </Button>
-        </Link>
-        <div>
-          <p className="text-sm">Trở về</p>
-        </div>
-      </div>
-
-      <form
-        onSubmit={handleSubmit}
-        className="flex justify-between gap-10 p-10"
-      >
-        <section className="flex-[0_0_50%]">
-          <UploadImage
-            onChange={(file) => {
-              setFormData(() => {
-                return { ...formData, image: file };
-              });
-            }}
-          />
-        </section>
-        <section className=" flex-[0_0_50%]">
-          <header className="text-2xl my-4 font-bold ">
-            Thông tin khách hàng
-          </header>
-          <div className="flex flex-col gap-4">
-            <Input
-              onChange={(event) => {
-                setFormData(() => {
-                  return { ...formData, name: event.target.value };
-                });
-              }}
-              value={formData.name}
-              name="name"
-              crossOrigin={"use-credentials"}
-              variant="outlined"
-              label="Họ và tên"
-            />
-
-            <Input
-              onChange={(event) => {
-                setFormData(() => {
-                  return { ...formData, email: event.target.value };
-                });
-              }}
-              value={formData.email}
-              name="name"
-              crossOrigin={"use-credentials"}
-              variant="outlined"
-              label="Email"
-            />
+    <div>
+      <Modal onClose={onToggle}>
+        <form
+          onSubmit={handleSubmit}
+          className="flex-coljustify-between gap-10"
+        >
+          <div>
+            <header className="text-2xl my-4 font-bold">
+              Thông tin khách hàng
+            </header>
           </div>
-          <div className="flex justify-end my-4">
-            <Button type="submit">Cập nhật</Button>
+          <div className="flex justify-between gap-4">
+            <section className="w-full">
+              <UploadImage
+                onChange={(file) => {
+                  setFormData(() => {
+                    return { ...formData, image: file };
+                  });
+                }}
+              />
+            </section>
+            <section className="">
+              <div className="flex flex-col gap-6">
+                <Input
+                  onChange={(event) => {
+                    setFormData(() => {
+                      return { ...formData, name: event.target.value };
+                    });
+                  }}
+                  value={formData.name}
+                  name="name"
+                  crossOrigin={"use-credentials"}
+                  variant="outlined"
+                  label="Họ và tên"
+                />
+
+                <Input
+                  onChange={(event) => {
+                    setFormData(() => {
+                      return { ...formData, phone: event.target.value };
+                    });
+                  }}
+                  value={formData.phone}
+                  name="name"
+                  crossOrigin={"use-credentials"}
+                  variant="outlined"
+                  label="Số điện thoại"
+                />
+                <SelectBox
+                  onChange={(option: ISelected) => {
+                    setGender(option);
+                    setFormData(() => {
+                      return { ...formData, gender: option.id };
+                    });
+                  }}
+                  options={genderOptions}
+                  selected={gender}
+                  label="Giới tính"
+                />
+                <Input
+                  onChange={(event) => {
+                    setFormData(() => {
+                      if (event.target.value) {
+                        return {
+                          ...formData,
+                          birthday: moment(event.target.value).format(
+                            "DD/MM/YYYY"
+                          ),
+                        };
+                      }
+                      return formData;
+                    });
+                  }}
+                  value={moment(formData.birthDay).format("dd/mm/yyyy")}
+                  crossOrigin={"use-credentials"}
+                  type="date"
+                  label="Ngày sinh"
+                />
+              </div>
+            </section>
           </div>
-        </section>
-      </form>
+          <div className="w-full mt-4">
+            <Button className="w-full" type="submit">
+              Cập nhật
+            </Button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 };

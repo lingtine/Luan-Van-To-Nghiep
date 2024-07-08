@@ -156,12 +156,21 @@ const customerApi = createApi({
       }),
       updateProfile: builder.mutation<ICustomerDetail, IUpdateCustomer>({
         query: (data) => {
-          let bodyFormData = new FormData();
+          const moment = require("moment");
+
+          const bodyFormData = new FormData();
           bodyFormData.append("Name", data.name);
-          bodyFormData.append("Email", data.email);
+          data.gender && bodyFormData.append("Gender", data.gender);
+          data.birthDay &&
+            bodyFormData.append(
+              "BirthDay",
+              moment(data.birthDay).format("DD/MM/YYYY")
+            );
+          data.phone && bodyFormData.append("Phone", data.phone);
           if (data.image) {
             bodyFormData.append("Image", data.image);
           }
+
           return {
             url: `/customers/customers/UpdateProfile/${data.id}`,
             method: "PUT",

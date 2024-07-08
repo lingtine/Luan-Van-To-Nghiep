@@ -16,6 +16,8 @@ export interface IUserDetail {
   imageUrl?: string;
   phone?: string;
   avatar?: string;
+  birthDay?: Date;
+  gender?: string;
 }
 
 export interface ICustomerDetail {
@@ -27,6 +29,9 @@ export interface ICustomerDetail {
   wishlists: [];
   imageUrl?: string;
   avatar?: string;
+  birthDay?: Date;
+  gender?: string;
+  phone?: string;
 }
 
 export interface IUpdateCustomer extends ICustomerDetail {
@@ -144,3 +149,10 @@ export interface IFilterProductParameter {
   categoryIds: string[];
   filterValues: IFilterProduct[];
 }
+
+export interface ChangePasswordRequest {
+  email:string;
+  password: string;
+}
+
+export type Gender = "Male" | "Female" | "Other";
