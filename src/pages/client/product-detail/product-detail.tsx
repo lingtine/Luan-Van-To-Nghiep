@@ -7,6 +7,8 @@ import ProductReview from "./components/ProductReview";
 import ProductSpecification from "./components/ProductSpecification";
 import ProductDetailSkeleton from "components/skeleton/product-detail-skeleton";
 import ProductImage from "./components/ProductImage";
+import ProductWishList from "./components/product-wish-list";
+import ProductDetailRightSide from "./components/product-detail-right-side";
 import HtmlRenderer from "components/TextEditor/HtmlRender";
 
 function ProductDetailPage() {
