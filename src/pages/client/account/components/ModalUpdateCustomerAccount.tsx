@@ -109,17 +109,16 @@ const ModalUpdateCustomerAccount = ({
                   onChange={(event) => {
                     setFormData(() => {
                       if (event.target.value) {
+                        console.log("🚀 ~ setFormData ~ event.target.value:", event.target.value)
                         return {
                           ...formData,
-                          birthday: moment(event.target.value).format(
-                            "DD/MM/YYYY"
-                          ),
+                          birthDay: moment(event.target.value).toDate()
                         };
                       }
                       return formData;
                     });
                   }}
-                  value={moment(formData.birthDay).format("dd/mm/yyyy")}
+                  // value={moment(formData.birthDay).format("dd/mm/yyyy")}
                   crossOrigin={"use-credentials"}
                   type="date"
                   label="Ngày sinh"

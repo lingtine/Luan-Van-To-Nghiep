@@ -1,15 +1,11 @@
 import Button from "@material-tailwind/react/components/Button";
 import Input from "@material-tailwind/react/components/Input";
 import Modal from "components/modal/modal";
-import SelectBox, { ISelected } from "components/select-box/select-box";
-import UploadImage from "components/upload-image/upload-image";
-import moment from "moment";
-import React, { useState } from "react";
-import { useUpdateProfileMutation } from "redux/api/auth/customer-api";
-import { ChangePasswordRequest } from "redux/api/types";
+import React, { useEffect, useState } from "react";
 
-import { useAppSelector } from "redux/store";
 import { toast } from "react-toastify";
+import { useChangePasswordMutation } from "redux/api/auth/authApi";
+import { useAppSelector } from "redux/store";
 
 interface ModalChangePasswordProps {
   onToggle: () => void;
@@ -21,21 +17,29 @@ const ModalChangePassword = ({ onToggle }: ModalChangePasswordProps) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [isEmailError, setIsEmailError] = useState(true);
-  const [isPasswordError, setIsPasswordError] = useState(true);
-  const [isConfirmPasswordError, setIsOpenChangePasswordError] = useState(true);
-console.log('object :>> ', isEmailError,
-isPasswordError,
-isConfirmPasswordError);
-  const [formData, setFormData] = useState<ChangePasswordRequest>({
-    email: user?.email ?? "",
-    password: "",
-  });
-
+  const [changePassword, { isSuccess }] = useChangePasswordMutation();
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // updateCustomerInfo(formData);
-    console.log(formData);
+    if (
+      email.length === 0 ||
+      password.length === 0 ||
+      confirmPassword.length === 0
+    ) {
+      toast.error("Không được để trống");
+    }
+
+    if (email !== user?.email) {
+      toast.error("Email không trùng khớp");
+    }
+
+    if (password !== confirmPassword) {
+      toast.error("Mật khẩu không trùng khớp");
+    }
+
+    changePassword({
+      email: email,
+      password: password,
+    });
   };
 
   return (
@@ -59,7 +63,6 @@ isConfirmPasswordError);
               crossOrigin={"use-credentials"}
               variant="outlined"
               label="Email"
-              error={isEmailError}
             />
 
             <Input
@@ -71,7 +74,6 @@ isConfirmPasswordError);
               crossOrigin={"use-credentials"}
               variant="outlined"
               label="Mật khẩu"
-              error={isPasswordError}
             />
 
             <Input
@@ -83,7 +85,6 @@ isConfirmPasswordError);
               crossOrigin={"use-credentials"}
               variant="outlined"
               label="Nhập lại mật khẩu"
-              error={isConfirmPasswordError}
             />
           </div>
           <div className="w-full mt-4">
