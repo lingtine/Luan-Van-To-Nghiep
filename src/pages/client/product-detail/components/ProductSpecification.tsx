@@ -8,17 +8,15 @@ const ProductSpecification: React.FC<ProductSpecificationProps> = ({
   data,
 }) => {
   return (
-    <>
+    <div className="flex flex-col basis-1/3 shadow-md p-4 h-fit border border-gray-300 rounded-lg overflow-hidden">
       <h4 className="text-xl font-bold mb-4">Thông số kỹ thuật</h4>
       <ul className="[&>*:nth-child(odd)]:bg-[#f2f2f2] rounded-lg border border-gray-300">
         {data.map((item, index) => {
           return (
             <li
-              className={`flex text-sm px-4 py-2 items-center gap-4 justify-between h-16
-              ${index === 0 ? "rounded-t-lg" : ""} ${
-                index === data.length - 1 ? "rounded-b-lg" : ""
+              className={
+                "flex text-sm px-4 py-2 items-center first:rounded-t-lg last:rounded-b-lg gap-4 justify-between h-16"
               }
-              `}
               key={item.id}
             >
               <span className="py-4 flex[0_0_50%] h-full">
@@ -29,7 +27,7 @@ const ProductSpecification: React.FC<ProductSpecificationProps> = ({
           );
         })}
       </ul>
-    </>
+    </div>
   );
 };
 

@@ -29,7 +29,6 @@ import {
   ProductDetailAdminPage,
   ProductsAdminPage,
   RegisterPage,
-  SearchPage,
   ResetPasswordPage,
   SpecificationsPage,
   InventoryPage,
@@ -72,7 +71,6 @@ const router = createBrowserRouter(
         <Route path="login" element={<LoginPage />}></Route>
         <Route path="register" element={<RegisterPage />}></Route>
         <Route path="forget-password" element={<ForgetPasswordPage />}></Route>
-        <Route path="search" element={<SearchPage />}></Route>
         <Route path="reset-password" element={<ResetPasswordPage />}></Route>
         <Route
           path="product-detail/:productId"
@@ -94,14 +92,7 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path="/login-admin" element={<LoginAdminPage />}></Route>
-      <Route
-        path="/admin/"
-        element={
-          <AuthGuard>
-            <AdminLayout />
-          </AuthGuard>
-        }
-      >
+      <Route path="/admin/" element={<AdminLayout />}>
         <Route index element={<DashboardAdminPage />}></Route>
         <Route path="orders" element={<OrdersAdminPage />}></Route>
         <Route path="orders/:index" element={<OrdersAdminPage />}></Route>
@@ -168,7 +159,6 @@ const router = createBrowserRouter(
         <Route path="favorite-report" element={<FavoriteProductReportPage />} />
         <Route path="report-warehouse" element={<ReportWarehousePage />} />
         <Route path="order-report" element={<OrderReportPage />} />
-
         <Route path="filters" element={<FilterAdminPage />} />
       </Route>
       <Route path="*" element={<NotFoundPage />}></Route>

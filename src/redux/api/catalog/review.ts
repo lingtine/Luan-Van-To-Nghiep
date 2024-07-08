@@ -3,12 +3,19 @@ import customFetchBase from "redux/api/customFetchBase";
 import { IReviewRequest } from "../types";
 import { IProductReview } from "share/types/product";
 
+export interface IAddReviewReq {
+  productId: string;
+  numberOfStar: number;
+  comment: string;
+  attachments?: FileList;
+}
+
 const reviewApi = createApi({
   reducerPath: "reviewProduct",
   baseQuery: customFetchBase,
   tagTypes: ["ADD", "UPDATE", "DELETE"],
   endpoints: (builder) => ({
-    addReviewProduct: builder.mutation<any, IReviewRequest>({
+    addReviewProduct: builder.mutation<IAddReviewReq, IReviewRequest>({
       query: (data) => {
         const bodyFormData = new FormData();
 

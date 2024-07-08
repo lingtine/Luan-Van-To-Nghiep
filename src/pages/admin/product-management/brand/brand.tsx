@@ -8,12 +8,13 @@ import { IBrandTable } from "share/types/brand";
 import { useGetBrandsQuery } from "redux/api/catalog/brand";
 import BrandTable from "./brand-table";
 import ModalAddBrand from "./modal-add-brand";
+import { useSearchParams } from "react-router-dom";
 
 const Brand = () => {
-  const { index } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isVisible, setIsVisible] = useState(false);
   const { data, isSuccess, isLoading } = useGetBrandsQuery({
-    PageIndex: index,
+    PageIndex: searchParams.get("pageIndex") || "0",
   });
 
   const handleToggle = () => {

@@ -9,7 +9,9 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = () => {
   return (
     <React.Fragment>
       <Header />
-      <Outlet />
+      <div className="mt-40">
+        <Outlet />
+      </div>
       <Footer />
     </React.Fragment>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import CategoryList from "./components/category-list";
 
 import { useParams } from "react-router-dom";
@@ -110,11 +110,11 @@ const CategoryPage = () => {
   //   setPageCurrent(0);
   // };
 
-  const handleCleanFilter = () => {
+  const handleCleanFilter = useCallback(() => {
     setIsClear((prev) => !prev);
     setPageCurrent(0);
     setProducts(data?.data ?? []);
-  };
+  }, [data?.data]);
 
   const handleFilter = (parameters: {
     brandIds: string[];

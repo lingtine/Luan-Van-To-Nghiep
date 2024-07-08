@@ -48,7 +48,6 @@ export { default as RegisterPage } from "./client/register/register";
 export { default as ProductDetailPage } from "./client/product-detail/product-detail";
 
 // export { default as WishListPage } from "./client/wish-list/wishlist";
-export { default as SearchPage } from "./client/search/search";
 export { default as ResetPasswordPage } from "./client/reset-password/reset-password";
 export { default as NotFoundPage } from "./client/not-found/not-found";
 export { default as CartClientPage } from "./client/cart/cart-client";

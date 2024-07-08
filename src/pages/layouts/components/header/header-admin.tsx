@@ -1,6 +1,7 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
 import { useLocation } from "react-router-dom";
+import TileHeaderAdmin from "share/constant/title-header-admin";
 interface HeaderAdminProps {}
 
 const HeaderAdmin: React.FC<HeaderAdminProps> = () => {
@@ -9,7 +10,7 @@ const HeaderAdmin: React.FC<HeaderAdminProps> = () => {
   return (
     <header>
       <Typography variant="h3" className="px-4">
-        {pageName}
+        {TileHeaderAdmin[pageName]}
       </Typography>
     </header>
   );

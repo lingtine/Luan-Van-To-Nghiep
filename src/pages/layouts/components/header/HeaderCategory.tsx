@@ -10,10 +10,10 @@ interface IHeaderCategory {
 const HeaderCategory: React.FC<IHeaderCategory> = ({ onClose }) => {
   const { data, isSuccess } = useGetAllCategoryGroupsQuery();
 
-  return (
-    <>
-      {isSuccess &&
-        data.map((category) => (
+  if (isSuccess) {
+    return (
+      <ul className="hidden lg:flex">
+        {data.map((category) => (
           <li key={category.id}>
             <NavLink
               to={`/category/${category.id}`}
@@ -23,7 +23,7 @@ const HeaderCategory: React.FC<IHeaderCategory> = ({ onClose }) => {
                 }
               }}
             >
-              {({ isActive, isPending, isTransitioning }) => {
+              {({ isActive }) => {
                 return (
                   <Button
                     className="flex opacity-1"
@@ -38,8 +38,10 @@ const HeaderCategory: React.FC<IHeaderCategory> = ({ onClose }) => {
             </NavLink>
           </li>
         ))}
-    </>
-  );
+      </ul>
+    );
+  }
+  return <></>;
 };
 
 export default HeaderCategory;

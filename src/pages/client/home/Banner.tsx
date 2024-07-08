@@ -18,7 +18,7 @@ const Banner: React.FC<BannerProps> = () => {
             <h3 className="text-2xl font-semibold ">{product.name}</h3>
             <p className=" line-clamp-2 text-sm ">{product.description}</p>
             <Link to={`/product-detail/${product.id}`}>
-              <Button size="lg"> Mua Ngay</Button>
+              <Button size="lg">Mua Ngay</Button>
             </Link>
           </div>
 

@@ -3,45 +3,34 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useAddReviewProductMutation } from "redux/api/catalog/review";
 import { useAppSelector } from "redux/store";
-
+import { IAddReviewReq } from "redux/api/catalog/review";
+import { ICustomerDetail } from "redux/api/types";
 interface ICommentFormProps {
   isChild: boolean;
   productId: string;
 }
 
-const CommentForm = ({ isChild, productId }: ICommentFormProps) => {
-  const [star, setStar] = useState(5);
-  const [comment, setComment] = useState("");
+const CommentForm = ({ productId }: ICommentFormProps) => {
   const [createReview, result] = useAddReviewProductMutation();
 
-  const { accessToken } = useAppSelector((state) => state.authSlice);
+  const { user } = useAppSelector((state) => state.userSlice) as {
+    user: ICustomerDetail;
+  };
 
-  const [dataForm, setDataForm] = useState<{
-    productId: string;
-    numberOfStar: number;
-    comment: string;
-    attachments?: FileList;
-  }>({
+  const [dataForm, setDataForm] = useState<IAddReviewReq>({
     productId: productId,
-    numberOfStar: star,
-    comment: comment,
+    numberOfStar: 5,
+    comment: "",
     attachments: new DataTransfer().files || null,
   });
-
-  const avatarSize = isChild ? 7 : 10;
-  const textareaRows = 1;
-
-  const avatarClassNames = `w-${avatarSize} h-${avatarSize} rounded-full`;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!accessToken) {
-      toast.warning("Bạn cần đăng nhập để bình luận");
-    } else {
-      setComment("");
-      setStar(5);
+    if (user) {
       createReview(dataForm);
+    } else {
+      toast.warning("Bạn cần đăng nhập để bình luận");
     }
   };
 
@@ -55,12 +44,10 @@ const CommentForm = ({ isChild, productId }: ICommentFormProps) => {
   const handleCommentChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    setComment(event.target.value);
     setDataForm(() => ({ ...dataForm, comment: event.target.value }));
   };
 
   const handleChangeStar = (currentStar: number) => {
-    setStar(currentStar);
     setDataForm(() => ({ ...dataForm, numberOfStar: currentStar }));
   };
 
@@ -68,27 +55,17 @@ const CommentForm = ({ isChild, productId }: ICommentFormProps) => {
     <form className="flex gap-4" onSubmit={(e) => handleSubmit(e)}>
       <div className="my-4 flex flex-col items-center w-full justify-between ">
         <div className="flex flex-row items-center justify-between w-full mb-4">
-          <img className={avatarClassNames} src="" alt="" />
+          {/* <img className="w-8 h-8" src={user.} alt={user.name} /> */}
           <span className="flex items-center gap-4">
-            <Rating
-              value={star}
-              onChange={(currentValue) => handleChangeStar(currentValue)}
-            />
+            <Rating value={dataForm.numberOfStar} onChange={handleChangeStar} />
           </span>
         </div>
         <div className="flex flex-row items-start justify-between w-full gap-4">
           {
-            // isChild ? (
-            //   <Input
-            //     crossOrigin={"use-credentials"}
-            //     variant="outlined"
-            //     label="Bình luận"
-            //   />
-            // ) :
             <Textarea
-              rows={textareaRows}
+              rows={3}
               resize={true}
-              value={comment}
+              value={dataForm.comment}
               onChange={(event) => handleCommentChange(event)}
               label="Bình luận"
               required

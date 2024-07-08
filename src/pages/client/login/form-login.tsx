@@ -78,9 +78,6 @@ const FormLogin: React.FC<FormLoginProps> = () => {
             <Button type="submit" size="lg" className="bg-primary">
               Đăng nhập
             </Button>
-            {/* <Link className="text-primary" to={"/forget-password"}>
-              Quên Mật Khẩu?
-            </Link> */}
           </div>
         </div>
       </form>
