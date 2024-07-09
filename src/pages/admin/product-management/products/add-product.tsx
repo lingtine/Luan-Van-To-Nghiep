@@ -86,15 +86,33 @@ const AddProduct = () => {
     });
   };
 
+  const renderSpecifications = specifications.map((item) => {
+    return (
+      <div
+        key={item.id}
+        className="flex gap-4 border border-primary-1 justify-between  items-center p-2"
+      >
+        <h5 className="min-w-[200px]  ">{item.specificationName}</h5>
+
+        <p> {item.specificationValue}</p>
+
+        <IconButton
+          className="min-w-[40px]"
+          onClick={() => handleRemoveSpecification(item.specificationId)}
+        >
+          <CiTrash />
+        </IconButton>
+      </div>
+    );
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!isOpen) {
       if (
         dataForm.brandId.trim().toString().length === 0 ||
         dataForm.categoryId.trim().toString().length === 0 ||
-        // dataForm.description.trim().toString().length === 0 ||
         dataForm.sku.trim().toString().length === 0 ||
-        // !dataForm.image ||
         dataForm.name.trim().toString().length === 0 ||
         dataForm.unitPrice <= 0
       ) {
@@ -255,7 +273,7 @@ const AddProduct = () => {
               <Input
                 onChange={handleChange}
                 name="name"
-                value={dataForm?.name}
+                value={dataForm.name}
                 crossOrigin={"use-credentials"}
                 variant="outlined"
                 label="Tên sản phẩm"
@@ -263,7 +281,7 @@ const AddProduct = () => {
               <Input
                 onChange={handleChange}
                 name="sku"
-                value={dataForm?.sku}
+                value={dataForm.sku}
                 crossOrigin={"use-credentials"}
                 variant="outlined"
                 label="Sku"
@@ -272,7 +290,7 @@ const AddProduct = () => {
                 onChange={handleChange}
                 name="unitPrice"
                 type="number"
-                value={dataForm?.unitPrice}
+                value={dataForm.unitPrice}
                 crossOrigin={"use-credentials"}
                 variant="outlined"
                 label="Giá sản phẩm"
@@ -312,50 +330,30 @@ const AddProduct = () => {
                 <Button onClick={handleOpenSpecification}>Thêm thông số</Button>
               </div>
 
-              <div className="my-4  overflow-y-scroll max-h-[400px]">
-                {specifications.map((item) => {
-                  return (
-                    <div
-                      key={item.id}
-                      className="flex gap-4 border border-primary-1 justify-between  items-center p-2"
-                    >
-                      <h5 className="min-w-[200px]  ">
-                        {item.specificationName}
-                      </h5>
-
-                      <p> {item.specificationValue}</p>
-
-                      <IconButton
-                        className="min-w-[40px]"
-                        onClick={() =>
-                          handleRemoveSpecification(item.specificationId)
-                        }
-                      >
-                        <CiTrash />
-                      </IconButton>
-                    </div>
-                  );
-                })}
+              <div className="my-4 overflow-y-scroll max-h-[400px]">
+                {renderSpecifications}
               </div>
             </div>
-            {/* Modal */}
-            {isOpen && (
-              <Modal onClose={handleCloseSpecification}>
-                <FormAddSpecificationsProduct
-                  onClose={handleCloseSpecification}
-                  productId={""}
-                  productSpecifications={specifications}
-                  isAdd={true}
-                  handleAddSpecifications={handleAddSpecifications}
-                />
-              </Modal>
-            )}
           </div>
           <div className="flex justify-end my-4">
             <Button type="submit">Thêm sản phẩm</Button>
           </div>
         </section>
       </form>
+      {
+        /* Modal adđ add specifications product */
+        isOpen && (
+          <Modal onClose={handleCloseSpecification}>
+            <FormAddSpecificationsProduct
+              onClose={handleCloseSpecification}
+              productId={""}
+              productSpecifications={specifications}
+              isAdd={true}
+              handleAddSpecifications={handleAddSpecifications}
+            />
+          </Modal>
+        )
+      }
     </div>
   );
 };

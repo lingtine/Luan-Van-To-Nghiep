@@ -23,7 +23,7 @@ const sortOption: ISort[] = [
     id: "4",
     label: "Z đến A",
     IsOrderDesc: true,
-    OrderBy: "name",
+    OrderBy: "Name",
   },
 ];
 

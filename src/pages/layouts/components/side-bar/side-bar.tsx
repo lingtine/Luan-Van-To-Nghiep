@@ -10,10 +10,9 @@ interface SideBarProps {}
 
 const SideBar: React.FC<SideBarProps> = () => {
   const { user } = useAppSelector((state) => state.userSlice);
+  const { refreshToken } = useAppSelector((state) => state.authSlice);
   const [logout, { isSuccess }] = useLogoutMutation();
   const navigate = useNavigate();
-
-  const { refreshToken } = useAppSelector((state) => state.authSlice);
 
   useEffect(() => {
     if (isSuccess) {

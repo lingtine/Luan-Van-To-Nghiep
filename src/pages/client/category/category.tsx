@@ -25,6 +25,8 @@ const CategoryPage = () => {
   const [isInStock, setIsInStock] = useState<{ status: boolean } | null>(null);
   const [products, setProducts] = useState<IProductDetail[]>([]);
   const [isClear, setIsClear] = useState(false);
+  const [filterProductByParameter, result] =
+    useFilterProductByParameterMutation();
 
   const [productData, setProductData] = useState<{
     products: IProductDetail[];
@@ -38,14 +40,10 @@ const CategoryPage = () => {
     totalCount: 1,
   });
 
-  const [filterProductByParameter, result] =
-    useFilterProductByParameterMutation();
-
   const { data, isSuccess } = useGetProductsQuery({
     CategoryGroupId: categoryId,
     PageIndex: pageCurrent.toString(),
     PageSize: 24,
-
     IsInStock: isInStock?.status,
   });
 
@@ -83,32 +81,6 @@ const CategoryPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pageCurrent]);
-
-  // const handleChangeCategories = (item: ICategory) => {
-  //   setCategories(() => {
-  //     if (categories) {
-  //       const category = categories.find((category) => category.id === item.id);
-
-  //       return category
-  //         ? categories.filter(function (category) {
-  //             return category.id !== item.id;
-  //           })
-  //         : [...categories, item];
-  //     } else {
-  //       return [item];
-  //     }
-  //   });
-  //   setPageCurrent(0);
-  // };
-
-  // const handleChangeIsInStock = (status: boolean | null) => {
-  //   if (status === null) {
-  //     setIsInStock(null);
-  //   } else {
-  //     setIsInStock({ status });
-  //   }
-  //   setPageCurrent(0);
-  // };
 
   const handleCleanFilter = useCallback(() => {
     setIsClear((prev) => !prev);

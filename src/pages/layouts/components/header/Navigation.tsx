@@ -61,7 +61,7 @@ const Navigation: React.FC<NavigationProps> = () => {
           <SearchBar />
         </div>
         <Link
-          to={user ? "/cart-client" : "/login"}
+          to={user ? "/cart" : "/login"}
           className="flex items-center gap-2 relative cursor-pointer"
         >
           <Badge

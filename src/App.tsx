@@ -7,6 +7,7 @@ import { useGetEmployeeMutation } from "redux/api/auth/employeeApi";
 import { useGetCustomerMutation } from "redux/api/auth/customer-api";
 import { useEffect } from "react";
 import { IAccessToken } from "redux/api/types";
+import { Suspense } from "react";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -32,7 +33,9 @@ const App: React.FC = () => {
   return (
     <>
       <ToastContainer />
-      <RouterProvider router={router} />
+      <Suspense fallback={<div>Loading..</div>}>
+        <RouterProvider router={router} />
+      </Suspense>
     </>
   );
 };
