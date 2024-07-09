@@ -113,10 +113,10 @@ const navigation: INavigator[] = [
         label: "Thống kê sản phẩm",
         href: "report-product",
       },
-      {
-        label: "Sản phẩm được yêu thích",
-        href: "favorite-report",
-      },
+      // {
+      //   label: "Sản phẩm được yêu thích",
+      //   href: "favorite-report",
+      // },
       {
         label: "Thống kê kho",
         href: "report-warehouse",
