@@ -55,7 +55,7 @@ const CommentForm = ({ productId }: ICommentFormProps) => {
       <div className="my-4 flex flex-col items-center w-full justify-between ">
         <div className="flex flex-row items-center justify-between w-full mb-4">
           <img
-            className={avatarClassNames}
+            // className={avatarClassNames}
             src={
               user?.avatar
                 ? user.avatar

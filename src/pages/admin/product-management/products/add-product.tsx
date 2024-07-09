@@ -23,12 +23,15 @@ import {
   IProductSpecificationInput,
   IProductSpecification,
 } from "share/types/product";
-
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import CustomEditorBuild from "ckeditor-options-remove-upload";
 import FormAddSpecificationsProduct from "./form/form-add-specifications-product";
 import TextEditor from "components/TextEditor/TextEditor";
 
 const AddProduct = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const [description, setDescription] = useState("");
 
   const [relatedImages, setRelatedImages] = useState<FileList | null>(null);
 
@@ -157,6 +160,7 @@ const AddProduct = () => {
   }, [result, navigate]);
 
   const handleChangeDescription = (content: string) => {
+    setDescription(content);
     setDataForm(() => {
       return { ...dataForm, description: content };
     });
@@ -281,7 +285,14 @@ const AddProduct = () => {
           </section>
         </div>
         <div>
-          <TextEditor setContent={handleChangeDescription} />
+          <CKEditor
+            editor={CustomEditorBuild}
+            data={description}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              handleChangeDescription(data);
+            }}
+          />
         </div>
 
         <section>
