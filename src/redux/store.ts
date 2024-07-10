@@ -9,6 +9,7 @@ import brandApi from "./api/catalog/brand";
 import customerApi from "./api/auth/customer-api";
 import userSlide from "./features/auth/userSlice";
 import authSlice from "./features/auth/authSlice";
+import productFilterSlice from "./features/products/product-filter-slice";
 import employeeApi from "./api/auth/employeeApi";
 import specificationsApi from "./api/catalog/specification";
 import orderApi from "./api/order/order";
@@ -32,6 +33,7 @@ import reportingApi from "./api/warehouse/reporting";
 export const store = configureStore({
   reducer: {
     authSlice: authSlice,
+    productFilterSlice: productFilterSlice,
     [userSlide.name]: userSlide.reducer,
     [departmentApi.reducerPath]: departmentApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,

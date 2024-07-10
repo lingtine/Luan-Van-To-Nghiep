@@ -1,11 +1,11 @@
 import React from "react";
 import { IProductDetail } from "share/types/product";
 import ProductCard from "components/products/product-card";
-interface CategoryListProps {
+interface ProductListProps {
   data: IProductDetail[];
 }
 
-const CategoryList: React.FC<CategoryListProps> = ({ data }) => {
+const ProductList: React.FC<ProductListProps> = ({ data }) => {
   return (
     <div className="container flex flex-wrap -m-1 md:-m-2">
       {data.map((product) => {
@@ -22,4 +22,4 @@ const CategoryList: React.FC<CategoryListProps> = ({ data }) => {
   );
 };
 
-export default CategoryList;
+export default ProductList;

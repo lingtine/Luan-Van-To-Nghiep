@@ -4,26 +4,32 @@ const sortOption: ISort[] = [
   {
     id: "1",
     label: "Giá từ thấp tới cao",
-    IsOrderDesc: false,
-    OrderBy: "Price",
+    value: "PriceAscending",
   },
   {
     id: "2",
     label: "Giá từ cao tới thấp",
-    IsOrderDesc: true,
-    OrderBy: "Price",
+    value: "PriceDescending",
   },
   {
     id: "3",
     label: "A đến Z",
-    IsOrderDesc: false,
-    OrderBy: "Name",
+    value: "NameAscending",
   },
   {
     id: "4",
     label: "Z đến A",
-    IsOrderDesc: true,
-    OrderBy: "Name",
+    value: "NameDescending",
+  },
+  {
+    id: "5",
+    label: "Sản phẩm yêu thích",
+    value: "Favorite",
+  },
+  {
+    id: "6",
+    label: "Xem nhiều nhất",
+    value: "MostView",
   },
 ];
 
