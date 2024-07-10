@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import { SearchBar } from "components";
-
 import { Link } from "react-router-dom";
 import {
   Badge,
-  Button,
   Avatar,
   Menu,
   MenuHandler,
@@ -14,7 +12,6 @@ import {
 import { useAppSelector } from "redux/store";
 import { useGetDetailCartQuery } from "redux/api/cart/cart";
 import { ICustomerDetail } from "redux/api/types";
-import HeaderCategory from "./HeaderCategory";
 import { useLogoutMutation } from "redux/api/auth/authApi";
 import { useNavigate } from "react-router-dom";
 
@@ -32,10 +29,9 @@ const Navigation: React.FC<NavigationProps> = () => {
   const { user } = useAppSelector((state) => state.userSlice) as {
     user: ICustomerDetail;
   };
-  const navigate = useNavigate();
   const { refreshToken } = useAppSelector((state) => state.authSlice);
+  const navigate = useNavigate();
   const [logout, status] = useLogoutMutation();
-
   const { data, isSuccess } = useGetDetailCartQuery();
 
   useEffect(() => {
@@ -52,30 +48,20 @@ const Navigation: React.FC<NavigationProps> = () => {
     <div className="container mx-auto px-8 gap-10 h-full  flex justify-between items-center py-6">
       <MenuMobile />
       {/* Logo */}
-      <p className="font-bold uppercase text-lg lg:text-2xl xl:text-4xl">
+      <p className="font-bold text-white uppercase text-lg lg:text-2xl xl:text-4xl">
         <Link to="/">TechWave</Link>
       </p>
-      <HeaderCategory />
+      {/* <HeaderCategory /> */}
+      <div className="relative w-full">
+        <SearchBar />
+      </div>
       <div className="flex gap-4">
-        <div className="relative w-full max-w-xs hidden xl:block">
-          <SearchBar />
-        </div>
-        <Link
-          to={user ? "/cart-client" : "/login"}
-          className="flex items-center gap-2 relative cursor-pointer"
-        >
-          <Badge
-            className="text-xs"
-            content={isSuccess ? data.items.length : 0}
-          >
-            <CiShoppingCart className="text-2xl " />
-          </Badge>
-        </Link>
-        {!user ? (
+        {/* user */}
+        {user ? (
           <Menu>
             <MenuHandler>
               <Avatar
-                className="cursor-pointer"
+                className="cursor-pointer w-32"
                 size="sm"
                 src="images/avatar-none-user.png"
               />
@@ -103,9 +89,25 @@ const Navigation: React.FC<NavigationProps> = () => {
           </Menu>
         ) : (
           <Link to={"/login"}>
-            <Button className="rounded-full">Đăng nhập</Button>
+            <Avatar
+              className="cursor-pointer w-20"
+              size="sm"
+              src="images/avatar-none-user.png"
+            />
           </Link>
         )}
+        {/* Cart */}
+        <Badge
+          className="bg-success"
+          content={isSuccess ? data.items.length : "0"}
+        >
+          <Link
+            to={user ? "/cart-client" : "/login"}
+            className="flex items-center relative p-2.5 rounded-full bg-light-text-emphasis text-secondary-border-subtle hover:text-white cursor-pointer"
+          >
+            <CiShoppingCart className="text-xl" />
+          </Link>
+        </Badge>
       </div>
     </div>
   );

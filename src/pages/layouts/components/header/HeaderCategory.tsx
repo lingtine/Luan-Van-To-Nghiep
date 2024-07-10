@@ -26,7 +26,7 @@ const HeaderCategory: React.FC<IHeaderCategory> = ({ onClose }) => {
               {({ isActive }) => {
                 return (
                   <Button
-                    className="flex opacity-1"
+                    className="flex opacity-1 whitespace-nowrap"
                     variant={isActive ? "filled" : "text"}
                     size="lg"
                     ripple={false}

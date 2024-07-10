@@ -7,7 +7,7 @@ import {
   useAddToCartMutation,
   useGetDetailCartQuery,
 } from "redux/api/cart/cart";
-
+import { CiShoppingCart } from "react-icons/ci";
 import { toast } from "react-toastify";
 
 import { useAppSelector } from "redux/store";
@@ -72,7 +72,7 @@ const ProductDetailRightSide: React.FC<ProductDetailRightSideProps> = ({
         <p>{`(${viewCount} lượt xem)`} </p>
       </span>
       <p className="text-2xl">{formatVND(unitPrice)}</p>
-      <div className="flex justify-between">
+      <div className="flex gap-4 items-center">
         <h6>Số lượng</h6>
 
         <InputQuantity
@@ -86,10 +86,11 @@ const ProductDetailRightSide: React.FC<ProductDetailRightSideProps> = ({
         <Button
           size="lg"
           disabled={!isInStock}
-          color={isInStock ? "yellow" : "gray"}
+          className="flex items-center gap-4 bg-primary hover:bg-primary-text-emphasis text-white"
           onClick={() => handleAddToCart()}
         >
-          Thêm vào giỏ hàng
+          <CiShoppingCart className="text-xl" />
+          <span>Thêm vào giỏ</span>
         </Button>
       </div>
       <div className="flex py-4 space-x-4"></div>

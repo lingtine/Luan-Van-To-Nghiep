@@ -5,6 +5,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 
 import ProductsSearch from "./products-search";
 import { useGetProductsByParamsMutation } from "redux/api/catalog/product";
+import { Card } from "@material-tailwind/react";
 interface SearchBarProps {
   className?: string;
   label?: string;
@@ -30,7 +31,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ className, label, area }) => {
   return (
     <>
       <div
-        className={`flex flex-1 border text-base border-primary-1 px-4 py-2 min-w-[230px] items-center rounded-lg ${className}`}
+        className={`group flex flex-1 border text-base border-secondary-border-subtle rounded-full   hover:border-white px-4 py-2 min-w-[230px] items-center ${className}`}
       >
         {area ? (
           <textarea
@@ -40,18 +41,17 @@ const SearchBar: React.FC<SearchBarProps> = ({ className, label, area }) => {
         ) : (
           <>
             <input
-              className="flex-1 bg-transparent"
+              className="group-hover:text-white flex-1 text-secondary-border-subtle bg-transparent"
               placeholder={label ? label : "Nhập tên sản phẩm"}
               onChange={(e) => setSearchValue(e.target.value)}
               value={searchValue}
             />
-            <span>
-              <FaMagnifyingGlass />
-            </span>
+
+            <FaMagnifyingGlass className="group-hover:text-white text-secondary-border-subtle" />
           </>
         )}
       </div>
-      <div className="absolute z-50 w-96 bg-white">
+      <Card className="absolute z-50 min-w-96 w-full bg-white">
         {debounceSearch &&
           isSuccess &&
           searchValue &&
@@ -61,7 +61,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ className, label, area }) => {
           ) : (
             <ProductsSearch onClear={handleClear} data={data} />
           ))}
-      </div>
+      </Card>
     </>
   );
 };

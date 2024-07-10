@@ -8,7 +8,7 @@ const CoreValue: React.FC<CoreValueProps> = () => {
         key={item.id}
         className="px-8 max-w-full flex-[0_0_100%] lg:max-w-[33.33333%] lg:flex-[0_0_33.33333%] mb-36 flex flex-col items-center"
       >
-        <div className="border-10 border-[#959496] p-2 text-4xl w-fit rounded-full bg-black text-secondary">
+        <div className="border-10 border-[#959496] p-2 text-4xl w-fit rounded-full bg-black text-secondary-border-subtle">
           {item.icon}
         </div>
         <div className="mt-6">

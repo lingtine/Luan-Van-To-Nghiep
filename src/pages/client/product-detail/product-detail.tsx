@@ -38,16 +38,15 @@ function ProductDetailPage() {
               mainImage={data.imageUrl}
               relatedImages={data.productImages}
             />
-
-            <ProductDetailRightSide
-              isInStock={data.isInStock}
-              numberOfStar={data.numberOfStar}
-              productId={data.id}
-              productName={data.name}
-              unitPrice={data.unitPrice}
-              viewCount={data.viewCount}
-            />
           </div>
+          <ProductDetailRightSide
+            isInStock={data.isInStock}
+            numberOfStar={data.numberOfStar}
+            productId={data.id}
+            productName={data.name}
+            unitPrice={data.unitPrice}
+            viewCount={data.viewCount}
+          />
         </div>
 
         <div className="sm:px-6 lg:px-8 mt-6 lg:flex-row flex flex-col gap-4 justify-between">

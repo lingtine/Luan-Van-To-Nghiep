@@ -13,7 +13,6 @@ const Home: React.FC<HomeProps> = () => {
   const { user } = useAppSelector((state) => state.userSlice);
   let renderData;
   if (isSuccess) {
-
     renderData = data.map((item: any) => (
       <HomeProductBox
         heading={item.groupName}
@@ -26,7 +25,7 @@ const Home: React.FC<HomeProps> = () => {
   return (
     <div className="container">
       <Banner />
-      <Categories />
+      {/* <Categories /> */}
       {renderData}
       {user && <WishlistCarousel />}
       <CoreValue />
