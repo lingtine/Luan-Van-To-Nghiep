@@ -1,11 +1,11 @@
-import Banner from "./Banner";
-import Categories from "./Categories";
-import CoreValue from "./Corevalue";
-
 import { useGetProductHomeQuery } from "redux/api/catalog/product";
 import { useAppSelector } from "redux/store";
-import HomeProductBox from "./HomeProductBox";
-import WishlistCarousel from "./WishlistCarousel";
+
+import Banner from "./components/Banner";
+import Categories from "./components/Categories";
+import CoreValue from "./components/Corevalue";
+import HomeProductBox from "./components/HomeProductBox";
+import WishlistCarousel from "./components/WishlistCarousel";
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
@@ -13,7 +13,6 @@ const Home: React.FC<HomeProps> = () => {
   const { user } = useAppSelector((state) => state.userSlice);
   let renderData;
   if (isSuccess) {
-
     renderData = data.map((item: any) => (
       <HomeProductBox
         heading={item.groupName}

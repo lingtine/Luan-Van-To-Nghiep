@@ -9,7 +9,6 @@ const Cart = () => {
   if (isSuccess) {
     if (data.items.length === 0) return <CartEmpty />;
 
-    <>Tính tổng</>;
     const total = data.items.reduce((prevValue, curValue) => {
       return prevValue + curValue.quantity * curValue.unitPrice;
     }, 0);

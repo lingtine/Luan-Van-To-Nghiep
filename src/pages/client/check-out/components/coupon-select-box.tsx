@@ -1,6 +1,5 @@
 import { useGetCouponsQuery } from "redux/api/discount/coupon";
 import SelectBox, { ISelected } from "components/select-box/select-box";
-import { ICoupon } from "share/types/coupon";
 
 interface CouponSelectBoxProps {
   coupon?: ISelected;
