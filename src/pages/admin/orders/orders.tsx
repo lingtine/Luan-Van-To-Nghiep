@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { IOrderTable, OrderStatus } from "share/types/order";
 import Select from "@material-tailwind/react/components/Select";
 import SelectBox, { ISelected } from "components/select-box/select-box";
+import OrderTable from "./components/OrderTable";
 const Orders = () => {
   const { index } = useParams();
   const [selected, setSelected] = useState<ISelected>();
@@ -112,13 +113,14 @@ const Orders = () => {
   if (isSuccess) {
     const { pageSize, pageIndex } = data;
 
-    const updateData: IOrderTable[] = data.data.map((item, index) => ({
-      ...item,
-      index: index + 1 + pageIndex * pageSize,
-    }));
+    // const updateData: IOrderTable[] = data.data.map((item, index) => ({
+    //   ...item,
+    //   index: index + 1 + pageIndex * pageSize,
+    // }));
     content = (
       <>
-        <Table config={configData} data={updateData}></Table>
+        {/* <Table config={configData} data={updateData}></Table> */}
+        <OrderTable data={data.data} />
         <div className="flex justify-center my-8">
           <Pagination
             pageIndex={data.pageIndex}
@@ -147,6 +149,7 @@ const Orders = () => {
         />
       </div>
       {content}
+      {/* <OrderTable data={data} /> */}
     </div>
   );
 };

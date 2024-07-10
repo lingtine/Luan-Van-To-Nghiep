@@ -2,6 +2,7 @@ import Table from "components/table/table";
 import { useGetOrdersQuery } from "redux/api/order/order";
 import { IOrderTable } from "share/types/order";
 import { Button, Typography } from "@material-tailwind/react";
+import OrderTable from "../orders/components/OrderTable";
 
 interface TableNewOrderProps {}
 
@@ -59,13 +60,13 @@ const TableNewOrder: React.FC<TableNewOrderProps> = () => {
   if (isSuccess) {
     const { pageSize, pageIndex } = data;
 
-    const updateData: IOrderTable[] = data.data.map((item, index) => ({
-      ...item,
-      index: index + 1 + pageIndex * pageSize,
-    }));
+    // const updateData: IOrderTable[] = data.data.map((item, index) => ({
+    //   ...item,
+    //   index: index + 1 + pageIndex * pageSize,
+    // }));
     content = (
       <>
-        <Table config={configData} data={updateData}></Table>
+        <OrderTable data={data.data} />
       </>
     );
   } else if (isLoading) {

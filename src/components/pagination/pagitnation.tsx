@@ -2,6 +2,10 @@ import React from "react";
 import { Button, IconButton } from "@material-tailwind/react";
 import { useNavigate, Link } from "react-router-dom";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { default as MUIButton } from "@mui/material/Button";
+
 interface PaginationProps {
   pageIndex: number;
   pageSize: number;
@@ -56,9 +60,12 @@ const Pagination: React.FC<PaginationProps> = ({
       ) : (
         <li key={index}>
           <Link to={page === 0 ? `${url}` : `${url}/${page}`}>
-            <IconButton variant={pageIndex === page ? "filled" : "text"}>
+            <Button
+              color="blue"
+              variant={pageIndex === page ? "filled" : "text"}
+            >
               {+page + 1}
-            </IconButton>
+            </Button>
           </Link>
         </li>
       )}
@@ -89,27 +96,27 @@ const Pagination: React.FC<PaginationProps> = ({
     <div hidden={totalCount === 0}>
       <ul className="flex items-center gap-2 bg-white py-1 px-2 rounded-md">
         <li>
-          <Button
+          <MUIButton
+            // color="blue"
             onClick={handleBack}
             disabled={pageIndex === 0}
             className="flex gap-2 items-center"
           >
-            <IoIosArrowBack />
-            Previous
-          </Button>
+            <ArrowBackIosIcon fontSize="small" />
+          </MUIButton>
         </li>
 
         {renderItemPage}
 
         <li>
-          <Button
+          <MUIButton
+            // color="blue"
             className="flex gap-2 items-center"
             onClick={handleForward}
             disabled={maxSizePage === 1 || pageIndex + 1 === maxSizePage}
           >
-            next
-            <IoIosArrowForward />
-          </Button>
+            <ArrowForwardIosIcon fontSize="small" />
+          </MUIButton>
         </li>
       </ul>
     </div>

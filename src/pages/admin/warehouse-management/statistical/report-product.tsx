@@ -91,7 +91,9 @@ const ReportOrder: React.FC<ReportOrderProps> = () => {
           }}
         />
 
-        <Button onClick={handleClick}>In ra báo cáo</Button>
+        <Button color={"blue"} onClick={handleClick}>
+          In ra báo cáo
+        </Button>
       </div>
 
       <div className="my-4 px-8">{content}</div>

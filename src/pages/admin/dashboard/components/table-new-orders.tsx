@@ -3,6 +3,7 @@ import { useGetOrdersQuery } from "redux/api/order/order";
 import { useFormatPrice } from "hooks/use-format-price";
 import Table from "components/table/table";
 import { IOrderTable } from "share/types/order";
+import OrderTable from "pages/admin/orders/components/OrderTable";
 interface TableNewOrdersProps {}
 
 const TableNewOrders: React.FC<TableNewOrdersProps> = () => {
@@ -53,11 +54,11 @@ const TableNewOrders: React.FC<TableNewOrdersProps> = () => {
 
   if (isSuccess) {
     const { pageIndex, pageSize } = data;
-    const updateData: IOrderTable[] = data.data.map((item, index) => ({
-      ...item,
-      index: index + 1 + pageIndex * pageSize,
-    }));
-    return <Table config={configTableProduct} data={updateData} />;
+    // const updateData: IOrderTable[] = data.data.map((item, index) => ({
+    //   ...item,
+    //   index: index + 1 + pageIndex * pageSize,
+    // }));
+    return <OrderTable data={data.data} />;
   }
 
   return <></>;

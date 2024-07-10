@@ -83,7 +83,9 @@ const StockReport = () => {
         />
       </div>
     </div>
-  ) : <div>Không có dữ liệu</div>;
+  ) : (
+    <div>Không có dữ liệu</div>
+  );
 
   return (
     <div>
@@ -93,10 +95,18 @@ const StockReport = () => {
           date={dateStart}
           setDate={(date) => handleChangeDate(date, true)}
         />
-        <InputDate label="Ngày kết thúc" date={dateEnd} setDate={(date) => handleChangeDate(date, false)} />
+        <InputDate
+          label="Ngày kết thúc"
+          date={dateEnd}
+          setDate={(date) => handleChangeDate(date, false)}
+        />
 
-        <Button onClick={handleReportClick}>Thống kê số liệu</Button>
-        <Button onClick={handleVisualizeClick}>Biểu đồ</Button>
+        <Button color={"blue"} onClick={handleReportClick}>
+          Thống kê số liệu
+        </Button>
+        <Button color={"blue"} onClick={handleVisualizeClick}>
+          Biểu đồ
+        </Button>
       </div>
       {data && content}
     </div>

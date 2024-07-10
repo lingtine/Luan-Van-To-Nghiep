@@ -20,7 +20,7 @@ export interface IOrder extends IOrderInfo {
 }
 
 export interface IOrderPage {
-  data: IOrderAdmin[];
+  data: IOrderDetail[];
   pageIndex: number;
   pageSize: number;
   totalCount: number;
@@ -88,21 +88,20 @@ interface IAddressOrder {
 }
 
 export interface ICustomerSale {
-  id:               string;
-  name:             string;
-  soldCount:        number;
-  returnedCount:    number;
-  soldQuantity:     number;
-  soldAmount:       number;
+  id: string;
+  name: string;
+  soldCount: number;
+  returnedCount: number;
+  soldQuantity: number;
+  soldAmount: number;
   returnedQuantity: number;
-  returnedAmount:   number;
-  totalDiscount:    number;
-  totalProfit:      number;
-  totalQuantity:    number;
-  averageQuantity:  number;
-  lastSale:         Date;
+  returnedAmount: number;
+  totalDiscount: number;
+  totalProfit: number;
+  totalQuantity: number;
+  averageQuantity: number;
+  lastSale: Date;
 }
-
 
 export type OrderStatus =
   | "Created"

@@ -15,23 +15,22 @@ const CustomerSaleReport = () => {
   const [dateEnd, setDateEnd] = useState<Date>(lastDay);
   const [dateStart, setDateStart] = useState<Date>(firstDay);
 
-  const { data, refetch  } = useGetCustomerSaleReportQuery({
+  const { data, refetch } = useGetCustomerSaleReportQuery({
     start: format(dateStart, "dd/MM/yyyy"),
     end: format(dateEnd, "dd/MM/yyyy"),
   });
 
-
   const [isShowChart, setIsShowChart] = useState(false);
 
   const handleReportClick = () => {
-    refetch()
+    refetch();
     if (dateStart && dateEnd) {
       setIsShowChart(false);
     }
   };
 
   const handleVisualizeClick = async () => {
-    refetch()
+    refetch();
     if (dateStart && dateEnd) {
       setIsShowChart(true);
     }
@@ -42,7 +41,6 @@ const CustomerSaleReport = () => {
       isStart ? setDateStart(date) : setDateEnd(date);
     }
   };
-console.log('object :>> ', isShowChart, data);
   const content = data ? (
     <div className="m-4 p-4">
       {isShowChart ? (
@@ -50,7 +48,6 @@ console.log('object :>> ', isShowChart, data);
       ) : (
         <CustomerSaleTable data={data} />
       )}
-      <BasicTable/>
     </div>
   ) : (
     <div>Không có dữ liệu</div>
@@ -69,8 +66,12 @@ console.log('object :>> ', isShowChart, data);
           setDate={(date) => handleChangeDate(date, false)}
         />
 
-        <Button onClick={handleReportClick}>Thống kê số liệu</Button>
-        <Button onClick={handleVisualizeClick}>Biểu đồ</Button>
+        <Button color={"blue"} onClick={handleReportClick}>
+          Thống kê số liệu
+        </Button>
+        <Button color={"blue"} onClick={handleVisualizeClick}>
+          Biểu đồ
+        </Button>
       </div>
       {data && content}
     </div>

@@ -1,8 +1,27 @@
+import {
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  Title,
+  Tooltip,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 import { ICustomerSale } from "share/types/order";
-
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 interface ICustomerSaleChartProps {
   data: ICustomerSale[];
 }
+
+const valueFormatter = (value: number | null) => `${value}mm`;
 
 const CustomerSaleChart = ({ data }: ICustomerSaleChartProps) => {
   const rows = data.map((x) => {
@@ -22,10 +41,56 @@ const CustomerSaleChart = ({ data }: ICustomerSaleChartProps) => {
       lastSale: x.lastSale,
     };
   });
-  console.log("🚀 ~ rows ~ rows:", rows)
 
+  const chartData = {
+    labels: data.map((item) => item.name),
+    datasets: [
+      {
+        label: "Doanh thu",
+        data: data.map((item) => item.soldAmount),
+        backgroundColor: "#3498db",
+      },
+    ],
+  };
 
-  return <div></div>;
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top" as const,
+      },
+      title: {
+        display: true,
+        text: "Thống kê doanh thu theo khách hàng",
+      },
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "Tên khách hàng",
+          font: {
+            size: 20, // Adjust this value to change the font size
+          },
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: "VND",
+          font: {
+            size: 20,
+          },
+        },
+      },
+    },
+  };
+
+  return (
+    <div className="bg-white">
+      <Bar className="w-full" data={chartData} options={options} />
+    </div>
+  );
 };
 
 export default CustomerSaleChart;
