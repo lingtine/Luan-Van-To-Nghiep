@@ -118,8 +118,12 @@ const navigation: INavigator[] = [
       //   href: "favorite-report",
       // },
       {
-        label: "Thống kê kho",
-        href: "report-warehouse",
+        label: "Thống kê Nhập, Xuất, Tồn",
+        href: "stock-report",
+      },
+      {
+        label: "Thống kê khách hàng",
+        href: "customer-sale-report",
       },
     ],
   },

@@ -15,7 +15,6 @@ const CommentForm = ({ productId }: ICommentFormProps) => {
 
   const { accessToken } = useAppSelector((state) => state.authSlice);
   const { user } = useAppSelector((state) => state.userSlice);
-  console.log("🚀 ~ CommentForm ~ user:", user);
 
   const [dataForm, setDataForm] = useState<IAddReviewReq>({
     productId: productId,

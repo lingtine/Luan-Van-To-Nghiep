@@ -28,7 +28,8 @@ const OrderReportTypes: ISelected[] = [
 ];
 const OrderReport = () => {
   const [reportData, setReportData] = useState<IOrderReportData[]>([]);
-  const [date, setDate] = useState<Date>();
+  const today = (new Date());
+  const [date, setDate] = useState<Date>(today);
   const [selected, setSelected] = useState<ISelected>(OrderReportTypes[0]);
 
   const [getOrderReportInRange, { data }] = useGetOrderReportInRangeMutation();
@@ -172,10 +173,18 @@ const OrderReport = () => {
     },
   };
 
+  const handleChangeDate = (date: Date | undefined) =>{
+    if(date){
+      setDate(date);
+    }else{
+      setDate(new Date())
+    }
+  }
+
   return (
     <div>
       <div className="flex gap-2 h-full justify-center">
-        <InputDate label="Ngày" date={date} setDate={setDate} />
+        <InputDate label="Ngày" date={date} setDate={(date) => handleChangeDate(date)} />
 
         <SelectBox
           onChange={(option: ISelected) => setSelected(option)}

@@ -6,11 +6,17 @@ import { IStockReportItem } from "share/types/warehouse";
 import StockReportTable from "./components/StockReportTable";
 import StockReportPagination from "./components/StockReportPagination";
 import StockReportChart from "./components/StockReportChart";
+import { format, addDays } from "date-fns";
+
 const pageSize = 10;
 
 const StockReport = () => {
-  const [dateEnd, setDateEnd] = useState<Date>();
-  const [dateStart, setDateStart] = useState<Date>();
+  const now = new Date();
+  let firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+  let lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+  const [dateEnd, setDateEnd] = useState<Date>(lastDay);
+  const [dateStart, setDateStart] = useState<Date>(firstDay);
   const [getStockReport, { data }] = useStockReportMutation();
   const [pageIndex, setPageIndex] = useState(1);
   const [tableData, setTableData] = useState<IStockReportItem[]>(
@@ -18,57 +24,66 @@ const StockReport = () => {
   );
   const [isShowChart, setIsShowChart] = useState(false);
 
-  useEffect(() => {
-    const startIndex = (pageIndex - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
-    const paginatedData = data?.data.slice(startIndex, endIndex);
-    setTableData(paginatedData || []);
-  }, [data, pageIndex]);
-
-  const handleClick = () => {
-    if (!dateStart || !dateEnd) {
-      return;
+  const handleReportClick = () => {
+    if (dateStart && dateEnd) {
+      setIsShowChart(false);
+      fetchStockReport(dateStart, dateEnd);
     }
-    let start = dateStart!;
-    start = new Date(start);
-    let end = { ...dateEnd! };
-    end = new Date(dateEnd);
-    start.setDate(start.getDate() + 1);
-    end.setDate(end.getDate() + 1);
-    setIsShowChart(false);
-    getStockReport({
-      Start: start,
-      End: end,
-    });
   };
 
-  const content = isShowChart
-    ? data && (
-        <div className="m-4 p-4">
-          <StockReportChart data={tableData} />
-          <div className="mt-4">
-            <StockReportPagination
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              total={data?.data.length}
-              onChangePage={setPageIndex}
-            />
-          </div>
-        </div>
-      )
-    : data && (
-        <div className="m-4 p-4">
-          <StockReportTable data={tableData ?? []} />
-          <div className="mt-4">
-            <StockReportPagination
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              total={data?.data.length}
-              onChangePage={setPageIndex}
-            />
-          </div>
-        </div>
-      );
+  const handleVisualizeClick = async () => {
+    if (dateStart && dateEnd) {
+      setIsShowChart(true);
+      if (!data) {
+        await fetchStockReport(dateStart, dateEnd);
+      }
+    }
+  };
+
+  const handleChangeDate = (date: Date | undefined, isStart: boolean) => {
+    if (date) {
+      isStart ? setDateStart(date) : setDateEnd(date);
+    }
+  };
+
+  const fetchStockReport = async (start: Date, end: Date) => {
+    await getStockReport({
+      Start: addDays(start, 1),
+      End: addDays(end, 1),
+    }).unwrap();
+  };
+
+  useEffect(() => {
+    if (dateStart && dateEnd) {
+      fetchStockReport(dateStart, dateEnd);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (data?.data) {
+      const startIndex = (pageIndex - 1) * pageSize;
+      const endIndex = startIndex + pageSize;
+      setTableData(data.data.slice(startIndex, endIndex));
+    }
+  }, [data, pageIndex]);
+
+  const content = data ? (
+    <div className="m-4 p-4">
+      {isShowChart ? (
+        <StockReportChart data={tableData} />
+      ) : (
+        <StockReportTable data={tableData} />
+      )}
+      <div className="mt-4">
+        <StockReportPagination
+          pageIndex={pageIndex}
+          pageSize={pageSize}
+          total={data.data.length}
+          onChangePage={setPageIndex}
+        />
+      </div>
+    </div>
+  ) : <div>Không có dữ liệu</div>;
 
   return (
     <div>
@@ -76,19 +91,12 @@ const StockReport = () => {
         <InputDate
           label="Ngày bắt đầu"
           date={dateStart}
-          setDate={setDateStart}
+          setDate={(date) => handleChangeDate(date, true)}
         />
-        <InputDate label="Ngày kết thúc" date={dateEnd} setDate={setDateEnd} />
+        <InputDate label="Ngày kết thúc" date={dateEnd} setDate={(date) => handleChangeDate(date, false)} />
 
-        <Button onClick={handleClick}>Thống kê số liệu</Button>
-        <Button
-          onClick={() => {
-            console.log("object :>> ");
-            setIsShowChart(true);
-          }}
-        >
-          Biểu đồ
-        </Button>
+        <Button onClick={handleReportClick}>Thống kê số liệu</Button>
+        <Button onClick={handleVisualizeClick}>Biểu đồ</Button>
       </div>
       {data && content}
     </div>

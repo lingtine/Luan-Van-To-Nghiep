@@ -55,6 +55,7 @@ import {
   OrderReportPage,
   FavoriteProductReportPage,
   StockReportPage,
+  CustomerSaleReportPage,
 } from "pages";
 
 const router = createBrowserRouter(
@@ -161,6 +162,7 @@ const router = createBrowserRouter(
         <Route path="report-warehouse" element={<ReportWarehousePage />} />
         <Route path="order-report" element={<OrderReportPage />} />
         <Route path="stock-report" element={<StockReportPage />} />
+        <Route path="customer-sale-report" element={<CustomerSaleReportPage />} />
 
         <Route path="filters" element={<FilterAdminPage />} />
       </Route>

@@ -87,6 +87,23 @@ interface IAddressOrder {
   streetNumber: string;
 }
 
+export interface ICustomerSale {
+  id:               string;
+  name:             string;
+  soldCount:        number;
+  returnedCount:    number;
+  soldQuantity:     number;
+  soldAmount:       number;
+  returnedQuantity: number;
+  returnedAmount:   number;
+  totalDiscount:    number;
+  totalProfit:      number;
+  totalQuantity:    number;
+  averageQuantity:  number;
+  lastSale:         Date;
+}
+
+
 export type OrderStatus =
   | "Created"
   | "Processing"

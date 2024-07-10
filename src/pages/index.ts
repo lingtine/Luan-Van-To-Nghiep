@@ -58,13 +58,14 @@ const AddGoodsReceiptPage = lazy(
 const AddGoodsIssuePage = lazy(() => import("./admin/report/add-goods-issue"));
 const ReportDetail = lazy(() => import("./admin/report/report-detail"));
 const StockReportPage = lazy(() => import("./admin/report/StockReport"));
+const CustomerSaleReportPage = lazy(() => import("./admin/report/CustomerSaleReport"));
 
 const DiscountEventsPage = lazy(
   () => import("./admin/discount-management/discount-events/discount-events")
 );
 const AddDiscountEventPage = lazy(
   () => import("./admin/discount-management/discount-events/add-discount-event")
-);
+);  
 const CouponsPage = lazy(
   () => import("./admin/discount-management/coupon/coupon")
 );
@@ -171,6 +172,7 @@ export {
   SpecificationsPage,
   StatisticalPage,
   StockReportPage,
+  CustomerSaleReportPage,
   SuppliersPage,
   WarehousesPage,
 };

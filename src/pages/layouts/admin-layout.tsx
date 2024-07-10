@@ -10,7 +10,9 @@ const AdminLayout: React.FC<AdminLayoutProps> = () => {
     <div className="bg-blue-gray-50/50 min-h-screen">
       <SideBar />
       <div className="ml-[350px] py-4">
+        <div className="mb-4">
         <HeaderAdmin />
+        </div>
         <Outlet />
       </div>
     </div>

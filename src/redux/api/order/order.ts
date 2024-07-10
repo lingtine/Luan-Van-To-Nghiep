@@ -9,6 +9,7 @@ import {
   IOrderReport,
   IOrderParams,
   IOrderPage,
+  ICustomerSale,
 } from "share/types/order";
 import { IOrderReportResponse, OrderReportType } from "share/types/report";
 
@@ -145,6 +146,18 @@ const orderApi = createApi({
         return response;
       },
     }),
+    getCustomerSaleReport: builder.query<
+      any,
+      { start: string; end: string }
+    >({
+      query: (param: { start: string; end: string }) => ({
+        url: `/orders/orders/GetCustomerSales?StartDate=${param.start}&EndDate=${param.end}`,
+        method: "GET",
+      }),
+      transformResponse: (response: any) => {
+        return response.data;
+      },
+    }),
   }),
 });
 export const {
@@ -163,6 +176,7 @@ export const {
   useGetTotalOrderCreateQuery,
   useGetTotalRevenueQuery,
   useGetOrderReportInRangeMutation,
+  useGetCustomerSaleReportQuery,
 } = orderApi;
 
 export default orderApi;
