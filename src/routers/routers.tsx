@@ -56,6 +56,7 @@ import {
   FavoriteProductReportPage,
   StockReportPage,
   CustomerSaleReportPage,
+  InventoryReportDetailPage,
 } from "pages";
 
 const router = createBrowserRouter(
@@ -162,10 +163,17 @@ const router = createBrowserRouter(
         <Route path="report-warehouse" element={<ReportWarehousePage />} />
         <Route path="order-report" element={<OrderReportPage />} />
         <Route path="stock-report" element={<StockReportPage />} />
-        <Route path="customer-sale-report" element={<CustomerSaleReportPage />} />
+        <Route
+          path="customer-sale-report"
+          element={<CustomerSaleReportPage />}
+        />
 
         <Route path="filters/" element={<FilterAdminPage />} />
         <Route path="filters/:index" element={<FilterAdminPage />} />
+        <Route
+          path="inventory-report/:id"
+          element={<InventoryReportDetailPage />}
+        />
       </Route>
       <Route path="*" element={<NotFoundPage />}></Route>
     </Route>

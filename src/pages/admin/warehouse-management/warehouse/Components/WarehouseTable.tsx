@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { IWarehouse } from "share/types/warehouse";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import MUIConfirmDialog, {
   IContentConfirm,
 } from "components/confirm-dialog/MUIConfirmDialog";
@@ -61,7 +61,19 @@ const WarehouseTable = ({ rows }: IWarehouseTableProps) => {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell>{row.address}</TableCell>
+                <TableCell className="max-w-[200px]">
+                  <Typography
+                    sx={{
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      display: "-webkit-box",
+                      WebkitLineClamp: "2",
+                      WebkitBoxOrient: "vertical",
+                    }}
+                  >
+                    {row.address}
+                  </Typography>
+                </TableCell>
                 <TableCell align="center">{row.fax}</TableCell>
                 <TableCell align="center">{row.hotLine}</TableCell>
                 <TableCell align="right">{row.email}</TableCell>

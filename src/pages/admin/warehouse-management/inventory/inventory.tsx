@@ -6,6 +6,7 @@ import Pagination from "components/pagination/pagitnation";
 import { useGetProductWarehouseQuery } from "redux/api/warehouse/product";
 import { useParams } from "react-router-dom";
 import { IProductWarehouse } from "share/types/product";
+import StockTable from "./Components/StockTable";
 interface IProductWarehouseTable extends IProductWarehouse {
   index: number;
 }
@@ -62,17 +63,9 @@ const Inventory = () => {
   let content: React.ReactNode;
 
   if (isSuccess) {
-    const { pageSize, pageIndex } = data;
-
-    const updateData: IProductWarehouseTable[] = data.data.map(
-      (item, index) => ({
-        ...item,
-        index: index + 1 + pageIndex * pageSize,
-      })
-    );
     content = (
       <>
-        <Table config={configData} data={updateData}></Table>
+        <StockTable rows={data.data} />
         <div className="flex justify-center my-8">
           <Pagination
             pageIndex={data.pageIndex}

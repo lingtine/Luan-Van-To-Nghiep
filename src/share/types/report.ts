@@ -37,6 +37,7 @@ export interface IReport {
   supplierId?: string;
   reportStatus: ReportStatus;
   createAt: string;
+  inspectAt: string;
   reportProducts: {
     productId: string;
     quantity: number;
@@ -69,16 +70,16 @@ export interface IReportParam {
   PageSize?: number;
 }
 
-export interface IOrderReportResponse{
+export interface IOrderReportResponse {
   date: Date;
-  data: IOrderReportData[]
+  data: IOrderReportData[];
 }
 
-export interface IOrderReportData{
-  target: string,
-  total: number
+export interface IOrderReportData {
+  target: string;
+  total: number;
 }
 
 export type OrderBy = "Status" | "CreateAt" | "ApproveAt" | "CreateAt";
 export type ReportStatus = "Creative" | "Approved" | "Inspected" | "Cancelled";
-export type OrderReportType = "Day" | "Week" | "Month" | "Year" 
+export type OrderReportType = "Day" | "Week" | "Month" | "Year";

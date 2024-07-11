@@ -36,7 +36,9 @@ const ProductsAdminPage = lazy(
 const SpecificationsPage = lazy(
   () => import("./admin/product-management/specification/specification")
 );
-const ReportPage = lazy(() => import("./admin/report/report"));
+const ReportPage = lazy(
+  () => import("./admin/warehouse-management/InventoryReport/InventoryReport")
+);
 const InventoryPage = lazy(
   () => import("./admin/warehouse-management/inventory/inventory")
 );
@@ -53,19 +55,28 @@ const AddSupplierPage = lazy(
   () => import("./admin/warehouse-management/supplier/add-supplier")
 );
 const AddGoodsReceiptPage = lazy(
-  () => import("./admin/report/add-goods-receipt")
+  () => import("./admin/warehouse-management/InventoryReport/add-goods-receipt")
 );
-const AddGoodsIssuePage = lazy(() => import("./admin/report/add-goods-issue"));
+const AddGoodsIssuePage = lazy(
+  () => import("./admin/warehouse-management/InventoryReport/add-goods-issue")
+);
+
+const InventoryReportDetailPage = lazy(
+  () =>
+    import("./admin/warehouse-management/InventoryReport/InventoryReportDetail")
+);
 const ReportDetail = lazy(() => import("./admin/report/report-detail"));
 const StockReportPage = lazy(() => import("./admin/report/StockReport"));
-const CustomerSaleReportPage = lazy(() => import("./admin/report/CustomerSaleReport"));
+const CustomerSaleReportPage = lazy(
+  () => import("./admin/report/CustomerSaleReport")
+);
 
 const DiscountEventsPage = lazy(
   () => import("./admin/discount-management/discount-events/discount-events")
 );
 const AddDiscountEventPage = lazy(
   () => import("./admin/discount-management/discount-events/add-discount-event")
-);  
+);
 const CouponsPage = lazy(
   () => import("./admin/discount-management/coupon/coupon")
 );
@@ -175,4 +186,5 @@ export {
   CustomerSaleReportPage,
   SuppliersPage,
   WarehousesPage,
+  InventoryReportDetailPage,
 };
