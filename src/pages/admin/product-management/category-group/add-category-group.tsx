@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input, Textarea } from "@material-tailwind/react";
+import { Input, Textarea } from "@material-tailwind/react";
+import { Button } from "@mui/material";
 import { toast } from "react-toastify";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
@@ -81,7 +82,7 @@ const AddCategoryGroup = () => {
             />
           </div>
           <div className="flex justify-end my-4">
-            <Button type="submit">Thêm nhóm danh mục</Button>
+            <Button variant="contained" color="info" type="submit">Lưu</Button>
           </div>
         </section>
       </form>

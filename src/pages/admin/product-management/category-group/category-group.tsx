@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button } from "@material-tailwind/react";
+import { Button } from "@mui/material";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useDeleteCategoryGroupMutation } from "redux/api/catalog/category-group";
 
@@ -8,7 +8,7 @@ import {
   IContentConfirm,
 } from "components/confirm-dialog/confirm-dialog";
 import ModalAddCategoryGroup from "./modal-add-category-group";
-import TableCategoryGroup from "./table-category-group";
+import TableCategoryGroup from "./Components/CategoryGroupTable";
 
 import { toast } from "react-toastify";
 
@@ -46,12 +46,12 @@ const CategoryGroup = () => {
     <>
       <div className="px-4 ">
         <div className="flex justify-end my-4">
-          <Button className="flex gap-2 items-center" onClick={handleToggleAdd}>
+          <Button variant="contained" color="success" className="flex gap-2 items-center" onClick={handleToggleAdd}>
             <AiOutlinePlusCircle />
-            Thêm
+            Thêm nhóm danh mục
           </Button>
         </div>
-        <TableCategoryGroup onRemove={handleCategoryGroupRemove} />
+        <TableCategoryGroup/>
       </div>
       <ConfirmDialog
         data={categoryGroupRemove}

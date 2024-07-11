@@ -324,7 +324,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
         {/* Submit */}
         <div className="text-right">
           <Button disabled={!isUpdate} type="submit">
-            Cập nhật
+          Lưu
           </Button>
         </div>
       </div>

@@ -95,7 +95,7 @@ const FormGoodsIssue: React.FC<FormGoodsIssueProps> = () => {
           />
         </div>
         <div className="flex justify-end my-4">
-          <Button type="submit">Tạo phiếu xuất</Button>
+          <Button type="submit">Lưu</Button>
         </div>
       </section>
     </form>

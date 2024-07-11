@@ -7,48 +7,52 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import Modal from "components/modal/modal";
-import { useState } from "react";
-import { useDeleteFilterMutation } from "redux/api/catalog/filter";
-import { IFilter } from "share/types/filter";
-import FilterForm from "./FilterForm";
-import MUIConfirmDialog, { IContentConfirm } from "components/confirm-dialog/MUIConfirmDialog";
+import {
+    ConfirmDialog,
+    IContentConfirm,
+} from "components/confirm-dialog/confirm-dialog";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { useDeleteBrandMutation } from "redux/api/catalog/brand";
+import { IBrand } from "share/types/brand";
+import ModalUpdateBrand from "../modal-update-brand";
+import MUIConfirmDialog from "components/confirm-dialog/MUIConfirmDialog";
 
-interface FilterTableProps {
-  rows: IFilter[];
-  refetch?: any;
+interface IBrandTableProps {
+  rows: IBrand[];
 }
 
-const FilterTable = ({ rows, refetch }: FilterTableProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [updateFilter, setUpdateFilter] = useState<IFilter | undefined>(
-    undefined
-  );
+const BrandTable = ({ rows }: IBrandTableProps) => {
+  const [remove, resultRemove] = useDeleteBrandMutation();
+  const [brandRemove, setBrandRemove] = useState<IContentConfirm>();
+  const [brandUpdate, setBrandUpdate] = useState<IBrand>();
 
-  const [filterRemove, setFilterRemove] = useState<IContentConfirm | undefined>();
+  useEffect(() => {
+    if (resultRemove.isSuccess) {
+      toast.success("Xoá thành công");
+    }
+  }, [resultRemove]);
 
-  const [deleteFilter] = useDeleteFilterMutation();
-
-  const handleClose = () => {
-    setIsOpen(false);
+  const handleToggleUpdate = (data?: IBrand) => {
+    setBrandUpdate(data);
+  };
+  const handleBrandRemove = (data?: IContentConfirm) => {
+    setBrandRemove(data);
   };
 
-  const handleFilterRemove = (data?: IContentConfirm) => {
-    setFilterRemove(data);
-  };
   return (
-    <>
+    <div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>STT</TableCell>
+              <TableCell align="left">STT</TableCell>
+              <TableCell align="left">Hình ảnh</TableCell>
               <TableCell component="th" scope="row">
-                Tên danh mục
+                Tên thương hiệu
               </TableCell>
-              <TableCell>Nhóm danh mục</TableCell>
-              <TableCell>Mô tả</TableCell>
-              <TableCell></TableCell>
+              <TableCell align="center">Mô tả</TableCell>
+              <TableCell align="left"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -57,12 +61,16 @@ const FilterTable = ({ rows, refetch }: FilterTableProps) => {
                 key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>{index + 1}</TableCell>
-                <TableCell component="th" scope="row">
-                  {row.filterName}
+                <TableCell align="left">{index + 1}</TableCell>
+                <TableCell align="left">
+                  <div className="flex gap-4 items-center">
+                    <img className="w-16" src={row.imageUrl} alt={row.name} />
+                  </div>
                 </TableCell>
-                <TableCell>{row.categoryGroupName}</TableCell>
-                <TableCell className="max-w-[300px]">
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell className="max-w-[400px]">
                   <Typography
                     sx={{
                       overflow: "hidden",
@@ -72,26 +80,25 @@ const FilterTable = ({ rows, refetch }: FilterTableProps) => {
                       WebkitBoxOrient: "vertical",
                     }}
                   >
-                    {row.values.join(", ")}
+                    {row.description}
                   </Typography>
                 </TableCell>
                 <TableCell align="right">
                   <div className="flex gap-4 justify-end">
                     <Button
-                      onClick={() => {
-                        setIsOpen(true);
-                        setUpdateFilter(row);
-                      }}
                       variant="contained"
                       color="info"
+                      onClick={() => {
+                        handleToggleUpdate(row);
+                      }}
                     >
                       Chỉnh sửa
                     </Button>
                     <Button
-                      onClick={async () => {
-                        handleFilterRemove({
+                      onClick={() => {
+                        handleBrandRemove({
                           id: row.id,
-                          title: `Bạn có muốn xoá bộ lọc ${row.filterName}`,
+                          title: `Bạn có muốn xoá thương hiệu ${row.name}`,
                           content:
                             "Thao tác này sẽ xóa bản ghi. Một khi đã xóa thì không thể khôi phục lại.",
                         });
@@ -109,22 +116,20 @@ const FilterTable = ({ rows, refetch }: FilterTableProps) => {
         </Table>
       </TableContainer>
       <MUIConfirmDialog
-        data={filterRemove}
-        setData={handleFilterRemove}
+        data={brandRemove}
+        setData={handleBrandRemove}
         handleConfirm={() => {
-          if (filterRemove) {
-            deleteFilter(filterRemove.id);
-            handleFilterRemove();
+          if (brandRemove) {
+            remove(brandRemove.id);
+            handleBrandRemove();
           }
         }}
       />
-      {isOpen && (
-        <Modal onClose={handleClose}>
-          <FilterForm filter={updateFilter} onClose={() => setIsOpen(false)} refetch={refetch}/>
-        </Modal>
+      {brandUpdate && (
+        <ModalUpdateBrand data={brandUpdate} onToggle={handleToggleUpdate} />
       )}
-    </>
+    </div>
   );
 };
 
-export default FilterTable;
+export default BrandTable;

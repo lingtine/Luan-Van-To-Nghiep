@@ -6,6 +6,7 @@ import Modal from "components/modal/modal";
 import UploadImage from "components/upload-image/upload-image";
 import { useAddBrandMutation } from "redux/api/catalog/brand";
 import { IBrandInput } from "share/types/brand";
+import { Button as MUIButton } from "@mui/material";
 
 function ModalAddBrand({ onToggle }: { onToggle: () => void }) {
   const [add, result] = useAddBrandMutation();
@@ -87,7 +88,7 @@ function ModalAddBrand({ onToggle }: { onToggle: () => void }) {
             </div>
 
             <div className="flex justify-end my-4">
-              <Button type="submit">Thêm thương hiệu</Button>
+              <MUIButton variant="contained" color="success" type="submit">Lưu</MUIButton>
             </div>
           </form>
         </section>

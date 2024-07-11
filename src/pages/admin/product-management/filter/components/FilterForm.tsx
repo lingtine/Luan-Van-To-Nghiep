@@ -1,4 +1,5 @@
-import { Button, IconButton, Input } from "@material-tailwind/react";
+import { IconButton, Input } from "@material-tailwind/react";
+import { Button } from "@mui/material";
 import SelectBox, { ISelected } from "components/select-box/select-box";
 import { useState } from "react";
 import { CiTrash } from "react-icons/ci";
@@ -14,6 +15,7 @@ import { IAddFilter, IFilter } from "share/types/filter";
 interface IFilterFormProps {
   onClose: Function;
   filter?: IFilter;
+  refetch?: any;
 }
 
 const FilterForm = ({
@@ -27,9 +29,14 @@ const FilterForm = ({
     categoryGroupName: "",
   },
   onClose,
+  refetch,
 }: IFilterFormProps) => {
   const isUpdate = filter.id !== "";
-  const [name, setName] = useState(filter.filterName);
+  const [name, setName] = useState(
+    filter.filterName.length === 0
+      ? filter.specificationName
+      : filter.filterName
+  );
 
   const [group, setGroup] = useState<ISelected>({
     id: filter.categoryGroupId,
@@ -41,7 +48,9 @@ const FilterForm = ({
     label: filter.categoryGroupName,
   });
 
-  const [values, setValues] = useState<string[]>(filter.values);
+  const [values, setValues] = useState<string[]>(
+    filter.values.length === 0 ? [""] : filter.values
+  );
 
   const [addFilter, isSuccess] = useAddFilterMutation();
 
@@ -96,7 +105,7 @@ const FilterForm = ({
     });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const filter: IAddFilter = {
@@ -107,13 +116,16 @@ const FilterForm = ({
     };
 
     if (isUpdate) {
-      updateFilter(filter);
+      await updateFilter(filter);
     } else {
-      addFilter(filter);
+      await addFilter(filter);
     }
 
     if (isSuccess) {
       toast.success("Thao tác thành công");
+      if (refetch) {
+        refetch();
+      }
       onClose();
     }
   };
@@ -136,6 +148,7 @@ const FilterForm = ({
           options={specificationOptions}
           onChange={(option: ISelected) => {
             if (!isUpdate) {
+              setName(option.label)
               setSpecification(option);
             }
           }}
@@ -155,7 +168,7 @@ const FilterForm = ({
       </div>
       <div className="max-h-[400px] flex-col items-center justify-between overflow-y-auto scroll-hidden">
         {values.map((value, index) => (
-          <div className="mt-4 flex gap-2" key={index}>
+          <div className="mt-4 mr-2 flex gap-2" key={index}>
             <Input
               required
               name="value"
@@ -165,22 +178,33 @@ const FilterForm = ({
               value={value}
               onChange={(event) => handleChangeValue(index, event)}
             />
-            <IconButton
-              color="red"
+            <Button
+              variant="contained"
+              color="error"
               onClick={() => {
                 handleRemoveValue(index);
               }}
             >
               <CiTrash />
-            </IconButton>
+            </Button>
           </div>
         ))}
       </div>
       <div className="flex gap-4 mt-4">
-        <Button className="w-full" color="green" onClick={handleAddValue}>
+        <Button
+          variant="contained"
+          className="w-full"
+          color="info"
+          onClick={handleAddValue}
+        >
           Thêm giá trị
         </Button>
-        <Button type="submit" className="w-full" color="blue">
+        <Button
+          variant="contained"
+          type="submit"
+          className="w-full"
+          color="success"
+        >
           Lưu
         </Button>
       </div>

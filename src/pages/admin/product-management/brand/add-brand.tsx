@@ -90,7 +90,7 @@ const AddBrand = () => {
             />
           </div>
           <div className="flex justify-end my-4">
-            <Button type="submit">Thêm Thương Hiệu</Button>
+            <Button type="submit">Lưu</Button>
           </div>
         </section>
       </form>

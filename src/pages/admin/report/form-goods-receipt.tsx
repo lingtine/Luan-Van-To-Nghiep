@@ -94,7 +94,7 @@ const FormGoodsReceipt: React.FC<FormGoodsReceiptProps> = () => {
           />
         </div>
         <div className="flex justify-end my-4">
-          <Button type="submit">Thêm phiếu nhập hàng</Button>
+          <Button type="submit">Lưu</Button>
         </div>
       </section>
     </form>

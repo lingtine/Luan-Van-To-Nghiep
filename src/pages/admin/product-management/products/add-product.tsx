@@ -336,7 +336,7 @@ const AddProduct = () => {
             </div>
           </div>
           <div className="flex justify-end my-4">
-            <Button type="submit">Thêm sản phẩm</Button>
+            <Button type="submit">Lưu</Button>
           </div>
         </section>
       </form>

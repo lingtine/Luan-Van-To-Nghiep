@@ -90,7 +90,7 @@ const AddDiscountEvent: React.FC<AddDiscountEventProps> = () => {
             />
           </div>
           <div className="flex justify-end my-4">
-            <Button type="submit">Thêm Sự Kiện</Button>
+            <Button type="submit">Lưu</Button>
           </div>
         </section>
       </form>

@@ -164,7 +164,8 @@ const router = createBrowserRouter(
         <Route path="stock-report" element={<StockReportPage />} />
         <Route path="customer-sale-report" element={<CustomerSaleReportPage />} />
 
-        <Route path="filters" element={<FilterAdminPage />} />
+        <Route path="filters/" element={<FilterAdminPage />} />
+        <Route path="filters/:index" element={<FilterAdminPage />} />
       </Route>
       <Route path="*" element={<NotFoundPage />}></Route>
     </Route>

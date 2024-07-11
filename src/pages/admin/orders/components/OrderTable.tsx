@@ -29,6 +29,7 @@ const OrderTable = ({ data: rows }: IOrderTableProps) => {
       case "Delivered":
         return (
           <Chip
+            variant="outlined"
             sx={{ width: 100, fontSize: 14 }}
             color="success"
             label="Đã giao"
@@ -37,6 +38,7 @@ const OrderTable = ({ data: rows }: IOrderTableProps) => {
       case "Returned":
         return (
           <Chip
+            variant="outlined"
             sx={{ width: 100, fontSize: 14 }}
             color="primary"
             label="Đã trả hàng"
@@ -45,6 +47,7 @@ const OrderTable = ({ data: rows }: IOrderTableProps) => {
       case "Canceled":
         return (
           <Chip
+            variant="outlined"
             sx={{ width: 100, fontSize: 14 }}
             color="error"
             label="Đã hủy"
@@ -53,7 +56,12 @@ const OrderTable = ({ data: rows }: IOrderTableProps) => {
       case "Created":
       default:
         return (
-          <Chip sx={{ width: 100, fontSize: 14 }} color="info" label="Mới" />
+          <Chip
+            variant="outlined"
+            sx={{ width: 100, fontSize: 14 }}
+            color="info"
+            label="Mới"
+          />
         );
     }
   };

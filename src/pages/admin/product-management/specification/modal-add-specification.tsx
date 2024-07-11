@@ -1,6 +1,6 @@
 import { useEffect, useState, memo } from "react";
-import { Input, Textarea, Button } from "@material-tailwind/react";
-
+import { Input, Textarea } from "@material-tailwind/react";
+import { Button } from "@mui/material";
 import { toast } from "react-toastify";
 import Modal from "components/modal/modal";
 import { ISpecificationInput } from "share/types/specification";
@@ -13,6 +13,7 @@ function ModalAddSpecification({ onToggle }: { onToggle: () => void }) {
     name: "",
     description: "",
   });
+
   useEffect(() => {
     if (result.isSuccess) {
       onToggle();
@@ -34,9 +35,7 @@ function ModalAddSpecification({ onToggle }: { onToggle: () => void }) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (
-      dataForm.name.trim().length === 0
-    ) {
+    if (dataForm.name.trim().length === 0) {
       toast.error("Thông tin không hợp lệ");
     } else {
       add(dataForm);
@@ -68,7 +67,9 @@ function ModalAddSpecification({ onToggle }: { onToggle: () => void }) {
         </div>
 
         <div className="flex justify-end my-4">
-          <Button type="submit">Thêm đặt tả</Button>
+          <Button variant="contained" color="success" type="submit">
+          Lưu
+          </Button>
         </div>
       </form>
     </Modal>

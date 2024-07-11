@@ -1,7 +1,8 @@
 import { useEffect, useState, memo } from "react";
 import Modal from "components/modal/modal";
 import { toast } from "react-toastify";
-import { Input, Textarea, Button } from "@material-tailwind/react";
+import { Input, Textarea } from "@material-tailwind/react";
+import { Button } from "@mui/material";
 import { ICategory, ICategoryInput } from "share/types/category";
 import { useUpdateCategoryMutation } from "redux/api/catalog/category";
 function ModalUpdateCategory({
@@ -73,15 +74,20 @@ function ModalUpdateCategory({
         </div>
         <div className="flex justify-end my-4 gap-4">
           <Button
-            color="red"
+            color="error"
+            variant="contained"
             onClick={() => {
               onToggle();
             }}
           >
             Huỷ
           </Button>
-          <Button type="submit" disabled={!isUpdate}>
-            Chỉnh sửa
+          <Button
+            variant="contained"
+            type="submit"
+            disabled={!isUpdate}
+          >
+            Lưu
           </Button>
         </div>
       </form>

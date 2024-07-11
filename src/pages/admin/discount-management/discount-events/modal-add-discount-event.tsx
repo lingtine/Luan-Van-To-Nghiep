@@ -71,7 +71,7 @@ function ModalAddDiscountEvent({ onToggle }: { onToggle: () => void }) {
         </div>
 
         <div className="flex justify-end my-4">
-          <Button type="submit">Thêm sự kiện giảm Giá </Button>
+          <Button type="submit">Lưu</Button>
         </div>
       </form>
     </Modal>

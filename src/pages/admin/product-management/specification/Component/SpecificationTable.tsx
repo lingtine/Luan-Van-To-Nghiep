@@ -7,35 +7,45 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import Modal from "components/modal/modal";
-import { useState } from "react";
-import { useDeleteFilterMutation } from "redux/api/catalog/filter";
-import { IFilter } from "share/types/filter";
-import FilterForm from "./FilterForm";
-import MUIConfirmDialog, { IContentConfirm } from "components/confirm-dialog/MUIConfirmDialog";
+import MUIConfirmDialog from "components/confirm-dialog/MUIConfirmDialog";
+import {
+  IContentConfirm
+} from "components/confirm-dialog/confirm-dialog";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { useDeleteSpecificationMutation } from "redux/api/catalog/specification";
+import { ISpecification } from "share/types/specification";
+import ModalUpdateSpecification from "../modal-update-specification";
 
-interface FilterTableProps {
-  rows: IFilter[];
+interface ISpecificationTableProps {
+  rows: ISpecification[];
   refetch?: any;
 }
 
-const FilterTable = ({ rows, refetch }: FilterTableProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [updateFilter, setUpdateFilter] = useState<IFilter | undefined>(
-    undefined
-  );
+const SpecificationTable = ({ rows, refetch }: ISpecificationTableProps) => {
+  const [remove, resultRemove] = useDeleteSpecificationMutation();
+  const [specificationRemove, setSpecificationRemove] =
+    useState<IContentConfirm>();
+  const [specificationUpdate, setSpecificationUpdate] =
+    useState<ISpecification>();
 
-  const [filterRemove, setFilterRemove] = useState<IContentConfirm | undefined>();
+  useEffect(() => {
+    if (resultRemove.isSuccess) {
+      toast.success("Xoá thành công");
+    }
+  }, [resultRemove]);
 
-  const [deleteFilter] = useDeleteFilterMutation();
-
-  const handleClose = () => {
-    setIsOpen(false);
+  const handleToggleUpdate = (data?: ISpecification) => {
+    if (data) {
+      setSpecificationUpdate(data);
+    } else {
+      setSpecificationUpdate(undefined);
+    }
+  };
+  const handleSpecificationRemove = (data?: IContentConfirm) => {
+    setSpecificationRemove(data);
   };
 
-  const handleFilterRemove = (data?: IContentConfirm) => {
-    setFilterRemove(data);
-  };
   return (
     <>
       <TableContainer component={Paper}>
@@ -46,7 +56,6 @@ const FilterTable = ({ rows, refetch }: FilterTableProps) => {
               <TableCell component="th" scope="row">
                 Tên danh mục
               </TableCell>
-              <TableCell>Nhóm danh mục</TableCell>
               <TableCell>Mô tả</TableCell>
               <TableCell></TableCell>
             </TableRow>
@@ -59,9 +68,8 @@ const FilterTable = ({ rows, refetch }: FilterTableProps) => {
               >
                 <TableCell>{index + 1}</TableCell>
                 <TableCell component="th" scope="row">
-                  {row.filterName}
+                  {row.name}
                 </TableCell>
-                <TableCell>{row.categoryGroupName}</TableCell>
                 <TableCell className="max-w-[300px]">
                   <Typography
                     sx={{
@@ -72,15 +80,14 @@ const FilterTable = ({ rows, refetch }: FilterTableProps) => {
                       WebkitBoxOrient: "vertical",
                     }}
                   >
-                    {row.values.join(", ")}
+                    {row.description}
                   </Typography>
                 </TableCell>
                 <TableCell align="right">
                   <div className="flex gap-4 justify-end">
                     <Button
                       onClick={() => {
-                        setIsOpen(true);
-                        setUpdateFilter(row);
+                        handleToggleUpdate(row);
                       }}
                       variant="contained"
                       color="info"
@@ -89,12 +96,16 @@ const FilterTable = ({ rows, refetch }: FilterTableProps) => {
                     </Button>
                     <Button
                       onClick={async () => {
-                        handleFilterRemove({
+                        handleSpecificationRemove({
                           id: row.id,
-                          title: `Bạn có muốn xoá bộ lọc ${row.filterName}`,
+                          title: `Bạn có muốn xoá nhóm thống số ${row.name}`,
                           content:
                             "Thao tác này sẽ xóa bản ghi. Một khi đã xóa thì không thể khôi phục lại.",
                         });
+
+                        if (refetch) {
+                          refetch();
+                        }
                       }}
                       variant="contained"
                       color="error"
@@ -109,22 +120,23 @@ const FilterTable = ({ rows, refetch }: FilterTableProps) => {
         </Table>
       </TableContainer>
       <MUIConfirmDialog
-        data={filterRemove}
-        setData={handleFilterRemove}
+        data={specificationRemove}
+        setData={handleSpecificationRemove}
         handleConfirm={() => {
-          if (filterRemove) {
-            deleteFilter(filterRemove.id);
-            handleFilterRemove();
+          if (specificationRemove) {
+            remove(specificationRemove.id);
+            handleSpecificationRemove(undefined);
           }
         }}
       />
-      {isOpen && (
-        <Modal onClose={handleClose}>
-          <FilterForm filter={updateFilter} onClose={() => setIsOpen(false)} refetch={refetch}/>
-        </Modal>
+      {specificationUpdate && (
+        <ModalUpdateSpecification
+          data={specificationUpdate}
+          onToggle={handleToggleUpdate}
+        />
       )}
     </>
   );
 };
 
-export default FilterTable;
+export default SpecificationTable;

@@ -153,7 +153,7 @@ const FormAddSpecificationsProduct: React.FC<
       <div className="flex gap-4">
         <Button onClick={handleAddInput}>Thêm Thông số</Button>
         <Button type="submit" color="blue">
-          Xác nhận
+          Lưu
         </Button>
       </div>
     </form>

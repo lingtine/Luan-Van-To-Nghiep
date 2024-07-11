@@ -143,7 +143,7 @@ function ModalUpdateCoupon({
             Huỷ
           </Button>
           <Button type="submit" disabled={!isUpdate}>
-            Chỉnh sửa
+            Lưu
           </Button>
         </div>
       </form>
