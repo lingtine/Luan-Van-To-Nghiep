@@ -53,6 +53,7 @@ module.exports = withMT({
         "dark-border-subtle": "#e0e5eb",
         "text-secondary": "#7D8184",
         "text-black": "#000000",
+        "border-color": "#333d4c",
         black: "#000",
         white: "#fff",
       },

@@ -8,6 +8,7 @@ import {
   MenuHandler,
   MenuList,
   MenuItem,
+  IconButton,
 } from "@material-tailwind/react";
 import { useAppSelector } from "redux/store";
 import { useGetDetailCartQuery } from "redux/api/cart/cart";
@@ -22,13 +23,21 @@ import {
   CiLogout,
   CiShoppingCart,
 } from "react-icons/ci";
+import { IoIosMenu } from "react-icons/io";
 
-interface NavigationProps {}
+interface NavigationProps {
+  onShowHeaderBottom: () => void;
+  scrollOverFlow: boolean;
+}
 
-const Navigation: React.FC<NavigationProps> = () => {
+const Navigation: React.FC<NavigationProps> = ({
+  scrollOverFlow,
+  onShowHeaderBottom,
+}) => {
   const { user } = useAppSelector((state) => state.userSlice) as {
     user: ICustomerDetail;
   };
+
   const { refreshToken } = useAppSelector((state) => state.authSlice);
   const navigate = useNavigate();
   const [logout, status] = useLogoutMutation();
@@ -56,6 +65,12 @@ const Navigation: React.FC<NavigationProps> = () => {
         <SearchBar />
       </div>
       <div className="flex gap-4 items-center">
+        {scrollOverFlow && (
+          <IconButton className="rounded-full" onClick={onShowHeaderBottom}>
+            <IoIosMenu className="text-white text-2xl" />
+          </IconButton>
+        )}
+
         {/* user */}
         {user ? (
           <Menu>

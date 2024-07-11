@@ -25,14 +25,14 @@ const HeaderBottom: React.FC<HeaderBottomProps> = () => {
   }
 
   return (
-    <div className="container flex items-center">
-      <div className="py-3 text-sm w-full max-w-72 flex justify-between items-center   px-4 rounded-t hover:text-white bg-light-text-emphasis text-secondary-border-subtle">
+    <div className="container py-4 flex items-center justify-center ">
+      {/* <div className="py-3 text-sm w-full max-w-72 flex justify-between items-center   px-4 rounded-t hover:text-white bg-light-text-emphasis text-secondary-border-subtle">
         <div className="flex items-center gap-2">
           <BiCategory />
           <span>Danh mục sản phẩm</span>
         </div>
         <IoIosArrowDown />
-      </div>
+      </div> */}
       <ul className="flex gap-8 ml-9">
         <li className="text-secondary-border-subtle hover:text-white">
           <NavLink to={"/"}> Trang chủ</NavLink>
