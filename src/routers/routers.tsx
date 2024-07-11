@@ -42,7 +42,7 @@ import {
   ReportDetail,
   StatisticalPage,
   OrderDetailAdminPage,
-  CartClientPage,
+  CheckOutPage,
   ReportOrderPage,
   AccountLayout,
   AccountAddressPage,
@@ -88,7 +88,7 @@ const router = createBrowserRouter(
 
           <Route path="cart" element={<CartPage />}></Route>
 
-          <Route path="cart-client" element={<CartClientPage />}></Route>
+          <Route path="check-out" element={<CheckOutPage />}></Route>
         </Route>
       </Route>
 

@@ -25,15 +25,15 @@ const OrderSummary: React.FC<OrderSummaryProps> = memo(({ total }) => {
           </li>
         </ul>
         <div className="flex justify-between font-medium mt-4">
-          <h5 className="font-semibold">Total</h5>
+          <h5 className="font-semibold">Tổng Cộng</h5>
           <p className="text-red-600 font-semibold">
             {formatPrice.format(total)}
           </p>
         </div>
       </div>
-      <Link to={"/cart"}>
+      <Link to={"/check-out"}>
         <Button fullWidth color="green" className="shadow-md">
-          CheckOut
+          Thanh toán
         </Button>
       </Link>
     </div>

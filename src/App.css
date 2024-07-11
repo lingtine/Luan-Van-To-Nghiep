@@ -11,3 +11,11 @@ ul,
 li {
   list-style: none;
 }
+
+.ck-editor__editable_inline {
+  min-height: 335px !important;
+}
+
+.long-editor .ck-editor__editable_inline {
+  min-height: 580px !important;
+}

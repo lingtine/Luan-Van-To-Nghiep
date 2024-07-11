@@ -20,6 +20,7 @@
     "apexcharts": "^3.49.2",
     "async-mutex": "^0.4.0",
     "chart.js": "^4.4.3",
+    "ckeditor-options-remove-upload": "^0.0.3",
     "ckeditor5": "^42.0.0",
     "ckeditor5-premium-features": "^42.0.0",
     "classnames": "^2.3.2",

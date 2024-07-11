@@ -143,16 +143,26 @@ export interface IFilterProduct {
   value: string;
 }
 export interface IFilterProductParameter {
+  groupId: string;
+  sort?: ProductSort;
   pageSize?: number;
   pageIndex?: number;
-  brandIds: string[];
-  categoryIds: string[];
-  filterValues: IFilterProduct[];
+  brandIds?: string[];
+  categoryIds?: string[];
+  filterValues?: IFilterProduct[];
 }
 
 export interface ChangePasswordRequest {
-  email:string;
+  email: string;
   password: string;
 }
 
 export type Gender = "Male" | "Female" | "Other";
+
+export type ProductSort =
+  | "NameAscending"
+  | "NameDescending"
+  | "PriceAscending"
+  | "PriceDescending"
+  | "Favorite"
+  | "MostView";

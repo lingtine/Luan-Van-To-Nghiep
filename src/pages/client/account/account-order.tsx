@@ -8,9 +8,11 @@ const AccountOrder: React.FC<AccountOrderProps> = () => {
   const { data, isSuccess } = useGetOrdersByCustomerQuery();
 
   if (isSuccess) {
+    const isHadOrder = data.length === 0;
+
     return (
       <>
-        {data.length !== 0 ? (
+        {isHadOrder ? (
           <>
             <h2 className="text-2xl uppercase font-semibold ">Đơn hàng</h2>
             <div className="my-4">

@@ -1,6 +1,5 @@
-import React from "react";
-import { Input, Button, Textarea, IconButton } from "@material-tailwind/react";
-import { useState, useEffect } from "react";
+import { Button, IconButton, Input } from "@material-tailwind/react";
+import React, { useEffect, useState } from "react";
 import {
   useRemoveSpecificationForProductMutation,
   useUpdateProductMutation,
@@ -8,18 +7,18 @@ import {
 
 import {
   IProductDetail,
-  IProductSpecificationInput,
-  IProductSpecification,
   IProductInput,
+  IProductSpecification
 } from "share/types/product";
 
 import UploadImage from "components/upload-image/upload-image";
 
-import { CiTrash } from "react-icons/ci";
-import UploadMultiple from "components/upload-image/UploadMultiple";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import CustomEditorBuild from "ckeditor-options-remove-upload";
 import Modal from "components/modal/modal";
+import UploadMultiple from "components/upload-image/UploadMultiple";
+import { CiTrash } from "react-icons/ci";
 import FormAddSpecificationsProduct from "./form-add-specifications-product";
-import TextEditor from "components/TextEditor/TextEditor";
 interface FormUpdateProductInfoProps {
   product: IProductDetail;
 }
@@ -34,6 +33,8 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
   const [specifications, setSpecifications] = useState<IProductSpecification[]>(
     product.productSpecifications
   );
+  const [description, setDescription] = useState(product.description);
+
 
   const [removeSpecification] = useRemoveSpecificationForProductMutation();
   const [updateProduct, result] = useUpdateProductMutation();
@@ -85,6 +86,8 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
   };
 
   const handleChangeDescription = (content: string) => {
+    console.log("🚀 ~ handleChangeDescription ~ content:", content)
+    setDescription(content)
     setDataForm(() => {
       return { ...dataForm, description: content };
     });
@@ -249,10 +252,14 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
           </div>
         </div>
       </div>
-      <div className="py-4">
-        <TextEditor
-          content={product.description}
-          setContent={handleChangeDescription}
+      <div>
+        <CKEditor
+          editor={CustomEditorBuild}
+          data={description}
+          onChange={(event, editor) => {
+            const data = editor.getData();
+            handleChangeDescription(data);
+          }}
         />
       </div>
       {/* Related images + Specifications */}

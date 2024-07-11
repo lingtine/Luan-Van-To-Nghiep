@@ -1,63 +1,176 @@
 //admins page
-export { default as BrandPage } from "./admin/product-management/brand/brand";
-export { default as AddBrandPage } from "./admin/product-management/brand/add-brand";
-export { default as CategoryAdminPage } from "./admin/product-management/category/category";
-export { default as CategoryGroupPage } from "./admin/product-management/category-group/category-group";
-export { default as AddCategoryGroupPage } from "./admin/product-management/category-group/add-category-group";
-export { default as CustomersPage } from "./admin/customers/customers";
-export { default as DashboardAdminPage } from "./admin/dashboard/dashboard";
-export { default as LoginAdminPage } from "./admin/login/login-admin";
-export { default as OrdersAdminPage } from "./admin/orders/orders";
-export { default as OrderDetailAdminPage } from "./admin/orders/order-detail";
-export { default as OrderReportPage } from "./admin/report/OrderReport";
-export { default as FavoriteProductReportPage } from "./admin/report/FavoriteProductReport";
+import { lazy } from "react";
 
-export { default as AddProductPage } from "./admin/product-management/products/add-product";
-export { default as ProductDetailAdminPage } from "./admin/product-management/products/product-detail";
-export { default as ProductsAdminPage } from "./admin/product-management/products/products";
-export { default as SpecificationsPage } from "./admin/product-management/specification/specification";
-export { default as ReportPage } from "./admin/report/report";
-export { default as InventoryPage } from "./admin/warehouse-management/inventory/inventory";
-export { default as WarehousesPage } from "./admin/warehouse-management/warehouse/warehouse";
-export { default as AddWarehousePage } from "./admin/warehouse-management/warehouse/add-warehouse";
-export { default as SuppliersPage } from "./admin/warehouse-management/supplier/supplier";
-export { default as AddSupplierPage } from "./admin/warehouse-management/supplier/add-supplier";
-export { default as AddGoodsReceiptPage } from "./admin/report/add-goods-receipt";
-export { default as AddGoodsIssuePage } from "./admin/report/add-goods-issue";
-export { default as ReportDetail } from "./admin/report/report-detail";
-export { default as StockReportPage } from "./admin/report/StockReport";
+const BrandPage = lazy(() => import("./admin/product-management/brand/brand"));
+const AddBrandPage = lazy(
+  () => import("./admin/product-management/brand/add-brand")
+);
+const CategoryAdminPage = lazy(
+  () => import("./admin/product-management/category/category")
+);
+const CategoryGroupPage = lazy(
+  () => import("./admin/product-management/category-group/category-group")
+);
+const AddCategoryGroupPage = lazy(
+  () => import("./admin/product-management/category-group/add-category-group")
+);
+const CustomersPage = lazy(() => import("./admin/customers/customers"));
+const DashboardAdminPage = lazy(() => import("./admin/dashboard/dashboard"));
+const LoginAdminPage = lazy(() => import("./admin/login/login-admin"));
+const OrdersAdminPage = lazy(() => import("./admin/orders/orders"));
+const OrderDetailAdminPage = lazy(() => import("./admin/orders/order-detail"));
+const OrderReportPage = lazy(() => import("./admin/report/OrderReport"));
+const FavoriteProductReportPage = lazy(
+  () => import("./admin/report/FavoriteProductReport")
+);
 
-export { default as DiscountEventsPage } from "./admin/discount-management/discount-events/discount-events";
-export { default as AddDiscountEventPage } from "./admin/discount-management/discount-events/add-discount-event";
-export { default as CouponsPage } from "./admin/discount-management/coupon/coupon";
-export { default as AddCouponPage } from "./admin/discount-management/coupon/add-coupon";
-export { default as StatisticalPage } from "./admin/warehouse-management/statistical/statistical";
-export { default as ReportOrderPage } from "./admin/warehouse-management/statistical/report-product";
-export { default as ReportWarehousePage } from "./admin/warehouse-management/statistical/report-warehouse";
+const AddProductPage = lazy(
+  () => import("./admin/product-management/products/add-product")
+);
+const ProductDetailAdminPage = lazy(
+  () => import("./admin/product-management/products/product-detail")
+);
+const ProductsAdminPage = lazy(
+  () => import("./admin/product-management/products/products")
+);
+const SpecificationsPage = lazy(
+  () => import("./admin/product-management/specification/specification")
+);
+const ReportPage = lazy(() => import("./admin/report/report"));
+const InventoryPage = lazy(
+  () => import("./admin/warehouse-management/inventory/inventory")
+);
+const WarehousesPage = lazy(
+  () => import("./admin/warehouse-management/warehouse/warehouse")
+);
+const AddWarehousePage = lazy(
+  () => import("./admin/warehouse-management/warehouse/add-warehouse")
+);
+const SuppliersPage = lazy(
+  () => import("./admin/warehouse-management/supplier/supplier")
+);
+const AddSupplierPage = lazy(
+  () => import("./admin/warehouse-management/supplier/add-supplier")
+);
+const AddGoodsReceiptPage = lazy(
+  () => import("./admin/report/add-goods-receipt")
+);
+const AddGoodsIssuePage = lazy(() => import("./admin/report/add-goods-issue"));
+const ReportDetail = lazy(() => import("./admin/report/report-detail"));
+const StockReportPage = lazy(() => import("./admin/report/StockReport"));
 
-export { default as FilterAdminPage } from "./admin/product-management/filter/Filter";
+const DiscountEventsPage = lazy(
+  () => import("./admin/discount-management/discount-events/discount-events")
+);
+const AddDiscountEventPage = lazy(
+  () => import("./admin/discount-management/discount-events/add-discount-event")
+);
+const CouponsPage = lazy(
+  () => import("./admin/discount-management/coupon/coupon")
+);
+const AddCouponPage = lazy(
+  () => import("./admin/discount-management/coupon/add-coupon")
+);
+const StatisticalPage = lazy(
+  () => import("./admin/warehouse-management/statistical/statistical")
+);
+const ReportOrderPage = lazy(
+  () => import("./admin/warehouse-management/statistical/report-product")
+);
+const ReportWarehousePage = lazy(
+  () => import("./admin/warehouse-management/statistical/report-warehouse")
+);
+
+const FilterAdminPage = lazy(
+  () => import("./admin/product-management/filter/Filter")
+);
 // clients page
-export { default as AboutPage } from "./client/about/about";
-export { default as CartPage } from "./client/cart/cart";
-export { default as CategoryPage } from "./client/category/category";
-export { default as CheckOutPage } from "./client/check-out/check-out";
-export { default as ContactPage } from "./client/contact/contact";
-export { default as ForgetPasswordPage } from "./client/forget-password/forget-password";
-export { default as HomePage } from "./client/home/home";
-export { default as LoginPage } from "./client/login/login";
-export { default as RegisterPage } from "./client/register/register";
-export { default as ProductDetailPage } from "./client/product-detail/product-detail";
+const AboutPage = lazy(() => import("./client/about/about"));
+const CartPage = lazy(() => import("./client/cart/cart"));
+const CategoryPage = lazy(() => import("./client/category/category"));
+const ContactPage = lazy(() => import("./client/contact/contact"));
+const ForgetPasswordPage = lazy(
+  () => import("./client/forget-password/forget-password")
+);
+const HomePage = lazy(() => import("./client/home/home"));
+const LoginPage = lazy(() => import("./client/login/login"));
+const RegisterPage = lazy(() => import("./client/register/register"));
+const ProductDetailPage = lazy(
+  () => import("./client/product-detail/product-detail")
+);
 
-// export { default as WishListPage } from "./client/wish-list/wishlist";
-export { default as ResetPasswordPage } from "./client/reset-password/reset-password";
-export { default as NotFoundPage } from "./client/not-found/not-found";
-export { default as CartClientPage } from "./client/cart/cart-client";
-export { default as AccountPage } from "./client/account/account";
-export { default as AccountAddressPage } from "./client/account/account-delivery";
-export { default as AccountOrderPage } from "./client/account/account-order";
-export { default as CustomerWishlistPage } from "./client/account/CustomerWishlist";
+// const WishListPage = lazy(() => import("./client/wish-list/wishlist"));
+const ResetPasswordPage = lazy(
+  () => import("./client/reset-password/reset-password")
+);
+const NotFoundPage = lazy(() => import("./client/not-found/not-found"));
+const CheckOutPage = lazy(() => import("./client/check-out/check-out"));
+const AccountPage = lazy(() => import("./client/account/account"));
+const AccountAddressPage = lazy(
+  () => import("./client/account/account-delivery")
+);
+const AccountOrderPage = lazy(() => import("./client/account/account-order"));
+const CustomerWishlistPage = lazy(
+  () => import("./client/account/CustomerWishlist")
+);
 
 // layouts page
-export { default as DefaultLayout } from "./layouts/default-layout";
-export { default as AdminLayout } from "./layouts/admin-layout";
-export { default as AccountLayout } from "./layouts/account-layout";
+const DefaultLayout = lazy(() => import("./layouts/default-layout"));
+const AdminLayout = lazy(() => import("./layouts/admin-layout"));
+const AccountLayout = lazy(() => import("./layouts/account-layout"));
+
+export {
+  AboutPage,
+  AccountAddressPage,
+  AccountLayout,
+  AccountOrderPage,
+  AccountPage,
+  AddBrandPage,
+  AddCategoryGroupPage,
+  AddCouponPage,
+  AddDiscountEventPage,
+  AddGoodsIssuePage,
+  AddGoodsReceiptPage,
+  AddProductPage,
+  AddSupplierPage,
+  AddWarehousePage,
+  AdminLayout,
+  BrandPage,
+  CartPage,
+  CategoryAdminPage,
+  CategoryGroupPage,
+  CategoryPage,
+  CheckOutPage,
+  ContactPage,
+  CouponsPage,
+  CustomerWishlistPage,
+  CustomersPage,
+  DashboardAdminPage,
+  DefaultLayout,
+  DiscountEventsPage,
+  FavoriteProductReportPage,
+  FilterAdminPage,
+  ForgetPasswordPage,
+  HomePage,
+  InventoryPage,
+  LoginAdminPage,
+  LoginPage,
+  NotFoundPage,
+  OrderDetailAdminPage,
+  OrderReportPage,
+  OrdersAdminPage,
+  ProductDetailAdminPage,
+  ProductDetailPage,
+  ProductsAdminPage,
+  RegisterPage,
+  ReportDetail,
+  ReportOrderPage,
+  ReportPage,
+  ReportWarehousePage,
+  ResetPasswordPage,
+  SpecificationsPage,
+  StatisticalPage,
+  StockReportPage,
+  SuppliersPage,
+  WarehousesPage,
+};
