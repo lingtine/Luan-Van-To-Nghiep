@@ -5,18 +5,27 @@ import { handleClearFilter } from "redux/features/products/product-filter-slice"
 
 import SpecificationFilter from "./specification-filter";
 import CategoryFilter from "./category-filter";
+
 import BrandFilter from "./brand-filter";
+import { useEffect } from "react";
 interface ICategorySidebarProps {
   groupId: string;
   onFilter: () => void;
 }
 
 const CategorySidebar = ({ groupId, onFilter }: ICategorySidebarProps) => {
-  const { isFilter } = useAppSelector((state) => state.productFilterSlice);
+  const { isFilter, categoryIds, brandIds } = useAppSelector(
+    (state) => state.productFilterSlice
+  );
   const dispatch = useAppDispatch();
   const handleClear = () => {
     dispatch(handleClearFilter());
   };
+  useEffect(() => {
+    console.log(1);
+    console.log(categoryIds);
+    console.log(brandIds);
+  }, [isFilter]);
 
   return (
     <>

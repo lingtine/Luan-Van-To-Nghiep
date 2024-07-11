@@ -1,5 +1,5 @@
 import { useGetWishlistQuery } from "redux/api/auth/customer-api";
-import HomeProductBox from "./components/HomeProductBox";
+import HomeProductBox from "./HomeProductBox";
 import { IWishlistProduct } from "redux/api/types";
 import { IProductDetail } from "share/types/product";
 import { IBrand } from "share/types/brand";

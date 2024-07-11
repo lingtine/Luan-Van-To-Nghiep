@@ -39,10 +39,10 @@ export const productFilterSlice = createSlice({
         state.brandIds.splice(brandIndex, 1);
       }
 
-      state.isFilter = checkIsFilter(
-        state.brandIds,
-        state.categoryIds,
-        state.filterValues
+      state.isFilter = !(
+        state.brandIds.length === 0 &&
+        state.categoryIds.length === 0 &&
+        state.filterValues.length === 0
       );
     },
 
@@ -58,10 +58,10 @@ export const productFilterSlice = createSlice({
         state.filterValues.splice(filterIndex, 1);
       }
 
-      state.isFilter = checkIsFilter(
-        state.brandIds,
-        state.categoryIds,
-        state.filterValues
+      state.isFilter = !(
+        state.brandIds.length === 0 &&
+        state.categoryIds.length === 0 &&
+        state.filterValues.length === 0
       );
     },
 
@@ -75,10 +75,10 @@ export const productFilterSlice = createSlice({
       } else {
         state.categoryIds.splice(categoryIndex, 1);
       }
-      state.isFilter = checkIsFilter(
-        state.brandIds,
-        state.categoryIds,
-        state.filterValues
+      state.isFilter = !(
+        state.brandIds.length === 0 &&
+        state.categoryIds.length === 0 &&
+        state.filterValues.length === 0
       );
     },
     handleSort(state, action: PayloadAction<ISort>) {
@@ -98,18 +98,6 @@ export const productFilterSlice = createSlice({
     },
   },
 });
-
-const checkIsFilter = (
-  brandIds: string[],
-  categoryIds: string[],
-  filterValues: IFilterProduct[]
-) => {
-  return !(
-    brandIds.length === 0 &&
-    categoryIds.length === 0 &&
-    filterValues.length === 0
-  );
-};
 
 export default productFilterSlice.reducer;
 

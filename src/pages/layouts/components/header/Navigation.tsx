@@ -55,7 +55,7 @@ const Navigation: React.FC<NavigationProps> = () => {
       <div className="relative w-full">
         <SearchBar />
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 items-center">
         {/* user */}
         {user ? (
           <Menu>
@@ -90,7 +90,7 @@ const Navigation: React.FC<NavigationProps> = () => {
         ) : (
           <Link to={"/login"}>
             <Avatar
-              className="cursor-pointer w-20"
+              className="cursor-pointer w-12"
               size="sm"
               src="images/avatar-none-user.png"
             />

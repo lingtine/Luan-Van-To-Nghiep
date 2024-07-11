@@ -45,7 +45,7 @@ const CategoryPage = () => {
 
   useEffect(() => {
     handleReload();
-  }, [handleReload]);
+  }, []);
 
   let content;
 
