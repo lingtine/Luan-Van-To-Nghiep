@@ -40,6 +40,9 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ groupId }) => {
               <Checkbox
                 crossOrigin={""}
                 id={category.id}
+                onChange={() => {
+                  handleChange(category.id);
+                }}
                 ripple={false}
                 className="hover:before:opacity-0"
                 containerProps={{
@@ -55,7 +58,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ groupId }) => {
       ));
     }
     return [];
-  }, [data]);
+  }, [data, isSuccess]);
 
   return (
     <div>

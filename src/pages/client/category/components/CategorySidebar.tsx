@@ -21,11 +21,6 @@ const CategorySidebar = ({ groupId, onFilter }: ICategorySidebarProps) => {
   const handleClear = () => {
     dispatch(handleClearFilter());
   };
-  useEffect(() => {
-    console.log(1);
-    console.log(categoryIds);
-    console.log(brandIds);
-  }, [isFilter]);
 
   return (
     <>

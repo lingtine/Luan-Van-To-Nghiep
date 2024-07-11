@@ -22,17 +22,14 @@ const BrandFilter: React.FC<BrandFilterProps> = () => {
   const content = useMemo(() => {
     if (isSuccess) {
       return data.map((brand) => (
-        <ListItem
-          className="p-0"
-          key={brand.id}
-          onClick={() => {
-            handleChange(brand.id);
-          }}
-        >
+        <ListItem className="p-0" key={brand.id}>
           <ListItemPrefix className="mr-3">
             <Checkbox
               id={brand.id}
               crossOrigin=""
+              onChange={() => {
+                handleChange(brand.id);
+              }}
               ripple={false}
               value={brand.id}
               className="hover:before:opacity-0"
@@ -53,7 +50,7 @@ const BrandFilter: React.FC<BrandFilterProps> = () => {
       ));
     }
     return [];
-  }, [data]);
+  }, []);
 
   return (
     <div>

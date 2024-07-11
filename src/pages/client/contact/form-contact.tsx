@@ -15,7 +15,7 @@ const FormContact: React.FC<FormContactProps> = () => {
           <Input crossOrigin={""} label="Số điện thoại" />
         </div>
 
-        <Textarea className="flex-1 h-full" label="Họ và Tên" />
+        <Textarea className="flex-1 h-full" label="Lời nhắn" />
       </div>
       <div className="flex justify-end w-full">
         <Button size="lg" className="bg-primary">

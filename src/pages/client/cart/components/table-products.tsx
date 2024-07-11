@@ -19,7 +19,9 @@ const TableProducts: React.FC<TableProductsProps> = ({ listProducts }) => {
     {
       label: "Hình ảnh",
       render: (data: IProductOrder) => {
-        return <img src={data.imageUrl} alt="" width={100} height={100} />;
+        return (
+          <img src={data.imageUrl} alt={data.name} width={100} height={100} />
+        );
       },
     },
     {
@@ -72,7 +74,7 @@ const TableProducts: React.FC<TableProductsProps> = ({ listProducts }) => {
       <div>
         <Table config={configTable} data={listProducts} />
       </div>
-      <div className="mt-4 ">
+      <div className="mt-4">
         <Link className="text-lg font-semibold hover:opacity-80" to="/">
           Tiếp tục mua sắm
         </Link>

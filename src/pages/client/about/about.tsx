@@ -16,25 +16,25 @@ const About: React.FC = () => {
       id: Math.random().toString(),
       icon: <BiStoreAlt />,
       value: 10.5,
-      label: "Sallers active our site",
+      label: "Sallers hoạt động trang web của chúng tôi",
     },
     {
       id: Math.random().toString(),
       icon: <CiDollar />,
       value: 33,
-      label: "Mopnthly Produduct Sale",
+      label: "Bán sản phẩm hàng tháng",
     },
     {
       id: Math.random().toString(),
       icon: <HiOutlineShoppingBag />,
       value: 45.5,
-      label: "Customer active in our site",
+      label: "Khách hàng hoạt động trong trang web của chúng tôi",
     },
     {
       id: Math.random().toString(),
       icon: <CiDollar />,
       value: 25,
-      label: "Anual gross sale in our site",
+      label: "Tổng doanh thu hàng năm trên trang web của chúng tôi",
     },
   ];
 
@@ -48,19 +48,19 @@ const About: React.FC = () => {
       id: Math.random().toString(),
       imageUrl: "images/about/tom-cruise.png",
       name: "Tom Cruise",
-      role: "Founder & Chairman",
+      role: "Người sáng lập & Chủ tịch",
     },
     {
       id: Math.random().toString(),
       imageUrl: "images/about/Emma-watson.png",
       name: "Emma Watson",
-      role: "Managing Director",
+      role: "Giám đốc điều hành",
     },
     {
       id: Math.random().toString(),
       imageUrl: "images/about/will-smith.png",
       name: "Will Smith",
-      role: "Product Designer",
+      role: "Người thiết kế sản phẩm",
     },
   ];
 
@@ -68,10 +68,10 @@ const About: React.FC = () => {
     return (
       <div key={item.id}>
         <div>
-          <img alt={item.name} src={item.imageUrl} />
+          <img alt={item.name} src={item.imageUrl} className="w-full h-full" />
         </div>
-        <div className="py-8">
-          <h4 className="text-3xl font-medium">{item.name}</h4>
+        <div className="py-8 text-center">
+          <h4 className="text-3xl font-semibold">{item.name}</h4>
           <p className="text-base font-normal my-2">{item.role}</p>
         </div>
       </div>
@@ -82,13 +82,11 @@ const About: React.FC = () => {
     return (
       <div
         key={item.id}
-        className="px-12 py-7 border border-color-black group hover:border-secondary-3 hover:bg-secondary-3 hover:text-white"
+        className=" px-4 h-full group hover:border-secondary-3  flex-[0_0_25%] bg-secondary-border-subtle"
       >
-        <div className="flex justify-center items-center p-6">
-          <div className="bg-black rounded-full p-2 border-8 group-hover:bg-white ">
-            <span className="text-secondary text-4xl font-semibold group-hover:text-primary-1">
-              {item.icon}
-            </span>
+        <div className="flex justify-center items-center p-6 ">
+          <div className="text-info bg-white px-4 py-3 rounded-full text-2xl">
+            {item.icon}
           </div>
         </div>
         <div className="text-center">
@@ -122,11 +120,15 @@ const About: React.FC = () => {
             </p>
           </div>
           <div className="flex-[0_0_50%] max-w-[50%]">
-            <img src="images/about/out-story.png" alt="slide" />
+            <img
+              src="images/about/out-story.png"
+              alt="slide"
+              className="w-full"
+            />
           </div>
         </div>
 
-        <div className="flex justify-between items-center my-20">
+        <div className="rounded-xl overflow-hidden flex justify-between h-60 items-center my-20 ">
           {renderDataInfo}
         </div>
 

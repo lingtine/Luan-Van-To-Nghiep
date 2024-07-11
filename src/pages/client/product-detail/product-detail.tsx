@@ -31,7 +31,7 @@ function ProductDetailPage() {
     content = (
       <>
         <div className="px-4 sm:px-6 lg:px-8 mt-6 flex flex-col lg:flex-row gap-4 max-h-[400px] h-[400px]">
-          <div className="basis-1/2  py-8 px-4 flex flex-col gap-4 border shadow-md rounded-lg relative">
+          <div className="basis-1/2  py-8 px-4 flex flex-col gap-4 border rounded-lg relative">
             {user && <ProductWishList productId={data.id} />}
 
             <ProductImage

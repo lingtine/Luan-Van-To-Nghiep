@@ -5,12 +5,14 @@ interface LoginPageProps {}
 const LoginPage: React.FC<LoginPageProps> = () => {
   return (
     <div className="flex">
-      <img
-        className="hidden lg:block max-w-[50%] flex-[0_0_50%]"
-        src="images/login/login-image.png"
-        alt="login"
-      />
       <FormLogin />
+      <div className="hidden lg:block max-w-[60%] flex-[0_0_60%]">
+        <img
+          className="w-full h-full bg-gradient-to-l  from-[#ADCCEE] to-[#E6F0FD]"
+          src="images/login/account-cover.png"
+          alt="login"
+        />
+      </div>
     </div>
   );
 };

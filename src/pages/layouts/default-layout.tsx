@@ -27,7 +27,7 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = () => {
   return (
     <React.Fragment>
       <Header scrollOverFlow={scrollOverflow} />
-      <div className={`${scrollOverflow && "pt-36"} h-[4000px]`}>
+      <div className={`${scrollOverflow && "pt-36"} `}>
         <Outlet />
       </div>
       <Footer />

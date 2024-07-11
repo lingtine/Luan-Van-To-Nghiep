@@ -55,13 +55,20 @@ const FormRegister = () => {
         className=" flex items-center justify-center"
       >
         <div className="min-w-[370px] flex flex-col gap-4">
-          <h4 className="text-4xl font-medium ">Đăng Ký</h4>
-
+          <h4 className="text-4xl font-semibold ">Đăng Ký</h4>
+          <span className="text-sm">
+            Bạn đã có tài khoản?{" "}
+            <Link
+              className="text-black underline hover:no-underline mx-2 "
+              to={"/login"}
+            >
+              Đăng nhập
+            </Link>
+          </span>
           <Input
             onChange={handleChange}
             value={dataForm.name}
             name="name"
-            variant="standard"
             label="Name"
             crossOrigin={""}
           />
@@ -69,7 +76,6 @@ const FormRegister = () => {
             onChange={handleChange}
             value={dataForm.email}
             name="email"
-            variant="standard"
             label="Email"
             crossOrigin={""}
           />
@@ -77,21 +83,14 @@ const FormRegister = () => {
             onChange={handleChange}
             value={dataForm.password}
             name="password"
-            variant="standard"
             label="Password"
             type="password"
             crossOrigin={""}
           />
           <div className="my-4 flex justify-between items-center">
-            <Button type="submit" size="lg" className="bg-primary">
+            <Button type="submit" size="lg" className="bg-primary w-full">
               Đăng Kí
             </Button>
-            <span className="text-sm">
-              Bạn đã có tài khoản?{" "}
-              <Link className="text-primary" to={"/login"}>
-                Đăng nhập
-              </Link>
-            </span>
           </div>
         </div>
       </form>

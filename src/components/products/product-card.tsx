@@ -17,8 +17,9 @@ import { useNavigate } from "react-router-dom";
 import { IconButton } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 import { useAppSelector } from "redux/store";
+import { IWishlistProduct } from "redux/api/types";
 interface ProductCardProps {
-  data: IProductDetail;
+  data: IProductDetail | IWishlistProduct;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
@@ -48,70 +49,60 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   };
 
   return (
-    data && (
-      <Card className="w-full h-[450px] border relative group flex justify-between">
-        {!data.isInStock && (
-          <div className="absolute z-40 right-2 top-2 text-sm text-secondary p-1 rounded-md font-semibold bg-primary">
-            Hết Hàng
-          </div>
-        )}
-        {accessToken && data.isInStock && !isLoading && (
-          <div className="hidden group-hover:block absolute bg z-50 right-0 top-[50%]">
-            <IconButton className="rounded-full" onClick={handleAddToCart}>
-              <MdAddShoppingCart />
-            </IconButton>
-          </div>
-        )}
-        <CardHeader shadow={false} floated={false} className="h-60">
-          <img
-            src={
-              data.imageUrl ||
-              "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png"
-            }
-            alt={data.name}
-            className="h-full w-full max-h-[200px] max-w-[200px] object-contain"
-            sizes=""
-          />
-        </CardHeader>
+    <Card className="w-full h-[450px] border relative group flex justify-between">
+      {!data.isInStock && (
+        <div className="absolute z-40 right-2 top-2 text-sm text-white p-1 rounded-md font-semibold bg-primary">
+          Hết Hàng
+        </div>
+      )}
+      {accessToken && data.isInStock && !isLoading && (
+        <div className="hidden group-hover:block absolute z-50 right-0 top-[50%]">
+          <IconButton
+            className="rounded-full bg-primary text-white"
+            onClick={handleAddToCart}
+          >
+            <MdAddShoppingCart />
+          </IconButton>
+        </div>
+      )}
+      <CardHeader shadow={false} floated={false} className="h-60">
+        <img
+          src={
+            data.imageUrl ||
+            "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png"
+          }
+          alt={data.name}
+          className="h-full w-full max-h-[200px] max-w-[200px] object-contain"
+        />
+      </CardHeader>
 
-        <CardBody className="p-3">
-          {/* <div className="mb-2 gap-4 flex items-center justify-between">
-            <div className="line-clamp-2">
-              <Typography color="blue-gray" className="font-medium text-sm">
-                {data.name}
-              </Typography>
-            </div>
-            <Typography color="blue-gray" className="font-medium">
+      <CardBody className="p-3">
+        <div className="line-clamp-2">
+          <Typography color="blue-gray" variant="h6">
+            {data.name}
+          </Typography>
+        </div>
+        <div className="flex justify-between items-center">
+          <Rating readonly value={Math.round(data.numberOfStar)} />
+          <div>
+            <Typography color="blue-gray" className="font-medium text-right">
               {formatPrice.format(data.unitPrice)}
             </Typography>
-          </div> */}
-          <div className="line-clamp-2">
-            <Typography color="blue-gray" variant="h6">
-              {data.name}
-            </Typography>
           </div>
-          <div className="flex justify-between items-center">
-            <Rating readonly value={Math.round(data.numberOfStar)} />
-            <div>
-              <Typography color="blue-gray" className="font-medium text-right">
-                {formatPrice.format(data.unitPrice)}
-              </Typography>
-            </div>
-          </div>
-        </CardBody>
-        <CardFooter className="pt-0">
-          <Button
-            ripple={false}
-            fullWidth={true}
-            onClick={() => navigate(`/product-detail/${data.id}`)}
-            className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-          >
-            Xem chi tiết
-          </Button>
-        </CardFooter>
-      </Card>
-    )
-  ); 
+        </div>
+      </CardBody>
+      <CardFooter className="pt-0">
+        <Button
+          ripple={false}
+          fullWidth={true}
+          onClick={() => navigate(`/product-detail/${data.id}`)}
+          className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+        >
+          Xem chi tiết
+        </Button>
+      </CardFooter>
+    </Card>
+  );
 };
 
 export default ProductCard;

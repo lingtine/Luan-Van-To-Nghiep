@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useAppSelector } from "redux/store";
 import { Input, Button } from "@material-tailwind/react";
-import { IoIosArrowBack } from "react-icons/io";
 import ModalUpdateCustomerAccount from "./components/ModalUpdateCustomerAccount";
-import { ICustomerDetail } from "redux/api/types";
 import ModalChangePassword from "./components/ModalChangePassword";
 
 interface AccountPageProps {}
@@ -12,8 +10,10 @@ const AccountPage: React.FC<AccountPageProps> = () => {
   const moment = require("moment");
 
   const { user } = useAppSelector((state) => state.userSlice);
-  const [isOpenUpdateProfile, setIsOpenUpdateProfile] = useState<boolean>(false);
-  const [isOpenChangePassword, setIsOpenChangePassword] = useState<boolean>(false);
+  const [isOpenUpdateProfile, setIsOpenUpdateProfile] =
+    useState<boolean>(false);
+  const [isOpenChangePassword, setIsOpenChangePassword] =
+    useState<boolean>(false);
   if (user) {
     return (
       <>
@@ -91,7 +91,6 @@ const AccountPage: React.FC<AccountPageProps> = () => {
             }}
           ></ModalChangePassword>
         )}
-        
       </>
     );
   }

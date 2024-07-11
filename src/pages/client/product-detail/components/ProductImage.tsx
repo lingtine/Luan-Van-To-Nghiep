@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 interface IProductImageProps {
   mainImage: string;
   relatedImages: string[];

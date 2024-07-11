@@ -39,10 +39,10 @@ const HeaderBottom: React.FC<HeaderBottomProps> = () => {
         </li>
         {content}
         <li className="text-secondary-border-subtle hover:text-white">
-          <NavLink to={"/contact"}>Liên hệ</NavLink>
+          <NavLink to={"/about"}>Liên hệ</NavLink>
         </li>
         <li className="text-secondary-border-subtle hover:text-white">
-          <NavLink to={"/contact"}>Góp ý</NavLink>
+          <NavLink to={"/contact-us"}>Góp ý</NavLink>
         </li>
       </ul>
     </div>

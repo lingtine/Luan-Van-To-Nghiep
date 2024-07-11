@@ -20,7 +20,7 @@ const CategoryPage = () => {
   const [filterProductByParameter, result] =
     useFilterProductByParameterMutation();
 
-  const handleReload = useCallback(() => {
+  const handleReload = () => {
     if (categoryId) {
       filterProductByParameter({
         groupId: categoryId,
@@ -32,20 +32,17 @@ const CategoryPage = () => {
         sort: sort?.value,
       });
     }
-  }, [
-    categoryId,
-    filterProductByParameter,
-    sort?.value,
-    brandIds,
-    filterValues,
-    categoryIds,
-    pageIndex,
-    pageSize,
-  ]);
+  };
 
   useEffect(() => {
-    handleReload();
-  }, []);
+    if (categoryId) {
+      filterProductByParameter({
+        groupId: categoryId,
+        pageIndex: 0,
+        pageSize: 24,
+      });
+    }
+  }, [categoryId, filterProductByParameter]);
 
   let content;
 

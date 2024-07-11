@@ -13,12 +13,12 @@ const ContactPage: React.FC<ContactPageProps> = () => {
         <Link to="/" className="opacity-60">
           <FaHouseChimney />
         </Link>
-        <Link to="/contact">
+        <Link to="/contact-us">
           <span>Góp ý</span>
         </Link>
       </Breadcrumbs>
 
-      <div className="  flex">
+      <div className="flex">
         <img
           className="flex-[0_0_40%] max-w-[40%]"
           src="images/contact/contact.png"

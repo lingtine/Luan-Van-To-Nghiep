@@ -2,8 +2,10 @@ import ProductCard from "./product-card";
 import { FiArrowRightCircle, FiArrowLeftCircle } from "react-icons/fi";
 import { useState } from "react";
 import { IProductDetail } from "share/types/product";
+import { IWishlistProduct } from "redux/api/types";
+
 interface ProductsCarouselProps {
-  products: IProductDetail[];
+  products: IProductDetail[] | IWishlistProduct[];
   lengthCarousel: number;
 }
 

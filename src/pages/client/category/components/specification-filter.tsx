@@ -34,13 +34,7 @@ const SpecificationFilter: React.FC<SpecificationFilterProps> = ({
         };
 
         const renderFilterValue = filter.values.map((value) => (
-          <ListItem
-            onClick={() => {
-              handleChange(value);
-            }}
-            className="p-0"
-            key={filter.specificationId + "/" + value}
-          >
+          <ListItem className="p-0" key={filter.specificationId + "/" + value}>
             <label
               htmlFor={filter.specificationId + "/" + value}
               className="flex w-full cursor-pointer items-center px-3 py-2"
@@ -50,6 +44,9 @@ const SpecificationFilter: React.FC<SpecificationFilterProps> = ({
                   id={filter.specificationId + "/" + value}
                   ripple={false}
                   crossOrigin={""}
+                  onChange={() => {
+                    handleChange(value);
+                  }}
                   className="hover:before:opacity-0"
                   containerProps={{
                     className: "p-0",
@@ -74,7 +71,7 @@ const SpecificationFilter: React.FC<SpecificationFilterProps> = ({
       });
     }
     return [];
-  }, [data]);
+  }, [data, dispatch, isSuccess]);
 
   return (
     <div>

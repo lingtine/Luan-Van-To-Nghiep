@@ -44,16 +44,19 @@ const FormLogin: React.FC<FormLoginProps> = () => {
   };
 
   return (
-    <div className="flex justify-center my-20 lg:my-0 max-w-full flex-[0_0_100%] lg:max-w-[50%] lg:flex-[0_0_50%]">
+    <div className="flex justify-center my-20 lg:my-0 max-w-full flex-[0_0_100%] lg:max-w-[40%] lg:flex-[0_0_40%]">
       <form
         onSubmit={handleSubmit}
         className=" flex items-center justify-center"
       >
         <div className="min-w-[370px] flex flex-col gap-4">
-          <h4 className="text-4xl font-medium ">Đăng nhập</h4>
+          <h4 className="text-4xl font-semibold">Đăng nhập</h4>
           <span className="text-sm">
             Bạn mới biết đến Techwave?
-            <Link className="text-primary" to={"/register"}>
+            <Link
+              className="text-black px-2 underline hover:no-underline"
+              to={"/register"}
+            >
               Đăng kí
             </Link>
           </span>
@@ -61,7 +64,6 @@ const FormLogin: React.FC<FormLoginProps> = () => {
             onChange={handleChange}
             value={dataForm.email}
             name="email"
-            variant="standard"
             label="Email"
             crossOrigin={""}
           />
@@ -69,13 +71,12 @@ const FormLogin: React.FC<FormLoginProps> = () => {
             onChange={handleChange}
             value={dataForm.password}
             name="password"
-            variant="standard"
             label="Password"
             type="password"
             crossOrigin={""}
           />
           <div className="my-4 flex justify-between items-center">
-            <Button type="submit" size="lg" className="bg-primary">
+            <Button type="submit" size="lg" className="bg-primary w-full">
               Đăng nhập
             </Button>
           </div>
