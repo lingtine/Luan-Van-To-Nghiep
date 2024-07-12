@@ -86,7 +86,6 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
   };
 
   const handleChangeDescription = (content: string) => {
-    console.log("🚀 ~ handleChangeDescription ~ content:", content)
     setDescription(content)
     setDataForm(() => {
       return { ...dataForm, description: content };

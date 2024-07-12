@@ -22,7 +22,6 @@ const SelectBoxDataWarehouse: React.FC<SelectBoxDataWarehouseProps> = ({
   useEffect(() => {
     if (id && data) {
       const exist = data.data.find((x) => x.id === id);
-      console.log("🚀 ~ useEffect ~ exist:", exist);
       if (exist) {
         setSelected({ ...exist, label: exist.name });
       }

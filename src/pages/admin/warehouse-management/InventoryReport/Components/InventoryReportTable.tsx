@@ -140,6 +140,7 @@ const InventoryReportTable = ({ rows }: IInventoryReportProps) => {
               <TableCell align="center">Trạng thái</TableCell>
               <TableCell align="center">Ngày tạo</TableCell>
               <TableCell align="center">Ngày hoàn tất</TableCell>
+              <TableCell align="center"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

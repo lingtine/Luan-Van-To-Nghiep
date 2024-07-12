@@ -1,5 +1,5 @@
 import React from "react";
-import { Textarea, Button } from "@material-tailwind/react";
+import { Textarea} from "@material-tailwind/react";
 import { useCreateReportMutation } from "redux/api/warehouse/report";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
@@ -11,6 +11,7 @@ import GetProducts from "./get-products";
 import { IProductDetail } from "share/types/product";
 import { IReport, IReportInput } from "share/types/report";
 import { useGetProductByIdsMutation } from "redux/api/catalog/product";
+import { Button } from "@mui/material";
 interface FormGoodsReceiptProps {
   report?: IReport;
 }
@@ -97,7 +98,7 @@ const FormGoodsReceipt: React.FC<FormGoodsReceiptProps> = ({
       />
       <section className=" flex-[0_0_50%]">
         <header className="text-2xl my-4 font-bold ">
-          Thông tin nơi nhận hàng
+          Thông tin phiếu
         </header>
         <div className="flex flex-col gap-4">
           <SelectBoxDataWarehouse
@@ -127,7 +128,10 @@ const FormGoodsReceipt: React.FC<FormGoodsReceiptProps> = ({
           />
         </div>
         <div className="flex justify-end my-4">
-          <Button disabled={report !== undefined} type="submit">
+          <Button
+          color="success"
+          variant="contained"
+          disabled={report !== undefined} type="submit">
             Lưu
           </Button>
         </div>

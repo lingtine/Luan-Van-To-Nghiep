@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
   Input,
-  Button,
   List,
-  IconButton,
   ListItem,
   ListItemPrefix,
   Avatar,
@@ -17,6 +15,7 @@ import useDebounce from "hooks/use-debounce";
 import { IListProduct } from "./form-goods-receipt";
 import { useGetProductsByParamsMutation } from "redux/api/catalog/product";
 import { TiDeleteOutline } from "react-icons/ti";
+import { Button } from "@mui/material";
 
 interface GetProductsProps {
   listProduct: IListProduct[];
@@ -124,9 +123,9 @@ const GetProducts: React.FC<GetProductsProps> = ({
               label="Số lượng"
             />
 
-            <IconButton onClick={handleRemove}>
+            <Button color="error" variant="contained" onClick={handleRemove}>
               <TiDeleteOutline />
-            </IconButton>
+            </Button>
           </div>
         </ListItem>
       );
@@ -135,9 +134,7 @@ const GetProducts: React.FC<GetProductsProps> = ({
 
   return (
     <section className="flex-[0_0_50%] flex gap-6 flex-col ">
-      <header className="text-2xl my-4 font-bold ">
-        Thông tin sản phẩm được nhập
-      </header>
+      <header className="text-2xl my-4 font-bold ">Thông tin sản phẩm</header>
 
       <div className="flex items-center gap-8 ">
         <h6 className="text-base font-semibold">Tìm kiếm sản phẩm:</h6>
@@ -154,8 +151,8 @@ const GetProducts: React.FC<GetProductsProps> = ({
             }}
           />
           <Button
-            size="sm"
-            color={searchValue ? "gray" : "blue-gray"}
+            variant="contained"
+            color="info"
             disabled={!searchValue}
             className="!absolute right-1 top-1 rounded"
           >

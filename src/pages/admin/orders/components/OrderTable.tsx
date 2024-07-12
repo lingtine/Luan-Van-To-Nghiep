@@ -16,7 +16,6 @@ interface IOrderTableProps {
 }
 
 const OrderTable = ({ data: rows }: IOrderTableProps) => {
-  console.log("🚀 ~ OrderTable ~ rows:", rows);
   const status = [
     { id: "Created", label: "Mới" },
     { id: "Delivered", label: "Đã giao" },

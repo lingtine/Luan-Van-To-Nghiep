@@ -1,4 +1,4 @@
-import Button from "@material-tailwind/react/components/Button";
+import Button from "@mui/material/Button";
 import { InputDate } from "components";
 import { useEffect, useState } from "react";
 import { useStockReportMutation } from "redux/api/warehouse/warehouse";
@@ -101,10 +101,10 @@ const StockReport = () => {
           setDate={(date) => handleChangeDate(date, false)}
         />
 
-        <Button color={"blue"} onClick={handleReportClick}>
+        <Button color="info" variant="contained" onClick={handleReportClick}>
           Thống kê số liệu
         </Button>
-        <Button color={"blue"} onClick={handleVisualizeClick}>
+        <Button color="info" variant="contained" onClick={handleVisualizeClick}>
           Biểu đồ
         </Button>
       </div>

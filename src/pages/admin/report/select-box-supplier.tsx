@@ -24,7 +24,6 @@ const SelectBoxDataSupplier: React.FC<SelectBoxDataSupplierProps> = ({
   useEffect(() => {
     if (id && data) {
       const exist = data.data.find((x) => x.id === id);
-      console.log("🚀 ~ useEffect ~ SelectBoxDataSupplier:", exist);
       if (exist) {
         setSelected({ ...exist, label: exist.name });
       }

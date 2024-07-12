@@ -20,7 +20,6 @@ const Pagination: React.FC<PaginationProps> = ({
   url,
 }) => {
   const maxSizePage = Math.ceil(totalCount / pageSize);
-  console.log("🚀 ~ maxSizePage:", maxSizePage);
   const getPagination = () => {
     const pages = [];
     if (maxSizePage === 1) {

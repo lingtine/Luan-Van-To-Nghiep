@@ -1,5 +1,5 @@
 import React from "react";
-import { Textarea, Button } from "@material-tailwind/react";
+import { Textarea } from "@material-tailwind/react";
 import { useCreateReportMutation } from "redux/api/warehouse/report";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
@@ -9,6 +9,7 @@ import { IReport, IReportInput } from "share/types/report";
 import GetProducts from "./get-products";
 import { IProductDetail } from "share/types/product";
 import { useGetProductByIdsMutation } from "redux/api/catalog/product";
+import { Button } from "@mui/material";
 
 interface FormGoodsIssueProps {
   report?: IReport;
@@ -96,7 +97,7 @@ const FormGoodsIssue: React.FC<FormGoodsIssueProps> = ({
       />
       <section className=" flex-[0_0_50%]">
         <header className="text-2xl my-4 font-bold ">
-          Thông tin nơi nhận hàng
+          Thông tin phiếu
         </header>
         <div className="flex flex-col gap-4">
           <SelectBoxDataWarehouse
@@ -127,7 +128,7 @@ const FormGoodsIssue: React.FC<FormGoodsIssueProps> = ({
           />
         </div>
         <div className="flex justify-end my-4">
-          <Button type="submit">Lưu</Button>
+          <Button color="success" variant="contained" type="submit">Lưu</Button>
         </div>
       </section>
     </form>

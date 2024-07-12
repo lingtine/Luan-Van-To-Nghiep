@@ -32,16 +32,34 @@ export interface IReport {
   id: string;
   from?: string;
   to?: string;
+  fromName?: string;
+  toName?: string;
   reportType: string;
   description: string;
   supplierId?: string;
+  supplierName?: string;
   reportStatus: ReportStatus;
   createAt: string;
+  creatorId?: string;
+  creatorName?: string;
+  inspectorId?: string;
+  inspectorName?: string;
   inspectAt: string;
-  reportProducts: {
-    productId: string;
+
+  approveId?: string;
+  approveName?: string;
+  approveAt?: string;
+  reportProducts: IReportProduct[];
+}
+
+export interface IReportProduct {
+  productId: string;
     quantity: number;
-  }[];
+    id?: string;
+    imageUrl?: string;
+    productName?: string;
+    sku?: string;
+    unitPrice?: number;
 }
 
 export interface IReportTable extends IReport {

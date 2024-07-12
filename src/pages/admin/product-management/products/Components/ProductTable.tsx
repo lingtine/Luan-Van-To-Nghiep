@@ -23,7 +23,6 @@ interface IProductTableProps {
 }
 
 const ProductTable = ({ rows }: IProductTableProps) => {
-  console.log("🚀 ~ ProductTable ~ rows:", rows);
   const [formatPrice] = useFormatPrice();
   const [productRemove, setProductRemove] = useState<IContentConfirm>();
   const [removeProduct, { isSuccess }] = useDeleteProductMutation();

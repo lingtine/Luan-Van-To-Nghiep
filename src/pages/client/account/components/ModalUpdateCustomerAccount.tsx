@@ -111,10 +111,6 @@ const ModalUpdateCustomerAccount = ({
                   onChange={(event) => {
                     setFormData(() => {
                       if (event.target.value) {
-                        console.log(
-                          "🚀 ~ setFormData ~ event.target.value:",
-                          event.target.value
-                        );
                         return {
                           ...formData,
                           birthDay: moment(event.target.value).toDate(),
@@ -133,7 +129,7 @@ const ModalUpdateCustomerAccount = ({
           </div>
           <div className="w-full mt-4">
             <Button className="w-full" type="submit">
-            Lưu
+              Lưu
             </Button>
           </div>
         </form>
