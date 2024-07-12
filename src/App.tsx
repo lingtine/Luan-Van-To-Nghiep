@@ -8,7 +8,7 @@ import { useGetCustomerMutation } from "redux/api/auth/customer-api";
 import { useEffect } from "react";
 import { IAccessToken } from "redux/api/types";
 import { Suspense } from "react";
-
+import LoadingPage from "components/loading/loading-page";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -33,7 +33,7 @@ const App: React.FC = () => {
   return (
     <>
       <ToastContainer />
-      <Suspense fallback={<div>Loading..</div>}>
+      <Suspense fallback={<LoadingPage />}>
         <RouterProvider router={router} />
       </Suspense>
     </>

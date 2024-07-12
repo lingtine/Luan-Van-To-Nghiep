@@ -2,7 +2,7 @@ import { useGetWishlistQuery } from "redux/api/auth/customer-api";
 import HomeProductBox from "./HomeProductBox";
 
 const WishlistCarousel = () => {
-  const { data, isSuccess } = useGetWishlistQuery([]);
+  const { data, isSuccess } = useGetWishlistQuery({});
   return (
     <>
       {isSuccess && (

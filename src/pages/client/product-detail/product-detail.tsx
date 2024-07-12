@@ -51,25 +51,6 @@ function ProductDetailPage() {
 
         <div className="sm:px-6 lg:px-8 mt-6 lg:flex-row flex flex-col gap-4 justify-between">
           <div className="flex flex-col basis-2/3 gap-4">
-            {/* Related products */}
-            {/* {isSuccess && data && data.relatedProducts && (
-                  
-                )} */}
-            {/* <div>
-                  <ProductsCarousel products={[data]} lengthCarousel={10} />
-                </div> */}
-            {/* <div className="w-full min-h-fit h-fit shadow-md rounded-lg border border-gray-300 mb-4 p-4">
-                  {data.relatedProducts && (
-                    <RelatedCarousel
-                      products={data.relatedProducts}
-                      lengthCarousel={2}
-                    />
-                  )}
-                </div> */}
-            {/* Description */}
-            {/* <div className="w-full min-h-fit h-fit shadow-md rounded-lg border border-gray-300 mb-4 p-4">
-                  
-                </div> */}
             {data.description && (
               <div className="w-full min-h-fit h-fit shadow-md rounded-lg border border-gray-300 mb-4 p-4">
                 <HtmlRenderer htmlContent={data.description} />

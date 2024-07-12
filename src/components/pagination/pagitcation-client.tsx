@@ -22,10 +22,10 @@ const PaginationClient: React.FC<PaginationClientProps> = ({
     const startPage = Math.max(2, pageIndex - 2);
     const endPage = Math.min(maxSizePage - 1, pageIndex + 2);
 
-    pages.push(1); // Always show the first page
+    pages.push(1);
 
     if (startPage > 2) {
-      pages.push("..."); // Ellipsis for skipped pages
+      pages.push("...");
     }
 
     for (let i = startPage; i <= endPage; i++) {
@@ -36,7 +36,7 @@ const PaginationClient: React.FC<PaginationClientProps> = ({
       pages.push("...");
     }
 
-    pages.push(maxSizePage); // Always show the last page
+    pages.push(maxSizePage);
 
     return pages;
   };

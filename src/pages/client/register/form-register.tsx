@@ -57,7 +57,7 @@ const FormRegister = () => {
         <div className="min-w-[370px] flex flex-col gap-4">
           <h4 className="text-4xl font-semibold ">Đăng Ký</h4>
           <span className="text-sm">
-            Bạn đã có tài khoản?{" "}
+            Bạn đã có tài khoản?
             <Link
               className="text-black underline hover:no-underline mx-2 "
               to={"/login"}

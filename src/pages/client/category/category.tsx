@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from "react";
 
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useFilterProductByParameterMutation } from "redux/api/catalog/product";
 import { useAppSelector, useAppDispatch } from "redux/store";
 import { handleChangePage } from "redux/features/products/product-filter-slice";
@@ -12,6 +12,7 @@ import ProductSort from "./components/product-sort";
 
 const CategoryPage = () => {
   const { categoryId } = useParams();
+
   const { sort, brandIds, categoryIds, filterValues, pageIndex, pageSize } =
     useAppSelector((state) => state.productFilterSlice);
 
