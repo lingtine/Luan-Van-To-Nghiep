@@ -66,9 +66,6 @@ const GetProducts: React.FC<GetProductsProps> = ({
               <Typography className="text-sm" variant="h6" color="blue-gray">
                 {item.name}
               </Typography>
-              <p color="gray" className=" text-sm line-clamp-1 font-normal">
-                {item.description}
-              </p>
             </div>
           </ListItem>
         </div>

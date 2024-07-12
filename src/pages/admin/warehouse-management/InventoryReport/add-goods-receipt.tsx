@@ -14,7 +14,7 @@ const AddGoodsReceipted: React.FC<AddGoodsReceiptedProps> = ({
   return (
     <div className="px-8">
       <div className="flex gap-4 border-y py-3  items-center">
-        <Link to={"/admin/report"}>
+        <Link to={"/admin/reports"}>
           <Button variant="text" className="text-lg">
             <AiOutlineArrowLeft />
           </Button>

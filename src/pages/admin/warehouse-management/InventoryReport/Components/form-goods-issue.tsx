@@ -85,7 +85,7 @@ const FormGoodsIssue: React.FC<FormGoodsIssueProps> = ({
 
   useEffect(() => {
     if (isSuccess) {
-      navigate("/admin/report");
+      navigate("/admin/reports");
     }
   }, [isSuccess, navigate]);
 

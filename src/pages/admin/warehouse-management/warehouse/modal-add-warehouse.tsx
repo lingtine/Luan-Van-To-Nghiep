@@ -43,7 +43,7 @@ function ModalAddWarehouse({ onToggle }: { onToggle: () => void }) {
     if (
       dataForm.name.trim().length === 0 ||
       dataForm.address.trim().length === 0 ||
-      dataForm.description.trim().length === 0 ||
+      // dataForm.description.trim().length === 0 ||
       dataForm.email.trim().length === 0 ||
       dataForm.fax.trim().length === 0 ||
       dataForm.hotLine.trim().length === 0

@@ -74,7 +74,7 @@ const navigation: INavigator[] = [
       },
       {
         label: "Xuất, Nhập kho",
-        href: "report",
+        href: "reports",
       },
 
       {

@@ -37,13 +37,12 @@ function ModalAddSupplier({ onToggle }: { onToggle: () => void }) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+console.log('formData :>> ', dataForm);
     if (
-      dataForm.name.trim().length ||
-      dataForm.description.trim().length ||
-      dataForm.email.trim().length ||
-      dataForm.phoneNumber.trim().length ||
-      dataForm.address.trim().length
+      !dataForm.name.trim().length ||
+      !dataForm.email.trim().length ||
+      !dataForm.phoneNumber.trim().length ||
+      !dataForm.address.trim().length
     ) {
       toast.error("Thông tin không hợp lệ");
     } else {

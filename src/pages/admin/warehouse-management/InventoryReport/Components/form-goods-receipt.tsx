@@ -86,7 +86,7 @@ const FormGoodsReceipt: React.FC<FormGoodsReceiptProps> = ({
 
   useEffect(() => {
     if (isSuccess) {
-      navigate("/admin/report");
+      navigate("/admin/reports");
     }
   }, [isSuccess, navigate]);
 
