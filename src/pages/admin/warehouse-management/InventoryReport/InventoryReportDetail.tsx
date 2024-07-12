@@ -12,6 +12,7 @@ import { Link, useParams } from "react-router-dom";
 import { useGetReportQuery } from "redux/api/warehouse/report";
 import InventoryProductTable from "./Components/InventoryProductTable";
 import { format } from "date-fns";
+import { IReport } from "share/types/report";
 
 const InventoryReportDetail = () => {
   const moment = require("moment");
@@ -19,7 +20,13 @@ const InventoryReportDetail = () => {
   const { id } = useParams();
   const { data, isSuccess } = useGetReportQuery(id ?? "");
   console.log("🚀 ~ InventoryReportDetail ~ data:", data?.reportProducts);
-
+  const getFromButton = (report: IReport) => {
+    if(report.from){
+      return report.fromName;
+    }else{
+      return report.supplierName;
+    }
+  }
   return (
     <>
       {isSuccess ? (
@@ -44,7 +51,7 @@ const InventoryReportDetail = () => {
                     <InputLabel htmlFor={data?.to}>Từ</InputLabel>
                     <TextField
                       className="w-full"
-                      value={data?.supplierName}
+                      value={getFromButton(data)}
                       variant="outlined"
                     />
                   </div>
