@@ -12,9 +12,11 @@ const CartEmpty: React.FC<CartEmptyProps> = () => {
         <TbShoppingCartPlus />
       </div>
 
-      <h4 className="text-4xl my-8 font-semibold ">The cart is empty</h4>
+      <h4 className="text-4xl my-8 font-semibold ">
+        Giỏ hàng của bạn còn trống
+      </h4>
       <Link to={"/"}>
-        <Button>Back to shop</Button>
+        <Button>Tiếp tục mua hàng</Button>
       </Link>
     </div>
   );

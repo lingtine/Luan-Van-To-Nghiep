@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({ scrollOverFlow }) => {
     {
       "h-36": scrollOverFlow && visibleHeaderBottom,
       "h-24": !visibleHeaderBottom,
-      "fixed top-0 z-40 ": scrollOverFlow,
+      "fixed top-0 z-[99999] ": scrollOverFlow,
     }
   );
 

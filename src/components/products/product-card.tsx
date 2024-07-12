@@ -6,10 +6,11 @@ import {
   Typography,
   Button,
   Rating,
+  Chip,
 } from "@material-tailwind/react";
 import React, { useEffect } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
-
+import { CiShoppingCart } from "react-icons/ci";
 import { IProductDetail } from "share/types/product";
 import { useFormatPrice } from "hooks/use-format-price";
 import { useAddToCartMutation } from "redux/api/cart/cart";
@@ -49,19 +50,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   };
 
   return (
-    <Card className="w-full h-[450px] border relative group flex justify-between">
+    <Card className="w-full h-[400px] border relative group flex justify-between overflow-hidden  ">
       {!data.isInStock && (
-        <div className="absolute z-40 right-2 top-2 text-sm text-white p-1 rounded-md font-semibold bg-primary">
-          Hết Hàng
+        <div className="absolute z-40 right-2 top-2">
+          <Chip className="bg-danger" value="Hết Hàng" />
         </div>
       )}
       {accessToken && data.isInStock && !isLoading && (
-        <div className="hidden group-hover:block absolute z-50 right-0 top-[50%]">
+        <div className="absolute z-50 right-4 bottom-6">
           <IconButton
-            className="rounded-full bg-primary text-white"
+            className=" group-hover:bg-primary group-hover:text-white text-black bg-light-border-subtle"
             onClick={handleAddToCart}
           >
-            <MdAddShoppingCart />
+            <CiShoppingCart className="text-xl" />
           </IconButton>
         </div>
       )}
@@ -76,30 +77,26 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
         />
       </CardHeader>
 
-      <CardBody className="p-3">
+      <CardBody>
+        <Rating readonly value={Math.round(data.numberOfStar)} />
         <div className="line-clamp-2">
-          <Typography color="blue-gray" variant="h6">
+          <Typography color="blue-gray" variant="h6" className="text-xs">
             {data.name}
           </Typography>
         </div>
+      </CardBody>
+      <CardFooter className="pt-0">
         <div className="flex justify-between items-center">
-          <Rating readonly value={Math.round(data.numberOfStar)} />
           <div>
-            <Typography color="blue-gray" className="font-medium text-right">
+            <Typography
+              color="blue-gray"
+              variant="h6"
+              className="font-semibold text-right"
+            >
               {formatPrice.format(data.unitPrice)}
             </Typography>
           </div>
         </div>
-      </CardBody>
-      <CardFooter className="pt-0">
-        <Button
-          ripple={false}
-          fullWidth={true}
-          onClick={() => navigate(`/product-detail/${data.id}`)}
-          className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-        >
-          Xem chi tiết
-        </Button>
       </CardFooter>
     </Card>
   );

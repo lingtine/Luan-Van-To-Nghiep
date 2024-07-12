@@ -21,7 +21,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = memo(({ total }) => {
           </li>
           <li className="flex justify-between font-medium">
             <span className="opacity-60 ">Phí ship</span>
-            <p>Free</p>
+            <p>Miễn phí</p>
           </li>
         </ul>
         <div className="flex justify-between font-medium mt-4">

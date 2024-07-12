@@ -76,7 +76,7 @@ const Navigation: React.FC<NavigationProps> = ({
           <Menu>
             <MenuHandler>
               <Avatar
-                className="cursor-pointer w-32"
+                className="cursor-pointer w-12"
                 size="sm"
                 src="images/avatar-none-user.png"
               />
@@ -117,7 +117,7 @@ const Navigation: React.FC<NavigationProps> = ({
           content={isSuccess ? data.items.length : "0"}
         >
           <Link
-            to={user ? "/cart-client" : "/login"}
+            to={user ? "/cart" : "/login"}
             className="flex items-center relative p-2.5 rounded-full bg-light-text-emphasis text-secondary-border-subtle hover:text-white cursor-pointer"
           >
             <CiShoppingCart className="text-xl" />

@@ -33,7 +33,7 @@ const authApi = createApi({
             let jwt = jwtDecode(data.accessToken) as {
               role: [] | string;
             };
-
+            console.log(jwt);
             if (Array.isArray(jwt.role)) {
               await dispatch(employeeApi.endpoints.getEmployee.initiate());
             } else if (jwt.role === "customer") {
@@ -82,7 +82,7 @@ const authApi = createApi({
             body: data,
           };
         },
-      })
+      }),
     };
   },
 });

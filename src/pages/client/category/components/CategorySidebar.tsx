@@ -14,14 +14,11 @@ interface ICategorySidebarProps {
 }
 
 const CategorySidebar = ({ groupId, onFilter }: ICategorySidebarProps) => {
-  const { isFilter, categoryIds, brandIds } = useAppSelector(
-    (state) => state.productFilterSlice
-  );
+  const { isFilter } = useAppSelector((state) => state.productFilterSlice);
   const dispatch = useAppDispatch();
   const handleClear = () => {
     dispatch(handleClearFilter());
   };
-
   return (
     <>
       <Card className="flex-col gap-4 w-full p-4 shadow-lg">
