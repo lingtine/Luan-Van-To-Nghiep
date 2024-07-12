@@ -1,12 +1,12 @@
 import React from "react";
 import { InputDate } from "components";
-import { Button } from "@material-tailwind/react";
 import { useState } from "react";
 import { useGetOrderReportByStatusMutation } from "redux/api/order/order";
 
 import { toast } from "react-toastify";
 import { Spinner } from "@material-tailwind/react";
 import TableOrderReport from "./components/table-order-report";
+import { Button } from "@mui/material";
 interface StatisticalProps {}
 
 const Statistical: React.FC<StatisticalProps> = () => {
@@ -56,7 +56,7 @@ const Statistical: React.FC<StatisticalProps> = () => {
         />
         <InputDate label="Ngày kết thúc" date={dateEnd} setDate={setDateEnd} />
 
-        <Button onClick={handleClick}>In ra báo cáo</Button>
+        <Button variant="contained" onClick={handleClick}>Thống kê</Button>
       </div>
       
       <div className="my-4 px-8">{content}</div>

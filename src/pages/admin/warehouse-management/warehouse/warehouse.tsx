@@ -57,7 +57,7 @@ const Warehouse = () => {
           }}
         >
           <AiOutlinePlusCircle />
-          Thêm kho
+          Thêm mới
         </Button>
       </div>
       {content}

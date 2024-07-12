@@ -1,4 +1,4 @@
-import Button from "@material-tailwind/react/components/Button";
+import Button from "@mui/material/Button";
 import { ApexOptions } from "apexcharts";
 import { InputDate } from "components";
 import SelectBox, { ISelected } from "components/select-box/select-box";
@@ -197,7 +197,7 @@ const OrderReport = () => {
           label="Loại thông kê"
         />
 
-        <Button color={"blue"} onClick={handleClick}>
+        <Button variant="contained" onClick={handleClick}>
           Thống kê
         </Button>
       </div>

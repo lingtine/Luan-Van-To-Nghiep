@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { InputDate } from "components";
-import { Button } from "@material-tailwind/react";
 import { useState } from "react";
 import { useProductRevenueReportingMutation } from "redux/api/catalog/product";
 
 import PieChart from "components/charts/pie-chart";
 import { toast } from "react-toastify";
 import { Spinner } from "@material-tailwind/react";
+import { Button } from "@mui/material";
 
 interface ReportOrderProps {}
 
@@ -91,8 +91,8 @@ const ReportOrder: React.FC<ReportOrderProps> = () => {
           }}
         />
 
-        <Button color={"blue"} onClick={handleClick}>
-          In ra báo cáo
+        <Button variant="contained" onClick={handleClick}>
+          Thống kê
         </Button>
       </div>
 

@@ -1,5 +1,5 @@
 import { useEffect, useState, memo } from "react";
-import { Input, Textarea, Button } from "@material-tailwind/react";
+import { Input, Textarea } from "@material-tailwind/react";
 
 import { toast } from "react-toastify";
 import Modal from "components/modal/modal";
@@ -7,6 +7,7 @@ import { useCreateCouponMutation } from "redux/api/discount/coupon";
 import { ICouponInput } from "share/types/coupon";
 import SelectBox, { ISelected } from "components/select-box/select-box";
 import { useGetDiscountEventsQuery } from "redux/api/discount/discount-event";
+import { Button } from "@mui/material";
 
 function ModalAddCoupon({ onToggle }: { onToggle: () => void }) {
   const [addCoupon, { isSuccess }] = useCreateCouponMutation();
@@ -123,7 +124,9 @@ function ModalAddCoupon({ onToggle }: { onToggle: () => void }) {
         </div>
 
         <div className="flex justify-end my-4">
-          <Button type="submit">Lưu</Button>
+          <Button variant="contained" color="success" type="submit">
+            Lưu
+          </Button>
         </div>
       </form>
     </Modal>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@material-tailwind/react";
+import { Button } from "@mui/material";
 import { ISelected } from "components/select-box/select-box";
 import { useState } from "react";
 import { useGetSpecificationsQuery } from "redux/api/catalog/specification";
@@ -151,8 +151,8 @@ const FormAddSpecificationsProduct: React.FC<
       </div>
 
       <div className="flex gap-4">
-        <Button onClick={handleAddInput}>Thêm Thông số</Button>
-        <Button type="submit" color="blue">
+        <Button variant="contained" onClick={handleAddInput}>Thêm Thông số</Button>
+        <Button variant="contained" type="submit" color="success">
           Lưu
         </Button>
       </div>

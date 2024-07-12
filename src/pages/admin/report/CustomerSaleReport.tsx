@@ -1,4 +1,4 @@
-import Button from "@material-tailwind/react/components/Button";
+import Button from "@mui/material/Button";
 import { InputDate } from "components";
 import { format } from "date-fns";
 import { useState } from "react";
@@ -66,10 +66,10 @@ const CustomerSaleReport = () => {
           setDate={(date) => handleChangeDate(date, false)}
         />
 
-        <Button color={"blue"} onClick={handleReportClick}>
+        <Button variant="contained" onClick={handleReportClick}>
           Thống kê số liệu
         </Button>
-        <Button color={"blue"} onClick={handleVisualizeClick}>
+        <Button variant="contained" onClick={handleVisualizeClick}>
           Biểu đồ
         </Button>
       </div>

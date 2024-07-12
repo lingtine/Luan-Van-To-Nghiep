@@ -1,5 +1,5 @@
 import { useEffect, useState, memo } from "react";
-import { Input, Textarea, Button } from "@material-tailwind/react";
+import { Input, Textarea } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 
 import { useUpdateCouponMutation } from "redux/api/discount/coupon";
@@ -7,6 +7,8 @@ import { useGetDiscountEventsQuery } from "redux/api/discount/discount-event";
 import Modal from "components/modal/modal";
 import { ICoupon, ICouponInput } from "share/types/coupon";
 import SelectBox, { ISelected } from "components/select-box/select-box";
+import { Button } from "@mui/material";
+import { formatVND } from "utils/formatVND";
 function ModalUpdateCoupon({
   onToggle,
   data,
@@ -22,6 +24,7 @@ function ModalUpdateCoupon({
   const [dataForm, setDataForm] = useState<ICouponInput>({
     ...data,
   });
+  console.log("🚀 ~ dataForm:", dataForm);
 
   useEffect(() => {
     if (result.isSuccess) {
@@ -135,14 +138,15 @@ function ModalUpdateCoupon({
         </div>
         <div className="flex justify-end my-4 gap-4">
           <Button
-            color="red"
+            variant="contained"
+            color="error"
             onClick={() => {
               onToggle();
             }}
           >
             Huỷ
           </Button>
-          <Button type="submit" disabled={!isUpdate}>
+          <Button variant="contained" type="submit" disabled={!isUpdate}>
             Lưu
           </Button>
         </div>

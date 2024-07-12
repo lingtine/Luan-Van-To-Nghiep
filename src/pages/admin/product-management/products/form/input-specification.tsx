@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { CiTrash } from "react-icons/ci";
 import SelectBox from "components/select-box/select-box";
-import { IconButton, Input } from "@material-tailwind/react";
+import { Input } from "@material-tailwind/react";
 import { ISelected } from "components/select-box/select-box";
 import { useState } from "react";
 import { useGetSpecificationsQuery } from "redux/api/catalog/specification";
+import { Button } from "@mui/material";
 interface InputSpecificationProps {
   specificationData: {
     specificationId: string;
@@ -78,13 +79,15 @@ const InputSpecification: React.FC<InputSpecificationProps> = ({
           value={specificationData.specificationValue}
         />
       </div>
-      <IconButton
+      <Button
+        variant="contained"
+        color="error"
         onClick={() => {
           onRemove();
         }}
       >
         <CiTrash />
-      </IconButton>
+      </Button>
     </div>
   );
 };
