@@ -11,7 +11,9 @@ export const userSlide = createSlice({
   name: "userSlice",
   initialState,
   reducers: {
-    logout: () => initialState,
+    logout: () => {
+      return initialState;
+    },
     setUser: (state, action) => {
       state.user = action.payload;
     },

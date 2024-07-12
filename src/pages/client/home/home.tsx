@@ -13,8 +13,9 @@ const Home: React.FC<HomeProps> = () => {
   const { user } = useAppSelector((state) => state.userSlice);
   let renderData;
   if (isSuccess) {
-    renderData = data.map((item: any) => (
+    renderData = data.map((item: any, index) => (
       <HomeProductBox
+        key={index}
         heading={item.groupName}
         title={item.groupName}
         products={item.products}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./components/header/Header";
 import Footer from "./components/Footer";
 import { Outlet } from "react-router-dom";
+import ScrollToTop from "components/scorll-to-top/scroll-to-top";
 
 interface DefaultLayoutProps {}
 
@@ -26,6 +27,7 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = () => {
   }, []);
   return (
     <React.Fragment>
+      <ScrollToTop />
       <Header scrollOverFlow={scrollOverflow} />
       <div className={`${scrollOverflow && "pt-36"} `}>
         <Outlet />

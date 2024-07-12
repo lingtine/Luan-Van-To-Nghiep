@@ -11,7 +11,6 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { useAppSelector } from "redux/store";
-import { useGetDetailCartQuery } from "redux/api/cart/cart";
 import { ICustomerDetail } from "redux/api/types";
 import { useLogoutMutation } from "redux/api/auth/authApi";
 import { useNavigate } from "react-router-dom";
@@ -37,17 +36,20 @@ const Navigation: React.FC<NavigationProps> = ({
   const { user } = useAppSelector((state) => state.userSlice) as {
     user: ICustomerDetail;
   };
+  const { cart } = useAppSelector((state) => state.cartSlice);
 
   const { refreshToken } = useAppSelector((state) => state.authSlice);
   const navigate = useNavigate();
   const [logout, status] = useLogoutMutation();
-  const { data, isSuccess } = useGetDetailCartQuery();
 
   useEffect(() => {
-    if (status.isLoading) {
-      navigate("/login-admin");
+    console.log(cart, user);
+  }, [user, cart]);
+  useEffect(() => {
+    if (status.isSuccess) {
+      navigate("/");
     }
-  }, [status.isLoading, navigate]);
+  }, [status.isSuccess, navigate]);
   const handleLogout = () => {
     if (refreshToken) {
       logout({ refreshToken });
@@ -76,29 +78,29 @@ const Navigation: React.FC<NavigationProps> = ({
           <Menu>
             <MenuHandler>
               <Avatar
-                className="cursor-pointer w-12"
+                className="cursor-pointer w-12 h-12"
                 size="sm"
-                src="images/avatar-none-user.png"
+                src={user.avatar ? user.avatar : "images/avatar-none-user.png"}
               />
             </MenuHandler>
-            <MenuList>
+            <MenuList className="z-[999999999]">
               <MenuItem>
-                <div className="flex gap-2">
+                <Link to={"/account"} className="flex gap-2">
                   <CiSquareAlert />
                   <p>Thông tin tài khoản</p>
-                </div>
+                </Link>
               </MenuItem>
               <MenuItem>
-                <div className="flex gap-2">
+                <Link to={"/account/wishlist"} className="flex gap-2">
                   <CiHeart />
                   <p>Yêu thích</p>
-                </div>
+                </Link>
               </MenuItem>
-              <MenuItem>
-                <button className="flex gap-2" onClick={handleLogout}>
+              <MenuItem onClick={handleLogout}>
+                <div className="flex gap-2">
                   <CiLogout />
                   <p> Đăng xuất</p>
-                </button>
+                </div>
               </MenuItem>
             </MenuList>
           </Menu>
@@ -112,10 +114,7 @@ const Navigation: React.FC<NavigationProps> = ({
           </Link>
         )}
         {/* Cart */}
-        <Badge
-          className="bg-success"
-          content={isSuccess ? data.items.length : "0"}
-        >
+        <Badge className="bg-success" content={cart ? cart.items.length : "0"}>
           <Link
             to={user ? "/cart" : "/login"}
             className="flex items-center relative p-2.5 rounded-full bg-light-text-emphasis text-secondary-border-subtle hover:text-white cursor-pointer"

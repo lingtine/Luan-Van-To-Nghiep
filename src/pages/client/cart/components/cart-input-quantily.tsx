@@ -22,16 +22,17 @@ const CartInputQuantity: React.FC<CartInputQuantityProps> = ({ data }) => {
 
   useEffect(() => {
     if (debounceValue !== data.quantity) {
-      if (debounceValue !== 0)
+      if (debounceValue !== 0) {
         updateQuality([
           {
             productId: data.productId,
-            productName: data.productName,
+            productName: data?.name || "",
             quantity: +debounceValue,
             unitPrice: data.unitPrice,
           },
         ]);
-      else {
+        console.log(data);
+      } else {
         deleteProduct(data.productId);
       }
     }

@@ -19,6 +19,7 @@ import { IconButton } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 import { useAppSelector } from "redux/store";
 import { IWishlistProduct } from "redux/api/types";
+import { Link } from "react-router-dom";
 interface ProductCardProps {
   data: IProductDetail | IWishlistProduct;
 }
@@ -27,11 +28,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const navigate = useNavigate();
   const { accessToken } = useAppSelector((state) => state.authSlice);
   const [formatPrice] = useFormatPrice();
-  const [addProduct, { isSuccess, isLoading }] = useAddToCartMutation();
+  const [addProduct, { isSuccess, isLoading, reset }] = useAddToCartMutation();
 
   useEffect(() => {
     if (isSuccess) {
       toast.success("Đã thêm sản phẩm vào giỏ hàng");
+      reset();
     }
   }, [isSuccess]);
 
@@ -66,38 +68,41 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
           </IconButton>
         </div>
       )}
-      <CardHeader shadow={false} floated={false} className="h-60">
-        <img
-          src={
-            data.imageUrl ||
-            "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_13__3_29.png"
-          }
-          alt={data.name}
-          className="h-full w-full max-h-[200px] max-w-[200px] object-contain"
-        />
-      </CardHeader>
+      <Link to={`/product-detail/${data.id}`}>
+        <CardHeader
+          shadow={false}
+          floated={false}
+          className="h-60 flex justify-center items-end"
+        >
+          <img
+            src={data.imageUrl}
+            alt={data.name}
+            className="h-full w-full max-h-[200px] max-w-[200px] object-contain"
+          />
+        </CardHeader>
 
-      <CardBody>
-        <Rating readonly value={Math.round(data.numberOfStar)} />
-        <div className="line-clamp-2">
-          <Typography color="blue-gray" variant="h6" className="text-xs">
-            {data.name}
-          </Typography>
-        </div>
-      </CardBody>
-      <CardFooter className="pt-0">
-        <div className="flex justify-between items-center">
-          <div>
-            <Typography
-              color="blue-gray"
-              variant="h6"
-              className="font-semibold text-right"
-            >
-              {formatPrice.format(data.unitPrice)}
+        <CardBody>
+          <Rating readonly value={Math.round(data.numberOfStar)} />
+          <div className="line-clamp-2">
+            <Typography color="blue-gray" variant="h6" className="text-xs">
+              {data.name}
             </Typography>
           </div>
-        </div>
-      </CardFooter>
+        </CardBody>
+        <CardFooter className="pt-0">
+          <div className="flex justify-between items-center">
+            <div>
+              <Typography
+                color="blue-gray"
+                variant="h6"
+                className="font-semibold text-right"
+              >
+                {formatPrice.format(data.unitPrice)}
+              </Typography>
+            </div>
+          </div>
+        </CardFooter>
+      </Link>
     </Card>
   );
 };

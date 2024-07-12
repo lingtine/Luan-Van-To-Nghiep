@@ -2,6 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 
 import customFetchBase from "redux/api/customFetchBase";
 import { ICartDetail } from "../types";
+import { setCart } from "redux/features/auth/cartSlice";
 
 import { IProductAddToCart } from "share/types/product";
 
@@ -17,6 +18,12 @@ const cartApi = createApi({
       }),
       providesTags: ["add", "delete", "update"],
       transformResponse: ({ data }) => data,
+      async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
+        try {
+          const { data } = await queryFulfilled;
+          await dispatch(setCart(data));
+        } catch (error) {}
+      },
     }),
     addToCart: builder.mutation<any, IProductAddToCart>({
       query: (data) => {

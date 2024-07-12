@@ -12,7 +12,7 @@ const ProductList: React.FC<ProductListProps> = ({ data }) => {
         return (
           <div
             key={product.id}
-            className="flex-[0_0_50%] max-w-[50%] md:flex-[0_0_33.33333%] md:max-w-[33.33333%]  p-1 md:p-2"
+            className="flex-[0_0_100%] max-w-[100%] lg:flex-[0_0_50%] lg:max-w-[50%] xl:flex-[0_0_33.33333%] xl:max-w-[33.33333%]  p-1 md:p-2"
           >
             <ProductCard data={product} />
           </div>

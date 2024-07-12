@@ -13,6 +13,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
+import ScrollToTop from "components/scorll-to-top/scroll-to-top";
+
 const App: React.FC = () => {
   const accessToken = getCookie("accessToken");
 
@@ -32,9 +34,9 @@ const App: React.FC = () => {
 
   return (
     <>
-      <ToastContainer />
       <Suspense fallback={<LoadingPage />}>
-        <RouterProvider router={router} />
+        <ToastContainer />
+        <RouterProvider router={router}></RouterProvider>
       </Suspense>
     </>
   );

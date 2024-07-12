@@ -1,6 +1,5 @@
 import React from "react";
 
-import { useGetDetailCartQuery } from "redux/api/cart/cart";
 import { useState } from "react";
 import CustomerInfo from "./components/customer-info";
 import { useAppSelector } from "redux/store";
@@ -20,12 +19,12 @@ const CheckOutPage: React.FC<CheckOutPageProps> = () => {
   const { user } = useAppSelector((state) => state.userSlice) as {
     user: ICustomerDetail;
   };
-  const { data, isSuccess, refetch } = useGetDetailCartQuery();
+  const { cart } = useAppSelector((state) => state.cartSlice);
 
   let content;
 
-  if (isSuccess) {
-    const { items } = data;
+  if (cart) {
+    const { items } = cart;
 
     content = (
       <>
@@ -37,7 +36,7 @@ const CheckOutPage: React.FC<CheckOutPageProps> = () => {
   return (
     <div className="container flex flex-wrap-reverse lg:flex-wrap my-8 ">
       <div className=" flex-[0_0_100%] max-w-[100%] lg:flex-[0_0_50%] lg:max-w-[50%]">
-        <CustomerInfo fn={refetch} user={user} coupon={selected} />
+        <CustomerInfo fn={() => {}} user={user} coupon={selected} />
       </div>
 
       <div className=" flex-[0_0_100%] max-w-[100%] lg:flex-[0_0_50%] lg:max-w-[50%]">

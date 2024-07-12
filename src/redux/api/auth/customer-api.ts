@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import customFetchBase from "redux/api/customFetchBase";
-
+import cartApi from "../cart/cart";
 import { setUser } from "redux/features/auth/userSlice";
 import {
   IUserDetail,
@@ -78,6 +78,7 @@ const customerApi = createApi({
         async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
           try {
             const { data } = await queryFulfilled;
+            await dispatch(cartApi.endpoints.getDetailCart.initiate());
             await dispatch(setUser(data));
           } catch (error) {}
         },

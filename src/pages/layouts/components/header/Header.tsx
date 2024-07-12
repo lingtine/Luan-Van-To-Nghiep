@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ scrollOverFlow }) => {
     }
   }, [scrollOverFlow]);
   const headerClass = classNames(
-    "bg-dark  transition-all duration-700 overflow-hidden flex flex-col w-full overflow-hidden",
+    "bg-dark  transition-all duration-700  flex flex-col w-full ",
     {
       "h-36": scrollOverFlow && visibleHeaderBottom,
       "h-24": !visibleHeaderBottom,
@@ -37,7 +37,9 @@ const Header: React.FC<HeaderProps> = ({ scrollOverFlow }) => {
           }}
         />
       </div>
-      <HeaderBottom />
+      <div className="overflow-hidden">
+        <HeaderBottom />
+      </div>
     </header>
   );
 };

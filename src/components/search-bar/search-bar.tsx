@@ -51,7 +51,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ className, label, area }) => {
           </>
         )}
       </div>
-      <Card className="absolute z-50 min-w-96 w-full bg-white">
+      <Card className="absolute z-[9999999] min-w-96 w-full bg-white">
         {debounceSearch &&
           isSuccess &&
           searchValue &&

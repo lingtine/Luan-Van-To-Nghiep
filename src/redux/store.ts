@@ -15,6 +15,7 @@ import specificationsApi from "./api/catalog/specification";
 import orderApi from "./api/order/order";
 import reviewApi from "./api/catalog/review";
 import filterApi from "./api/catalog/filter";
+import cartSlice from "./features/auth/cartSlice";
 
 import departmentApi from "./api/auth/department-api";
 import goodsIssueApi from "./api/warehouse/goodsIssue";
@@ -33,6 +34,7 @@ import reportingApi from "./api/warehouse/reporting";
 export const store = configureStore({
   reducer: {
     authSlice: authSlice,
+    [cartSlice.name]: cartSlice.reducer,
     productFilterSlice: productFilterSlice,
     [userSlide.name]: userSlide.reducer,
     [departmentApi.reducerPath]: departmentApi.reducer,

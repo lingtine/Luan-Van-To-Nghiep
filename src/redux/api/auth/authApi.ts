@@ -1,6 +1,10 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { jwtDecode } from "jwt-decode";
 import { changeAuth, logout } from "redux/features/auth/authSlice";
+import { logout as clearUser } from "redux/features/auth/userSlice";
+import { clearCart } from "redux/features/auth/cartSlice";
+
+import cartApi from "../cart/cart";
 import customerApi from "./customer-api";
 import employeeApi from "../auth/employeeApi";
 
@@ -33,19 +37,22 @@ const authApi = createApi({
             let jwt = jwtDecode(data.accessToken) as {
               role: [] | string;
             };
-            console.log(jwt);
+
             if (Array.isArray(jwt.role)) {
               await dispatch(
                 employeeApi.endpoints.getEmployeeDetail.initiate()
               );
-            } else if (jwt.role === "customer") {
-              await dispatch(
-                customerApi.endpoints.getCustomerDetail.initiate()
-              );
-            } else if (jwt.role === "Employee") {
-              await dispatch(
-                employeeApi.endpoints.getEmployeeDetail.initiate()
-              );
+            } else {
+              if (jwt.role === "Customer") {
+                await dispatch(
+                  customerApi.endpoints.getCustomerDetail.initiate()
+                );
+                await dispatch(cartApi.endpoints.getDetailCart.initiate());
+              } else if (jwt.role === "Employee") {
+                await dispatch(
+                  employeeApi.endpoints.getEmployeeDetail.initiate()
+                );
+              }
             }
           } catch (error) {}
         },
@@ -73,6 +80,8 @@ const authApi = createApi({
           try {
             await queryFulfilled;
             dispatch(logout());
+            dispatch(clearCart());
+            dispatch(clearUser());
           } catch (error) {}
         },
       }),

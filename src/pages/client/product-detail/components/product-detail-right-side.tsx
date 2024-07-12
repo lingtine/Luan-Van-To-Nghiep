@@ -3,10 +3,7 @@ import { formatVND } from "utils/formatVND";
 import { Button, Rating } from "@material-tailwind/react";
 import InputQuantity from "components/input/input-quantity";
 import { useNavigate } from "react-router-dom";
-import {
-  useAddToCartMutation,
-  useGetDetailCartQuery,
-} from "redux/api/cart/cart";
+import { useAddToCartMutation } from "redux/api/cart/cart";
 import { CiShoppingCart } from "react-icons/ci";
 import { toast } from "react-toastify";
 
@@ -30,7 +27,7 @@ const ProductDetailRightSide: React.FC<ProductDetailRightSideProps> = ({
 }) => {
   const [quantity, setQuantity] = useState<number>(1);
   const { user } = useAppSelector((state) => state.userSlice);
-  const { refetch } = useGetDetailCartQuery();
+
   const [addToCart, result] = useAddToCartMutation();
 
   const navigate = useNavigate();
@@ -38,12 +35,11 @@ const ProductDetailRightSide: React.FC<ProductDetailRightSideProps> = ({
   useEffect(() => {
     if (result.isLoading) {
       toast.success("Thêm vào giỏ hàng thành công");
-      refetch();
     }
-  }, [result, refetch]);
+  }, [result]);
 
   const handleAddToCart = () => {
-    if (!user) {
+    if (user) {
       const dataItem = {
         productId: productId,
         productName: productName,

@@ -1,6 +1,7 @@
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { Spinner } from "@material-tailwind/react";
 import { useFilterProductByParameterMutation } from "redux/api/catalog/product";
 import { useAppSelector, useAppDispatch } from "redux/store";
 import { handleChangePage } from "redux/features/products/product-filter-slice";
@@ -22,6 +23,17 @@ const CategoryPage = () => {
     useFilterProductByParameterMutation();
 
   const handleReload = () => {
+    window.scrollTo({ top: 0 });
+
+    console.log({
+      groupId: categoryId,
+      categoryIds: categoryIds.length === 0 ? undefined : categoryIds,
+      filterValues: filterValues.length === 0 ? undefined : filterValues,
+      brandIds: brandIds.length === 0 ? undefined : brandIds,
+      pageIndex: pageIndex,
+      pageSize: pageSize,
+      sort: sort?.value,
+    });
     if (categoryId) {
       filterProductByParameter({
         groupId: categoryId,
@@ -49,30 +61,41 @@ const CategoryPage = () => {
 
   if (result.isSuccess) {
     const { data } = result;
+
+    if (data.data.length === 0) {
+      content = <div>Không tìm thấy sản phẩm nào</div>;
+    } else {
+      content = (
+        <>
+          <ProductList data={data.data} />
+          <div className="flex justify-center my-8">
+            <PaginationClient
+              onChange={(pageIndex: number) => {
+                dispatch(handleChangePage(pageIndex));
+              }}
+              pageIndex={data.pageIndex}
+              pageSize={data.pageSize}
+              totalNumber={data.totalCount}
+            />
+          </div>
+        </>
+      );
+    }
+  } else if (result.isLoading) {
     content = (
-      <>
-        <ProductList data={data.data} />
-        <div className="flex justify-center my-8">
-          <PaginationClient
-            onChange={(pageIndex: number) => {
-              dispatch(handleChangePage(pageIndex));
-            }}
-            pageIndex={data.pageIndex}
-            pageSize={data.pageSize}
-            totalNumber={data.totalCount}
-          />
-        </div>
-      </>
+      <div className="h-full w-full flex justify-center">
+        <Spinner className="w-12 h-12" />
+      </div>
     );
   }
   return (
     <div className="container my-8">
       <h2 className="text-2xl mx-4 lg:mx-0">Sản phẩm</h2>
       <div className="container flex flex-wrap lg:-mx-4 my-8">
-        <div className="flex-[0_0_100%] max-w-[100%] lg:flex-[0_0_25%] lg:max-w-[25%] p-4">
+        <div className="flex-[0_0_100%] max-w-[100%] md:flex-[0_0_50%] md:max-w-[50%] xl:flex-[0_0_25%] xl:max-w-[25%] p-4">
           <CategorySidebar onFilter={handleReload} groupId={categoryId || ""} />
         </div>
-        <div className="flex-[0_0_100%] max-w-[100%] lg:flex-[0_0_75%] lg:max-w-[75%] p-4">
+        <div className="flex-[0_0_100%] max-w-[100%] md:flex-[0_0_50%] md:max-w-[50%] xl:flex-[0_0_75%] xl:max-w-[75%] p-4">
           <ProductSort />
 
           {content}
