@@ -35,7 +35,9 @@ const authApi = createApi({
             };
             console.log(jwt);
             if (Array.isArray(jwt.role)) {
-              await dispatch(employeeApi.endpoints.getEmployee.initiate());
+              await dispatch(
+                employeeApi.endpoints.getEmployeeDetail.initiate()
+              );
             } else if (jwt.role === "customer") {
               await dispatch(
                 customerApi.endpoints.getCustomerDetail.initiate()
