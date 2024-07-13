@@ -1,4 +1,4 @@
-import { Button } from "@material-tailwind/react";
+import Button from "@mui/material/Button";
 import Modal from "components/modal/modal";
 import { RefObject, useRef, useState } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
@@ -65,7 +65,7 @@ const UploadMultiple = ({
             onChange={(e) => handleChange(e)}
           />
           <Button
-            color="blue"
+            variant="contained"
             className="flex items-center gap-4"
             onClick={handleUpload}
           >

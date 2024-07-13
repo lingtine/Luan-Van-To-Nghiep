@@ -21,7 +21,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, children, actions }) => {
     <>
       <div
         onClick={onClose}
-        className="absolute inset-0 bg-black opacity-80 z-50 transition-all"
+        className="absolute inset-0 bg-black opacity-80 z-50 transition-all w-full h-full"
       ></div>
       <div className="absolute inset-1/2 -translate-x-1/2 -translate-y-1/2  p-6 bg-white z-50 h-fit w-fit rounded min-w-[600px]">
         <div className="flex flex-col justify-between ">

@@ -83,7 +83,7 @@ const AddSpecification: React.FC<AddSpecificationProps> = () => {
             />
           </div>
           <div className="flex justify-end my-4">
-            <Button type="submit">Thêm đặt tả</Button>
+            <Button type="submit">Lưu</Button>
           </div>
         </section>
       </form>

@@ -32,15 +32,34 @@ export interface IReport {
   id: string;
   from?: string;
   to?: string;
+  fromName?: string;
+  toName?: string;
   reportType: string;
   description: string;
   supplierId?: string;
+  supplierName?: string;
   reportStatus: ReportStatus;
   createAt: string;
-  reportProducts: {
-    productId: string;
+  creatorId?: string;
+  creatorName?: string;
+  inspectorId?: string;
+  inspectorName?: string;
+  inspectAt: string;
+
+  approveId?: string;
+  approveName?: string;
+  approveAt?: string;
+  reportProducts: IReportProduct[];
+}
+
+export interface IReportProduct {
+  productId: string;
     quantity: number;
-  }[];
+    id?: string;
+    imageUrl?: string;
+    productName?: string;
+    sku?: string;
+    unitPrice?: number;
 }
 
 export interface IReportTable extends IReport {
@@ -69,16 +88,16 @@ export interface IReportParam {
   PageSize?: number;
 }
 
-export interface IOrderReportResponse{
+export interface IOrderReportResponse {
   date: Date;
-  data: IOrderReportData[]
+  data: IOrderReportData[];
 }
 
-export interface IOrderReportData{
-  target: string,
-  total: number
+export interface IOrderReportData {
+  target: string;
+  total: number;
 }
 
 export type OrderBy = "Status" | "CreateAt" | "ApproveAt" | "CreateAt";
 export type ReportStatus = "Creative" | "Approved" | "Inspected" | "Cancelled";
-export type OrderReportType = "Day" | "Week" | "Month" | "Year" 
+export type OrderReportType = "Day" | "Week" | "Month" | "Year";

@@ -44,6 +44,12 @@ const filterApi = createApi({
       }),
       invalidatesTags: ["update-filter"],
     }),
+    deleteFilter: builder.mutation({
+      query: (id) => ({
+        url: `/catalogs/filters/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -52,6 +58,7 @@ export const {
   useGetFilterByGroupIdQuery,
   useAddFilterMutation,
   useUpdateFilterMutation,
+  useDeleteFilterMutation
 } = filterApi;
 
 export default filterApi;

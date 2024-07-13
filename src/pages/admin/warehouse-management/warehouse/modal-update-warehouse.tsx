@@ -1,10 +1,11 @@
 import React, { useEffect, useState, memo } from "react";
 import { toast } from "react-toastify";
-import { Input, Textarea, Button } from "@material-tailwind/react";
+import { Input, Textarea } from "@material-tailwind/react";
 
 import Modal from "components/modal/modal";
 import { useUpdateWarehouseMutation } from "redux/api/warehouse/warehouse";
 import { IWarehouse, IWarehouseInput } from "share/types/warehouse";
+import { Button } from "@mui/material";
 
 function ModalUpdateWarehouse({
   onToggle,
@@ -125,15 +126,21 @@ function ModalUpdateWarehouse({
         </div>
         <div className="flex justify-end my-4 gap-4">
           <Button
-            color="red"
+            variant="contained"
+            color="error"
             onClick={() => {
               onToggle();
             }}
           >
             Huỷ
           </Button>
-          <Button type="submit" disabled={!isUpdate}>
-            Chỉnh sửa
+          <Button
+            variant="contained"
+            color="info"
+            type="submit"
+            disabled={!isUpdate}
+          >
+            Lưu
           </Button>
         </div>
       </form>

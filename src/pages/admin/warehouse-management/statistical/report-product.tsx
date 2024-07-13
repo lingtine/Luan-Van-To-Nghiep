@@ -1,21 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { InputDate } from "components";
-import { Button } from "@material-tailwind/react";
 import { useState } from "react";
 import { useProductRevenueReportingMutation } from "redux/api/catalog/product";
 
 import PieChart from "components/charts/pie-chart";
 import { toast } from "react-toastify";
 import { Spinner } from "@material-tailwind/react";
+import { Button } from "@mui/material";
 
 interface ReportOrderProps {}
 
 const ReportOrder: React.FC<ReportOrderProps> = () => {
-  const [dateEnd, setDateEnd] = useState<Date>();
-  const [dateStart, setDateStart] = useState<Date>();
+  const now = new Date();
+  let firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+  let lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+  const [dateEnd, setDateEnd] = useState<Date>(lastDay);
+  const [dateStart, setDateStart] = useState<Date>(firstDay);
 
   const [getOrderReport, { isSuccess, isLoading, data }] =
     useProductRevenueReportingMutation();
+
+  useEffect(() => {
+    getOrderReport({
+      start: dateStart.toISOString(),
+      end: dateEnd.toISOString(),
+    });
+  }, []);
 
   const handleClick = () => {
     if (dateStart && dateEnd) {
@@ -68,11 +79,21 @@ const ReportOrder: React.FC<ReportOrderProps> = () => {
         <InputDate
           label="Ngày bắt đầu"
           date={dateStart}
-          setDate={setDateStart}
+          setDate={(date) => {
+            date && setDateStart(date);
+          }}
         />
-        <InputDate label="Ngày kết thúc" date={dateEnd} setDate={setDateEnd} />
+        <InputDate
+          label="Ngày kết thúc"
+          date={dateEnd}
+          setDate={(date) => {
+            date && setDateEnd(date);
+          }}
+        />
 
-        <Button onClick={handleClick}>In ra báo cáo</Button>
+        <Button variant="contained" onClick={handleClick}>
+          Thống kê
+        </Button>
       </div>
 
       <div className="my-4 px-8">{content}</div>

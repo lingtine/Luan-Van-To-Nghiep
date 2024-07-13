@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Button, Spinner } from "@material-tailwind/react";
+import { Spinner } from "@material-tailwind/react";
 import { useParams } from "react-router-dom";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
 import { useGetCouponsQuery } from "redux/api/discount/coupon";
 import Pagination from "components/pagination/pagitnation";
 import { ICouponTable } from "share/types/coupon";
-import CouponTable from "./coupon-table";
+import CouponTable from "./Components/CouponTable";
 import ModalAddCoupon from "./modal-add-coupon";
+import { Button } from "@mui/material";
 
 const Coupon = () => {
   const { index } = useParams();
@@ -26,13 +27,9 @@ const Coupon = () => {
   if (isSuccess) {
     const { pageSize, pageIndex } = data;
 
-    const updateData: ICouponTable[] = data.data.map((item, index) => ({
-      ...item,
-      index: index + 1 + pageIndex * pageSize,
-    }));
     content = (
       <>
-        <CouponTable data={updateData} />
+        <CouponTable rows={data.data} />
         <div className="flex justify-center my-8">
           <Pagination
             pageIndex={data.pageIndex}
@@ -55,6 +52,8 @@ const Coupon = () => {
     <div className="px-4 ">
       <div className="flex justify-end my-4">
         <Button
+          variant="contained"
+          color="success"
           onClick={() => setIsAddNew(true)}
           className="flex gap-2 items-center"
         >

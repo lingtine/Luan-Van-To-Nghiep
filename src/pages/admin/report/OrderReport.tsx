@@ -1,4 +1,4 @@
-import Button from "@material-tailwind/react/components/Button";
+import Button from "@mui/material/Button";
 import { ApexOptions } from "apexcharts";
 import { InputDate } from "components";
 import SelectBox, { ISelected } from "components/select-box/select-box";
@@ -28,7 +28,8 @@ const OrderReportTypes: ISelected[] = [
 ];
 const OrderReport = () => {
   const [reportData, setReportData] = useState<IOrderReportData[]>([]);
-  const [date, setDate] = useState<Date>();
+  const today = new Date();
+  const [date, setDate] = useState<Date>(today);
   const [selected, setSelected] = useState<ISelected>(OrderReportTypes[0]);
 
   const [getOrderReportInRange, { data }] = useGetOrderReportInRangeMutation();
@@ -172,10 +173,22 @@ const OrderReport = () => {
     },
   };
 
+  const handleChangeDate = (date: Date | undefined) => {
+    if (date) {
+      setDate(date);
+    } else {
+      setDate(new Date());
+    }
+  };
+
   return (
     <div>
       <div className="flex gap-2 h-full justify-center">
-        <InputDate label="Ngày" date={date} setDate={setDate} />
+        <InputDate
+          label="Ngày"
+          date={date}
+          setDate={(date) => handleChangeDate(date)}
+        />
 
         <SelectBox
           onChange={(option: ISelected) => setSelected(option)}
@@ -184,7 +197,7 @@ const OrderReport = () => {
           label="Loại thông kê"
         />
 
-        <Button color="green" onClick={handleClick}>
+        <Button variant="contained" onClick={handleClick}>
           Thống kê
         </Button>
       </div>

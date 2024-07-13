@@ -1,13 +1,12 @@
+import { Spinner } from "@material-tailwind/react";
+import { Button } from "@mui/material";
 import React, { useState } from "react";
-import { Button, Spinner } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import Pagination from "components/pagination/pagitnation";
 import { useGetWarehousesQuery } from "redux/api/warehouse/warehouse";
-import { IWarehouseTable } from "share/types/warehouse";
-import WarehouseTable from "./warehouse-table";
+import WarehouseTable from "./Components/WarehouseTable";
 import ModalAddWarehouse from "./modal-add-warehouse";
 
 const Warehouse = () => {
@@ -25,13 +24,9 @@ const Warehouse = () => {
   let content: React.ReactNode;
 
   if (isSuccess) {
-    const updateData: IWarehouseTable[] = data.data.map((item, index) => ({
-      ...item,
-      index: index + 1,
-    }));
     content = (
       <>
-        <WarehouseTable data={updateData}></WarehouseTable>
+        <WarehouseTable rows={data.data} />
         <div className="flex justify-center my-8">
           <Pagination
             pageIndex={data.pageIndex}
@@ -53,12 +48,17 @@ const Warehouse = () => {
   return (
     <div className="px-4 ">
       <div className="flex justify-end my-4">
-        <Link to="/admin/warehouses/add-warehouse">
-          <Button className="flex gap-2 items-center">
-            <AiOutlinePlusCircle />
-            Thêm kho
-          </Button>
-        </Link>
+        <Button
+          color="success"
+          variant="contained"
+          className="flex gap-2 items-center"
+          onClick={() => {
+            setIsAdd(true);
+          }}
+        >
+          <AiOutlinePlusCircle />
+          Thêm mới
+        </Button>
       </div>
       {content}
       {isAdd && <ModalAddWarehouse onToggle={handleToggleAdd} />}

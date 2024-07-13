@@ -223,7 +223,6 @@ const productApi = createApi({
       }),
 
       transformResponse: ({ data }) => {
-
         return data.data;
       },
     }),
@@ -258,6 +257,16 @@ const productApi = createApi({
       },
       invalidatesTags: ["filter-products"],
     }),
+    getProductByIds: builder.mutation<IProductDetail[], string[]>({
+      query: (ids: string[]) => ({
+        url: "/catalogs/products/GetProductIds",
+        body: ids,
+        method: "POST",
+      }),
+      transformResponse: (response: IProductDetail[]) => {
+        return response;
+      },
+    }),
   }),
 });
 export const {
@@ -279,6 +288,7 @@ export const {
   useProductRevenuePeriodicReportingMutation,
   useProductRevenueReportingMutation,
   useFilterProductByParameterMutation,
+  useGetProductByIdsMutation,
 } = productApi;
 
 export default productApi;

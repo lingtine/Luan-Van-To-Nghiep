@@ -1,10 +1,6 @@
-import {
-  Button,
-  IconButton,
-  Input,
-  Textarea,
-  Typography,
-} from "@material-tailwind/react";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import { Input, Typography } from "@material-tailwind/react";
+import CustomEditorBuild from "ckeditor-options-remove-upload";
 import Modal from "components/modal/modal";
 import SelectBox, { ISelected } from "components/select-box/select-box";
 import UploadMultiple from "components/upload-image/UploadMultiple";
@@ -20,13 +16,11 @@ import { useGetAllCategoryGroupsQuery } from "redux/api/catalog/category-group";
 import { useAddProductMutation } from "redux/api/catalog/product";
 import {
   IProductInput,
-  IProductSpecificationInput,
   IProductSpecification,
+  IProductSpecificationInput,
 } from "share/types/product";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import CustomEditorBuild from "ckeditor-options-remove-upload";
 import FormAddSpecificationsProduct from "./form/form-add-specifications-product";
-import TextEditor from "components/TextEditor/TextEditor";
+import { Button } from "@mui/material";
 
 const AddProduct = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -96,12 +90,13 @@ const AddProduct = () => {
 
         <p> {item.specificationValue}</p>
 
-        <IconButton
+        <Button
+          variant="contained"
           className="min-w-[40px]"
           onClick={() => handleRemoveSpecification(item.specificationId)}
         >
           <CiTrash />
-        </IconButton>
+        </Button>
       </div>
     );
   });
@@ -327,7 +322,9 @@ const AddProduct = () => {
             <div className="flex-col basis-1/2 items-start mt-4">
               <div className="flex justify-between">
                 <h4 className="text-xl font-semibold">Thông số kỹ thuật</h4>
-                <Button onClick={handleOpenSpecification}>Thêm thông số</Button>
+                <Button variant="contained" onClick={handleOpenSpecification}>
+                  Thêm thông số
+                </Button>
               </div>
 
               <div className="my-4 overflow-y-scroll max-h-[400px]">
@@ -336,7 +333,9 @@ const AddProduct = () => {
             </div>
           </div>
           <div className="flex justify-end my-4">
-            <Button type="submit">Thêm sản phẩm</Button>
+            <Button variant="contained" type="submit">
+              Lưu
+            </Button>
           </div>
         </section>
       </form>

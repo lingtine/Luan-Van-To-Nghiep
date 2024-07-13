@@ -1,10 +1,11 @@
 import { useEffect, useState, memo } from "react";
-import { Input, Textarea, Button } from "@material-tailwind/react";
+import { Input, Textarea } from "@material-tailwind/react";
 
 import { toast } from "react-toastify";
 import Modal from "components/modal/modal";
 import { useCreateSupplierMutation } from "redux/api/warehouse/supplier";
 import { ISupplierInput } from "share/types/supplier";
+import { Button } from "@mui/material";
 
 function ModalAddSupplier({ onToggle }: { onToggle: () => void }) {
   const [add, result] = useCreateSupplierMutation();
@@ -36,13 +37,12 @@ function ModalAddSupplier({ onToggle }: { onToggle: () => void }) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+console.log('formData :>> ', dataForm);
     if (
-      dataForm.name.trim().length ||
-      dataForm.description.trim().length ||
-      dataForm.email.trim().length ||
-      dataForm.phoneNumber.trim().length ||
-      dataForm.address.trim().length
+      !dataForm.name.trim().length ||
+      !dataForm.email.trim().length ||
+      !dataForm.phoneNumber.trim().length ||
+      !dataForm.address.trim().length
     ) {
       toast.error("Thông tin không hợp lệ");
     } else {
@@ -100,7 +100,7 @@ function ModalAddSupplier({ onToggle }: { onToggle: () => void }) {
         </div>
 
         <div className="flex justify-end my-4">
-          <Button type="submit">Thêm nhà cung cấp</Button>
+          <Button color="success" variant="contained" type="submit">Lưu</Button>
         </div>
       </form>
     </Modal>

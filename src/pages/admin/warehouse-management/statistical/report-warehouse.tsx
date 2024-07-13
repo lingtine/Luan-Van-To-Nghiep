@@ -1,6 +1,5 @@
 import React from "react";
 
-import { Button } from "@material-tailwind/react";
 import { useState } from "react";
 import {
   useGetProductReportByWarehouseMutation,
@@ -13,6 +12,7 @@ import { ISelected } from "components/select-box/select-box";
 import { Radio, Spinner } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 import TableWarehouseReport from "./components/table-warehouse-report";
+import { Button } from "@mui/material";
 interface ReportWarehouseProps {}
 
 const ReportWarehouse: React.FC<ReportWarehouseProps> = () => {
@@ -176,7 +176,7 @@ const ReportWarehouse: React.FC<ReportWarehouseProps> = () => {
         </div>
 
         <div>
-          <Button onClick={handleClick}>In ra báo cáo</Button>
+          <Button variant="contained" onClick={handleClick}>Thống kê</Button>
         </div>
       </div>
 

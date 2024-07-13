@@ -89,7 +89,7 @@ const ModalChangePassword = ({ onToggle }: ModalChangePasswordProps) => {
           </div>
           <div className="w-full mt-4">
             <Button className="w-full" type="submit">
-              Cập nhật
+            Lưu
             </Button>
           </div>
         </form>

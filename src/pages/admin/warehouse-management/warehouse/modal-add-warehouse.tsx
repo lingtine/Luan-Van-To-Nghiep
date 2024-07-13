@@ -1,10 +1,11 @@
 import { useEffect, useState, memo } from "react";
-import { Input, Textarea, Button } from "@material-tailwind/react";
+import { Input, Textarea } from "@material-tailwind/react";
 
 import { toast } from "react-toastify";
 import Modal from "components/modal/modal";
 import { useCreateWarehouseMutation } from "redux/api/warehouse/warehouse";
 import { IWarehouseInput } from "share/types/warehouse";
+import { Button } from "@mui/material";
 
 function ModalAddWarehouse({ onToggle }: { onToggle: () => void }) {
   const [add, result] = useCreateWarehouseMutation();
@@ -42,7 +43,7 @@ function ModalAddWarehouse({ onToggle }: { onToggle: () => void }) {
     if (
       dataForm.name.trim().length === 0 ||
       dataForm.address.trim().length === 0 ||
-      dataForm.description.trim().length === 0 ||
+      // dataForm.description.trim().length === 0 ||
       dataForm.email.trim().length === 0 ||
       dataForm.fax.trim().length === 0 ||
       dataForm.hotLine.trim().length === 0
@@ -110,7 +111,7 @@ function ModalAddWarehouse({ onToggle }: { onToggle: () => void }) {
         </div>
 
         <div className="flex justify-end my-4">
-          <Button type="submit">Thêm đặt tả</Button>
+          <Button color="success" variant="contained" type="submit">Lưu</Button>
         </div>
       </form>
     </Modal>

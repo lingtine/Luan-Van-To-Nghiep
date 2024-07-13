@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-import { Button, Spinner } from "@material-tailwind/react";
+import { Spinner } from "@material-tailwind/react";
+import { Button } from "@mui/material";
+import Pagination from "components/pagination/pagitnation";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import { useGetCategoriesQuery } from "redux/api/catalog/category";
-import { ICategoryTable } from "share/types/category";
-import Pagination from "components/pagination/pagitnation";
-import CategoryTable from "./category-table";
+import CategoryTable from "./Components/CategoryTable";
 import ModalAddCategory from "./modal-add-category";
 
 const Category = () => {
@@ -24,13 +24,9 @@ const Category = () => {
   if (isSuccess) {
     const { pageSize, pageIndex } = data;
 
-    const updateData: ICategoryTable[] = data.data.map((item, index) => ({
-      ...item,
-      index: index + 1 + pageIndex * pageSize,
-    }));
     content = (
       <>
-        <CategoryTable data={updateData} />
+        <CategoryTable rows={data.data} />
         <div className="flex justify-center my-8">
           <Pagination
             pageIndex={data.pageIndex}
@@ -53,6 +49,8 @@ const Category = () => {
     <div className="px-4">
       <div className="flex justify-end my-4">
         <Button
+          color="success"
+          variant="contained"
           className="flex gap-2 items-center"
           onClick={handleToggleAddNew}
         >

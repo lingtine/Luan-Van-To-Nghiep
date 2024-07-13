@@ -86,7 +86,7 @@ const AddCoupon: React.FC<AddCouponProps> = () => {
         </Link>
         <div>
           <p className="text-sm">Trở về</p>
-          <h4 className="text-xl font-bold">Thêm Phiếu Giảm Giá</h4>
+          <h4 className="text-xl font-bold">Thêm mới</h4>
         </div>
       </div>
 
@@ -131,7 +131,7 @@ const AddCoupon: React.FC<AddCouponProps> = () => {
             />
           </div>
           <div className="flex justify-end my-4">
-            <Button type="submit">Thêm phiếu giảm giá</Button>
+            <Button type="submit">Lưu</Button>
           </div>
         </section>
       </form>

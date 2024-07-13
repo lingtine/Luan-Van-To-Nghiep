@@ -1,5 +1,6 @@
 import { useEffect, useState, memo } from "react";
-import { Input, Textarea, Button } from "@material-tailwind/react";
+import { Input, Textarea } from "@material-tailwind/react";
+import { Button } from "@mui/material";
 
 import { toast } from "react-toastify";
 import Modal from "components/modal/modal";
@@ -92,7 +93,9 @@ function ModalAddCategory({ onToggle }: { onToggle: () => void }) {
         </div>
         {content}
         <div className="flex justify-end my-4">
-          <Button type="submit">Thêm nhóm danh mục</Button>
+          <Button variant="contained" color="success" type="submit">
+          Lưu
+          </Button>
         </div>
       </form>
     </Modal>

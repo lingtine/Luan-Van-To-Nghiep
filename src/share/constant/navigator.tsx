@@ -74,7 +74,7 @@ const navigation: INavigator[] = [
       },
       {
         label: "Xuất, Nhập kho",
-        href: "report",
+        href: "reports",
       },
 
       {
@@ -113,13 +113,17 @@ const navigation: INavigator[] = [
         label: "Thống kê sản phẩm",
         href: "report-product",
       },
+      // {
+      //   label: "Sản phẩm được yêu thích",
+      //   href: "favorite-report",
+      // },
       {
-        label: "Sản phẩm được yêu thích",
-        href: "favorite-report",
+        label: "Thống kê Nhập, Xuất, Tồn",
+        href: "stock-report",
       },
       {
-        label: "Thống kê kho",
-        href: "report-warehouse",
+        label: "Thống kê khách hàng",
+        href: "customer-sale-report",
       },
     ],
   },

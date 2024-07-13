@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { Input, Textarea, Button } from "@material-tailwind/react";
 import { IBrand, IBrandInput } from "share/types/brand";
 import { useUpdateBrandMutation } from "redux/api/catalog/brand";
+import { Button as MUIButton } from "@mui/material";
 
 function ModalUpdateBrand({
   onToggle,
@@ -45,7 +46,7 @@ function ModalUpdateBrand({
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    console.log(dataForm)
     if (dataForm.name.trim().length === 0) {
       toast.error("Thông tin không hợp lệ");
     } else {
@@ -78,17 +79,22 @@ function ModalUpdateBrand({
           />
         </div>
         <div className="flex justify-end my-4 gap-4">
-          <Button
-            color="red"
+          <MUIButton
+            variant="contained"
+            color="error"
             onClick={() => {
               onToggle();
             }}
           >
             Huỷ
-          </Button>
-          <Button type="submit" disabled={!isUpdate}>
-            Chỉnh sửa
-          </Button>
+          </MUIButton>
+          <MUIButton
+            variant="contained"
+            type="submit"
+            disabled={!isUpdate}
+          >
+            Lưu
+          </MUIButton>
         </div>
       </form>
     </Modal>

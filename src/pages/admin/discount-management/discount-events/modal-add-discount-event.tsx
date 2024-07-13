@@ -1,10 +1,11 @@
 import React, { useEffect, useState, memo } from "react";
 import { toast } from "react-toastify";
-import { Input, Textarea, Button } from "@material-tailwind/react";
+import { Input, Textarea } from "@material-tailwind/react";
 
 import Modal from "components/modal/modal";
 import { IDiscountEventInput } from "share/types/discount-event";
 import { useCreateDiscountEventMutation } from "redux/api/discount/discount-event";
+import { Button } from "@mui/material";
 
 function ModalAddDiscountEvent({ onToggle }: { onToggle: () => void }) {
   const [add, { isSuccess }] = useCreateDiscountEventMutation();
@@ -34,9 +35,7 @@ function ModalAddDiscountEvent({ onToggle }: { onToggle: () => void }) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (
-      dataForm.name.trim().length === 0 
-    ) {
+    if (dataForm.name.trim().length === 0) {
       toast.error("Thông tin không hợp lệ");
     } else {
       add(dataForm);
@@ -71,7 +70,9 @@ function ModalAddDiscountEvent({ onToggle }: { onToggle: () => void }) {
         </div>
 
         <div className="flex justify-end my-4">
-          <Button type="submit">Thêm sự kiện giảm Giá </Button>
+          <Button color="success" variant="contained" type="submit">
+            Lưu
+          </Button>
         </div>
       </form>
     </Modal>

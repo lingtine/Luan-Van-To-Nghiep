@@ -25,10 +25,12 @@ const ModalUpdateCustomerAccount = ({
     { id: "Female", label: "Nữ" },
     { id: "Other", label: "Khác" },
   ];
-  const defaultGender = genderOptions.find((x:ISelected) => x.id === customer.gender);
+  const defaultGender = genderOptions.find(
+    (x: ISelected) => x.id === customer.gender
+  );
   const [gender, setGender] = useState<ISelected | undefined>(defaultGender);
-  const [birthday, setBirthday] = useState(customer.birthDay)
-  
+  const [birthday, setBirthday] = useState(customer.birthDay);
+
   const [formData, setFormData] = useState<IUpdateCustomer>({
     id: customer.id,
     name: customer.name,
@@ -50,7 +52,7 @@ const ModalUpdateCustomerAccount = ({
       <Modal onClose={onToggle}>
         <form
           onSubmit={handleSubmit}
-          className="flex-coljustify-between gap-10"
+          className="flex-col justify-between gap-10"
         >
           <div>
             <header className="text-2xl my-4 font-bold">
@@ -109,10 +111,9 @@ const ModalUpdateCustomerAccount = ({
                   onChange={(event) => {
                     setFormData(() => {
                       if (event.target.value) {
-                        console.log("🚀 ~ setFormData ~ event.target.value:", event.target.value)
                         return {
                           ...formData,
-                          birthDay: moment(event.target.value).toDate()
+                          birthDay: moment(event.target.value).toDate(),
                         };
                       }
                       return formData;
@@ -128,7 +129,7 @@ const ModalUpdateCustomerAccount = ({
           </div>
           <div className="w-full mt-4">
             <Button className="w-full" type="submit">
-              Cập nhật
+              Lưu
             </Button>
           </div>
         </form>

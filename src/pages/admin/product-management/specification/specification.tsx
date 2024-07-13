@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { Button, Spinner } from "@material-tailwind/react";
+import { Spinner } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import Pagination from "components/pagination/pagitnation";
 import { useGetSpecificationsQuery } from "redux/api/catalog/specification";
-import SpecificationTable from "./specification-table";
+import SpecificationTable from "./Component/SpecificationTable";
 import { ISpecificationTable } from "share/types/specification";
 import ModalAddSpecification from "./modal-add-specification";
+import { Button } from "@mui/material";
 
 const Specification = () => {
   const { index } = useParams();
@@ -31,7 +32,7 @@ const Specification = () => {
     }));
     content = (
       <>
-        <SpecificationTable data={updateData}></SpecificationTable>
+        <SpecificationTable rows={data.data}></SpecificationTable>
         <div className="flex justify-center my-8">
           <Pagination
             pageIndex={pageIndex}
@@ -53,7 +54,7 @@ const Specification = () => {
   return (
     <div className="px-4 ">
       <div className="flex justify-end my-4">
-        <Button onClick={handleToggle} className="flex gap-2 items-center">
+        <Button color="success" variant="contained" onClick={handleToggle} className="flex gap-2 items-center">
           <AiOutlinePlusCircle />
           Thêm đặc tả
         </Button>

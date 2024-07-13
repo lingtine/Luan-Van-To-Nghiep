@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Button, Spinner } from "@material-tailwind/react";
+import { Spinner } from "@material-tailwind/react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useGetSuppliersQuery } from "redux/api/warehouse/supplier";
 
-import SupplierTable from "./supplier-table";
+import SupplierTable from "./Components/SupplierTable";
 import { ISupplierTable } from "share/types/supplier";
 import ModalAddSupplier from "./modal-add-supplier";
+import Pagination from "components/pagination/pagitnation";
+import { Button } from "@mui/material";
 
 const Supplier = () => {
   const { data, isSuccess, isLoading } = useGetSuppliersQuery();
@@ -17,21 +19,17 @@ const Supplier = () => {
   };
 
   if (isSuccess) {
-    const updateData: ISupplierTable[] = data.data.map((item, index) => ({
-      ...item,
-      index: index + 1,
-    }));
     content = (
       <>
-        <SupplierTable data={updateData} />
-        {/* <div className="flex justify-center my-8">
+        <SupplierTable rows={data.data} />
+        <div className="flex justify-center my-8">
           <Pagination
-            pageIndex={pageIndex}
-            pageSize={pageSize}
-            totalCount={totalCount}
+            pageIndex={data.pageIndex}
+            pageSize={data.pageSize}
+            totalCount={data.totalCount}
             url="/admin/suppliers"
           />
-        </div> */}
+        </div>
       </>
     );
   } else if (isLoading) {
@@ -45,9 +43,13 @@ const Supplier = () => {
   return (
     <div className="px-4 ">
       <div className="flex justify-end my-4">
-        <Button className="flex gap-2 items-center">
-          <AiOutlinePlusCircle />
-          Thêm nhà cung cấp
+        <Button
+          color="success"
+          variant="contained"
+          className="flex gap-2 items-center"
+          onClick={() => setIsAdd(true)}
+        >
+          Thêm mới
         </Button>
       </div>
       {content}

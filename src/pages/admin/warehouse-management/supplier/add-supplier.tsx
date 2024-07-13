@@ -124,7 +124,7 @@ const AddSupplier: React.FC<AddSupplierProps> = () => {
             />
           </div>
           <div className="flex justify-end my-4">
-            <Button type="submit">Thêm nhà cung cấp</Button>
+            <Button type="submit">Lưu</Button>
           </div>
         </section>
       </form>

@@ -1,4 +1,6 @@
 import { Button, IconButton } from "@material-tailwind/react";
+import { Button as MUIButton } from "@mui/material";
+
 import React, { RefObject } from "react";
 import { useState, useRef } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
@@ -52,14 +54,15 @@ const UploadImage: React.FC<UploadImageProps> = ({ onChange }) => {
             accept=".jpg, .jpeg, .png"
             type="file"
           ></input>
-          <Button
-            color="blue"
+          <MUIButton
+          variant="contained"
+            color="info"
             className="flex items-center gap-4"
             onClick={handleUpload}
           >
             <AiOutlineCloudUpload className="text-xl" />
             Tải hình ảnh lên
-          </Button>
+          </MUIButton>
         </div>
       </div>
     );

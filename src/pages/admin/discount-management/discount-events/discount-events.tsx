@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import { Button, Spinner } from "@material-tailwind/react";
+import { Spinner } from "@material-tailwind/react";
 
 import { useGetDiscountEventsQuery } from "redux/api/discount/discount-event";
 import Pagination from "components/pagination/pagitnation";
 import { IDiscountEventTable } from "share/types/discount-event";
 import DiscountEventTable from "./discount-event-table";
 import ModalAddDiscountEvent from "./modal-add-discount-event";
+import DiscountTable from "./Components/DiscountTable";
+import { Button } from "@mui/material";
 
 const DiscountEvent = () => {
   const { index } = useParams();
@@ -25,13 +27,9 @@ const DiscountEvent = () => {
   if (isSuccess) {
     const { pageSize, pageIndex, totalCount } = data;
 
-    const updateData: IDiscountEventTable[] = data.data.map((item, index) => ({
-      ...item,
-      index: index + 1 + pageIndex * pageSize,
-    }));
     content = (
       <>
-        <DiscountEventTable data={updateData}></DiscountEventTable>
+        <DiscountTable rows={data.data}></DiscountTable>
         <div className="flex justify-center my-8">
           <Pagination
             pageIndex={pageIndex}
@@ -54,11 +52,13 @@ const DiscountEvent = () => {
     <div className="px-4 ">
       <div className="flex justify-end my-4">
         <Button
+          variant="contained"
+          color="success"
           onClick={() => setIsVisibleModalAdd(true)}
           className="flex gap-2 items-center"
         >
           <AiOutlinePlusCircle />
-          Thêm Sự Kiện
+          Thêm mới
         </Button>
       </div>
       {content}

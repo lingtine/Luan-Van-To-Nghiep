@@ -5,13 +5,17 @@ import {
   useOrderProcessingMutation,
 } from "redux/api/order/order";
 
-import { Button } from "@material-tailwind/react";
 import TableProductOrder from "./table-product-order";
 import InForAddressOrder from "./infor-address-order";
 import OrderInfo from "./order-infor";
 import { useReactToPrint } from "react-to-print";
 import ComponentToPrint from "./components/component-to-print";
-
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 interface OrderDetailProps {}
 
 const OrderDetail: React.FC<OrderDetailProps> = () => {
@@ -28,7 +32,8 @@ const OrderDetail: React.FC<OrderDetailProps> = () => {
     if (status === "Created") {
       renderButtonOrderProcessing = (
         <Button
-          color="yellow"
+          color="warning"
+          variant="contained"
           onClick={async () => {
             await changeOrderProcess(id);
             navigate(-1);
@@ -39,9 +44,7 @@ const OrderDetail: React.FC<OrderDetailProps> = () => {
       );
     } else if (status === "Delivered") {
       renderButtonOrderProcessing = (
-        <Button color="blue" ripple={false}>
-          Đã giao hàng thành công
-        </Button>
+        <Button color="success" variant="contained">Hoàn tất</Button>
       );
     }
   }
@@ -59,7 +62,7 @@ const OrderDetail: React.FC<OrderDetailProps> = () => {
         <div className="flex justify-between items-center px-8">
           <h3 className="text-3xl font-bold my-8">Đơn hàng chi tiết</h3>
           <div className="flex gap-4">
-            <Button onClick={handlePrint}>In Hoá Đơn</Button>
+            <Button variant="contained" onClick={handlePrint}>In Hoá Đơn</Button>
             {renderButtonOrderProcessing}
           </div>
         </div>

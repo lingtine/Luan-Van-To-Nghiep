@@ -1,13 +1,14 @@
 import React, { useEffect, useState, memo } from "react";
 import Modal from "components/modal/modal";
 import { toast } from "react-toastify";
-import { Input, Textarea, Button } from "@material-tailwind/react";
+import { Input, Textarea } from "@material-tailwind/react";
 
 import { useUpdateDiscountEventMutation } from "redux/api/discount/discount-event";
 import {
   IDiscountEvent,
   IDiscountEventInput,
 } from "share/types/discount-event";
+import { Button } from "@mui/material";
 
 function ModalUpdateCoupon({
   onToggle,
@@ -85,15 +86,17 @@ function ModalUpdateCoupon({
         </div>
         <div className="flex justify-end my-4 gap-4">
           <Button
-            color="red"
+          variant="contained"
+            color="error"
             onClick={() => {
               onToggle();
             }}
           >
             Huỷ
           </Button>
-          <Button type="submit" disabled={!isUpdate}>
-            Chỉnh sửa
+          <Button
+          variant="contained" color="success" type="submit" disabled={!isUpdate}>
+            Lưu
           </Button>
         </div>
       </form>

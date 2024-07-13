@@ -23,20 +23,28 @@ const SideBar: React.FC<SideBarProps> = () => {
     if (refreshToken) logout({ refreshToken });
   };
 
+  const handleClickAvt = () => {
+    navigate("/admin");
+  };
+
   return (
     <Card className="h-[calc(100vh-2rem)] my-4 ml-4 fixed w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 text-black">
-      <div className="mb-2 flex items-center gap-4 p-4">
-        <FaUserCircle className="text-5xl text-blue-gray-500" />
+      <div
+        className="mb-2 flex items-center gap-4 p-4 cursor-pointer"
+        onClick={handleClickAvt}
+      >
+        {user?.avatar ? (
+          <img
+            className="text-5xl text-blue-gray-500"
+            src={user?.avatar}
+            alt=""
+          />
+        ) : (
+          <FaUserCircle className="text-5xl text-blue-gray-500" />
+        )}
         <div>
           <Typography variant="h5" color="blue-gray">
             {user?.name || "user"}
-          </Typography>
-          <Typography
-            variant="small"
-            color="blue-gray"
-            className="font-semibold"
-          >
-            Employee
           </Typography>
         </div>
       </div>

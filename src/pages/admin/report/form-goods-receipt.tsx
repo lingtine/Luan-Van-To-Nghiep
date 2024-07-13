@@ -1,5 +1,5 @@
 import React from "react";
-import { Textarea, Button } from "@material-tailwind/react";
+import { Textarea } from "@material-tailwind/react";
 import { useCreateReportMutation } from "redux/api/warehouse/report";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
@@ -10,6 +10,7 @@ import SelectBoxDataSupplier from "./select-box-supplier";
 import GetProducts from "./get-products";
 import { IProductDetail } from "share/types/product";
 import { IReportInput } from "share/types/report";
+import { Button } from "@mui/material";
 interface FormGoodsReceiptProps {}
 export interface IListProduct extends IProductDetail {
   quality: number;
@@ -94,7 +95,7 @@ const FormGoodsReceipt: React.FC<FormGoodsReceiptProps> = () => {
           />
         </div>
         <div className="flex justify-end my-4">
-          <Button type="submit">Thêm phiếu nhập hàng</Button>
+          <Button variant="contained" type="submit">Lưu</Button>
         </div>
       </section>
     </form>

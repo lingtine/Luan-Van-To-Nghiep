@@ -1,20 +1,19 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 import { Button, Spinner } from "@material-tailwind/react";
+import React, { useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import { useParams } from "react-router-dom";
+import { Button as MUIButton, makeStyles } from "@mui/material";
 
 import Pagination from "components/pagination/pagitnation";
-import { IBrandTable } from "share/types/brand";
 import { useGetBrandsQuery } from "redux/api/catalog/brand";
-import BrandTable from "./brand-table";
+import BrandTable from "./Components/BrandTable";
 import ModalAddBrand from "./modal-add-brand";
-import { useSearchParams } from "react-router-dom";
 
 const Brand = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { index } = useParams();
   const [isVisible, setIsVisible] = useState(false);
   const { data, isSuccess, isLoading } = useGetBrandsQuery({
-    PageIndex: searchParams.get("pageIndex") || "0",
+    PageIndex: index || "0",
   });
 
   const handleToggle = () => {
@@ -25,14 +24,10 @@ const Brand = () => {
 
   if (isSuccess) {
     const { pageSize, pageIndex, totalCount } = data;
-    const updateData: IBrandTable[] = data.data.map((item, index) => ({
-      ...item,
-      index: index + 1 + pageIndex * pageSize,
-    }));
-
+   
     content = (
       <>
-        <BrandTable data={updateData} />
+        <BrandTable rows={data.data} />
         <div className="flex justify-center my-8">
           <Pagination
             pageIndex={pageIndex}
@@ -55,10 +50,10 @@ const Brand = () => {
   return (
     <div className="px-4 ">
       <div className="flex justify-end my-4">
-        <Button className="flex gap-2 items-center" onClick={handleToggle}>
+        <MUIButton variant="contained" color="success" className="flex gap-2 items-center" onClick={handleToggle}>
           <AiOutlinePlusCircle />
           Thêm Thương hiệu
-        </Button>
+        </MUIButton>
       </div>
       {content}
       {isVisible && <ModalAddBrand onToggle={handleToggle} />}

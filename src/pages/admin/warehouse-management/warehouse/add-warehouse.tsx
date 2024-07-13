@@ -120,7 +120,7 @@ const AddWarehouse = () => {
             />
           </div>
           <div className="flex justify-end my-4">
-            <Button type="submit">Thêm kho</Button>
+            <Button type="submit">Lưu</Button>
           </div>
         </section>
       </form>

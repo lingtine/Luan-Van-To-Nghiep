@@ -17,9 +17,11 @@ const TileHeaderAdmin: {
   discountEvents: "Sự kiện giảm giá",
   coupons: "Phiếu giảm giá",
   "report-order": "Báo cáo đơn hàng",
-  "report-product": "Báo cáo sản phẩm",
-  "favorite-report": "Báo cáo sản phẩm ưu thích",
+  "report-product": "Thống kê sản phẩm",
   "report-warehouse": "Báo cáo kho",
+  "stock-report": "Thống kê Nhập, Xuất, Tồn",
+  "order-report": "Thống kê doanh thu",
+  "customer-sale-report": "Thống kê khách hàng",
   filters: "Lọc",
 };
 

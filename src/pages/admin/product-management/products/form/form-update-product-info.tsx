@@ -1,4 +1,5 @@
-import { Button, IconButton, Input } from "@material-tailwind/react";
+import { Input } from "@material-tailwind/react";
+import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import {
   useRemoveSpecificationForProductMutation,
@@ -8,7 +9,7 @@ import {
 import {
   IProductDetail,
   IProductInput,
-  IProductSpecification
+  IProductSpecification,
 } from "share/types/product";
 
 import UploadImage from "components/upload-image/upload-image";
@@ -34,7 +35,6 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
     product.productSpecifications
   );
   const [description, setDescription] = useState(product.description);
-
 
   const [removeSpecification] = useRemoveSpecificationForProductMutation();
   const [updateProduct, result] = useUpdateProductMutation();
@@ -86,8 +86,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
   };
 
   const handleChangeDescription = (content: string) => {
-    console.log("🚀 ~ handleChangeDescription ~ content:", content)
-    setDescription(content)
+    setDescription(content);
     setDataForm(() => {
       return { ...dataForm, description: content };
     });
@@ -241,6 +240,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
           <div className="w-full text-right">
             {!isUpload && (
               <Button
+                variant="contained"
                 onClick={() => {
                   setIsUpload(true);
                 }}
@@ -252,7 +252,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
           </div>
         </div>
       </div>
-      <div>
+      <div className="mt-4">
         <CKEditor
           editor={CustomEditorBuild}
           data={description}
@@ -278,7 +278,9 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
           <div className="flex-col basis-1/2 items-start mt-4">
             <div className="flex justify-between">
               <h4 className="text-xl font-semibold">Thông số kỹ thuật</h4>
-              <Button onClick={handleOpen}>Thêm thông số</Button>
+              <Button variant="contained" onClick={handleOpen}>
+                Thêm thông số
+              </Button>
             </div>
 
             <div className="my-4 overflow-y-scroll max-h-[400px]">
@@ -294,14 +296,16 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
 
                     <p>{item.specificationValue}</p>
 
-                    <IconButton
+                    <Button
+                      variant="contained"
+                      color="error"
                       className="min-w-[40px]"
                       onClick={() =>
                         handleRemoveSpecification(item.specificationId)
                       }
                     >
                       <CiTrash />
-                    </IconButton>
+                    </Button>
                   </div>
                 );
               })}
@@ -323,8 +327,8 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
 
         {/* Submit */}
         <div className="text-right">
-          <Button disabled={!isUpdate} type="submit">
-            Cập nhật
+          <Button variant="contained" disabled={!isUpdate} type="submit">
+            Lưu
           </Button>
         </div>
       </div>

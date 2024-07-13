@@ -75,9 +75,7 @@ const brandApi = createApi({
           headers: {
             "Content-Type": "multipart/form-data;",
           },
-          body: {
-            data: bodyFormData,
-          },
+          body:bodyFormData,
           formData: true,
         };
       },

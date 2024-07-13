@@ -1,7 +1,7 @@
 import React, { useEffect, useState, memo } from "react";
 import { toast } from "react-toastify";
-import { Input, Textarea, Button } from "@material-tailwind/react";
-
+import { Input, Textarea } from "@material-tailwind/react";
+import { Button } from "@mui/material";
 import Modal from "components/modal/modal";
 import { ISpecification, ISpecificationInput } from "share/types/specification";
 import { useUpdateSpecificationMutation } from "redux/api/catalog/specification";
@@ -77,15 +77,20 @@ function ModalUpdateSpecification({
         </div>
         <div className="flex justify-end my-4 gap-4">
           <Button
-            color="red"
+            variant="contained"
+            color="error"
             onClick={() => {
               onToggle();
             }}
           >
             Huỷ
           </Button>
-          <Button type="submit" disabled={!isUpdate}>
-            Chỉnh sửa
+          <Button
+            variant="contained"
+            type="submit"
+            disabled={!isUpdate}
+          >
+            Lưu
           </Button>
         </div>
       </form>
