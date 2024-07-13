@@ -6,6 +6,9 @@ FROM node:16 AS build
 # Set working directory
 WORKDIR /app
 
+# Increase Node.js memory limit
+ENV NODE_OPTIONS="--max-old-space-size=4096"
+
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
