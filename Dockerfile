@@ -1,26 +1,34 @@
-    # 1. For build React app
-    FROM node:lts AS development
-    # Set working directory
-    WORKDIR /app
-    #
-    COPY package.json /app/package.json
-    COPY package-lock.json /app/package-lock.json
-    # Same as npm install
-    RUN npm ci
-    COPY . /app
-    ENV CI=true
-    ENV PORT=3000
-    CMD [ "npm", "start" ]
-    FROM development AS build
-    RUN npm run build
-    # 2. For Nginx setup
-    FROM nginx:alpine
-    # Copy config nginx
-    COPY --from=build /app/.nginx/nginx.conf /etc/nginx/conf.d/default.conf
-    WORKDIR /usr/share/nginx/html
-    # Remove default nginx static assets
-    RUN rm -rf ./*
-    # Copy static assets from builder stage
-    COPY --from=build /app/build .
-    # Containers run nginx with global directives and daemon off
-    ENTRYPOINT ["nginx", "-g", "daemon off;"]
+# Frontend/Dockerfile
+
+# Stage 1: Build the React app
+FROM node:16 AS build
+
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Build the React app
+RUN npm run build
+
+# Stage 2: Serve the app using Nginx
+FROM nginx:alpine
+
+# Copy the build output from the first stage to the Nginx HTML directory
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Copy custom Nginx configuration
+COPY .nginx/default.conf /etc/nginx/conf.d/default.conf
+
+# Expose port 80 to allow outside access
+EXPOSE 80
+
+# Command to run Nginx
+CMD ["nginx", "-g", "daemon off;"]
