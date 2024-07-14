@@ -56,7 +56,34 @@ const BrandFilter: React.FC<BrandFilterProps> = () => {
     <div>
       <h1 className="font-bold">Thương hiệu</h1>
       <List className="px-2 py-3 font-medium text-gray-900 space-y-4">
-        {content}
+        {data &&
+          data.map((brand) => (
+            <ListItem className="p-0" key={brand.id}>
+              <ListItemPrefix className="mr-3">
+                <Checkbox
+                  id={brand.id}
+                  crossOrigin=""
+                  onChange={() => {
+                    handleChange(brand.id);
+                  }}
+                  ripple={false}
+                  value={brand.id}
+                  className="hover:before:opacity-0"
+                  containerProps={{
+                    className: "p-0",
+                  }}
+                />
+              </ListItemPrefix>
+              <label
+                htmlFor={brand.id}
+                className="flex w-full cursor-pointer items-center px-3 py-2"
+              >
+                <Typography color="blue-gray" className="font-medium">
+                  {brand.name}
+                </Typography>
+              </label>
+            </ListItem>
+          ))}
       </List>
     </div>
   );

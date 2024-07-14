@@ -61,7 +61,7 @@ const About: React.FC = () => {
           </div>
           <div className="flex-[0_0_50%] max-w-[50%]">
             <img
-              src="images/about/out-story.png"
+              src="http://ecommerce.quochao.id.vn/http://ecommerce.quochao.id.vn/images/about/out-story.png"
               alt="slide"
               className="w-full"
             />

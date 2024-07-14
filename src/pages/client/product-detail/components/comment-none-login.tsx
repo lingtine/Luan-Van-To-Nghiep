@@ -36,9 +36,7 @@ const CommentNoneLogin: React.FC<CommentNoneLoginProps> = () => {
         <DialogHeader className="justify-center ">
           <span>TMember</span>
         </DialogHeader>
-        <DialogBody>
-          Vui lòng đăng nhập tài khoản TMember để đánh giá.
-        </DialogBody>
+        <DialogBody>Vui lòng đăng nhập tài khoản để đánh giá.</DialogBody>
         <DialogFooter className="flex justify-center gap-4">
           <Link to={"/register"}>
             <Button className="max-w-32 w-full">Đăng kí</Button>

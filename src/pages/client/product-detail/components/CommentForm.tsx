@@ -59,7 +59,10 @@ const CommentForm = ({ productId }: ICommentFormProps) => {
         <div className="my-4 flex flex-col items-center w-full justify-between ">
           <div className="flex flex-row items-center justify-between w-full mb-4">
             <Avatar
-              src={user?.avatar || "images/avatar-none-user.png"}
+              src={
+                user?.avatar ||
+                "https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg"
+              }
               alt={user?.name}
             />
 
