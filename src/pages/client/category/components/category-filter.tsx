@@ -1,10 +1,9 @@
 import { useGetCategoriesQuery } from "redux/api/catalog/category";
-import { useAppSelector, useAppDispatch } from "redux/store";
+import { useAppDispatch } from "redux/store";
 import { handleChangeCategory } from "redux/features/products/product-filter-slice";
 import { useMemo } from "react";
 import {
   Checkbox,
-  Card,
   List,
   ListItem,
   ListItemPrefix,

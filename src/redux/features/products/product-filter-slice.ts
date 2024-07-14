@@ -91,6 +91,8 @@ export const productFilterSlice = createSlice({
       state.brandIds = [];
       state.categoryIds = [];
       state.filterValues = [];
+      state.pageIndex = 0;
+      state.isFilter = false;
     },
 
     handleClearSort(state) {

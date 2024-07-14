@@ -7,7 +7,6 @@ import SpecificationFilter from "./specification-filter";
 import CategoryFilter from "./category-filter";
 
 import BrandFilter from "./brand-filter";
-import { useEffect } from "react";
 interface ICategorySidebarProps {
   groupId: string;
   onFilter: () => void;

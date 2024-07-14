@@ -1,10 +1,13 @@
 import { useEffect } from "react";
 
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Spinner } from "@material-tailwind/react";
 import { useFilterProductByParameterMutation } from "redux/api/catalog/product";
 import { useAppSelector, useAppDispatch } from "redux/store";
-import { handleChangePage } from "redux/features/products/product-filter-slice";
+import {
+  handleChangePage,
+  handleClearFilter,
+} from "redux/features/products/product-filter-slice";
 
 import PaginationClient from "components/pagination/pagitcation-client";
 import CategorySidebar from "./components/CategorySidebar";
@@ -13,7 +16,6 @@ import ProductSort from "./components/product-sort";
 
 const CategoryPage = () => {
   const { categoryId } = useParams();
-
   const { sort, brandIds, categoryIds, filterValues, pageIndex, pageSize } =
     useAppSelector((state) => state.productFilterSlice);
 
@@ -24,16 +26,6 @@ const CategoryPage = () => {
 
   const handleReload = () => {
     window.scrollTo({ top: 0 });
-
-    console.log({
-      groupId: categoryId,
-      categoryIds: categoryIds.length === 0 ? undefined : categoryIds,
-      filterValues: filterValues.length === 0 ? undefined : filterValues,
-      brandIds: brandIds.length === 0 ? undefined : brandIds,
-      pageIndex: pageIndex,
-      pageSize: pageSize,
-      sort: sort?.value,
-    });
     if (categoryId) {
       filterProductByParameter({
         groupId: categoryId,
@@ -46,9 +38,13 @@ const CategoryPage = () => {
       });
     }
   };
-
+  useEffect(() => {
+    handleReload();
+    console.log(sort);
+  }, [pageIndex, sort]);
   useEffect(() => {
     if (categoryId) {
+      handleClearFilter();
       filterProductByParameter({
         groupId: categoryId,
         pageIndex: 0,
