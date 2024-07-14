@@ -101,7 +101,14 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path="/login-admin" element={<LoginAdminPage />}></Route>
-      <Route path="/admin/" element={<AdminLayout />}>
+      <Route
+        path="/admin/"
+        element={
+          <AuthGuard>
+            <AdminLayout />
+          </AuthGuard>
+        }
+      >
         <Route index element={<DashboardAdminPage />}></Route>
         <Route path="orders" element={<OrdersAdminPage />}></Route>
         <Route path="orders/:index" element={<OrdersAdminPage />}></Route>
