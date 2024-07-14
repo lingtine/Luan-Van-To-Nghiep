@@ -21,7 +21,7 @@ const ContactPage: React.FC<ContactPageProps> = () => {
       <div className="flex">
         <img
           className="flex-[0_0_40%] max-w-[40%]"
-          src="http://ecommerce.quochao.id.vn/http://ecommerce.quochao.id.vn/images/contact/contact.png"
+          src="http://ecommerce.quochao.id.vn/images/contact/contact.png"
           alt="contact"
         />
         <FormContact />

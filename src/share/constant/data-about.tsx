@@ -43,19 +43,19 @@ const dataUser: {
 }[] = [
   {
     id: Math.random().toString(),
-    imageUrl: "http://ecommerce.quochao.id.vn/images/about/tom-cruise.png",
+    imageUrl: "images/about/tom-cruise.png",
     name: "Tom Cruise",
     role: "Người sáng lập & Chủ tịch",
   },
   {
     id: Math.random().toString(),
-    imageUrl: "http://ecommerce.quochao.id.vn/images/about/Emma-watson.png",
+    imageUrl: "images/about/Emma-watson.png",
     name: "Emma Watson",
     role: "Giám đốc điều hành",
   },
   {
     id: Math.random().toString(),
-    imageUrl: "http://ecommerce.quochao.id.vn/images/about/will-smith.png",
+    imageUrl: "images/about/will-smith.png",
     name: "Will Smith",
     role: "Người thiết kế sản phẩm",
   },
