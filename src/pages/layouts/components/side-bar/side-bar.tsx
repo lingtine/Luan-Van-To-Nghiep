@@ -20,6 +20,9 @@ const SideBar: React.FC<SideBarProps> = () => {
     }
   }, [isSuccess, navigate]);
   const handleLogout = () => {
+    console.log("first");
+    console.log("🚀 ~ handleLogout ~ refreshToken:", refreshToken);
+
     if (refreshToken) logout({ refreshToken });
   };
 
@@ -59,7 +62,7 @@ const SideBar: React.FC<SideBarProps> = () => {
           onClick={handleLogout}
         >
           <IoExitOutline />
-          <span>Logout</span>
+          <span>Đăng xuất</span>
         </button>
       </div>
     </Card>

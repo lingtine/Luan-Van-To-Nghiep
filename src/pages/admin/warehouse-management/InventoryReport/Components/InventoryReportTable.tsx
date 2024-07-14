@@ -21,6 +21,8 @@ interface IInventoryReportProps {
 }
 
 const InventoryReportTable = ({ rows }: IInventoryReportProps) => {
+  console.log("🚀 ~ rows:", rows);
+
   const [approveReport] = useApproveReportMutation();
   const [cancelReport] = useCancelReportMutation();
   const [inspectReport] = useInspectReportMutation();

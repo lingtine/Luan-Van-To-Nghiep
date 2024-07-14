@@ -69,7 +69,7 @@ const FormRegister = () => {
             onChange={handleChange}
             value={dataForm.name}
             name="name"
-            label="Name"
+            label="Tên"
             crossOrigin={""}
           />
           <Input
@@ -83,7 +83,7 @@ const FormRegister = () => {
             onChange={handleChange}
             value={dataForm.password}
             name="password"
-            label="Password"
+            label="Mật khẩu"
             type="password"
             crossOrigin={""}
           />
