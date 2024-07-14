@@ -114,7 +114,7 @@ const orderApi = createApi({
         body: data,
       }),
     }),
-    getOrdersByCustomer: builder.query<IOrder[], void>({
+    getOrdersByCustomer: builder.query<IOrderDetail[], void>({
       query: () => ({
         url: "/orders/orders/customer",
         method: "GET",
@@ -146,10 +146,7 @@ const orderApi = createApi({
         return response;
       },
     }),
-    getCustomerSaleReport: builder.query<
-      any,
-      { start: string; end: string }
-    >({
+    getCustomerSaleReport: builder.query<any, { start: string; end: string }>({
       query: (param: { start: string; end: string }) => ({
         url: `/orders/orders/GetCustomerSales?StartDate=${param.start}&EndDate=${param.end}`,
         method: "GET",

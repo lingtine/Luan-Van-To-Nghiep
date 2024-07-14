@@ -46,7 +46,6 @@ function ModalUpdateBrand({
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(dataForm)
     if (dataForm.name.trim().length === 0) {
       toast.error("Thông tin không hợp lệ");
     } else {

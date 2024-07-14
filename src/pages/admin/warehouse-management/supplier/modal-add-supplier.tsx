@@ -37,7 +37,6 @@ function ModalAddSupplier({ onToggle }: { onToggle: () => void }) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-console.log('formData :>> ', dataForm);
     if (
       !dataForm.name.trim().length ||
       !dataForm.email.trim().length ||

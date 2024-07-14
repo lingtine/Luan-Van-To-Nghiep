@@ -47,6 +47,7 @@ import {
   ReportOrderPage,
   AccountLayout,
   AccountAddressPage,
+  AccountOrderDetailPage,
   AccountOrderPage,
   AccountPage,
   ProductDetailPage,
@@ -85,6 +86,10 @@ const router = createBrowserRouter(
           <Route path="account" element={<AccountLayout />}>
             <Route index element={<AccountPage />}></Route>
             <Route path="orders" element={<AccountOrderPage />}></Route>
+            <Route
+              path="orders/order-detail/:orderId"
+              element={<AccountOrderDetailPage />}
+            ></Route>
             <Route path="address" element={<AccountAddressPage />}></Route>
             <Route path="wishlist" element={<CustomerWishlistPage />}></Route>
           </Route>

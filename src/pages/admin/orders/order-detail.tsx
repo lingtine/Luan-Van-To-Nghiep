@@ -7,18 +7,23 @@ import {
 
 import TableProductOrder from "./table-product-order";
 import InForAddressOrder from "./infor-address-order";
-import OrderInfo from "./order-infor";
+// import OrderInfo from "./order-infor";
 import { useReactToPrint } from "react-to-print";
 import ComponentToPrint from "./components/component-to-print";
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-interface OrderDetailProps {}
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import OrderInfo from "./components/OrderInfo";
+interface OrderDetailProps {
+  isCustomer?: boolean;
+}
 
-const OrderDetail: React.FC<OrderDetailProps> = () => {
+const OrderDetail: React.FC<OrderDetailProps> = ({
+  isCustomer,
+}: OrderDetailProps) => {
   const navigate = useNavigate();
   const { orderId } = useParams();
   const [changeOrderProcess] = useOrderProcessingMutation();
@@ -44,7 +49,9 @@ const OrderDetail: React.FC<OrderDetailProps> = () => {
       );
     } else if (status === "Delivered") {
       renderButtonOrderProcessing = (
-        <Button color="success" variant="contained">Hoàn tất</Button>
+        <Button color="success" variant="contained">
+          Hoàn tất
+        </Button>
       );
     }
   }
@@ -53,38 +60,42 @@ const OrderDetail: React.FC<OrderDetailProps> = () => {
     content: () => componentRef.current,
   });
 
-  return (
-    <div className="container px-8">
-      <div className="flex-[0_0_100%] max-w-[100%]">
-        <div className="hidden">
-          <ComponentToPrint data={data} ref={componentRef} />
-        </div>
-        <div className="flex justify-between items-center px-8">
-          <h3 className="text-3xl font-bold my-8">Đơn hàng chi tiết</h3>
-          <div className="flex gap-4">
-            <Button variant="contained" onClick={handlePrint}>In Hoá Đơn</Button>
-            {renderButtonOrderProcessing}
-          </div>
-        </div>
-      </div>
-      <div className="flex-[0_0_100%] max-w-[100%] flex gap-4">
-        <div className="flex-[0_0_66.66666%] max-w-[66.66666%] flex flex-col ">
-          {isSuccess && (
-            <>
-              <TableProductOrder data={data.cart.items} />
-              <InForAddressOrder deliveryInfo={data.deliveryInfo} />
-            </>
-          )}
-          {}
-        </div>
-        <div className="flex-[0_0_33.33333%] max-w-[33.33333%]">
-          {isSuccess && (
-            <OrderInfo timeCreate={data.createAt} amount={data.amount} />
-          )}
-        </div>
-      </div>
-    </div>
-  );
+  // return (
+  //   <div className="container px-8">
+  //     <div className="flex-[0_0_100%] max-w-[100%]">
+  //       <div className="hidden">
+  //         <ComponentToPrint data={data} ref={componentRef} />
+  //       </div>
+  //       <div className="flex justify-between items-center px-8">
+  //         <h3 className="text-3xl font-bold my-8">Đơn hàng chi tiết</h3>
+  //         <div className="flex gap-4">
+  //           <Button variant="contained" onClick={handlePrint}>
+  //             In Hoá Đơn
+  //           </Button>
+  //           {renderButtonOrderProcessing}
+  //         </div>
+  //       </div>
+  //     </div>
+  //     <div className="flex-[0_0_100%] max-w-[100%] flex gap-4">
+  //       <div className="flex-[0_0_66.66666%] max-w-[66.66666%] flex flex-col ">
+  //         {isSuccess && (
+  //           <>
+  //             <TableProductOrder data={data.cart.items} />
+  //             <InForAddressOrder deliveryInfo={data.deliveryInfo} />
+  //           </>
+  //         )}
+  //         {}
+  //       </div>
+  //       <div className="flex-[0_0_33.33333%] max-w-[33.33333%]">
+  //         {isSuccess && (
+  //           <OrderInfo timeCreate={data.createAt} amount={data.amount} />
+  //         )}
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
+
+  return <OrderInfo isCustomer={isCustomer} />;
 };
 
 export default OrderDetail;

@@ -1,9 +1,9 @@
 import React from "react";
 import Table from "components/table/table";
-import { IOrder } from "share/types/order";
+import { IOrder, IOrderDetail } from "share/types/order";
 import { Button } from "@material-tailwind/react";
 interface TableOrderProps {
-  data: IOrder[];
+  data: IOrderDetail[];
 }
 
 const TableOrder: React.FC<TableOrderProps> = ({ data }) => {

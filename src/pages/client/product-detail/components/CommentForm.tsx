@@ -1,4 +1,5 @@
-import { Button, Rating, Textarea, Avatar } from "@material-tailwind/react";
+import { Rating, Textarea, Avatar } from "@material-tailwind/react";
+
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useAddReviewProductMutation } from "redux/api/catalog/review";
@@ -6,6 +7,7 @@ import { useAppSelector } from "redux/store";
 import { IAddReviewReq } from "redux/api/catalog/review";
 import { ICustomerDetail } from "redux/api/types";
 import CommentNoneLogin from "./comment-none-login";
+import { Button } from "@mui/material";
 interface ICommentFormProps {
   isChild: boolean;
   productId: string;
@@ -83,7 +85,8 @@ const CommentForm = ({ productId }: ICommentFormProps) => {
             <div className="text-right">
               <Button
                 type="submit"
-                size="sm"
+                color="info"
+                variant="contained"
                 className="px-6 py-2 font-medium text-center text-white bg-primary-3-700 rounded-lg focus:ring-4
               focus:ring-primary-3-200 dark:focus:ring-primary-3-900 hover:bg-primary-3-800
                 items-center"

@@ -2,13 +2,14 @@ import Button from "@material-tailwind/react/components/Button";
 import Input from "@material-tailwind/react/components/Input";
 import Modal from "components/modal/modal";
 import UploadImage from "components/upload-image/upload-image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useUpdateProfileMutation } from "redux/api/auth/customer-api";
 import { ICustomerDetail, IUpdateCustomer, IUserDetail } from "redux/api/types";
 import moment from "moment";
 import SelectBox, { ISelected } from "components/select-box/select-box";
+import { toast } from "react-toastify";
 
 interface IModalUpdateCustomerAccountProps {
   customer: IUserDetail | ICustomerDetail;
@@ -29,7 +30,6 @@ const ModalUpdateCustomerAccount = ({
     (x: ISelected) => x.id === customer.gender
   );
   const [gender, setGender] = useState<ISelected | undefined>(defaultGender);
-  const [birthday, setBirthday] = useState(customer.birthDay);
 
   const [formData, setFormData] = useState<IUpdateCustomer>({
     id: customer.id,
@@ -41,7 +41,13 @@ const ModalUpdateCustomerAccount = ({
     image: new DataTransfer().files[0],
   } as IUpdateCustomer);
 
-  const [updateCustomerInfo] = useUpdateProfileMutation();
+  const [updateCustomerInfo, { isSuccess }] = useUpdateProfileMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Thao tác thành công");
+    }
+  }, [isSuccess]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();

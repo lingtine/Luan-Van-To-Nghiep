@@ -1,34 +1,21 @@
-import Button from "@mui/material/Button";
-import Chip from "@mui/material/Chip";
-import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { IOrderDetail } from "share/types/order";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import { IOrder, IOrderDetail } from "share/types/order";
+import Chip from "@mui/material/Chip";
 import { formatVND } from "utils/formatVND";
 import { Link } from "react-router-dom";
-import {
-  useGetOrderQuery,
-  useOrderProcessingMutation,
-} from "redux/api/order/order";
-interface IOrderTableProps {
-  data: IOrderDetail[];
+interface ICustomerOrderTableProps {
+  rows: IOrderDetail[];
 }
 
-const OrderTable = ({ data: rows }: IOrderTableProps) => {
-  console.log("🚀 ~ OrderTable ~ rows:", rows);
-  const status = [
-    { id: "Created", label: "Mới" },
-    { id: "Delivered", label: "Đã giao" },
-    { id: "Returned", label: "Đã trả lại" },
-    { id: "Canceled", label: "Đã hủy" },
-  ];
-
-  const [changeOrderProcess] = useOrderProcessingMutation();
-
+const CustomerOrderTable = ({ rows }: ICustomerOrderTableProps) => {
+  console.log("🚀 ~ CustomerOrderTable ~ rows:", rows);
   const getStatus = (status: string) => {
     switch (status) {
       case "Delivered":
@@ -70,7 +57,6 @@ const OrderTable = ({ data: rows }: IOrderTableProps) => {
         );
     }
   };
-
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -102,17 +88,6 @@ const OrderTable = ({ data: rows }: IOrderTableProps) => {
               <TableCell align="center">{getStatus(row.status)}</TableCell>
               <TableCell align="center">
                 <div className="flex gap-4">
-                  {row.status !== "Delivered" && (
-                    <Button
-                      color="success"
-                      variant="contained"
-                      onClick={async () => {
-                        await changeOrderProcess(row.id);
-                      }}
-                    >
-                      Xử lý
-                    </Button>
-                  )}
                   <Button variant="contained" color="info">
                     <Link to={`order-detail/${row.id}`}>Chi tiết</Link>
                   </Button>
@@ -126,4 +101,4 @@ const OrderTable = ({ data: rows }: IOrderTableProps) => {
   );
 };
 
-export default OrderTable;
+export default CustomerOrderTable;

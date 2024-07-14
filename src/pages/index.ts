@@ -118,6 +118,9 @@ const ResetPasswordPage = lazy(
 const NotFoundPage = lazy(() => import("./client/not-found/not-found"));
 const CheckOutPage = lazy(() => import("./client/check-out/check-out"));
 const AccountPage = lazy(() => import("./client/account/account"));
+const AccountOrderDetailPage = lazy(
+  () => import("./client/account/components/CustomerOrderDetail")
+);
 const AccountAddressPage = lazy(
   () => import("./client/account/account-delivery")
 );
@@ -134,6 +137,7 @@ const AccountLayout = lazy(() => import("./layouts/account-layout"));
 export {
   AboutPage,
   AccountAddressPage,
+  AccountOrderDetailPage,
   AccountLayout,
   AccountOrderPage,
   AccountPage,

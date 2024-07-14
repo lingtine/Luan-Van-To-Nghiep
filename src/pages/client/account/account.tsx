@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useAppSelector } from "redux/store";
-import { Input, Button } from "@material-tailwind/react";
+import { Input } from "@material-tailwind/react";
+import { Button } from "@mui/material";
+
 import ModalUpdateCustomerAccount from "./components/ModalUpdateCustomerAccount";
 import ModalChangePassword from "./components/ModalChangePassword";
 
@@ -62,14 +64,14 @@ const AccountPage: React.FC<AccountPageProps> = () => {
           <div className="flex gap-4 my-4 items-center justify-end">
             <Button
               onClick={() => setIsOpenChangePassword(true)}
-              color="blue"
+              variant="contained"
               className="flex gap-2 items-center"
             >
               Đổi mật khẩu
             </Button>
             <Button
               onClick={() => setIsOpenUpdateProfile(true)}
-              color="blue"
+              variant="contained"
               className="flex gap-2 items-center"
             >
               Cập nhật thông tin

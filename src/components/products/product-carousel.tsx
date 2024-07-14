@@ -26,8 +26,8 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
     return (
       <div
         key={product.id}
-        className="lg:max-w-[25%] lg:flex-[0_0_25%] md:max-w-[50%] md:flex-[0_0_50%] flex-[0_0_100%]
-        md:px-4 max-w-full  flex-shrink-0   duration-700 ease-in-out h-fit"
+        className="max-w-[25%] flex-[0_0_25%]
+        px-4  flex-shrink-0   duration-700 ease-in-out h-fit"
         style={{
           transform: `translateX(calc(-${100 * carouselIndex}% ) )`,
         }}
@@ -47,7 +47,7 @@ const ProductsCarousel: React.FC<ProductsCarouselProps> = ({
       >
         <FiArrowLeftCircle />
       </button>
-      <div className="flex overflow-hidden cursor-auto lg:-mx-4 scroll-smooth">
+      <div className="w-full flex overflow-hidden cursor-auto lg:-mx-4 scroll-smooth">
         {renderProducts}
       </div>
       <button

@@ -1,3 +1,4 @@
+import { ICartDetail } from "./../../redux/api/types";
 import { IProductOrder } from "share/types/product";
 
 export interface IOrderInfo {
@@ -44,25 +45,10 @@ export interface IOrderDetail {
   cost: number;
   couponId: string;
   createAt: string;
-  cart: {
-    id: string;
-    customerId: string;
-    status: string;
-    items: {
-      id: string;
-      isActive: false;
-      isInStock: false;
-      likeCount: number;
-      name: string;
-      numberOfStar: number;
-      productId: string;
-      quantity: number;
-      unitPrice: number;
-      viewCount: number;
-    }[];
-  };
+  cart: ICartDetail;
   status: string;
 }
+
 export interface IOrderParams {
   CreateAt?: string;
   OrderStatus?: OrderStatus;

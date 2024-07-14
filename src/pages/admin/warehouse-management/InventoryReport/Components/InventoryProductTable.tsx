@@ -12,7 +12,6 @@ interface IInventoryProductTableProps {
   rows: IReportProduct[];
 }
 const InventoryProductTable = ({ rows }: IInventoryProductTableProps) => {
-  console.log("🚀 ~ InventoryProductTable ~ rows:", rows)
   return (
     <>
       <TableContainer component={Paper}>

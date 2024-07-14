@@ -24,7 +24,6 @@ function ModalUpdateCoupon({
   const [dataForm, setDataForm] = useState<ICouponInput>({
     ...data,
   });
-  console.log("🚀 ~ dataForm:", dataForm);
 
   useEffect(() => {
     if (result.isSuccess) {

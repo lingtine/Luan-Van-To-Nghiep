@@ -31,7 +31,6 @@ const CartInputQuantity: React.FC<CartInputQuantityProps> = ({ data }) => {
             unitPrice: data.unitPrice,
           },
         ]);
-        console.log(data);
       } else {
         deleteProduct(data.productId);
       }

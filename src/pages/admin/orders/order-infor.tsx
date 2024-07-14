@@ -1,32 +1,60 @@
-import React from "react";
+import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import { format } from "date-fns";
-import { useFormatPrice } from "hooks/use-format-price";
+import React from "react";
+import { IOrderDetail } from "share/types/order";
+import { formatVND } from "utils/formatVND";
+
 interface OrderInfoProps {
-  timeCreate: string;
-  amount: number;
+  order: IOrderDetail;
 }
 
-const OrderInfo: React.FC<OrderInfoProps> = ({ timeCreate, amount }) => {
-  const date = new Date(timeCreate);
+const OrderInfoDetail: React.FC<OrderInfoProps> = ({ order }) => {
+  const createdAt = new Date(order.createAt);
 
-  const [formatPrice] = useFormatPrice();
   return (
-    <div className="px-8 py-6 border bg-blue-50 rounded-xl shadow-xl">
-      <h3 className="text-xl font-semibold pb-4">Thông tin đơn hàng</h3>
-      <div className="flex justify-between my-2">
-        <h5 className="font-semibold">Ngày đặt đặt</h5>
-        <p>{format(date, "P")}</p>
-      </div>
-      <div className="flex justify-between my-2">
-        <h5 className="font-semibold">Thời gian đặt</h5>
-        <p>{format(date, "p")}</p>
-      </div>
-      <div className="flex justify-between my-2">
-        <h5 className="font-semibold">Tổng đơn hàng</h5>
-        <p>{formatPrice.format(amount)}</p>
-      </div>
-    </div>
+    <Box>
+      <Card sx={{ backgroundColor: "#e3f2fd" }}>
+        <CardContent>
+          <Typography variant="h6" gutterBottom>
+            Thông tin đơn hàng
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <Typography variant="body1">
+                <strong>Người đặt hàng:</strong> {order.deliveryInfo.fullName}
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="body1">
+                <strong>Đặt lúc:</strong> {format(createdAt, "p")}
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="body1">
+                <strong>Số lượng sản phẩm:</strong> {order.totalItems}
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="body1">
+                <strong>Tổng tiền:</strong> {formatVND(order.amount)}
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="body1">
+                <strong>Khuyến mãi:</strong>{" "}
+                {formatVND(order.amount - order.cost)}
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="body1">
+                <strong>Thành tiền:</strong> {formatVND(order.cost)}
+              </Typography>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 
-export default OrderInfo;
+export default OrderInfoDetail;

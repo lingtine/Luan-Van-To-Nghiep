@@ -19,7 +19,6 @@ const InventoryReportDetail = () => {
 
   const { id } = useParams();
   const { data, isSuccess } = useGetReportQuery(id ?? "");
-  console.log("🚀 ~ InventoryReportDetail ~ data:", data?.reportProducts);
   const getFromButton = (report: IReport) => {
     if(report.from){
       return report.fromName;

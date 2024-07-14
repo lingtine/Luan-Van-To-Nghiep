@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAppSelector } from "redux/store";
-import { Button } from "@material-tailwind/react";
+import { Button } from "@mui/material";
 import { ICustomerDetail } from "redux/api/types";
 
 import TableDeliveryInfo from "./components/table-deliveryInfo";
@@ -37,7 +37,9 @@ const AccountDelivery: React.FC<AccountDeliveryProps> = () => {
           </>
         )}
         <div>
-          <Button onClick={handleToggle}>Thêm địa chỉ</Button>
+          <Button variant="contained" onClick={handleToggle}>
+            Thêm địa chỉ
+          </Button>
         </div>
         {isOpen && <ModalAddDeliveryInfo onClose={handleToggle} />}
       </div>
