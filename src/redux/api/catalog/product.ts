@@ -243,7 +243,7 @@ const productApi = createApi({
 
     filterProductByParameter: builder.mutation({
       query: (parameters: IFilterProductParameter) => ({
-        url: "/catalogs/products/GetProductByParams",
+        url: "/catalogs/products/GetProductByParamsV2",
         body: parameters,
         method: "POST",
       }),
