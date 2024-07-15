@@ -94,6 +94,9 @@ export const productFilterSlice = createSlice({
       state.pageIndex = 0;
       state.isFilter = false;
     },
+    handleClearAll() {
+      return initialState;
+    },
 
     handleClearSort(state) {
       state.sort = undefined;
@@ -111,4 +114,5 @@ export const {
   handleClearFilter,
   handleClearSort,
   handleChangePage,
+  handleClearAll,
 } = productFilterSlice.actions;

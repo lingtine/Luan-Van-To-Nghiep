@@ -1,30 +1,37 @@
 import { useEffect } from "react";
 
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Spinner } from "@material-tailwind/react";
 import { useFilterProductByParameterMutation } from "redux/api/catalog/product";
 import { useAppSelector, useAppDispatch } from "redux/store";
 import {
   handleChangePage,
-  handleClearFilter,
+  handleClearAll,
 } from "redux/features/products/product-filter-slice";
 
 import PaginationClient from "components/pagination/pagitcation-client";
 import CategorySidebar from "./components/CategorySidebar";
 import ProductList from "./components/product-list";
 import ProductSort from "./components/product-sort";
+import { ISort } from "share/types";
 
 const CategoryPage = () => {
   const { categoryId } = useParams();
-  const { sort, brandIds, categoryIds, filterValues, pageIndex, pageSize } =
-    useAppSelector((state) => state.productFilterSlice);
+  const {
+    sort,
+    brandIds,
+    categoryIds,
+    filterValues,
+    pageIndex: categoryPageIndex,
+    pageSize,
+  } = useAppSelector((state) => state.productFilterSlice);
 
   const dispatch = useAppDispatch();
 
   const [filterProductByParameter, result] =
     useFilterProductByParameterMutation();
 
-  const handleReload = () => {
+  const handleReload = (pageIndex?: number, sortOption?: ISort) => {
     window.scrollTo({ top: 0 });
     if (categoryId) {
       filterProductByParameter({
@@ -32,19 +39,17 @@ const CategoryPage = () => {
         categoryIds: categoryIds.length === 0 ? undefined : categoryIds,
         filterValues: filterValues.length === 0 ? undefined : filterValues,
         brandIds: brandIds.length === 0 ? undefined : brandIds,
-        pageIndex: pageIndex,
+        pageIndex:
+          typeof pageIndex === "undefined" ? categoryPageIndex : pageIndex,
         pageSize: pageSize,
-        sort: sort?.value,
+        sort: typeof sortOption === undefined ? sort?.value : sortOption?.value,
       });
     }
   };
-  useEffect(() => {
-    handleReload();
-    console.log(sort);
-  }, [pageIndex, sort]);
+
   useEffect(() => {
     if (categoryId) {
-      handleClearFilter();
+      dispatch(handleClearAll());
       filterProductByParameter({
         groupId: categoryId,
         pageIndex: 0,
@@ -68,6 +73,7 @@ const CategoryPage = () => {
             <PaginationClient
               onChange={(pageIndex: number) => {
                 dispatch(handleChangePage(pageIndex));
+                handleReload(pageIndex);
               }}
               pageIndex={data.pageIndex}
               pageSize={data.pageSize}
@@ -92,7 +98,7 @@ const CategoryPage = () => {
           <CategorySidebar onFilter={handleReload} groupId={categoryId || ""} />
         </div>
         <div className="flex-[0_0_100%] max-w-[100%] md:flex-[0_0_50%] md:max-w-[50%] xl:flex-[0_0_75%] xl:max-w-[75%] p-4">
-          <ProductSort />
+          <ProductSort onSort={handleReload} />
 
           {content}
         </div>

@@ -1,4 +1,3 @@
-import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -59,7 +58,6 @@ const ProductTable = ({ rows }: IProductTableProps) => {
           color="error"
           label="Hết hàng"
           variant="outlined"
-
         />
       );
     }
@@ -104,7 +102,11 @@ const ProductTable = ({ rows }: IProductTableProps) => {
                 <TableCell>
                   <div className="flex gap-4 justify-end">
                     <Link to={`/admin/products/product-detail/${row.id}`}>
-                      <Button variant="contained" color="info">
+                      <Button
+                        variant="contained"
+                        color="info"
+                        className="whitespace-nowrap"
+                      >
                         Chi tiết
                       </Button>
                     </Link>

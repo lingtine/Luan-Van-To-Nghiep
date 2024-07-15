@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Button, IconButton } from "@material-tailwind/react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
@@ -16,13 +16,16 @@ const PaginationClient: React.FC<PaginationClientProps> = ({
   totalNumber,
   onChange,
 }) => {
-  const maxSizePage = Math.floor(totalNumber / pageSize) + 1;
+  const maxSizePage =
+    totalNumber / pageSize === 0 ? 1 : Math.floor(totalNumber / pageSize) + 1;
   const getPagination = () => {
     const pages = [];
+    pages.push(1);
+    if (maxSizePage === 1) {
+      return pages;
+    }
     const startPage = Math.max(2, pageIndex - 2);
     const endPage = Math.min(maxSizePage - 1, pageIndex + 2);
-
-    pages.push(1);
 
     if (startPage > 2) {
       pages.push("...");
@@ -93,7 +96,7 @@ const PaginationClient: React.FC<PaginationClientProps> = ({
         variant="text"
         className="flex items-center gap-2 rounded-full"
         onClick={next}
-        disabled={pageIndex === maxSizePage || totalNumber < pageSize}
+        disabled={pageIndex + 1 === maxSizePage || totalNumber < pageSize}
       >
         Next
         <FaArrowRight strokeWidth={2} className="h-4 w-4" />

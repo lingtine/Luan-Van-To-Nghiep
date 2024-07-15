@@ -3,8 +3,6 @@ import Pagination from "components/pagination/pagitnation";
 import React, { useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
-
-import { useFormatPrice } from "hooks/use-format-price";
 import { useParams } from "react-router-dom";
 import {
   useDeleteProductMutation,
@@ -19,13 +17,9 @@ import {
 import ProductTable from "./Components/ProductTable";
 import { Button } from "@mui/material";
 
-interface IProductTable extends IProductDetail {
-  index: number;
-}
-
 const Products = () => {
   const { index } = useParams();
-  const [formatPrice] = useFormatPrice();
+
   const [productRemove, setProductRemove] = useState<IContentConfirm>();
   const { data, isSuccess, isLoading } = useGetProductsQuery({
     PageIndex: index,
@@ -69,7 +63,11 @@ const Products = () => {
     <div className="px-4 overflow-hidden">
       <div className="flex justify-end my-4 ">
         <Link to="/admin/products/add-product">
-          <Button color="success" variant="contained" className="flex gap-2 items-center">
+          <Button
+            color="success"
+            variant="contained"
+            className="flex gap-2 items-center"
+          >
             <AiOutlinePlusCircle />
             Thêm sản phẩm
           </Button>

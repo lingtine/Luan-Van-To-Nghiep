@@ -6,6 +6,8 @@ import {
   useUpdateProductMutation,
 } from "redux/api/catalog/product";
 
+import { useNavigate } from "react-router-dom";
+
 import {
   IProductDetail,
   IProductInput,
@@ -35,10 +37,16 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
     product.productSpecifications
   );
   const [description, setDescription] = useState(product.description);
-
+  const navigate = useNavigate();
   const [removeSpecification] = useRemoveSpecificationForProductMutation();
   const [updateProduct, result] = useUpdateProductMutation();
   const [isUpdate, setIsUpdate] = useState(false);
+
+  useEffect(() => {
+    if (result.isSuccess) {
+      navigate(-1);
+    }
+  }, [result.isSuccess]);
 
   const [dataForm, setDataForm] = useState<IProductInput>({
     id: product.id,

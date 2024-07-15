@@ -1,5 +1,5 @@
 import { useGetCategoriesQuery } from "redux/api/catalog/category";
-import { useAppDispatch } from "redux/store";
+import { useAppDispatch, useAppSelector } from "redux/store";
 import { handleChangeCategory } from "redux/features/products/product-filter-slice";
 import { useMemo } from "react";
 import {
@@ -16,6 +16,7 @@ interface CategoryFilterProps {
 
 const CategoryFilter: React.FC<CategoryFilterProps> = ({ groupId }) => {
   const dispatch = useAppDispatch();
+  const { categoryIds } = useAppSelector((state) => state.productFilterSlice);
   const { data, isSuccess } = useGetCategoriesQuery({
     GroupId: groupId,
     PageSize: 1000,
@@ -42,6 +43,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ groupId }) => {
                 onChange={() => {
                   handleChange(category.id);
                 }}
+                checked={categoryIds.includes(category.id)}
                 ripple={false}
                 className="hover:before:opacity-0"
                 containerProps={{
@@ -57,7 +59,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ groupId }) => {
       ));
     }
     return [];
-  }, [data, isSuccess]);
+  }, [data, isSuccess, categoryIds]);
 
   return (
     <div>

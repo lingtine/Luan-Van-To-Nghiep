@@ -17,6 +17,7 @@ const CategorySidebar = ({ groupId, onFilter }: ICategorySidebarProps) => {
   const dispatch = useAppDispatch();
   const handleClear = () => {
     dispatch(handleClearFilter());
+    onFilter();
   };
   return (
     <>
@@ -24,16 +25,17 @@ const CategorySidebar = ({ groupId, onFilter }: ICategorySidebarProps) => {
         <CategoryFilter groupId={groupId} />
         <BrandFilter />
         <SpecificationFilter groupId={groupId} />
-        <Button onClick={onFilter} disabled={!isFilter} fullWidth>
+        <Button
+          onClick={() => {
+            onFilter();
+          }}
+          disabled={!isFilter}
+          fullWidth
+        >
           Tim kiếm
         </Button>
       </Card>
-      <Button
-        onClick={handleClear}
-        className="mt-4"
-        disabled={isFilter}
-        fullWidth
-      >
+      <Button onClick={handleClear} className="mt-4" fullWidth>
         Xoá bộ lọc
       </Button>
     </>

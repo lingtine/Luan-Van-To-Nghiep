@@ -1,5 +1,5 @@
 import { useGetFilterByGroupIdQuery } from "redux/api/catalog/filter";
-import { useAppDispatch } from "redux/store";
+import { useAppDispatch, useAppSelector } from "redux/store";
 import { handleChangeFilter } from "redux/features/products/product-filter-slice";
 import { useMemo } from "react";
 import {
@@ -17,6 +17,7 @@ const SpecificationFilter: React.FC<SpecificationFilterProps> = ({
   groupId,
 }) => {
   const dispatch = useAppDispatch();
+  const { filterValues } = useAppSelector((state) => state.productFilterSlice);
   const { data, isSuccess } = useGetFilterByGroupIdQuery(groupId);
 
   const content = useMemo(() => {
@@ -47,6 +48,11 @@ const SpecificationFilter: React.FC<SpecificationFilterProps> = ({
                   onChange={() => {
                     handleChange(value);
                   }}
+                  checked={filterValues.some(
+                    (specification) =>
+                      specification.specificationId ===
+                        filter.specificationId && specification.value === value
+                  )}
                   className="hover:before:opacity-0"
                   containerProps={{
                     className: "p-0",
@@ -71,7 +77,7 @@ const SpecificationFilter: React.FC<SpecificationFilterProps> = ({
       });
     }
     return [];
-  }, [data, dispatch, isSuccess]);
+  }, [data, dispatch, isSuccess, filterValues]);
 
   return (
     <div>
