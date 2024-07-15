@@ -16,9 +16,10 @@ import {
 } from "redux/api/order/order";
 interface IOrderTableProps {
   data: IOrderDetail[];
+  isDashboard?:boolean;
 }
 
-const OrderTable = ({ data: rows }: IOrderTableProps) => {
+const OrderTable = ({ data: rows, isDashboard }: IOrderTableProps) => {
   console.log("🚀 ~ OrderTable ~ rows:", rows);
   const status = [
     { id: "Created", label: "Mới" },
@@ -114,7 +115,7 @@ const OrderTable = ({ data: rows }: IOrderTableProps) => {
                     </Button>
                   )}
                   <Button variant="contained" color="info">
-                    <Link to={`order-detail/${row.id}`}>Chi tiết</Link>
+                    <Link to={isDashboard ? `orders/order-detail/${row.id}` : `/order-detail/${row.id}`}>Chi tiết</Link>
                   </Button>
                 </div>
               </TableCell>

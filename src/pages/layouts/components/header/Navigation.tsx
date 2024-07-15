@@ -83,7 +83,7 @@ const Navigation: React.FC<NavigationProps> = ({
                 src={
                   user.avatar
                     ? user.avatar
-                    : "http://ecommerce.quochao.id.vn/images/avatar-none-user.png"
+                    : "/images/avatar-none-user.png"
                 }
               />
             </MenuHandler>
@@ -113,7 +113,7 @@ const Navigation: React.FC<NavigationProps> = ({
             <Avatar
               className="cursor-pointer w-12"
               size="sm"
-              src="http://ecommerce.quochao.id.vn/images/avatar-none-user.png"
+              src="images/avatar-none-user.png"
             />
           </Link>
         )}

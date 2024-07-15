@@ -66,7 +66,7 @@ const TableNewOrder: React.FC<TableNewOrderProps> = () => {
     // }));
     content = (
       <>
-        <OrderTable data={data.data} />
+        <OrderTable isDashboard={true} data={data.data} />
       </>
     );
   } else if (isLoading) {

@@ -3,16 +3,16 @@ import { IProductReview } from "share/types/product";
 interface CommentProps {
   review: IProductReview;
 }
-
 const Comment = ({ review }: CommentProps) => {
   return (
     <div className="flex flex-col border border-gray-300 rounded-lg overflow-hidden m-4 p-4 bg-[#f9fafb]">
       <div className="flex justify-between items-center mx-2">
         <img
-          className="w-10 h-10 rounded-full"
+          className="w-11 h-11 rounded-full"
           src={
-            review.reviewUser.imageUrl ??
-            "https://static.wixstatic.com/media/e2ca49_dc12ad04d0724333b06a8a15a0d77eed~mv2.jpg/v1/fill/w_311,h_311,al_c,lg_1,q_80,enc_auto/default-avatar-profile-icon-vector-260nw-1745180411_edited.jpg"
+            review.reviewUser.imageUrl.length > 0
+              ? review.reviewUser.imageUrl
+              : "/images/avatar-none-user.png"
           }
           alt=""
         />
