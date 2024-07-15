@@ -58,12 +58,13 @@ const CommentForm = ({ productId }: ICommentFormProps) => {
       <form className="flex gap-4" onSubmit={(e) => handleSubmit(e)}>
         <div className="my-4 flex flex-col items-center w-full justify-between ">
           <div className="flex flex-row items-center justify-between w-full mb-4">
-            <Avatar
-              src={
-                user?.avatar || "/images/avatar-none-user.png"
-              }
-              alt={user?.name}
-            />
+            <div className="flex gap-4 items-center">
+              <Avatar
+                src={user?.avatar || "/images/avatar-none-user.png"}
+                alt={user?.name}
+              />
+              <h5 className="font-bold">{user?.name}</h5>
+            </div>
             <span className="flex items-center gap-4">
               <Rating
                 value={dataForm.numberOfStar}
