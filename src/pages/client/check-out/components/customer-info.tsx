@@ -6,7 +6,7 @@ import { useCreateOrderMutation } from "redux/api/order/order";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ICoupon } from "share/types/coupon";
-
+import { useGetDetailCartQuery } from "redux/api/cart/cart";
 interface CustomerInfoProps {
   user: ICustomerDetail;
   coupon: ICoupon | undefined;
@@ -18,6 +18,8 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ user, fn, coupon }) => {
   const [dataForm] = useState({
     ...user,
   });
+  const { refetch } = useGetDetailCartQuery();
+
   const [note, setNote] = useState("");
   const [address, setAddress] = useState<IDeliveryInfo | null>();
   const [delivery, setDelivery] = useState({
@@ -36,6 +38,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ user, fn, coupon }) => {
     if (result.isSuccess) {
       toast.success("Tạo đơn hàng thành công");
       fn();
+      refetch();
       navigate("/");
     }
   }, [result, fn, navigate]);

@@ -1,5 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-
+import { clearCart } from "redux/features/auth/cartSlice";
+import customerApi from "../auth/customer-api";
 import customFetchBase from "redux/api/customFetchBase";
 import {
   IOrder,
@@ -10,6 +11,7 @@ import {
   IOrderPage,
 } from "share/types/order";
 import { IOrderReportResponse, OrderReportType } from "share/types/report";
+import cartApi from "../cart/cart";
 
 const orderApi = createApi({
   reducerPath: "order",

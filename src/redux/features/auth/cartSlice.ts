@@ -11,7 +11,6 @@ export const cartSlide = createSlice({
   initialState,
   reducers: {
     clearCart: () => {
-      console.log(1);
       return initialState;
     },
     setCart: (state, action) => {
