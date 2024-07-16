@@ -95,10 +95,10 @@ td.ant-table-cell.min-content.ant-table-cell-with-append {
   width: 0 !important;
 }
 
-input[type='date']:in-range::-webkit-datetime-edit-year-field,
-input[type='date']:in-range::-webkit-datetime-edit-month-field,
-input[type='date']:in-range::-webkit-datetime-edit-day-field,
-input[type='date']:in-range::-webkit-datetime-edit-text {
+input[type="date"]:in-range::-webkit-datetime-edit-year-field,
+input[type="date"]:in-range::-webkit-datetime-edit-month-field,
+input[type="date"]:in-range::-webkit-datetime-edit-day-field,
+input[type="date"]:in-range::-webkit-datetime-edit-text {
   color: transparent;
 }
 
@@ -110,7 +110,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
@@ -128,7 +128,11 @@ button[disabled] {
   border-collapse: collapse;
 }
 
-.ant-table table .ant-table-thead input[aria-label='Select all'] ~ .ant-checkbox-inner {
+.ant-table
+  table
+  .ant-table-thead
+  input[aria-label="Select all"]
+  ~ .ant-checkbox-inner {
   border: 1px solid white;
   background-color: transparent;
 }
@@ -144,7 +148,7 @@ select.year-picker {
   -webkit-appearance: none;
   -moz-appearance: none;
   text-indent: 1px;
-  text-overflow: '';
+  text-overflow: "";
   width: 200px;
 }
 
@@ -173,9 +177,9 @@ select.year-picker {
   text-shadow: 0px 0px 1px black;
 }
 
-.ant-select-focused.ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(
-    .ant-pagination-size-changer
-  )
+.ant-select-focused.ant-select:not(.ant-select-disabled):not(
+    .ant-select-customize-input
+  ):not(.ant-pagination-size-changer)
   .ant-select-selector {
   border-color: #1890ff;
   box-shadow: 0 0 0 2px rgba(52, 114, 162, 0.3);
@@ -220,7 +224,9 @@ a[disabled] svg path {
   text-decoration: underline;
 }
 
-.ant-select-disabled.ant-select-multiple .ant-select-selector .ant-select-selection-item {
+.ant-select-disabled.ant-select-multiple
+  .ant-select-selector
+  .ant-select-selection-item {
   background-color: #b6bdc6;
 }
 
@@ -307,7 +313,7 @@ a[disabled] {
   border-left: solid 5px hsl(0, 0%, 80%);
 }
 /* @ckeditor/ckeditor5-block-quote/theme/blockquote.css */
-.ck-content[dir='rtl'] blockquote {
+.ck-content[dir="rtl"] blockquote {
   border-left: 0;
   border-right: solid 5px hsl(0, 0%, 80%);
 }
@@ -491,12 +497,13 @@ a[disabled] {
   display: block;
   position: absolute;
   box-sizing: border-box;
-  content: '';
+  content: "";
   width: 100%;
   height: 100%;
   border: 1px solid hsl(0, 0%, 20%);
   border-radius: 2px;
-  transition: 250ms ease-in-out box-shadow, 250ms ease-in-out background, 250ms ease-in-out border;
+  transition: 250ms ease-in-out box-shadow, 250ms ease-in-out background,
+    250ms ease-in-out border;
 }
 /* @ckeditor/ckeditor5-list/theme/todolist.css */
 .ck-content .todo-list .todo-list__label > input::after {
@@ -504,14 +511,15 @@ a[disabled] {
   position: absolute;
   box-sizing: content-box;
   pointer-events: none;
-  content: '';
+  content: "";
   left: calc(var(--ck-todo-list-checkmark-size) / 3);
   top: calc(var(--ck-todo-list-checkmark-size) / 5.3);
   width: calc(var(--ck-todo-list-checkmark-size) / 5.3);
   height: calc(var(--ck-todo-list-checkmark-size) / 2.6);
   border-style: solid;
   border-color: transparent;
-  border-width: 0 calc(var(--ck-todo-list-checkmark-size) / 8) calc(var(--ck-todo-list-checkmark-size) / 8) 0;
+  border-width: 0 calc(var(--ck-todo-list-checkmark-size) / 8)
+    calc(var(--ck-todo-list-checkmark-size) / 8) 0;
   transform: rotate(45deg);
 }
 /* @ckeditor/ckeditor5-list/theme/todolist.css */
@@ -585,7 +593,7 @@ a[disabled] {
 }
 /* @ckeditor/ckeditor5-page-break/theme/pagebreak.css */
 .ck-content .page-break::after {
-  content: '';
+  content: "";
   position: absolute;
   border-bottom: 2px dashed hsl(0, 0%, 77%);
   width: 100%;
@@ -648,11 +656,11 @@ a[disabled] {
   background: hsla(0, 0%, 0%, 5%);
 }
 /* @ckeditor/ckeditor5-table/theme/table.css */
-.ck-content[dir='rtl'] .table th {
+.ck-content[dir="rtl"] .table th {
   text-align: right;
 }
 /* @ckeditor/ckeditor5-table/theme/table.css */
-.ck-content[dir='ltr'] .table th {
+.ck-content[dir="ltr"] .table th {
   text-align: left;
 }
 /* @ckeditor/ckeditor5-table/theme/tablecolumnresize.css */

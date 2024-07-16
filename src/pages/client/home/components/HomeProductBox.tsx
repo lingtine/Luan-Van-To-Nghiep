@@ -9,10 +9,10 @@ interface IHomeProductBoxProps {
   products: IWishlistProduct[] | IProductDetail[];
 }
 
-const HomeProductBox = ({ products, heading, title }: IHomeProductBoxProps) => {
+const HomeProductBox = ({ products, heading }: IHomeProductBoxProps) => {
   return (
     <>
-      <BoxTemplate title={title} heading={heading}>
+      <BoxTemplate heading={heading}>
         <ProductsCarousel lengthCarousel={4} products={products} />
       </BoxTemplate>
     </>

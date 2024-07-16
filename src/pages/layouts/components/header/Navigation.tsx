@@ -80,11 +80,7 @@ const Navigation: React.FC<NavigationProps> = ({
               <Avatar
                 className="cursor-pointer w-12 h-12"
                 size="sm"
-                src={
-                  user.avatar
-                    ? user.avatar
-                    : "/images/avatar-none-user.png"
-                }
+                src={user.avatar ? user.avatar : "/images/avatar-none-user.png"}
               />
             </MenuHandler>
             <MenuList className="z-[999999999]">
@@ -118,7 +114,10 @@ const Navigation: React.FC<NavigationProps> = ({
           </Link>
         )}
         {/* Cart */}
-        <Badge className="bg-success" content={cart ? cart.items.length : "0"}>
+        <Badge
+          className="bg-success"
+          content={cart ? cart.items.length.toString() : "0"}
+        >
           <Link
             to={user ? "/cart" : "/login"}
             className="flex items-center relative p-2.5 rounded-full bg-light-text-emphasis text-secondary-border-subtle hover:text-white cursor-pointer"

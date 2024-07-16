@@ -30,7 +30,7 @@ const TableProducts: React.FC<TableProductsProps> = ({ products }) => {
         </thead>
         <tbody className="text-xs text-gray-700">
           {products.map((item) => (
-            <tr>
+            <tr key={item.id}>
               <th className="px-6 py-3">
                 <img
                   src={

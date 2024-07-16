@@ -9,10 +9,13 @@ import {
   ListItemPrefix,
   Typography,
 } from "@material-tailwind/react";
+
+import FilterSkeleton from "components/skeleton/filter-skeleton";
+
 interface BrandFilterProps {}
 
 const BrandFilter: React.FC<BrandFilterProps> = () => {
-  const { data, isSuccess } = useGetAllBrandsQuery();
+  const { data, isSuccess, isLoading } = useGetAllBrandsQuery();
   const dispatch = useAppDispatch();
   const { brandIds } = useAppSelector((state) => state.productFilterSlice);
 
@@ -46,9 +49,11 @@ const BrandFilter: React.FC<BrandFilterProps> = () => {
           </label>
         </ListItem>
       ));
+    } else if (isLoading) {
+      return <FilterSkeleton />;
     }
     return [];
-  }, [isSuccess, data, brandIds]);
+  }, [isSuccess, data, brandIds, isLoading, dispatch]);
 
   return (
     <div>

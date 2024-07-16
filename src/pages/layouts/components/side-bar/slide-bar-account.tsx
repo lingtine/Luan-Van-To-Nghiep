@@ -6,7 +6,6 @@ import { NavLink } from "react-router-dom";
 import { useLogoutMutation } from "redux/api/auth/authApi";
 import { useAppSelector } from "redux/store";
 import { useNavigate } from "react-router-dom";
-import { FaUserCircle } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import { navigationAccount } from "share/constant/navigator";
 interface SlideBarAccountProps {}
@@ -35,11 +34,7 @@ const SlideBarAccount: React.FC<SlideBarAccountProps> = () => {
       <div className="flex flex-col items-center gap-4">
         <img
           className="rounded-sm h-40"
-          src={
-            user?.avatar
-              ? user.avatar
-              : "images/avatar-none-user.png"
-          }
+          src={user?.avatar ? user.avatar : "images/avatar-none-user.png"}
           alt=""
         />
         <h4 className="font-semibold">{user?.name}</h4>

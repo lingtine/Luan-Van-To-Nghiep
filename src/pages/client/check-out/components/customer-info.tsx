@@ -140,6 +140,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ user, fn, coupon }) => {
                   checked={item.id === address?.id}
                   crossOrigin={""}
                   name="address"
+                  readOnly
                 />
 
                 <p className="text-lg">{item.name}</p>
@@ -169,6 +170,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ user, fn, coupon }) => {
                 checked={address === null}
                 crossOrigin={""}
                 name="address"
+                readOnly
               />
               <p>Thêm địa chỉ</p>
             </div>
@@ -252,9 +254,11 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ user, fn, coupon }) => {
       </div>
       <div className="flex gap-3 justify-between items-center mt-8">
         <Link to="/">
-          <Button color="blue" >Tiếp tục mua hàng</Button>
+          <Button color="blue">Tiếp tục mua hàng</Button>
         </Link>
-        <Button color="green" type="submit">Đặt hàng</Button>
+        <Button color="green" type="submit">
+          Đặt hàng
+        </Button>
       </div>
     </form>
   );

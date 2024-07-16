@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 interface BannerProps {}
 
 const Banner: React.FC<BannerProps> = () => {
-  const { data, isSuccess } = useGetProductCarouselQuery();
+  const { data, isSuccess, isLoading } = useGetProductCarouselQuery();
 
   if (isSuccess) {
     const content = data.map((product) => {
@@ -35,10 +35,7 @@ const Banner: React.FC<BannerProps> = () => {
 
             <div className="flex-1 flex justify-center h-full">
               <img
-                src={
-                  product.imageUrl ||
-                  "https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/g/t/gtt_7766_3__1_5.jpg"
-                }
+                src={product.imageUrl}
                 alt={product.name}
                 className="h-full w-full object-contain max-w-80"
               />
@@ -104,6 +101,10 @@ const Banner: React.FC<BannerProps> = () => {
       >
         {content}
       </Carousel>
+    );
+  } else if (isLoading) {
+    return (
+      <div className="h-[600px] w-full animate-pulse place-items-center rounded-lg bg-gray-300"></div>
     );
   }
 

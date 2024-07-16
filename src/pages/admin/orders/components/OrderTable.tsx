@@ -10,24 +10,13 @@ import TableRow from "@mui/material/TableRow";
 import { IOrderDetail } from "share/types/order";
 import { formatVND } from "utils/formatVND";
 import { Link } from "react-router-dom";
-import {
-  useGetOrderQuery,
-  useOrderProcessingMutation,
-} from "redux/api/order/order";
+import { useOrderProcessingMutation } from "redux/api/order/order";
 interface IOrderTableProps {
   data: IOrderDetail[];
-  isDashboard?:boolean;
+  isDashboard?: boolean;
 }
 
 const OrderTable = ({ data: rows, isDashboard }: IOrderTableProps) => {
-  console.log("🚀 ~ OrderTable ~ rows:", rows);
-  const status = [
-    { id: "Created", label: "Mới" },
-    { id: "Delivered", label: "Đã giao" },
-    { id: "Returned", label: "Đã trả lại" },
-    { id: "Canceled", label: "Đã hủy" },
-  ];
-
   const [changeOrderProcess] = useOrderProcessingMutation();
 
   const getStatus = (status: string) => {
@@ -107,15 +96,23 @@ const OrderTable = ({ data: rows, isDashboard }: IOrderTableProps) => {
                     <Button
                       color="success"
                       variant="contained"
-                      onClick={async () => {
-                        await changeOrderProcess(row.id);
+                      onClick={() => {
+                        changeOrderProcess(row.id);
                       }}
                     >
                       Xử lý
                     </Button>
                   )}
                   <Button variant="contained" color="info">
-                    <Link to={isDashboard ? `orders/order-detail/${row.id}` : `/order-detail/${row.id}`}>Chi tiết</Link>
+                    <Link
+                      to={
+                        isDashboard
+                          ? `orders/order-detail/${row.id}`
+                          : `order-detail/${row.id}`
+                      }
+                    >
+                      Chi tiết
+                    </Link>
                   </Button>
                 </div>
               </TableCell>

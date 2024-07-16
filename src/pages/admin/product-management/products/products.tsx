@@ -8,7 +8,6 @@ import {
   useDeleteProductMutation,
   useGetProductsQuery,
 } from "redux/api/catalog/product";
-import { IProductDetail } from "share/types/product";
 
 import {
   ConfirmDialog,

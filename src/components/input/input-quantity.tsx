@@ -3,12 +3,14 @@ interface InputQuantityProps {
   quantity: number;
   onChange: Function;
   maxQuantity: number;
+  minQuantity?: number;
 }
 
 const InputQuantity: React.FC<InputQuantityProps> = ({
   quantity,
   onChange,
   maxQuantity = 99,
+  minQuantity,
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
@@ -16,10 +18,18 @@ const InputQuantity: React.FC<InputQuantityProps> = ({
   };
 
   const handleDecrease = () => {
-    if (quantity === 0) {
-      onChange(0);
+    if (minQuantity) {
+      if (quantity === minQuantity) {
+        onChange(minQuantity);
+      } else {
+        onChange(quantity - 1);
+      }
     } else {
-      onChange(quantity - 1);
+      if (quantity === 0) {
+        onChange(0);
+      } else {
+        onChange(quantity - 1);
+      }
     }
   };
   const handleIncrease = () => {
@@ -32,8 +42,12 @@ const InputQuantity: React.FC<InputQuantityProps> = ({
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (e.target.value === "") {
-      onChange(0);
-      return;
+      if (minQuantity) {
+        onChange(minQuantity);
+      } else {
+        onChange(0);
+        return;
+      }
     }
     const value = parseInt(e.target.value);
     if (value > maxQuantity) {

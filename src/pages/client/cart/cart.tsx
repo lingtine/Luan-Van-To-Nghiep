@@ -5,7 +5,6 @@ import CartEmpty from "./components/cart-empty";
 
 const Cart = () => {
   const { cart } = useAppSelector((state) => state.cartSlice);
-  console.log("🚀 ~ Cart ~ cart:", cart)
 
   if (cart) {
     if (cart.items.length === 0) return <CartEmpty />;

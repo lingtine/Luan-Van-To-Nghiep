@@ -51,12 +51,12 @@ const productApi = createApi({
         result
           ? result.data.map(({ id }) => ({ type: "product", id }))
           : [
-              "add-product",
-              "remove-product",
-              "update-product",
-              "add-specifications",
-              "remove-specifications",
-              "update-specifications",
+              { type: "add-product" },
+              { type: "remove-product" },
+              { type: "update-product" },
+              { type: "add-specifications" },
+              { type: "remove-specifications" },
+              { type: "update-specifications" },
             ],
     }),
     getProductsByParams: builder.mutation<IProductDetail[], IProductParams>({
@@ -141,14 +141,18 @@ const productApi = createApi({
           body: bodyFormData,
         };
       },
-      invalidatesTags: ["update-product"],
+      invalidatesTags: (result, error, ags) => {
+        return [{ type: "update-product" }, { type: "product", id: ags.id }];
+      },
     }),
     deleteProduct: builder.mutation<boolean, string>({
       query: (productId) => ({
         url: `/catalogs/products/${productId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["remove-product"],
+      invalidatesTags: (result, error, id) => {
+        return [{ type: "remove-product" }, { type: "product", id: id }];
+      },
       transformResponse: ({ data }) => data,
     }),
     addSpecificationForProduct: builder.mutation<
@@ -163,6 +167,7 @@ const productApi = createApi({
 
       invalidatesTags: (result, error, arg) => [
         { type: "product", id: arg.productId },
+        { type: "update-specifications" },
       ],
     }),
     removeSpecificationForProduct: builder.mutation<
@@ -175,7 +180,10 @@ const productApi = createApi({
         method: "POST",
       }),
 
-      invalidatesTags: ["remove-specifications"],
+      invalidatesTags: (result, error, arg) => [
+        { type: "product", id: arg.productId },
+        { type: "remove-specifications" },
+      ],
     }),
     updateSpecificationForProduct: builder.mutation<
       IProductSpecification,
@@ -186,7 +194,10 @@ const productApi = createApi({
         body: data,
         method: "POST",
       }),
-      invalidatesTags: ["update-product"],
+      invalidatesTags: (result, error, arg) => [
+        { type: "product", id: arg.productId },
+        { type: "update-product" },
+      ],
     }),
     getProductReport: builder.mutation<any, IDateReport>({
       query: (data) => ({

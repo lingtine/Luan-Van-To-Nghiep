@@ -1,5 +1,4 @@
 import { ICustomerSale } from "share/types/order";
-import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,12 +6,14 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
+import { useFormatPrice } from "hooks/use-format-price";
 interface ICustomerSaleTableProps {
   data: ICustomerSale[];
 }
 
 const CustomerSaleTable = ({ data: rows }: ICustomerSaleTableProps) => {
+  const [formatPrice] = useFormatPrice();
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -44,12 +45,20 @@ const CustomerSaleTable = ({ data: rows }: ICustomerSaleTableProps) => {
               </TableCell>
               <TableCell align="center">{row.soldCount}</TableCell>
               <TableCell align="center">{row.soldQuantity}</TableCell>
-              <TableCell align="center">{row.soldAmount}</TableCell>
-              <TableCell align="center">{row.totalDiscount}</TableCell>
-              <TableCell align="center">{row.totalProfit}</TableCell>
+              <TableCell align="center">
+                {formatPrice.format(row.soldAmount)}
+              </TableCell>
+              <TableCell align="center">
+                {formatPrice.format(row.totalDiscount)}
+              </TableCell>
+              <TableCell align="center">
+                {formatPrice.format(row.totalProfit)}
+              </TableCell>
               <TableCell align="center">{row.returnedCount}</TableCell>
               <TableCell align="center">{row.returnedQuantity}</TableCell>
-              <TableCell align="center">{row.returnedAmount}</TableCell>
+              <TableCell align="center">
+                {formatPrice.format(row.returnedAmount)}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

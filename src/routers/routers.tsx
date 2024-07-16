@@ -51,7 +51,6 @@ import {
   AccountOrderPage,
   AccountPage,
   ProductDetailPage,
-  ReportWarehousePage,
   FilterAdminPage,
   CustomerWishlistPage,
   OrderReportPage,

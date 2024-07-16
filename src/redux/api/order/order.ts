@@ -4,12 +4,10 @@ import customFetchBase from "redux/api/customFetchBase";
 import {
   IOrder,
   IOrderDetail,
-  IOrderAdmin,
   IOrderInfo,
   IOrderReport,
   IOrderParams,
   IOrderPage,
-  ICustomerSale,
 } from "share/types/order";
 import { IOrderReportResponse, OrderReportType } from "share/types/report";
 
@@ -25,7 +23,7 @@ const orderApi = createApi({
         params,
       }),
 
-      providesTags: ["processing-Order"],
+      providesTags: [{ type: "processing-Order" }],
     }),
     getOrdersCustomer: builder.query<
       {
@@ -65,7 +63,10 @@ const orderApi = createApi({
         method: "POST",
       }),
       invalidatesTags: (result, error, arg) => {
-        return [{ type: "change-process", id: arg }, "processing-Order"];
+        return [
+          { type: "processing-Order" },
+          { type: "change-process", id: arg },
+        ];
       },
     }),
     getOrderReportByStatus: builder.mutation({

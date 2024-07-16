@@ -1,7 +1,7 @@
 import { useGetCategoriesQuery } from "redux/api/catalog/category";
 import { useAppDispatch, useAppSelector } from "redux/store";
 import { handleChangeCategory } from "redux/features/products/product-filter-slice";
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import {
   Checkbox,
   List,
@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 
+import FilterSkeleton from "components/skeleton/filter-skeleton";
 interface CategoryFilterProps {
   groupId: string;
 }
@@ -17,14 +18,17 @@ interface CategoryFilterProps {
 const CategoryFilter: React.FC<CategoryFilterProps> = ({ groupId }) => {
   const dispatch = useAppDispatch();
   const { categoryIds } = useAppSelector((state) => state.productFilterSlice);
-  const { data, isSuccess } = useGetCategoriesQuery({
+  const { data, isSuccess, isLoading } = useGetCategoriesQuery({
     GroupId: groupId,
     PageSize: 1000,
   });
 
-  const handleChange = (categoryId: string) => {
-    dispatch(handleChangeCategory(categoryId));
-  };
+  const handleChange = useCallback(
+    (categoryId: string) => {
+      dispatch(handleChangeCategory(categoryId));
+    },
+    [dispatch]
+  );
 
   const content = useMemo(() => {
     if (isSuccess) {
@@ -57,9 +61,11 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ groupId }) => {
           </label>
         </ListItem>
       ));
+    } else if (isLoading) {
+      return <FilterSkeleton />;
     }
     return [];
-  }, [data, isSuccess, categoryIds]);
+  }, [data, isSuccess, categoryIds, isLoading, handleChange]);
 
   return (
     <div>

@@ -42,7 +42,8 @@ const CategoryPage = () => {
         pageIndex:
           typeof pageIndex === "undefined" ? categoryPageIndex : pageIndex,
         pageSize: pageSize,
-        sort: typeof sortOption === undefined ? sort?.value : sortOption?.value,
+        sort:
+          typeof sortOption === "undefined" ? sort?.value : sortOption?.value,
       });
     }
   };
@@ -56,7 +57,7 @@ const CategoryPage = () => {
         pageSize: 24,
       });
     }
-  }, [categoryId, filterProductByParameter]);
+  }, [categoryId, filterProductByParameter, dispatch]);
 
   let content;
 

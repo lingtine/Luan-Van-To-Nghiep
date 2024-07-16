@@ -37,40 +37,48 @@ const GetProducts: React.FC<GetProductsProps> = ({
 
   let content;
 
-  if (isSuccess && data) {
-    content = data.map((item) => {
-      return (
-        <div
-          key={item.id}
-          role="button"
-          onClick={() => {
-            setSearchValue("");
-            handleChangeListProduct(() => {
-              if (listProduct) {
-                if (listProduct.some((x) => x.id === item.id)) {
-                  return listProduct;
+  if (isSuccess) {
+    if (!data) {
+      content = <h3>Không tìm thấy sản phẩm</h3>;
+    } else {
+      content = data.map((item) => {
+        return (
+          <div
+            key={item.id}
+            role="button"
+            onClick={() => {
+              setSearchValue("");
+              handleChangeListProduct(() => {
+                if (listProduct) {
+                  if (listProduct.some((x) => x.id === item.id)) {
+                    return listProduct;
+                  } else {
+                    return [...listProduct, item];
+                  }
                 } else {
-                  return [...listProduct, item];
+                  return [item];
                 }
-              } else {
-                return [item];
-              }
-            });
-          }}
-        >
-          <ListItem key={item.id}>
-            <ListItemPrefix>
-              <Avatar variant="circular" alt={item.name} src={item.imageUrl} />
-            </ListItemPrefix>
-            <div>
-              <Typography className="text-sm" variant="h6" color="blue-gray">
-                {item.name}
-              </Typography>
-            </div>
-          </ListItem>
-        </div>
-      );
-    });
+              });
+            }}
+          >
+            <ListItem key={item.id}>
+              <ListItemPrefix>
+                <Avatar
+                  variant="circular"
+                  alt={item.name}
+                  src={item.imageUrl}
+                />
+              </ListItemPrefix>
+              <div>
+                <Typography className="text-sm" variant="h6" color="blue-gray">
+                  {item.name}
+                </Typography>
+              </div>
+            </ListItem>
+          </div>
+        );
+      });
+    }
   }
 
   let listProductContent;

@@ -10,7 +10,6 @@ const Categories: React.FC<CategoriesProps> = () => {
 
   let content;
   if (isSuccess) {
-
     content = data.map((category: any) => {
       return (
         <li
@@ -26,11 +25,7 @@ const Categories: React.FC<CategoriesProps> = () => {
   return (
     <>
       {
-        <BoxTemplate
-          title="Tìm kiếm bằng danh mục"
-          heading="Thể loại"
-          data={data}
-        >
+        <BoxTemplate heading="Thể loại">
           <div className="py-10 px-8 flex justify-between flex-wrap gap-4">
             {content}
           </div>

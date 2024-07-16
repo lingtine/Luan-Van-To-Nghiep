@@ -4,12 +4,10 @@ import {
   CardBody,
   CardFooter,
   Typography,
-  Button,
   Rating,
   Chip,
 } from "@material-tailwind/react";
 import React, { useEffect } from "react";
-import { MdAddShoppingCart } from "react-icons/md";
 import { CiShoppingCart } from "react-icons/ci";
 import { IProductDetail } from "share/types/product";
 import { useFormatPrice } from "hooks/use-format-price";
@@ -35,7 +33,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
       toast.success("Đã thêm sản phẩm vào giỏ hàng");
       reset();
     }
-  }, [isSuccess]);
+  }, [isSuccess, reset]);
 
   const handleAddToCart = () => {
     if (!accessToken) {
@@ -52,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   };
 
   return (
-    <Card className="w-full h-[400px] border relative group flex justify-between overflow-hidden  ">
+    <Card className="w-full border relative group flex justify-between overflow-hidden  ">
       {!data.isInStock && (
         <div className="absolute z-40 right-2 top-2">
           <Chip className="bg-danger" value="Hết Hàng" />
@@ -81,7 +79,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
           />
         </CardHeader>
 
-        <CardBody>
+        <CardBody className="h-24">
           <Rating readonly value={Math.round(data.numberOfStar)} />
           <div className="line-clamp-2">
             <Typography color="blue-gray" variant="h6" className="text-xs">

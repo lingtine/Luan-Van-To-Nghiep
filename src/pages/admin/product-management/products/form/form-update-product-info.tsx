@@ -46,7 +46,7 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
     if (result.isSuccess) {
       navigate(-1);
     }
-  }, [result.isSuccess]);
+  }, [result.isSuccess, navigate]);
 
   const [dataForm, setDataForm] = useState<IProductInput>({
     id: product.id,
@@ -66,7 +66,6 @@ const FormUpdateProductInfo: React.FC<FormUpdateProductInfoProps> = ({
     if (dataForm.image) {
       updateProduct(dataForm);
     } else {
-      const { image, ...updateDataForm } = dataForm;
       if (!isOpen) {
         updateProduct(dataForm);
       }
