@@ -13,8 +13,24 @@ const InputQuantity: React.FC<InputQuantityProps> = ({
   minQuantity,
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (e.target.value === "") {
+      if (minQuantity) {
+        onChange(minQuantity);
+        return;
+      } else {
+        onChange(0);
+        return;
+      }
+    }
     const value = parseInt(e.target.value);
-    onChange(value);
+    if (value > maxQuantity) {
+      onChange(maxQuantity);
+    } else if (minQuantity && value < minQuantity) {
+      onChange(minQuantity);
+    } else {
+      onChange(value);
+    }
   };
 
   const handleDecrease = () => {
@@ -41,9 +57,11 @@ const InputQuantity: React.FC<InputQuantityProps> = ({
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    e.preventDefault();
     if (e.target.value === "") {
       if (minQuantity) {
         onChange(minQuantity);
+        return;
       } else {
         onChange(0);
         return;
@@ -52,6 +70,8 @@ const InputQuantity: React.FC<InputQuantityProps> = ({
     const value = parseInt(e.target.value);
     if (value > maxQuantity) {
       onChange(maxQuantity);
+    } else if (minQuantity && value < minQuantity) {
+      onChange(minQuantity);
     } else {
       onChange(value);
     }
@@ -70,7 +90,7 @@ const InputQuantity: React.FC<InputQuantityProps> = ({
         onChange={handleChange}
         type={"number"}
       />
-      <span className={"p-2  "} onClick={handleIncrease}>
+      <span className={"p-2"} onClick={handleIncrease}>
         <HiOutlinePlus />
       </span>
     </div>

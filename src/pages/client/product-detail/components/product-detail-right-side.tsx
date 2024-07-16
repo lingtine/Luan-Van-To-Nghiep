@@ -40,13 +40,17 @@ const ProductDetailRightSide: React.FC<ProductDetailRightSideProps> = ({
 
   const handleAddToCart = () => {
     if (user) {
-      const dataItem = {
-        productId: productId,
-        productName: productName,
-        quantity: quantity,
-        unitPrice: unitPrice,
-      };
-      addToCart(dataItem);
+      if (quantity !== 0) {
+        const dataItem = {
+          productId: productId,
+          productName: productName,
+          quantity: quantity,
+          unitPrice: unitPrice,
+        };
+        addToCart(dataItem);
+      } else {
+        toast.warning("Số lượng sản phẩm phải lớn hơn 0");
+      }
     } else {
       toast.warning("Bạn cần phẩm đăng nhập trước");
       navigate("/login");
